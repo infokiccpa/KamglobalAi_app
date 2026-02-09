@@ -1,0 +1,342 @@
+/* LMS.css - Apple Vision Pro "Liquid Glass" UI Redesign */
+
+:root {
+    --vision-bg: linear-gradient(135deg, #fdfdfd 0%, #f4f7f9 100%);
+    --vision-glass: rgba(255, 255, 255, 0.65);
+    --vision-glass-dark: rgba(255, 255, 255, 0.5);
+    --vision-blur: blur(28px);
+    --vision-border: 1px solid rgba(255, 255, 255, 0.45);
+    --vision-radius: 28px;
+    --vision-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    --vision-accent: #6366f1;
+    --vision-text: #1d1d1f;
+    --vision-text-muted: #86868b;
+}
+
+.lms-page {
+    background: var(--vision-bg);
+    color: var(--vision-text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Glass Panel Utility */
+.glass-vision {
+    background: var(--vision-glass);
+    backdrop-filter: var(--vision-blur);
+    -webkit-backdrop-filter: var(--vision-blur);
+    border: var(--vision-border);
+    border-radius: var(--vision-radius);
+    box-shadow: var(--vision-shadow),
+        inset 0 1px 1px rgba(255, 255, 255, 0.5);
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hero Section */
+.lms-hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 10rem 0 6rem;
+    background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+}
+
+.hero-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-headline {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 2rem;
+    color: var(--vision-text);
+    position: relative;
+}
+
+.hero-headline::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 60%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--vision-text-muted);
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
+.floating-glass-badge {
+    display: inline-flex;
+    padding: 0.8rem 1.6rem;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 100px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--vision-accent);
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.glass-pill {
+    padding: 1rem 2.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 100px;
+    font-weight: 600;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    color: var(--vision-text);
+}
+
+.glass-pill:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.02);
+}
+
+.glass-pill.primary {
+    background: var(--vision-accent);
+    color: white;
+    border: none;
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+}
+
+.glass-pill.primary:hover {
+    background: #4f46e5;
+    box-shadow: 0 15px 40px rgba(99, 102, 241, 0.2);
+}
+
+/* Intelligent Features */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2.5rem;
+    margin-top: 6rem;
+}
+
+.vision-card {
+    padding: 3.5rem;
+    transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.vision-card:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-8px);
+}
+
+.v-card-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(99, 102, 241, 0.08);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--vision-accent);
+    margin-bottom: 2.5rem;
+}
+
+.v-card-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+}
+
+.v-card-desc {
+    color: var(--vision-text-muted);
+    line-height: 1.7;
+    font-size: 1.1rem;
+}
+
+/* Grade Coverage Segments */
+.grade-coverage .container {
+    padding-top: 4rem;
+}
+
+.journey-segments {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 5rem;
+}
+
+.glass-segment {
+    padding: 1.5rem 2.5rem;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.4s ease;
+    cursor: default;
+    text-align: center;
+}
+
+.glass-segment:hover {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: var(--vision-accent);
+    transform: translateY(-4px);
+}
+
+.segment-title {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--vision-text);
+}
+
+.segment-desc {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--vision-text-muted);
+    margin-top: 0.4rem;
+}
+
+/* Why Choose Section (Value Proposition) */
+.value-proposition-panel {
+    max-width: 1300px;
+    margin: 8rem auto;
+}
+
+.split-glass-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+}
+
+.prop-image-container {
+    border-radius: 24px;
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+}
+
+.prop-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 24px;
+    mask-image: radial-gradient(circle, black 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
+}
+
+.prop-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.prop-item {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.prop-icon {
+    width: 24px;
+    height: 24px;
+    color: var(--vision-accent);
+    flex-shrink: 0;
+    margin-top: 0.4rem;
+}
+
+/* Waitlist Form - Darker Frost */
+.waitlist-section {
+    padding: 10rem 0;
+}
+
+.waitlist-glass {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(35px) saturate(160%);
+    -webkit-backdrop-filter: blur(35px) saturate(160%);
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 6rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.frosted-input {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 18px;
+    padding: 1.5rem 1.8rem;
+    font-size: 1.1rem;
+    color: var(--vision-text);
+    outline: none;
+    transition: all 0.4s ease;
+    width: 100%;
+}
+
+.frosted-input:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: var(--vision-accent);
+    box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
+}
+
+.lux-input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+/* Footer Section */
+.quiet-footer {
+    padding: 6rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+    text-align: center;
+}
+
+.quiet-footer p {
+    color: #a1a1a6;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 992px) {
+    .split-glass-layout {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+    }
+
+    .lux-input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .waitlist-glass {
+        padding: 4rem 2rem;
+    }
+
+    .glass-vision {
+        padding: 2.5rem 1.5rem;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}

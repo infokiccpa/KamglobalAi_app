@@ -1,0 +1,318 @@
+.contact-hero {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 8rem 0 5rem;
+    color: #1d1d1f;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.contact-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    margin-top: 3rem;
+}
+
+.contact-form-container h2,
+.contact-info-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper select {
+    width: 100%;
+    appearance: none;
+}
+
+.select-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--muted-foreground);
+}
+
+.contact-info-container {
+    text-align: left;
+}
+
+.contact-sub {
+    color: var(--muted-foreground);
+    margin-bottom: 2.5rem;
+}
+
+.info-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    padding: 2rem;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.info-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: var(--muted-foreground);
+    font-size: 0.95rem;
+}
+
+.info-item .icon {
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.info-banner {
+    padding: 2rem;
+    border-radius: var(--radius);
+    background: rgba(14, 165, 233, 0.05);
+    border: 1px solid rgba(14, 165, 233, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.info-banner h3 {
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+}
+
+.banner-item {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.banner-item span {
+    color: var(--muted-foreground);
+    margin-right: 0.5rem;
+}
+
+.locations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.location-box {
+    padding: 4rem 2rem;
+    background: var(--muted);
+    border-radius: var(--radius);
+    transition: background 0.3s ease;
+}
+
+.location-box:hover {
+    background: white;
+    box-shadow: var(--shadow-md);
+}
+
+.loc-icon {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.map-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.max-w-800 {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.faq-item {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: white;
+}
+
+.faq-item summary {
+    padding: 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-item[open] summary {
+    border-bottom: 1px solid var(--border);
+}
+
+.faq-content {
+    padding: 1.5rem;
+    color: var(--muted-foreground);
+    line-height: 1.6;
+}
+
+.faq-chevron {
+    transition: transform 0.3s ease;
+}
+
+.faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 992px) {
+
+    .contact-grid,
+    .locations-grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Help Channels Section */
+.help-channels {
+    background: #f8fafc;
+    padding: 6rem 0;
+}
+
+.help-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 4rem;
+    color: #0f172a;
+}
+
+.channels-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.channel-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.channel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+.channel-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+/* Colors matching the design icons */
+.channel-icon.brown { background: #fdf2f2; color: #7c2d12; }
+.channel-icon.purple { background: #f5f3ff; color: #5b21b6; }
+.channel-icon.pink { background: #fdf2f8; color: #9d174d; }
+.channel-icon.orange { background: #fff7ed; color: #9a3412; }
+
+.channel-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1e293b;
+}
+
+.channel-email {
+    color: #0ea5e9;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.channel-email:hover {
+    color: #0284c7;
+    text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+    .channels-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .channels-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .help-title {
+        font-size: 2rem;
+    }
+}

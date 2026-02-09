@@ -1,0 +1,354 @@
+.header {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    padding: 0 0.5rem;
+    min-width: 700px;
+    max-width: calc(100% - 30rem);
+    /* Ensure 12rem clearance on each side for centering vs button */
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    /* Ultra Glassy Background - Increased Opacity for Visibility on White Hero */
+    background: rgba(255, 255, 255, 0.85);
+    /* Increased from 0.4 for better visibility */
+    backdrop-filter: blur(25px) saturate(210%);
+    -webkit-backdrop-filter: blur(25px) saturate(210%);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    /* Stronger border color (slate-200) */
+    border-radius: 100px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.header.scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    height: 70px;
+    width: auto;
+    min-width: 750px;
+    max-width: calc(100% - 22rem);
+    /* Prevent it from getting too small for the many nav items */
+    top: 1rem;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-container {
+    display: flex;
+    justify-content: center;
+    /* Changed from space-between to center for absolute nav centering */
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 2.5rem;
+    /* Reduced padding slightly to fit links better in narrower pill */
+    /* Large padding to keep content away from curves */
+}
+
+.logo-fixed {
+    position: fixed;
+    top: calc(1.5rem + 10px);
+    /* Synchronized with 80px header vertical center */
+    left: 2rem;
+    z-index: 1001;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-fixed.scrolled {
+    top: calc(1rem + 10px);
+    /* Synchronized with 70px scrolled header */
+    left: 1.5rem;
+    transform: scale(0.9);
+}
+
+.logo-fixed.scrolled .logo-kam {
+    color: #0f172a;
+}
+
+.logo-fixed.scrolled .logo-global {
+    color: #64748b;
+}
+
+.logo-mobile {
+    display: none;
+    /* Hidden on desktop */
+    text-decoration: none;
+}
+
+.empty-logo-placeholder {
+    display: none;
+    /* Hide it as we are now using justify-content: center */
+}
+
+@media (max-width: 1000px) {
+    .logo-mobile {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-mobile .logo-kam {
+        font-size: 1.4rem;
+    }
+
+    .logo-mobile .logo-global {
+        font-size: 0.8rem;
+    }
+
+    .empty-logo-placeholder {
+        display: none;
+    }
+}
+
+/* Global logo styles moved to index.css */
+
+/* Logo icon styles removed */
+
+
+
+
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    /* Reduced from 0.75rem to save horizontal space */
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--foreground);
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.6rem 1rem;
+    /* Reduced from 1.25rem */
+    border-radius: 50px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    background: transparent;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #0f172a;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transform: translateY(-2px);
+}
+
+
+.nav-item-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-icon.rotate {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 280px;
+    background: rgba(255, 255, 255, 0.95);
+    /* Increased opacity for visibility */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    /* Stronger border */
+    border-radius: 20px;
+    padding: 1rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    /* Stronger shadow */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    z-index: 1001;
+    animation: fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(0) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(10px) scale(1);
+    }
+}
+
+.dropdown-item {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--foreground);
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(15, 23, 42, 0.06);
+    color: #0f172a;
+    padding-left: 1.25rem;
+}
+
+.mobile-toggle {
+    display: none;
+    color: var(--foreground);
+}
+
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    transform: translateX(100%);
+    visibility: hidden;
+}
+
+.mobile-nav.open {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 2rem;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.mobile-link {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--foreground);
+    text-decoration: none;
+}
+
+.mobile-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(15, 23, 42, 0.03);
+    padding: 1rem;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+
+.mobile-dropdown-item {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #555;
+    text-align: center;
+}
+
+@media (max-width: 1000px) {
+    .header {
+        width: 95%;
+        min-width: auto;
+        height: 70px;
+        top: 1rem;
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    .header-container {
+        padding: 0 1.5rem;
+    }
+
+    .contact-btn-fixed {
+        display: none;
+    }
+
+    .logo-fixed {
+        display: none;
+    }
+}
+
+.contact-btn-fixed {
+    position: fixed;
+    top: calc(1.5rem + 10px);
+    /* Centers 60px button within 80px header vertical space */
+    right: 2rem;
+    height: 60px;
+    padding: 0 2.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #1d1d1f;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+}
+
+.contact-btn-fixed.scrolled {
+    top: calc(1rem + 10px);
+    /* Centers 50px button within 70px scrolled header vertical space */
+    height: 50px;
+    right: 1.5rem;
+    padding: 0 2rem;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+}
+
+.contact-btn-fixed:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.2);
+}
