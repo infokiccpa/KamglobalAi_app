@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Laptop, Cloud, Shield, Globe, Users, CheckCircle, Handshake, MapPin, Phone } from 'lucide-react';
+import { ArrowRight, Laptop, Cloud, Shield, Globe, Users, CheckCircle, Handshake, MapPin, Phone, Brain } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 
@@ -36,21 +36,23 @@ const Home = () => {
             ]
         },
         satisfaction: {
-            title: "Client Satisfaction",
-            rate: "98%",
-            description: "retention rate with enterprise clients"
+            title: "Global Operations",
+            rate: "24/7",
+            description: "Active monitoring and support across timezones"
         },
         lms: {
             title: "AI-Powered LMS - Launching Soon!",
             subtitle: "Revolutionary learning management system for Pre-KG to Grade 12"
         },
         services: {
-            title: "Our Services",
+            title: "Our Specialized Services",
             items: [
-                { icon: Globe, title: "BOT Model", desc: "Build, Operate, and Transfer dedicated teams." },
-                { icon: Laptop, title: "Custom Solutions", desc: "Bespoke software for your business needs." },
-                { icon: Cloud, title: "Cloud Native", desc: "Modern infrastructure for high scalability." },
-                { icon: Shield, title: "Trusted Security", desc: "Enterprise-grade protection for assets." }
+                { icon: Globe, title: "BOT Model (Build-Operate-Transfer)", desc: "Build and scale your own dedicated offshore development center with our end-to-end expertise." },
+                { icon: Laptop, title: "Custom Enterprise Solutions", desc: "Bespoke software architecture designed to solve complex business challenges through engineering excellence." },
+                { icon: Cloud, title: "Cloud Native & DevOps", desc: "Modernize your infrastructure with scalable cloud-native architectures and automated delivery pipelines." },
+                { icon: Shield, title: "Cybersecurity & Compliance", desc: "Enterprise-grade protection, risk management, and regulatory compliance for your digital assets." },
+                { icon: Users, title: "Strategic IT Consulting", desc: "Expert guidance on digital transformation, fractional CTO services, and technology roadmap planning." },
+                { icon: Brain, title: "AI & Data Engineering", desc: "Leverage the power of generative AI and machine learning to unlock actionable insights from your data." }
             ]
         },
         testimonials: {
@@ -151,9 +153,7 @@ const Home = () => {
                                 animate={{ y: 0, opacity: 1 }}
                                 transition={{ delay: 0.7, duration: 0.8 }}
                             >
-                                <Link to="/services" className="hero-btn-white">
-                                    Start Your Transformation
-                                </Link>
+                                {/* Button Removed as requested */}
                             </motion.div>
                         </div>
                     </div>
@@ -363,6 +363,9 @@ const Home = () => {
                             className="why-visual-highlight"
                         >
                             <div className="delivery-card dark-card">
+                                <div className="delivery-image-bg">
+                                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=800" alt="Global Delivery" />
+                                </div>
                                 <div className="card-content-wrap">
                                     <h3>Global Delivery</h3>
                                     <p className="delivery-p">Providing seamless IT solutions across borders with reliability and speed.</p>
@@ -429,12 +432,14 @@ const Home = () => {
                     {homeData.services.items.map((service, i) => {
                         // Map images based on index
                         const images = [
-                            "/service_bot_model.png",
-                            "/service_custom_dev.png",
-                            "/service_cloud_native.png",
-                            "/service_cyber_security.png"
+                            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800",
+                            "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+                            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
+                            "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
+                            "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
+                            "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
                         ];
-                        const nums = ["01", "02", "03", "04"];
+                        const nums = ["01", "02", "03", "04", "05", "06"];
 
                         return (
                             <motion.div

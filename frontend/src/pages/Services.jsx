@@ -103,15 +103,7 @@ const ServiceBlock = ({ id, icon: Icon, title, subtitle, challenge, solution, be
                         </div>
                     </div>
 
-                    <motion.button
-                        className="btn btn-primary mt-2"
-                        whileHover={{ y: -2 }}
-                        initial={{ opacity: 0 }}
-                        animate={isInView ? { opacity: 1 } : {}}
-                        transition={{ duration: 0.5, delay: 1 }}
-                    >
-                        Get Started <ArrowRight size={16} style={{ marginLeft: '8px' }} />
-                    </motion.button>
+
                 </motion.div>
 
                 <motion.div

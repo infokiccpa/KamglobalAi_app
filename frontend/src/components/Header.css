@@ -1,3 +1,33 @@
+.logo-fixed {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    z-index: 1001;
+    transition: all 0.4s ease;
+}
+
+.logo-fixed .logo-img {
+    height: 130px;
+    /* Reduced size */
+    width: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    /* Removes white background */
+    filter: contrast(110%);
+    /* Sharpens the logo after blending */
+    transition: all 0.4s ease;
+}
+
+.logo-fixed.scrolled {
+    top: 5px;
+    left: 15px;
+}
+
+.logo-fixed.scrolled .logo-img {
+    height: 100px;
+    /* Reduced scrolled size */
+}
+
 .header {
     position: fixed;
     top: 1.5rem;
@@ -6,114 +36,37 @@
     width: auto;
     padding: 0 0.5rem;
     min-width: 700px;
-    max-width: calc(100% - 30rem);
-    /* Ensure 12rem clearance on each side for centering vs button */
+    max-width: 90%;
     height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    /* Ultra Glassy Background - Increased Opacity for Visibility on White Hero */
     background: rgba(255, 255, 255, 0.85);
-    /* Increased from 0.4 for better visibility */
     backdrop-filter: blur(25px) saturate(210%);
     -webkit-backdrop-filter: blur(25px) saturate(210%);
     border: 1px solid rgba(226, 232, 240, 0.8);
-    /* Stronger border color (slate-200) */
     border-radius: 100px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    margin: 0 auto;
-    overflow: hidden;
 }
 
 .header.scrolled {
-    background: rgba(255, 255, 255, 0.9);
     height: 70px;
-    width: auto;
     min-width: 750px;
-    max-width: calc(100% - 22rem);
-    /* Prevent it from getting too small for the many nav items */
     top: 1rem;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    left: 50%;
-    transform: translateX(-50%);
 }
 
 .header-container {
     display: flex;
     justify-content: center;
-    /* Changed from space-between to center for absolute nav centering */
     align-items: center;
     width: 100%;
-    max-width: 100%;
-    padding: 0 2.5rem;
-    /* Reduced padding slightly to fit links better in narrower pill */
-    /* Large padding to keep content away from curves */
-}
-
-.logo-fixed {
-    position: fixed;
-    top: calc(1.5rem + 10px);
-    /* Synchronized with 80px header vertical center */
-    left: 2rem;
-    z-index: 1001;
-    text-decoration: none;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.logo-fixed.scrolled {
-    top: calc(1rem + 10px);
-    /* Synchronized with 70px scrolled header */
-    left: 1.5rem;
-    transform: scale(0.9);
-}
-
-.logo-fixed.scrolled .logo-kam {
-    color: #0f172a;
-}
-
-.logo-fixed.scrolled .logo-global {
-    color: #64748b;
-}
-
-.logo-mobile {
-    display: none;
-    /* Hidden on desktop */
-    text-decoration: none;
-}
-
-.empty-logo-placeholder {
-    display: none;
-    /* Hide it as we are now using justify-content: center */
-}
-
-@media (max-width: 1000px) {
-    .logo-mobile {
-        display: flex;
-        align-items: center;
-    }
-
-    .logo-mobile .logo-kam {
-        font-size: 1.4rem;
-    }
-
-    .logo-mobile .logo-global {
-        font-size: 0.8rem;
-    }
-
-    .empty-logo-placeholder {
-        display: none;
-    }
 }
 
 /* Global logo styles moved to index.css */
 
 /* Logo icon styles removed */
-
-
 
 
 .desktop-nav {

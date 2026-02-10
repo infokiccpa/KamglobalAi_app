@@ -11,10 +11,7 @@ const Footer = () => {
                     <div className="footer-brand">
                         <Link to="/" className="footer-logo">
                             <div className="logo-content">
-                                <div className="logo-text-group">
-                                    <span className="logo-kam">KAM</span>
-                                    <span className="logo-global">Global AI</span>
-                                </div>
+                                <img src="/logo.png" alt="KAM Global AI Logo" className="logo-img-footer" />
                             </div>
                         </Link>
                         <p className="footer-desc">

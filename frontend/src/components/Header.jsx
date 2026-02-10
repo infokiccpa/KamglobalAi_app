@@ -42,16 +42,13 @@ const Header = () => {
 
   return (
     <>
+      <Link to="/" className={`logo-fixed ${scrolled ? 'scrolled' : ''}`}>
+        <img src="/logo.png" alt="KAM Global AI Logo" className="logo-img" />
+      </Link>
+
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <div className="container header-container">
-          {/* Mobile Logo: Only visible on small screens */}
-          <Link to="/" className="logo-mobile">
-            <div className="logo-text-group">
-              <span className="logo-kam">KAM</span>
-              <span className="logo-global">Global AI</span>
-            </div>
-          </Link>
-          <div className="empty-logo-placeholder"></div>
+          <div className="header-left-spacer"></div>
 
           {/* Desktop Nav */}
           <nav className="desktop-nav">
@@ -128,14 +125,7 @@ const Header = () => {
         </div>
       </header>
 
-      <Link to="/" className={`logo-fixed ${scrolled ? 'scrolled' : ''}`}>
-        <div className="logo-content">
-          <div className="logo-text-group">
-            <span className="logo-kam">KAM</span>
-            <span className="logo-global">Global AI</span>
-          </div>
-        </div>
-      </Link>
+
 
       <Link to="/contact" className={`contact-btn-fixed ${scrolled ? 'scrolled' : ''}`}>
         Contact us

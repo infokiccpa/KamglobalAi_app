@@ -72,7 +72,7 @@ const WhyKamGlobalAI = () => {
                         <h1 className="hero-main-title">
                             Strategic Vision <br />
                             Meets Precision <br />
-                            <span>Execution.</span>�
+                            <span>Execution.</span>
                         </h1>
 
                         <p className="hero-subtext">

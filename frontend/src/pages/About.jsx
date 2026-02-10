@@ -10,11 +10,12 @@ const About = () => {
             <section className="about-hero">
                 <div className="container">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
                         className="hero-content"
                     >
+                        <span className="hero-badge">Global Technology Partner</span>
                         <h1>About KAM Global AI</h1>
                         <p>Bridging Kuwait’s Strategic Vision with India’s Engineering Excellence</p>
                     </motion.div>
@@ -26,10 +27,9 @@ const About = () => {
                 <div className="container story-grid">
                     <div className="story-text">
                         <h2>Our Story</h2>
-                        <p>Founded in 2026, KAM Global AI is a global IT services and technology solutions company headquartered in India and strategically backed by KAM Group, Kuwait. Our unique dual-region operating model brings together Middle Eastern business leadership with India’s deep engineering, cloud, and artificial intelligence talent ecosystem.</p>
-                        <p>We partner with organizations across diverse industries—including education, enterprise IT, cloud infrastructure, digital platforms, and emerging technologies—to design and deliver solutions that are secure, scalable, and future-ready. From concept to deployment, we help businesses accelerate digital transformation and achieve sustainable growth.</p>
-                        <p>At KAM Global AI, our approach is driven by execution excellence, operational transparency, and long-term partnerships. We focus not just on delivering technology, but on creating measurable business impact through innovation, reliability, and continuous improvement.</p>
-                        <p>Backed by strong regional expertise and a forward-looking global vision, we are committed to empowering businesses with intelligent, resilient, and adaptable technology solutions—built for today and engineered for tomorrow.</p>
+                        <p>Founded in 2026, KAM Global AI is a premium IT solutions provider headquartered in India and backed by KAM Group, Kuwait. We bridge Middle Eastern business leadership with India’s world-class engineering talent.</p>
+                        <p>We partner with global enterprises to deliver secure, scalable, and future-ready digital solutions. Our execution-driven approach focuses on creating measurable business impact through innovation and continuous improvement.</p>
+                        <p>Backed by deep regional expertise, we empower businesses with intelligent technology built for today and engineered for tomorrow.</p>
                     </div>
                     <div className="story-image">
                         <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="Team collaborating" />
@@ -52,26 +52,10 @@ const About = () => {
                         <span className="badge-small">Our Mission</span>
                         <h2 className="mv-title">Accelerating Business Through Intelligent, Secure, Scalable Technology</h2>
                         <div className="title-underline"></div>
-                        <motion.div
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true }}
-                            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
-                            className="mv-lines"
-                        >
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                Our mission is to design, build, and deliver intelligent, secure, and scalable technology solutions that enable organizations to adapt, innovate, and grow in an increasingly digital and interconnected world.
-                            </motion.p>
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                We focus on solving complex business challenges through engineering excellence, AI-driven innovation, cloud-native architectures, and disciplined execution.
-                            </motion.p>
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                Every solution we deliver is designed to create measurable value, improve operational efficiency, and support long-term business sustainability.
-                            </motion.p>
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                We believe technology should not only support business goals but actively accelerate them.
-                            </motion.p>
-                        </motion.div>
+                        <div className="mv-lines">
+                            <p>We deliver intelligent, secure, and scalable technology that enables organizations to innovate and grow in a digital world.</p>
+                            <p>Focusing on AI-driven innovation and cloud-native architectures, we solve complex challenges with engineering excellence.</p>
+                        </div>
                     </motion.div>
 
                     <motion.div
@@ -85,37 +69,14 @@ const About = () => {
                         <span className="badge-small">Our Vision</span>
                         <h2 className="mv-title">Globally Trusted Technology Partner</h2>
                         <div className="title-underline"></div>
-                        <motion.div
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true }}
-                            variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.15 } } }}
-                            className="mv-lines"
-                        >
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                Our vision is to become a globally trusted technology partner, recognized for setting benchmarks in innovation, execution excellence, and digital impact across industries.
-                            </motion.p>
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                We aspire to lead the evolution of global IT services by:
-                            </motion.p>
-                            <motion.ul
-                                className="mv-list"
-                                variants={{ hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.12 } } }}
-                            >
-                                <motion.li variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}>
-                                    <CheckCircle2 size={18} className="check" /> Anticipating technological change rather than reacting to it
-                                </motion.li>
-                                <motion.li variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}>
-                                    <CheckCircle2 size={18} className="check" /> Delivering future-ready solutions that scale with our clients
-                                </motion.li>
-                                <motion.li variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}>
-                                    <CheckCircle2 size={18} className="check" /> Building long-term partnerships based on trust, performance, and shared success
-                                </motion.li>
-                            </motion.ul>
-                            <motion.p variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}>
-                                Through continuous innovation and responsible technology leadership, we aim to shape how organizations leverage technology to compete, grow, and transform in the digital era.
-                            </motion.p>
-                        </motion.div>
+                        <div className="mv-lines">
+                            <p>To be a globally trusted technology partner, recognized for setting benchmarks in innovation and digital impact.</p>
+                            <ul className="mv-list">
+                                <li><CheckCircle2 size={18} className="check" /> Anticipating technological change</li>
+                                <li><CheckCircle2 size={18} className="check" /> Delivering future-ready solutions</li>
+                                <li><CheckCircle2 size={18} className="check" /> Building lasting partnerships</li>
+                            </ul>
+                        </div>
                     </motion.div>
                 </div>
             </section>
@@ -212,17 +173,32 @@ const About = () => {
                                 {
                                     icon: Laptop,
                                     title: "IT Development",
-                                    desc: "Expert software engineering building custom web and mobile applications for global scale."
+                                    desc: "Custom web and mobile engineering designed for global scalability."
                                 },
                                 {
                                     icon: Cloud,
                                     title: "Cloud Services",
-                                    desc: "Cloud architecture and DevOps specialists managing complex infrastructure at scale."
+                                    desc: "Expert cloud architecture and DevOps management at scale."
                                 },
                                 {
                                     icon: Rocket,
                                     title: "Product Development",
-                                    desc: "Focused on leveraging emerging technology for education and next-gen smart solutions."
+                                    desc: "AI-driven education and smart solutions for the next generation."
+                                },
+                                {
+                                    icon: Users,
+                                    title: "IT Staffing",
+                                    desc: "Connecting businesses with top-tier technical talent."
+                                },
+                                {
+                                    icon: TrendingUp,
+                                    title: "Digital Marketing",
+                                    desc: "Growth through data-driven AI-powered campaigns."
+                                },
+                                {
+                                    icon: Info,
+                                    title: "Consulting",
+                                    desc: "Strategic guidance for digital transformation."
                                 }
                             ].map((item, i) => (
                                 <motion.div
@@ -234,44 +210,9 @@ const About = () => {
                                         <item.icon size={32} className="dep-icon" />
                                         <h3>{item.title}</h3>
                                         <p>{item.desc}</p>
-                                        <span className="dep-tag">Primary Division</span>
+                                        <span className="dep-tag">Strategic Division</span>
                                     </div>
                                     <div className="card-accent-line"></div>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        {/* Supporting Departments */}
-                        <div className="deps-row supporting-deps">
-                            {[
-                                {
-                                    icon: Users,
-                                    title: "IT Staffing",
-                                    desc: "Connecting businesses with top-tier technical talent globally."
-                                },
-                                {
-                                    icon: TrendingUp,
-                                    title: "Digital Marketing",
-                                    desc: "Driving growth through data-driven campaigns and AI analysis."
-                                },
-                                {
-                                    icon: Info,
-                                    title: "Consulting",
-                                    desc: "Business and technology consultants guiding digital transformation."
-                                }
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    whileHover={{ scale: 1.02 }}
-                                    className="dep-card-enterprise supporting"
-                                >
-                                    <div className="dep-card-content">
-                                        <div className="flex-title">
-                                            <item.icon size={20} className="dep-icon-small" />
-                                            <h3>{item.title}</h3>
-                                        </div>
-                                        <p>{item.desc}</p>
-                                    </div>
                                 </motion.div>
                             ))}
                         </div>

@@ -2,7 +2,8 @@
     background: #fafafa;
     border-top: 1px solid rgba(0, 0, 0, 0.03);
     color: #1d1d1f;
-    padding: 5rem 0 2rem;
+    padding: 3rem 0 1.5rem;
+    /* Reduced from 5rem 0 2rem */
     position: relative;
     z-index: 10;
 }
@@ -10,8 +11,10 @@
 .footer-grid {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1.5fr;
-    gap: 3rem;
-    margin-bottom: 4rem;
+    gap: 2rem;
+    /* Reduced from 3rem */
+    margin-bottom: 2rem;
+    /* Reduced from 4rem */
 }
 
 .footer-logo {
@@ -20,8 +23,15 @@
     text-decoration: none;
 }
 
+.logo-img-footer {
+    height: 140px;
+    /* Increased size */
+    width: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    /* Removes white background */
 
-
+}
 
 .footer-desc {
     color: var(--muted-foreground);
