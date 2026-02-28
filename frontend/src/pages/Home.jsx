@@ -3,6 +3,7 @@ import { ArrowRight, Laptop, Cloud, Shield, Globe, Users, CheckCircle, Handshake
 import { Link } from 'react-router-dom';
 import CountUp from 'react-countup';
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import './Home.css';
 
 const Home = () => {
@@ -122,6 +123,11 @@ const Home = () => {
 
     return (
         <div className="home-page">
+            <Helmet>
+                <title>KamGlobal AI | Global IT Solutions & AI Transformation</title>
+                <meta name="description" content="KamGlobal AI provides AI-driven IT services, cloud solutions, and digital transformation. We bridge Kuwait's strategic vision with India's engineering excellence." />
+                <meta name="keywords" content="AI Solutions, IT Consulting, BOT Model, Cloud Migration, Digital Transformation, Kuwait India IT, KamGlobal AI" />
+            </Helmet>
             {/* Hero Section - Framed Cinematic Style (Restored) */}
             <section className="hero-framed-wrapper">
                 <div className="hero-outer-frame">

@@ -1,12 +1,17 @@
 import { Target, Eye, Laptop, Cloud, Users, TrendingUp, Info, Rocket, Globe, CheckCircle2, ShieldCheck, Handshake, Lock, Sparkles, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import CountUp from 'react-countup';
 import './About.css';
 
 const About = () => {
     return (
         <div className="about-page premium-redesign">
+            <Helmet>
+                <title>About Us | KamGlobal AI - Kuwait-India Partnership</title>
+                <meta name="description" content="Learn about KamGlobal AI's strategic vision bridging Kuwait and India's engineering power. We specialize in secure, scalable digital foundations." />
+            </Helmet>
             {/* Hero Section */}
             <section className="about-hero-modern">
                 <div className="abstract-shape shape-1"></div>

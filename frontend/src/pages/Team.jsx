@@ -1,5 +1,6 @@
 import { Linkedin, Mail, MapPin } from 'lucide-react';
 import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { Helmet } from 'react-helmet-async';
 import './Team.css';
 
 const ExecCard = ({ name, role, country, bio, image, tags, delay }) => (
@@ -106,6 +107,10 @@ const Team = () => {
 
     return (
         <div className="team-page">
+            <Helmet>
+                <title>Our Leadership | KamGlobal AI - Kuwait & India Team</title>
+                <meta name="description" content="Meet the leaders of KamGlobal AI. Our executive team bridges strategic vision from Kuwait with technical mastery from India." />
+            </Helmet>
             <section className="team-hero-glass">
                 <div className="container">
                     <motion.div

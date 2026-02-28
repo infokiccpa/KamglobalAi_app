@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { BarChart3, CheckCircle, ArrowRight, Rocket, Target, Cpu, XCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import './LMS.css';
 import './LMS-new-sections.css';
 
@@ -104,6 +105,10 @@ const LMS = () => {
 
     return (
         <div className="lms-page">
+            <Helmet>
+                <title>AI-Powered LMS | Future of Educational Technology | KamGlobal AI</title>
+                <meta name="description" content="Discover our revolutionary, AI-powered Learning Management System for Pre-KG to Grade 12. Personalized mastery through adaptive intelligence." />
+            </Helmet>
             {/* Hero Section */}
             <motion.section
                 className="lms-hero"

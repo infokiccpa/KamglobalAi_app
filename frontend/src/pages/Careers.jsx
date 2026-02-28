@@ -2,6 +2,7 @@ import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { useNavigate } from 'react-router-dom';
 import { Globe, DollarSign, Shield, BookOpen, Clock, ArrowRight, Laptop, Award, Search, Handshake, Sprout, Trophy, FileText, UserCheck, Mail, Briefcase, MapPin, CheckCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import './Careers.css';
 
 // Custom Flag Components for Kuwait & India Motifs
@@ -105,6 +106,10 @@ const Careers = () => {
 
     return (
         <div className="amazon-careers-container" ref={containerRef}>
+            <Helmet>
+                <title>Careers at KamGlobal AI | Join Our Global Team</title>
+                <meta name="description" content="Explore job opportunities in AI development, Digital Marketing, and Engineering. Join a global team bridging Kuwait and India." />
+            </Helmet>
             {/* New: Top Banner & Intro Section */}
             <section className="careers-intro-banner">
                 <motion.img

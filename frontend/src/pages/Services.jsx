@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Globe, Laptop, Cloud, Users, TrendingUp, CheckCircle, ArrowRight, ShieldCheck, Mail, MessageSquare } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import './Services.css';
 
 const TrustBadges = () => (
@@ -200,6 +201,10 @@ const Services = () => {
 
     return (
         <div className="services-page premium-redesign">
+            <Helmet>
+                <title>Enterprise IT Services | KamGlobal AI - BOT, Cloud, AI</title>
+                <meta name="description" content="Explore our specialized enterprise services: BOT Model offshoring, Custom Software, Cloud & DevOps, AI Engineering, and Global Staffing." />
+            </Helmet>
 
             {/* Sticky Floating CTA */}
             <AnimatePresence>

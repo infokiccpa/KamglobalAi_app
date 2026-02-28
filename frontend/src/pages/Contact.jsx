@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { MapPin, Phone, Mail, Clock, ChevronDown, Briefcase, Headset, Target, ClipboardList, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import './Contact.css';
 
 const FAQItem = ({ question, answer, isOpen, onClick }) => (
@@ -92,6 +93,10 @@ const Contact = () => {
 
     return (
         <div className="contact-page">
+            <Helmet>
+                <title>Contact Us | KamGlobal AI - Global Support</title>
+                <meta name="description" content="Reach out to KamGlobal AI. Contact our Kuwait HQ or India Delivery Center for specialized IT consulting and support." />
+            </Helmet>
             {/* 1. Hero / Intro Section */}
             <section className="contact-hero">
                 <div className="hero-bg-glow"></div>
