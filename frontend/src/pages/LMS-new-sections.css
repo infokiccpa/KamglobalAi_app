@@ -1,0 +1,268 @@
+/* ===================================
+   NEW SECTIONS STYLES - Product Details
+   =================================== */
+
+/* Section Headers */
+.section-header-centered {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title-premium {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    color: #1d1d1f;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: #86868b;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* About Our Product Section */
+.about-product-section {
+    padding: 8rem 0;
+    background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);
+}
+
+.about-product-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.about-product-content h3 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1d1d1f;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.about-product-content>p {
+    font-size: 1.2rem;
+    color: #64748b;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+.product-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.benefit-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.benefit-icon {
+    color: #6366f1;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.benefit-item h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 0.5rem;
+}
+
+.benefit-item p {
+    font-size: 1rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 3rem;
+}
+
+.stat-box {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.stat-box h3 {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.stat-box p {
+    font-size: 0.95rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* Technology Stack Section */
+.tech-stack-section {
+    padding: 8rem 0;
+    background: #ffffff;
+}
+
+.tech-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+.tech-card {
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all 0.4s ease;
+    cursor: default;
+}
+
+.tech-card:hover {
+    transform: translateY(-8px);
+}
+
+.tech-card h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    margin-bottom: 0.8rem;
+}
+
+.tech-card p {
+    font-size: 1rem;
+    color: #86868b;
+    line-height: 1.6;
+}
+
+
+
+/* ===================================
+   RESPONSIVE DESIGN - All Devices
+   =================================== */
+
+/* Tablet - 992px and below */
+@media (max-width: 992px) {
+    .about-product-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .tech-stack-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+
+
+    .stats-container {
+        gap: 1.5rem;
+        padding: 2.5rem;
+    }
+}
+
+/* Mobile - 768px and below */
+@media (max-width: 768px) {
+    .section-header-centered {
+        margin-bottom: 2.5rem;
+    }
+
+    .about-product-section,
+    .tech-stack-section {
+        padding: 5rem 0;
+    }
+
+    .about-product-content h3 {
+        font-size: 1.8rem;
+    }
+
+    .about-product-content>p {
+        font-size: 1.1rem;
+    }
+
+    .product-benefits {
+        gap: 1.5rem;
+    }
+
+    .benefit-item {
+        gap: 1rem;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr 1fr;
+        padding: 2rem 1.5rem;
+    }
+
+    .stat-box h3 {
+        font-size: 2.5rem;
+    }
+
+    .stat-box p {
+        font-size: 0.85rem;
+    }
+
+    .tech-stack-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .tech-card {
+        padding: 2rem 1.5rem;
+    }
+
+
+}
+
+/* Small Mobile - 480px and below */
+@media (max-width: 480px) {
+    .section-title-premium {
+        font-size: 1.8rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .about-product-content h3 {
+        font-size: 1.5rem;
+    }
+
+    .about-product-content>p {
+        font-size: 1rem;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.5rem;
+    }
+
+    .stat-box {
+        padding: 1.5rem 1rem;
+    }
+
+    .stat-box h3 {
+        font-size: 2rem;
+    }
+
+    .benefit-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .benefit-item p {
+        font-size: 0.95rem;
+    }
+
+
+}

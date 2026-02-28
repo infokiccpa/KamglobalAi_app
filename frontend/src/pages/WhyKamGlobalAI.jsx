@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Globe, Cpu, BarChart, Users, Zap, Award, DollarSign, Laptop, ArrowRight, ShieldCheck, X } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { Shield, Globe, Cpu, BarChart, Users, Zap, Award, DollarSign, ArrowRight, ShieldCheck, X } from 'lucide-react';
 import './WhyKamGlobalAI.css';
 
 const WhyKamGlobalAI = () => {
@@ -107,15 +107,22 @@ const WhyKamGlobalAI = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1 }}
                     >
-                        <div className="visual-circle-bg"></div>
-                        <img
-                            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=800"
-                            alt="Professional Expert"
-                            className="hero-person-img"
-                        />
-                        <div className="floating-accent star-1">✦</div>
-                        <div className="floating-accent star-2">✦</div>
-                        <div className="floating-accent dot"></div>
+                        <div className="visual-circle-bg" style={{ background: 'rgba(247, 148, 29, 0.08)' }}></div>
+                        <div className="hero-video-wrapper glass-card" style={{ padding: 0, overflow: 'hidden', borderRadius: '30px', position: 'relative', zIndex: 5, width: '100%', maxWidth: '450px', aspectRatio: '4/5', boxShadow: '0 20px 50px rgba(12, 33, 61, 0.2)' }}>
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            >
+                                <source src="/hero-background.mp4" type="video/mp4" />
+                            </video>
+                            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(12, 33, 61, 0.4), transparent 50%)' }}></div>
+                        </div>
+                        <div className="floating-accent star-1" style={{ color: '#f7941d' }}>✦</div>
+                        <div className="floating-accent star-2" style={{ color: '#f7941d' }}>✦</div>
+                        <div className="floating-accent dot" style={{ background: '#f7941d' }}></div>
                     </motion.div>
                 </div>
                 <div className="hero-wave-bottom">
@@ -207,7 +214,7 @@ const WhyKamGlobalAI = () => {
                                 viewport={{ once: true }}
                                 className="story-item-card"
                             >
-                                <item.icon size={32} strokeWidth={1.5} color="#0ea5e9" />
+                                <item.icon size={32} strokeWidth={1.5} color="#f7941d" />
                                 <h4>{item.title}</h4>
                                 <p>{item.desc}</p>
                             </motion.div>

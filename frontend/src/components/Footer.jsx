@@ -20,7 +20,7 @@ const Footer = () => {
                         <div className="social-links">
                             <a href="#"><Facebook size={20} /></a>
                             <a href="#"><Twitter size={20} /></a>
-                            <a href="#"><Linkedin size={20} /></a>
+                            <a href="https://www.linkedin.com/company/kam-global-for-digital-ai-media-solutions-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
                             <a href="#"><Instagram size={20} /></a>
                         </div>
                     </div>
@@ -57,14 +57,14 @@ const Footer = () => {
                             <MapPin size={20} className="icon" />
                             <div>
                                 <strong>Kam Groups (Kuwait):</strong>
-                                <p style={{ fontSize: '0.85rem' }}>Floor 2&6, Al Barsha Complex,<br />Tunis Street, Hawally, Kuwait.</p>
+                                <p>Floor 2&6, Al Barsha Complex,<br />Tunis Street, Hawally, Kuwait.</p>
                             </div>
                         </div>
                         <div className="contact-item">
                             <Phone size={18} className="icon" />
                             <p>+965 22087764</p>
                         </div>
-                        <div className="contact-item" style={{ marginBottom: '1.5rem' }}>
+                        <div className="contact-item contact-item-mail">
                             <Mail size={18} className="icon" />
                             <p>info@kamgroups.com</p>
                         </div>
@@ -73,12 +73,16 @@ const Footer = () => {
                             <MapPin size={20} className="icon" />
                             <div>
                                 <strong>Kam Global (India):</strong>
-                                <p style={{ fontSize: '0.85rem' }}>No 544, 3rd cross, 3rd main,<br />Above TMC Bank, RT Nagar,<br />Bangalore-563125</p>
+                                <p>No 544, 3rd cross, 3rd main,<br />Above TMC Bank, RT Nagar,<br />Bangalore-563125</p>
                             </div>
                         </div>
                         <div className="contact-item">
                             <Phone size={18} className="icon" />
-                            <p>+91</p>
+                            <p>+91 80507 66363</p>
+                        </div>
+                        <div className="contact-item contact-item-mail">
+                            <Mail size={18} className="icon" />
+                            <p>info@kamglobalai.com</p>
                         </div>
                         <div className="newsletter">
                             <h4>Newsletter</h4>

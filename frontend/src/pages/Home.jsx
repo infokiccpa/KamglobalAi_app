@@ -1,10 +1,12 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, Laptop, Cloud, Shield, Globe, Users, CheckCircle, Handshake, MapPin, Phone, Brain } from 'lucide-react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Laptop, Cloud, Shield, Globe, Users, CheckCircle, Handshake, MapPin, Phone, Brain, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import CountUp from 'react-countup';
+import { useState, useEffect } from 'react';
 import './Home.css';
 
 const Home = () => {
+    const [activeTestimonial, setActiveTestimonial] = useState(0);
     // Content data for easy "backend-like" editing
     const homeData = {
         hero: {
@@ -18,9 +20,9 @@ const Home = () => {
             desc1: "KamGlobalAI is a global IT services and solutions company based in India, strategically backed by KAM Group, Kuwait. We deliver reliable, scalable, and future-ready IT solutions that help businesses accelerate growth and digital transformation.",
             desc2: "From startups to large enterprises, we serve clients across industries with world-class technology and consulting expertise.",
             stats: [
-                { num: "10+", label: "Years Exp" },
-                { num: "50+", label: "Experts" },
-                { num: "100%", label: "Success" }
+                { num: 10, suffix: "+", label: "Years Exp" },
+                { num: 50, suffix: "+", label: "Experts" },
+                { num: 100, suffix: "%", label: "Success" }
             ]
         },
         whyChoose: {
@@ -86,7 +88,12 @@ const Home = () => {
             phone: "+965 2434 5650",
         },
         partners: [
-            "TechFlow", "GlobalCloud", "SecureSystems", "AI-Corp", "DataDynamics"
+            "KAM Groups",
+            "Innovative IT Services",
+            "Next-Gen AI Products",
+            "AI-Powered LMS",
+            "Launching Soon!",
+            "Global Solutions"
         ],
         globalPresence: {
             title: "Global Presence",
@@ -115,15 +122,16 @@ const Home = () => {
 
     return (
         <div className="home-page">
-            {/* Hero Section - Redesigned to Split Screen */}
-            {/* Hero Section - Framed Cinematic Style */}
+            {/* Hero Section - Framed Cinematic Style (Restored) */}
             <section className="hero-framed-wrapper">
                 <div className="hero-outer-frame">
                     <div className="hero-visual-card">
-                        <img
-                            src="/modern_tech_lounge_hero.png"
-                            alt="Innovation Lab"
+                        <motion.img
+                            src="1A.png"
+                            alt="KamGlobalAI Innovation Lab"
                             className="hero-bg-img"
+                            animate={{ y: [0, -15, 0] }}
+                            transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
                         />
                         <div className="hero-overlay-gradient"></div>
 
@@ -144,17 +152,9 @@ const Home = () => {
                                 transition={{ delay: 0.5, duration: 0.8 }}
                                 className="hero-framed-desc"
                             >
-                                Empowering enterprises with AI-driven IT solutions, cloud strategies,
+                                Empowering enterprises with AI-driven IT solutions, cloud strategies
                                 and world-class consulting to accelerate digital transformation.
                             </motion.p>
-
-                            <motion.div
-                                initial={{ y: 30, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
-                                transition={{ delay: 0.7, duration: 0.8 }}
-                            >
-                                {/* Button Removed as requested */}
-                            </motion.div>
                         </div>
                     </div>
                 </div>
@@ -164,7 +164,7 @@ const Home = () => {
             <section className="partners-bar">
                 <div className="container">
                     <div className="partners-flex">
-                        <span className="partners-label">TRUSTED BY</span>
+                        <span className="partners-label">KAM GROUP</span>
                         <div className="partners-track">
                             {homeData.partners.map((partner, i) => (
                                 <span key={i} className="partner-logo">{partner}</span>
@@ -188,7 +188,7 @@ const Home = () => {
                         className="about-visual-container"
                     >
                         <div className="about-image-wrapper">
-                            <img src="/office_team_collab.png" alt="Our Team" className="about-custom-img" />
+                            <img src="2B.png" alt="Our Team" className="about-custom-img" />
                         </div>
                     </motion.div>
                     <motion.div
@@ -202,10 +202,17 @@ const Home = () => {
                         <div className="title-underline"></div>
                         <p className="about-description-text">{homeData.about.desc1}</p>
                         <p className="about-description-text">{homeData.about.desc2}</p>
-                        <Link to="/contact" className="btn btn-orange">
-                            GET A QUOTE
-                        </Link>
-
+                        <div className="stats-grid">
+                            {homeData.about.stats.map((stat, i) => (
+                                <motion.div key={i} className="stat-item glass-card" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}>
+                                    <span className="stat-number">
+                                        <CountUp end={stat.num} duration={2.5} enableScrollSpy scrollSpyOnce />
+                                        {stat.suffix}
+                                    </span>
+                                    <span className="stat-label">{stat.label}</span>
+                                </motion.div>
+                            ))}
+                        </div>
                     </motion.div>
                 </div>
             </section>
@@ -326,147 +333,160 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Why Choose Section */}
-            <section className="section why-choose">
+            {/* Why Choose Us vs Traditional Agencies */}
+            <section className="section why-compare-section">
                 <div className="container">
                     <div className="why-header-centered">
                         <span className="badge-small">WHY US</span>
-                        <h2>{homeData.whyChoose.title}</h2>
-                        {homeData.whyChoose.subtitle && (
-                            <p className="why-subtitle">{homeData.whyChoose.subtitle}</p>
-                        )}
+                        <h2>The KamGlobalAI Advantage</h2>
+                        <p className="why-subtitle">How we stack up against traditional enterprise IT delivery models</p>
                     </div>
 
-                    <div className="why-grid-modern">
-                        <div className="why-features-grid">
-                            {homeData.whyChoose.list.map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.1 }}
-                                    viewport={{ once: true }}
-                                    className="why-feature-card glass-card"
-                                >
-                                    <div className="feature-icon-box">
-                                        <item.icon size={20} />
-                                    </div>
-                                    <p>{item.text}</p>
-                                </motion.div>
-                            ))}
-                        </div>
-
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            className="why-visual-highlight"
-                        >
-                            <div className="delivery-card dark-card">
-                                <div className="delivery-image-bg">
-                                    <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=800" alt="Global Delivery" />
-                                </div>
-                                <div className="card-content-wrap">
-                                    <h3>Global Delivery</h3>
-                                    <p className="delivery-p">Providing seamless IT solutions across borders with reliability and speed.</p>
-                                </div>
-                                <div className="satisfaction-badge glass">
-                                    <div className="stars">★★★★★</div>
-                                    <h4>{homeData.satisfaction.title}</h4>
-                                    <p><strong>{homeData.satisfaction.rate}</strong> {homeData.satisfaction.description}</p>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
+                    <motion.div
+                        className="comparison-table-wrapper glass-card"
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                    >
+                        <table className="comparison-modern-table">
+                            <thead>
+                                <tr>
+                                    <th>Criteria</th>
+                                    <th>Traditional IT Vendors</th>
+                                    <th className="highlight-col">KamGlobalAI Global Delivery</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Delivery Speed</td>
+                                    <td>Slow, bureaucratic processes</td>
+                                    <td className="highlight-col"><CheckCircle size={16} className="text-green inline mr-2" /> Agnostic & Agile (2x Faster)</td>
+                                </tr>
+                                <tr>
+                                    <td>Cost Efficiency</td>
+                                    <td>High domestic overhead limits ROI</td>
+                                    <td className="highlight-col"><CheckCircle size={16} className="text-green inline mr-2" /> Up to 50% arbitrage via India hub</td>
+                                </tr>
+                                <tr>
+                                    <td>Compliance & Security</td>
+                                    <td>Fragmented security protocols</td>
+                                    <td className="highlight-col"><CheckCircle size={16} className="text-green inline mr-2" /> ISO/SOC-aligned Kuwait-India Bridge</td>
+                                </tr>
+                                <tr>
+                                    <td>Vested Interest</td>
+                                    <td>Transactional hourly billing</td>
+                                    <td className="highlight-col"><CheckCircle size={16} className="text-green inline mr-2" /> Long-term BOT Strategic Partnerships</td>
+                                </tr>
+                                <tr>
+                                    <td>Talent Quality</td>
+                                    <td>B-Tier generalized resources</td>
+                                    <td className="highlight-col"><CheckCircle size={16} className="text-green inline mr-2" /> Silicon-Valley Caliber AI Experts</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </motion.div>
                 </div>
             </section>
 
+            {/* Full-Width Slim Services Banner */}
+            <section className="services-banner-row">
+                <div className="organic-shape"></div>
+                <div className="container-full">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="banner-flex"
+                    >
+                        <div className="banner-left">
+                            <div className="title-group">
+                                <h2 className="banner-title">
+                                    <span className="text-white">Our</span> <span className="text-purple">Services</span>
+                                </h2>
+                                <div className="dashed-line"></div>
+                            </div>
+                            <p className="banner-desc">
+                                Empowering enterprises with cutting-edge IT solutions and global delivery excellence.
+                            </p>
+                        </div>
+                        <Link to="/services" className="banner-action-btn-new">
+                            VIEW SERVICES <span className="chevron">→</span>
+                        </Link>
+                    </motion.div>
+                </div>
+            </section >
 
-            {/* Compact Stylish Services Header */}
-            <section className="section services-redesign">
-                <div className="services-hero-slim">
-                    <div className="container">
+            <div className="container services-stack-wrapper">
+                {homeData.services.items.map((service, i) => {
+                    // Map images based on index
+                    const images = [
+                        "4C.png",
+                        "5B.jpeg",
+                        "6.png",
+                        "7.png",
+                        "8.png",
+                        "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
+                    ];
+                    const nums = ["01", "02", "03", "04", "05", "06"];
+
+                    return (
                         <motion.div
-                            initial={{ opacity: 0, y: 30 }}
+                            key={i}
+                            initial={{ opacity: 0, y: 50 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="services-compact-glass"
+                            transition={{ duration: 0.5, delay: i * 0.1 }}
+                            viewport={{ margin: "-100px" }}
+                            className="service-stack-card"
+                            style={{ top: `calc(85px + ${i * 42}px)` }} // Stacking effect
                         >
-                            <div className="services-title-wrap">
-                                <motion.h2
-                                    className="services-hero-title-slim"
-                                >
-                                    Our <span className="text-accent-glow-alt">Services</span>
-                                </motion.h2>
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    whileInView={{ width: "60px" }}
-                                    transition={{ duration: 1, delay: 0.4 }}
-                                    className="headline-bar-thin"
-                                />
-
-                                <motion.p
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    transition={{ duration: 1, delay: 0.6 }}
-                                    className="services-hero-intro-slim"
-                                >
-                                    Empowering enterprises with cutting-edge IT solutions and global delivery excellence.
-                                </motion.p>
-
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    whileInView={{ opacity: 1 }}
-                                    transition={{ duration: 0.5, delay: 0.8 }}
-                                >
-                                    <Link to="/services" className="view-services-btn">
-                                        View Services <ArrowRight size={18} className="arrow-hover" />
+                            <div className="stack-card-content">
+                                <div className="stack-text-side">
+                                    <div className="stack-number">{nums[i]}</div>
+                                    <h3>{service.title}</h3>
+                                    <p>{service.desc}</p>
+                                    <Link to="/services" className="stack-learn-btn">
+                                        Learn More <ArrowRight size={18} />
                                     </Link>
-                                </motion.div>
+                                </div>
+                                <div className="stack-visual-side">
+                                    <img src={images[i]} alt={service.title} className="stack-img" />
+                                </div>
+                            </div>
+                        </motion.div>
+                    );
+                })}
+            </div>
+
+
+            {/* Case Studies */}
+            <section className="section case-studies-home">
+                <div className="container">
+                    <div className="why-header-centered">
+                        <span className="badge-small">PROVEN IMPACT</span>
+                        <h2>Featured Case Studies</h2>
+                        <div className="title-underline-center"></div>
+                    </div>
+
+                    <div className="case-studies-grid">
+                        <motion.div className="case-study-glass" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                            <div className="case-img"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="Fintech" /></div>
+                            <div className="case-content">
+                                <span className="cat-pill">FinTech</span>
+                                <h3>Cloud Migration for Kuwait Bank</h3>
+                                <p>Migrated legacy systems to AWS with zero downtime, reducing operational costs by 40%.</p>
+                                <a href="/services" className="discover-link">Read Story <ArrowRight size={14} /></a>
+                            </div>
+                        </motion.div>
+                        <motion.div className="case-study-glass" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}>
+                            <div className="case-img"><img src="https://images.unsplash.com/photo-1535320903710-d993d3d77d29?auto=format&fit=crop&q=80&w=800" alt="EdTech" /></div>
+                            <div className="case-content">
+                                <span className="cat-pill">EdTech</span>
+                                <h3>AI-Powered LMS Engineering</h3>
+                                <p>Architected full-stack cognitive learning platform for 100k+ concurrent users.</p>
+                                <a href="/services" className="discover-link">Read Story <ArrowRight size={14} /></a>
                             </div>
                         </motion.div>
                     </div>
-                </div>
-
-                <div className="container services-stack-wrapper">
-                    {homeData.services.items.map((service, i) => {
-                        // Map images based on index
-                        const images = [
-                            "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800",
-                            "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
-                            "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800",
-                            "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=800",
-                            "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-                            "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=800"
-                        ];
-                        const nums = ["01", "02", "03", "04", "05", "06"];
-
-                        return (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
-                                viewport={{ margin: "-100px" }}
-                                className="service-stack-card"
-                                style={{ top: `calc(130px + ${i * 40}px)` }} // Stacking effect
-                            >
-                                <div className="stack-card-content">
-                                    <div className="stack-text-side">
-                                        <div className="stack-number">{nums[i]}</div>
-                                        <h3>{service.title}</h3>
-                                        <p>{service.desc}</p>
-                                        <Link to="/services" className="stack-learn-btn">
-                                            Learn More <ArrowRight size={18} />
-                                        </Link>
-                                    </div>
-                                    <div className="stack-visual-side">
-                                        <img src={images[i]} alt={service.title} className="stack-img" />
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
                 </div>
             </section>
 
@@ -476,19 +496,76 @@ const Home = () => {
                     <div className="product-card glass">
                         <div className="product-info">
                             <span className="badge-small">FEATURED PRODUCT</span>
-                            <h2>AI-Powered LMS</h2>
+                            <h2>AI-Powered LMS <span className="launch-soon-badge">Launching Soon</span></h2>
                             <p>Revolutionizing education with intelligent, adaptive learning paths for students from Pre-KG to Grade 12. Our state-of-the-art platform empowers both schools and students.</p>
                             <Link to="/products" className="btn btn-primary">Explore LMS <ArrowRight size={18} className="ml-05" /></Link>
                         </div>
                         <div className="product-image">
-                            <div className="glass-card lms-visual-card">
+                            <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.4 }} className="glass-card lms-visual-card">
                                 <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?auto=format&fit=crop&q=80&w=600" alt="LMS Interface" />
-                            </div>
+                            </motion.div>
                         </div>
                     </div>
                 </div>
             </section>
-        </div>
+
+            {/* Testimonials Slider */}
+            <section className="section testimonials-section">
+                <div className="container">
+                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="section-header-centered">
+                        <span className="badge-small">TESTIMONIALS</span>
+                        <h2 className="section-title-premium">{homeData.testimonials.title}</h2>
+                        <div className="title-underline-center"></div>
+                    </motion.div>
+
+                    <div className="testimonial-slider-container">
+                        <button className="slider-btn prev" onClick={() => setActiveTestimonial((s) => (s === 0 ? homeData.testimonials.items.length - 1 : s - 1))}><ChevronLeft /></button>
+
+                        <div className="testimonial-track-window">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeTestimonial}
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    exit={{ opacity: 0, x: -50 }}
+                                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                                    className="testimonial-card glass-card"
+                                >
+                                    <div className="stars">
+                                        {[1, 2, 3, 4, 5].map(s => <Star key={s} size={18} fill="#f59e0b" color="#f59e0b" />)}
+                                    </div>
+                                    <p className="quote-text">"{homeData.testimonials.items[activeTestimonial].quote}"</p>
+                                    <div className="client-info">
+                                        <img src={homeData.testimonials.items[activeTestimonial].image} alt="Client" className="client-img" />
+                                        <div>
+                                            <h4>{homeData.testimonials.items[activeTestimonial].author}</h4>
+                                            <span>{homeData.testimonials.items[activeTestimonial].role}</span>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        <button className="slider-btn next" onClick={() => setActiveTestimonial((s) => (s + 1) % homeData.testimonials.items.length)}><ChevronRight /></button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Modern CTA Section Before Footer */}
+            <section className="cta-modern">
+                <div className="cta-glow-overlay"></div>
+                <div className="container">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="cta-modern-box glass-card">
+                        <h2>Ready to Accelerate Your Digital Transformation?</h2>
+                        <p>Partner with KamGlobalAI to deploy scalable, future-ready enterprise solutions.</p>
+                        <div className="cta-actions">
+                            <Link to="/contact" className="btn btn-orange cta-main-btn">Start a Project</Link>
+                            <Link to="/services" className="btn cta-outline-btn">Explore Services</Link>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+        </div >
     );
 };
 

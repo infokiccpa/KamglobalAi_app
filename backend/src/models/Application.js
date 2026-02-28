@@ -1,32 +1,61 @@
 const mongoose = require('mongoose');
 
 const applicationSchema = new mongoose.Schema({
-    fullName: {
+    firstName: {
         type: String,
-        required: [true, 'Please add full name']
+        required: [true, 'First name is required']
+    },
+    lastName: {
+        type: String,
+        required: [true, 'Last name is required']
+    },
+    dateOfBirth: {
+        type: Date
     },
     email: {
         type: String,
-        required: [true, 'Please add email'],
+        required: [true, 'Email is required'],
         match: [
             /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
             'Please add a valid email'
         ]
     },
-    position: {
+    phone: {
         type: String,
-        required: [true, 'Please specify the position']
+        required: [true, 'Phone number is required']
+    },
+    countryCode: {
+        type: String,
+        default: '+91'
+    },
+    location: {
+        type: String
+    },
+    qualification: {
+        type: String,
+        required: [true, 'Qualification is required']
     },
     experience: {
         type: String,
-        required: [true, 'Please add experience']
+        required: [true, 'Experience is required']
     },
-    resumeUrl: {
+    position: {
         type: String,
-        required: [true, 'Please add resume link or path']
+        required: [true, 'Position is required']
+    },
+    linkedinUrl: {
+        type: String
     },
     message: {
         type: String
+    },
+    resumePath: {
+        type: String,
+        required: [true, 'Resume is required']
+    },
+    consent: {
+        type: Boolean,
+        required: [true, 'Consent is required']
     },
     status: {
         type: String,

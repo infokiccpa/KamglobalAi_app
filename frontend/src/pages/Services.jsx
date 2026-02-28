@@ -1,186 +1,187 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { Globe, Laptop, Cloud, Users, TrendingUp, CheckCircle, ArrowRight } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { Globe, Laptop, Cloud, Users, TrendingUp, CheckCircle, ArrowRight, ShieldCheck, Mail, MessageSquare } from 'lucide-react';
 import './Services.css';
 
-const ServiceBlock = ({ id, icon: Icon, title, subtitle, challenge, solution, benefits, image, reverse }) => {
+const TrustBadges = () => (
+    <div className="trust-badges-marquee">
+        <div className="marquee-track">
+            {/* Double the logos to simulate infinite scroll */}
+            {[...Array(2)].map((_, i) => (
+                <div key={i} className="marquee-content">
+                    <span className="trust-badge">ISO 27001 Certified</span>
+                    <span className="trust-badge">AWS Advanced Partner</span>
+                    <span className="trust-badge">Microsoft Gold Partner</span>
+                    <span className="trust-badge">SOC 2 Type II Compliant</span>
+                    <span className="trust-badge">GDPR Compliant</span>
+                </div>
+            ))}
+        </div>
+    </div>
+);
+
+const LeadCaptureCTA = ({ title, subtitle }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="inline-lead-cta glass-card-premium"
+    >
+        <div className="lead-text">
+            <h3>{title}</h3>
+            <p>{subtitle}</p>
+        </div>
+        <div className="lead-form-quick">
+            <input type="email" placeholder="Enter your business email" className="quick-input" />
+            <button className="btn btn-orange btn-quick">Consult an Expert <ArrowRight size={16} /></button>
+        </div>
+    </motion.div>
+);
+
+const ServiceBlock = ({ id, icon: Icon, title, subtitle, challenge, solution, benefits, image, reverse, index }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-10%" });
 
     return (
-        <div id={id} className={`service-block ${reverse ? 'reverse' : ''}`} ref={ref}>
-            <div className="container service-grid">
-                <motion.div
-                    className="service-content"
-                    initial={{ opacity: 0, x: reverse ? 20 : -20 }}
-                    animate={isInView ? { opacity: 1, x: 0 } : {}}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                >
-                    <div className="service-header">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                            <Icon size={32} className="service-icon" />
-                        </motion.div>
-                        <div>
-                            <h3 className="line-reveal">
-                                {title.split(' ').map((word, i) => (
-                                    <motion.span
-                                        key={i}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                                        transition={{ duration: 0.5, delay: 0.3 + (i * 0.05) }}
-                                        style={{ display: 'inline-block', marginRight: '0.25em' }}
-                                    >
-                                        {word}
-                                    </motion.span>
-                                ))}
-                            </h3>
-                            <motion.p
-                                className="subtitle"
-                                initial={{ opacity: 0 }}
-                                animate={isInView ? { opacity: 1 } : {}}
-                                transition={{ duration: 0.6, delay: 0.5 }}
-                            >
-                                {subtitle}
-                            </motion.p>
+        <div id={id} className={`service-split-block ${reverse ? 'reverse' : ''}`} ref={ref}>
+            <div className="container">
+                <div className="service-split-grid">
+                    <motion.div
+                        className="service-split-content"
+                        initial={{ opacity: 0, x: reverse ? 40 : -40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                    >
+                        <div className="service-header-modern">
+                            <div className="icon-wrapper-glow">
+                                <Icon size={24} strokeWidth={2} />
+                            </div>
+                            <span className="subtitle-modern">{subtitle}</span>
                         </div>
-                    </div>
 
-                    <div className="service-details">
-                        <motion.div
-                            className="detail-item"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.6, delay: 0.6 }}
-                        >
-                            <h4 className="label-red">The Challenge</h4>
-                            <p>{challenge}</p>
-                        </motion.div>
+                        <h3 className="service-premium-title">{title}</h3>
 
-                        <motion.div
-                            className="detail-item"
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={isInView ? { opacity: 1, y: 0 } : {}}
-                            transition={{ duration: 0.6, delay: 0.7 }}
-                        >
-                            <h4 className="label-green">Our Solution</h4>
-                            <p>{solution}</p>
-                        </motion.div>
-
-                        <div className="detail-item">
-                            <motion.h4
-                                initial={{ opacity: 0 }}
-                                animate={isInView ? { opacity: 1 } : {}}
-                                transition={{ duration: 0.5, delay: 0.8 }}
-                            >
-                                Key Benefits
-                            </motion.h4>
-                            <motion.div
-                                className="benefits-grid"
-                                initial="hidden"
-                                animate={isInView ? "visible" : "hidden"}
-                                variants={{
-                                    visible: { transition: { staggerChildren: 0.12 } }
-                                }}
-                            >
-                                {benefits.map((benefit, idx) => (
-                                    <motion.span
-                                        key={idx}
-                                        className="benefit-item"
-                                        variants={{
-                                            hidden: { opacity: 0, x: -10 },
-                                            visible: { opacity: 1, x: 0 }
-                                        }}
-                                        transition={{ duration: 0.4 }}
-                                    >
-                                        <CheckCircle size={14} className="check-icon" /> {benefit}
-                                    </motion.span>
-                                ))}
-                            </motion.div>
+                        <div className="challenge-solution-card glass-card-premium">
+                            <div className="cs-row">
+                                <span className="cs-label text-red">The Challenge</span>
+                                <p>{challenge}</p>
+                            </div>
+                            <div className="cs-divider"></div>
+                            <div className="cs-row">
+                                <span className="cs-label text-green">Our Solution</span>
+                                <p>{solution}</p>
+                            </div>
                         </div>
-                    </div>
 
+                        <div className="benefits-list-modern">
+                            {benefits.map((benefit, idx) => (
+                                <div key={idx} className="modern-benefit-item">
+                                    <div className="check-glow"><CheckCircle size={14} /></div>
+                                    <span>{benefit}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
 
-                </motion.div>
-
-                <motion.div
-                    className="service-image"
-                    initial={{ opacity: 0, x: reverse ? -30 : 30, scale: 0.96 }}
-                    animate={isInView ? { opacity: 1, x: 0, scale: 1 } : {}}
-                    transition={{ duration: 0.8, ease: "easeInOut", delay: 0.2 }}
-                >
-                    <img src={image} alt={title} className="lux-shadow" />
-                </motion.div>
+                    <motion.div
+                        className="service-split-visual"
+                        initial={{ opacity: 0, x: reverse ? -40 : 40 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true, margin: "-50px" }}
+                    >
+                        <div className="image-wrapper-asymmetric">
+                            <img src={image} alt={title} loading="lazy" />
+                            <div className="image-glow-overlay"></div>
+                        </div>
+                    </motion.div>
+                </div>
             </div>
+
+            {/* Inject Lead CTA after every 2 services */}
+            {(index + 1) % 2 === 0 && index !== 5 && (
+                <div className="container" style={{ marginTop: '5rem' }}>
+                    <LeadCaptureCTA
+                        title="Looking to accelerate this process?"
+                        subtitle="Our consultants can build a tailored roadmap for your specific enterprise needs."
+                    />
+                </div>
+            )}
         </div>
     );
 };
 
 const Services = () => {
     const heroRef = useRef(null);
-    const { scrollYProgress } = useScroll({
-        target: heroRef,
-        offset: ["start start", "end start"]
-    });
+    const [showStickyCTA, setShowStickyCTA] = useState(false);
+    const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
 
-    const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+    // Sticky CTA logic
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 400) setShowStickyCTA(true);
+            else setShowStickyCTA(false);
+        };
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+    const heroY = useTransform(scrollYProgress, [0, 0.8], [0, 100]);
 
     const services = [
         {
             id: 'bot-model',
             icon: Globe,
-            title: 'BOT Model',
-            subtitle: 'Build-Operate-Transfer',
-            challenge: 'Deploying high-quality tech teams across borders without the operational overhead.',
-            solution: 'A proven strategic partnership model where we build, operate, and eventually transfer your dedicated offshore development team.',
-            benefits: ['Reduced operational costs', 'Zero recruitment hassle', 'High-quality technical talent', 'Complete ownership transfer'],
+            title: 'BOT Model (Build-Operate-Transfer)',
+            subtitle: 'Strategic Offshoring',
+            challenge: 'High cost of scaling tech talent locally without sacrificing quality or ownership.',
+            solution: 'We build your dedicated team in India, run it to your exact standards, and transfer legal ownership when you are ready.',
+            benefits: ['Up to 60% Cost Arbitrage', 'Zero Legal Liability Early On', 'IP Protection', 'Seamless Handover'],
             image: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800',
             reverse: false
         },
         {
             id: 'it-dev',
             icon: Laptop,
-            title: 'IT Development',
-            subtitle: 'Custom Software Solutions',
-            challenge: 'Building scalable, secure, and user-centric software that meets complex business requirements.',
-            solution: 'Custom end-to-end development services for web, mobile, and desktop applications using the latest tech stacks.',
-            benefits: ['Modern tech stack', 'Agile development', 'UI/UX focused', 'Full-stack expertise'],
+            title: 'Custom Enterprise Development',
+            subtitle: 'Digital Engineering',
+            challenge: 'Off-the-shelf software fails to address deep, unique operational workflows.',
+            solution: 'End-to-end full-stack development. We architect, code, and deploy custom enterprise-grade platforms.',
+            benefits: ['Microservices Architecture', 'React / Node.js Stack', 'High Availability', 'Secure Development Lifecycle'],
             image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=800',
             reverse: true
         },
         {
             id: 'cloud',
             icon: Cloud,
-            title: 'Cloud Development',
-            subtitle: 'Modern Infrastructure',
-            challenge: 'Managing complex cloud environments while ensuring security, scalability, and cost-efficiency.',
-            solution: 'Comprehensive cloud strategy, migration, and development services across AWS, Azure, and Google Cloud.',
-            benefits: ['High availability', 'Cost optimization', 'SecOps integration', '24/7 monitoring'],
+            title: 'Cloud Native & DevOps',
+            subtitle: 'Infrastructure Modernization',
+            challenge: 'Monolithic legacy systems causing slow deployments, downtime, and high server costs.',
+            solution: 'Complete cloud migration (AWS/Azure) coupled with automated CI/CD pipelines to drastically reduce time-to-market.',
+            benefits: ['Docker / Kubernetes', 'Zero-Downtime Deployments', 'Cost Optimization Audits', 'Auto-scaling'],
             image: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&q=80&w=800',
             reverse: false
         },
         {
             id: 'staffing',
             icon: Users,
-            title: 'IT Staffing & Recruitment',
-            subtitle: 'Technical Talent Solutions',
-            challenge: 'Finding and retaining high-caliber technical talent in a competitive recruitment landscape.',
-            solution: 'Specialized tech recruitment services that match your project needs with the right expertise, from individual contributors to entire teams.',
-            benefits: ['Access to global talent', 'Faster hiring cycle', 'Flexible engagement', 'Technical vetting'],
+            title: 'Global Technical Staffing',
+            subtitle: 'Talent Acquisition',
+            challenge: 'Months lost trying to source, interview, and onboard niche IT specialists.',
+            solution: 'Tap into our pre-vetted pool of elite Indian engineers, ready to integrate into your agile cycles immediately.',
+            benefits: ['Top 1% Vetted Talent', 'Immediate Availability', 'Flexible Contracts', 'Cultural Alignment Training'],
             image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800',
             reverse: true
         },
         {
             id: 'marketing',
             icon: TrendingUp,
-            title: 'Digital Marketing',
-            subtitle: 'Grow Your Online Presence',
-            challenge: 'Navigating the complex digital landscape to reach and engage your target audience effectively.',
-            solution: 'Data-driven marketing strategies including SEO, SEM, social media management, and content creation to drive growth.',
-            benefits: ['Increased visibility', 'Targeted lead gen', 'ROI tracking', 'Brand authority'],
+            title: 'AI-Driven Digital Growth',
+            subtitle: 'Marketing & SEO',
+            challenge: 'Struggling to capture qualified B2B leads or rank organically in a saturated market.',
+            solution: 'We leverage AI-analytics and programmatic SEO to drive high-intent commercial traffic to your funnels.',
+            benefits: ['Predictive Analytics', 'Programmatic SEO', 'B2B Lead Generation', 'Conversion Rate Optimization'],
             image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800',
             reverse: false
         },
@@ -188,114 +189,81 @@ const Services = () => {
             id: 'managed-it',
             icon: CheckCircle,
             title: 'Managed IT Services',
-            subtitle: 'Proactive Tech Management',
-            challenge: 'Dealing with unpredictable IT costs and system downtime that disrupts business operations.',
-            solution: 'End-to-end management of your IT infrastructure, providing 24/7 monitoring, support, and maintenance.',
-            benefits: ['Predictable costs', 'Improved uptime', 'Expert support', 'Focus on core business'],
+            subtitle: '24/7 Enterprise Support',
+            challenge: 'Internal IT teams bogged down by routine maintenance instead of strategic innovation.',
+            solution: 'We take over your entire IT operations, offering L1-L3 support, active network monitoring, and security patching.',
+            benefits: ['Predictable Monthly SLAs', 'Proactive Threat Hunting', '99.99% Uptime Guarantee', 'Dedicated NOC Team'],
             image: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=800',
             reverse: true
-        },
-        {
-            id: 'partnership',
-            icon: Globe,
-            title: 'Strategic Partnership with KAMGROUPS Kuwait',
-            subtitle: 'Kuwait-India Business Bridge',
-            challenge: 'Expanding business operations between Kuwait and India while maintaining high quality standards.',
-            solution: 'Leveraging our deep roots in Kuwait through KAMGROUPS to provide seamless cross-border IT and business solutions.',
-            benefits: ['Market local expertise', 'Simplified logistics', 'Strong local presence', 'Trusted partnership'],
-            image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800',
-            reverse: false
         }
     ];
 
     return (
-        <div className="services-page">
+        <div className="services-page premium-redesign">
+
+            {/* Sticky Floating CTA */}
+            <AnimatePresence>
+                {showStickyCTA && (
+                    <motion.a
+                        href="/contact"
+                        initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 50, scale: 0.8 }}
+                        className="sticky-global-cta"
+                    >
+                        <MessageSquare size={20} />
+                        <span>Let's Talk Scope</span>
+                    </motion.a>
+                )}
+            </AnimatePresence>
+
             <motion.section
-                className="services-hero"
+                className="services-hero-modern"
                 ref={heroRef}
-                style={{ opacity: heroOpacity }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1, ease: "easeInOut" }}
+                style={{ opacity: heroOpacity, y: heroY }}
             >
-                <div className="container">
-                    <h1 className="hero-title-reveal">
-                        {"Our Services".split('').map((char, i) => (
-                            <motion.span
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: i * 0.03, ease: "easeOut" }}
-                                style={{ display: 'inline-block' }}
-                            >
-                                {char === ' ' ? '\u00A0' : char}
-                            </motion.span>
-                        ))}
-                    </h1>
-                    <div className="hero-underline-wrapper">
-                        <motion.div
-                            className="hero-underline"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: 1 }}
-                            transition={{ duration: 0.8, delay: 0.6, ease: "easeInOut" }}
-                            style={{ originX: 0 }}
-                        />
-                    </div>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.8 }}
-                    >
-                        Comprehensive IT solutions designed to solve your business challenges
-                    </motion.p>
-                </div>
-            </motion.section>
-
-            {services.map((service, idx) => (
-                <ServiceBlock key={idx} {...service} />
-            ))}
-
-            <motion.section
-                className="section transform-cta"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-            >
+                <div className="hero-grid-bg"></div>
                 <div className="container text-center">
-                    <motion.h2
-                        initial={{ opacity: 0, scale: 0.98 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, ease: "easeInOut" }}
-                    >
-                        Ready to Transform Your Business?
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                        Let's discuss how our services can help you achieve your goals.
-                    </motion.p>
                     <motion.div
-                        className="cta-buttons mt-2"
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        className="max-w-800 mx-auto"
                     >
-                        <motion.button
-                            className="btn btn-primary"
-                            whileHover={{ scale: 1.02, boxShadow: "0 10px 20px rgba(0,0,0,0.1)" }}
-                        >
-                            Contact Us <ArrowRight size={16} className="arrow-icon" style={{ marginLeft: '8px' }} />
-                        </motion.button>
-                        <button className="btn btn-outline ml-1">Learn More About Us</button>
+                        <span className="hero-badge-glow">Enterprise Solutions</span>
+                        <h1 className="premium-hero-heading">
+                            Transforming Ambition into <br />
+                            <span className="highlight-gradient">Digital Reality</span>
+                        </h1>
+                        <p className="hero-modern-p">
+                            Comprehensive, scalable, and secure technology services engineered for global enterprises demanding excellence.
+                        </p>
                     </motion.div>
                 </div>
             </motion.section>
+
+            {/* Marquee Trust Badges */}
+            <TrustBadges />
+
+            <div className="services-list-wrapper">
+                {services.map((service, idx) => (
+                    <ServiceBlock key={idx} index={idx} {...service} />
+                ))}
+            </div>
+
+            <section className="cta-modern footer-cta-service">
+                <div className="cta-glow-overlay"></div>
+                <div className="container">
+                    <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6 }} className="cta-modern-box glass-card-premium">
+                        <h2>Ready to Evaluate Your Technology Stack?</h2>
+                        <p>Book a free 30-minute discovery call with our enterprise solutions architect.</p>
+                        <div className="cta-actions">
+                            <a href="/contact" className="btn btn-orange cta-main-btn">Book Discovery Call</a>
+                            <a href="mailto:info@kamglobalai.com" className="btn cta-outline-btn"><Mail size={18} className="mr-05" /> Email Us</a>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
         </div>
     );
 };

@@ -1,9 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { Sparkles, BarChart3, Presentation, Users2, BookOpen, ScrollText, CheckCircle, ShieldCheck, ArrowRight, Zap, Globe, Smartphone, Lock, Rocket, Target, Cpu } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { BarChart3, CheckCircle, ArrowRight, Rocket, Target, Cpu, XCircle } from 'lucide-react';
 import './LMS.css';
+import './LMS-new-sections.css';
 
-const VisionCard = ({ icon: Icon, title, desc, delay }) => {
+const VisionCard = ({ icon: Icon, title, desc, delay }) => { // eslint-disable-line no-unused-vars
     return (
         <motion.div
             className="glass-vision vision-card"
@@ -45,10 +46,10 @@ const LMS = () => {
         email: '',
         phone: '',
         institution: '',
-        role: 'I am a...',
-        gradeRange: 'Grade Range'
+        role: '',
+        gradeRange: ''
     });
-    const [formStatus, setFormStatus] = useState({ type: '', message: '' });
+    const [status, setStatus] = useState({ type: 'idle', message: '' });
 
     const heroRef = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -66,17 +67,33 @@ const LMS = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setFormStatus({ type: 'loading', message: 'Processing your request...' });
+        setStatus({ type: 'loading', message: 'Processing your request...' });
 
-        if (!formData.name || !formData.email || formData.role === 'I am a...') {
-            setFormStatus({ type: 'error', message: 'Please complete the required fields.' });
+        if (!formData.name || !formData.email || !formData.role) {
+            setStatus({ type: 'error', message: 'Please complete the required fields.' });
             return;
         }
 
-        setTimeout(() => {
-            setFormStatus({ type: 'success', message: 'Access granted. We will contact you shortly.' });
-            setFormData({ name: '', email: '', phone: '', institution: '', role: 'I am a...', gradeRange: 'Grade Range' });
-        }, 1800);
+        try {
+            const response = await fetch('/api/waitlist', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setStatus({ type: 'success', message: 'Successfully joined the waitlist! We will contact you soon.' });
+                setFormData({ name: '', email: '', phone: '', institution: '', role: '', gradeRange: '' });
+            } else {
+                setStatus({ type: 'error', message: data.message || 'Failed to join waitlist. Please try again.' });
+            }
+        } catch {
+            setStatus({ type: 'error', message: 'An error occurred. Please try again later.' });
+        }
     };
 
     const features = [
@@ -93,6 +110,19 @@ const LMS = () => {
                 ref={heroRef}
                 style={{ opacity: heroOpacity }}
             >
+                {/* Video Background */}
+                <video
+                    className="hero-video-background"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                >
+                    <source src="/hero-background.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+                <div className="hero-video-overlay"></div>
+
                 <div className="container">
                     <motion.div className="hero-content" style={{ translateY: heroContentY }}>
                         <motion.div
@@ -101,7 +131,7 @@ const LMS = () => {
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                         >
-                            <Rocket size={16} style={{ marginRight: '10px' }} /> Launching soon — 2026
+                            <Rocket size={16} style={{ marginRight: '10px' }} /> Launching — Late 2026
                         </motion.div>
 
                         <AnimatedLineText
@@ -126,7 +156,7 @@ const LMS = () => {
                             transition={{ duration: 1.5, delay: 1.5 }}
                         >
                             <button className="glass-pill primary" onClick={() => document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' })}>Join Waitlist</button>
-                            <button className="glass-pill" style={{ marginLeft: '1.5rem' }}>Request Demo</button>
+                            <button className="glass-pill" style={{ marginLeft: '1.5rem' }} onClick={() => document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' })}>Request Demo</button>
                         </motion.div>
                     </motion.div>
                 </div>
@@ -154,6 +184,124 @@ const LMS = () => {
                     </div>
                 </div>
             </section>
+
+            {/* About Our Product Section - NEW */}
+            <section className="section about-product-section">
+                <div className="container">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="section-header-centered"
+                    >
+                        <h2 className="section-title-premium">About Our Product</h2>
+                        <p className="section-subtitle">Revolutionizing education through artificial intelligence</p>
+                    </motion.div>
+
+                    <div className="about-product-grid">
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="about-product-content"
+                        >
+                            <h3>The Future of Personalized Learning</h3>
+                            <p>Our AI-Powered LMS isn't just another learning platform—it's a revolutionary educational ecosystem designed to adapt to each student's unique learning style, pace, and goals.</p>
+
+                            <div className="product-benefits">
+                                <div className="benefit-item">
+                                    <CheckCircle size={20} className="benefit-icon" />
+                                    <div>
+                                        <h4>Real-Time Adaptation</h4>
+                                        <p>AI algorithms continuously analyze student performance and adjust difficulty levels in real-time.</p>
+                                    </div>
+                                </div>
+                                <div className="benefit-item">
+                                    <CheckCircle size={20} className="benefit-icon" />
+                                    <div>
+                                        <h4>Comprehensive Coverage</h4>
+                                        <p>Complete curriculum from Pre-KG to Grade 12 across all major subjects and learning paths.</p>
+                                    </div>
+                                </div>
+                                <div className="benefit-item">
+                                    <CheckCircle size={20} className="benefit-icon" />
+                                    <div>
+                                        <h4>Teacher Empowerment</h4>
+                                        <p>Advanced analytics and AI assistance free up educators to focus on mentorship and creative teaching.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: 30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            className="about-product-visual"
+                        >
+                            <div className="glass-vision stats-container">
+                                <div className="stat-box">
+                                    <h3>15+</h3>
+                                    <p>Subjects Covered</p>
+                                </div>
+                                <div className="stat-box">
+                                    <h3>1000+</h3>
+                                    <p>Interactive Lessons</p>
+                                </div>
+                                <div className="stat-box">
+                                    <h3>24/7</h3>
+                                    <p>AI Tutor Access</p>
+                                </div>
+                                <div className="stat-box">
+                                    <h3>99%</h3>
+                                    <p>Student Satisfaction</p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Technology Stack Section - NEW */}
+            <section className="section tech-stack-section">
+                <div className="container">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="section-header-centered"
+                    >
+                        <h2 className="section-title-premium">Built with Cutting-Edge Technology</h2>
+                        <p className="section-subtitle">Powered by the latest in AI and cloud infrastructure</p>
+                    </motion.div>
+
+                    <div className="tech-stack-grid">
+                        {[
+                            { name: 'GPT-4 AI', desc: 'Advanced natural language processing' },
+                            { name: 'Cloud Infrastructure', desc: '99.99% uptime guarantee' },
+                            { name: 'Adaptive Algorithms', desc: 'Real-time learning optimization' },
+                            { name: 'Secure Platform', desc: 'Enterprise-grade encryption' },
+                            { name: 'Mobile Ready', desc: 'iOS, Android, and Web' },
+                            { name: 'Analytics Dashboard', desc: 'Deep performance insights' }
+                        ].map((tech, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="tech-card glass-vision"
+                            >
+                                <Cpu size={32} style={{ color: '#6366f1', marginBottom: '1rem' }} />
+                                <h4>{tech.name}</h4>
+                                <p>{tech.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+
 
             {/* Grade Coverage Horizontal Segments */}
             <section className="section grade-coverage">
@@ -253,7 +401,7 @@ const LMS = () => {
                         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <div className="text-center">
-                            <h2 style={{ fontSize: '3rem', fontWeight: 800, letterspacing: '-0.02em' }}>Reserve Early Access</h2>
+                            <h2 style={{ fontSize: '3rem', fontWeight: 800, letterSpacing: '-0.02em' }}>Reserve Early Access</h2>
                             <p className="v-card-desc">Enter the next generation of intelligent education.</p>
                         </div>
 
@@ -261,32 +409,53 @@ const LMS = () => {
                             <input type="text" name="name" placeholder="Full Name" className="frosted-input" value={formData.name} onChange={handleInputChange} required />
                             <input type="email" name="email" placeholder="Email" className="frosted-input" value={formData.email} onChange={handleInputChange} required />
                             <input type="tel" name="phone" placeholder="Phone (Optional)" className="frosted-input" value={formData.phone} onChange={handleInputChange} />
-                            <select name="role" className="frosted-input" value={formData.role} onChange={handleInputChange}>
-                                <option>I am a...</option>
-                                <option>Student</option>
-                                <option>Parent</option>
-                                <option>Educator</option>
-                                <option>Administrator</option>
-                                <option>Other</option>
+                            <select name="role" className="frosted-input" value={formData.role} onChange={handleInputChange} required>
+                                <option value="" disabled>I am a...</option>
+                                <option value="Student">Student</option>
+                                <option value="Parent">Parent</option>
+                                <option value="Educator">Educator</option>
+                                <option value="Administrator">Administrator</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" name="institution" placeholder="Institution / Organization" className="frosted-input" value={formData.institution} onChange={handleInputChange} />
+                            <select name="gradeRange" className="frosted-input" value={formData.gradeRange} onChange={handleInputChange}>
+                                <option value="" disabled>Grade Range (If applicable)</option>
+                                <option value="Pre-KG">Pre-KG</option>
+                                <option value="Elementary">Elementary (G1-G5)</option>
+                                <option value="Middle School">Middle School (G6-G8)</option>
+                                <option value="High School">High School (G9-G12)</option>
+                                <option value="Multiple">Multiple Levels</option>
                             </select>
 
                             <div style={{ gridColumn: '1 / -1' }}>
-                                {formStatus.message && (
-                                    <motion.p
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        style={{
-                                            marginBottom: '1.5rem',
-                                            textAlign: 'center',
-                                            color: formStatus.type === 'error' ? '#ff3b30' : '#34c759',
-                                            fontWeight: 600
-                                        }}
-                                    >
-                                        {formStatus.message}
-                                    </motion.p>
-                                )}
-                                <button type="submit" className="glass-pill primary w-full" style={{ padding: '1.4rem' }} disabled={formStatus.type === 'loading'}>
-                                    {formStatus.type === 'loading' ? 'Encrypting...' : 'Request Invitation'} <ArrowRight size={20} style={{ marginLeft: '12px' }} />
+                                <AnimatePresence mode="wait">
+                                    {status.type !== 'idle' && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: -10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: -10 }}
+                                            style={{
+                                                marginBottom: '1.5rem',
+                                                textAlign: 'center',
+                                                padding: '1rem',
+                                                borderRadius: '12px',
+                                                background: status.type === 'error' ? 'rgba(255, 59, 48, 0.1)' : (status.type === 'success' ? 'rgba(52, 199, 89, 0.1)' : 'rgba(0, 0, 0, 0.05)'),
+                                                color: status.type === 'error' ? '#ff3b30' : (status.type === 'success' ? '#34c759' : '#888'),
+                                                fontWeight: 600,
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                gap: '10px'
+                                            }}
+                                        >
+                                            {status.type === 'success' && <CheckCircle size={20} />}
+                                            {status.type === 'error' && <XCircle size={20} />}
+                                            {status.message}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                                <button type="submit" className="glass-pill primary w-full" style={{ padding: '1.4rem' }} disabled={status.type === 'loading'}>
+                                    {status.type === 'loading' ? 'Encrypting...' : 'Request Invitation'} <ArrowRight size={20} style={{ marginLeft: '12px' }} />
                                 </button>
                             </div>
                         </form>

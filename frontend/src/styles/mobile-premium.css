@@ -1,0 +1,619 @@
+/* ========================================
+   MOBILE-FIRST PREMIUM EXPERIENCE
+   Advanced Glassmorphism & Animations
+   ======================================== */
+
+/* ==========================================
+   1. MOBILE-SPECIFIC GLASSMORPHISM EFFECTS
+   ========================================== */
+
+/* Enhanced Glass Cards on Mobile */
+@media (max-width: 768px) {
+
+    .glass-vision,
+    .glass-tile,
+    .glass-panel,
+    .pricing-card,
+    .tech-card {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(25px) saturate(180%) !important;
+        -webkit-backdrop-filter: blur(25px) saturate(180%) !important;
+        border: 1.5px solid rgba(255, 255, 255, 0.8) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(255, 255, 255, 0.5) inset !important;
+    }
+
+    /* Frosted glass effect for mobile */
+    .glass-pill,
+    .floating-glass-badge {
+        backdrop-filter: blur(30px) saturate(200%) !important;
+        -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+        background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                rgba(255, 255, 255, 0.3) 100%) !important;
+        border: 2px solid rgba(255, 255, 255, 0.6) !important;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15),
+            0 0 0 1px rgba(255, 255, 255, 0.8) inset !important;
+    }
+}
+
+/* ==========================================
+   2. MOBILE-OPTIMIZED IMAGE SYSTEM
+   ========================================== */
+
+/* Responsive Images - Auto Adjust */
+@media (max-width: 768px) {
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    /* Preserve aspect ratios for key images */
+    .hero-image,
+    .about-product-visual img,
+    .prop-image-container img,
+    .office-card img,
+    .team-member img {
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        width: 100%;
+        height: auto;
+    }
+
+    /* Profile images - square aspect ratio */
+    .team-avatar,
+    .profile-image {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    /* Progressive image loading effect */
+    img[loading="lazy"] {
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+    img[loading="lazy"].loaded {
+        opacity: 1;
+    }
+}
+
+/* ==========================================
+   3. MOBILE SWIPEABLE GALLERIES
+   ========================================== */
+
+@media (max-width: 768px) {
+    .mobile-swipe-gallery {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        gap: 16px;
+        padding: 20px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        /* Firefox */
+    }
+
+    .mobile-swipe-gallery::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari */
+    }
+
+    .mobile-swipe-gallery .gallery-item {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+    }
+
+    .mobile-swipe-gallery .gallery-item:active {
+        transform: scale(0.98);
+    }
+
+    /* Scroll indicator dots */
+    .gallery-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .gallery-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .gallery-dot.active {
+        width: 24px;
+        border-radius: 4px;
+        background: #6366f1;
+    }
+}
+
+/* ==========================================
+   4. FLOATING ACTION BUTTON (MOBILE)
+   ========================================== */
+
+@media (max-width: 768px) {
+    .mobile-fab {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        color: white;
+        border: none;
+        box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4),
+            0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        animation: fabPulse 2s ease-in-out infinite;
+    }
+
+    .mobile-fab:active {
+        transform: scale(0.92);
+    }
+
+    @keyframes fabPulse {
+
+        0%,
+        100% {
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4),
+                0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        50% {
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.6),
+                0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    /* FAB Menu */
+    .fab-menu {
+        position: fixed;
+        bottom: 100px;
+        right: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: 999;
+    }
+
+    .fab-menu.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .fab-menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: white;
+        padding: 12px 20px;
+        border-radius: 100px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+        animation: fabMenuSlide 0.3s ease-out backwards;
+    }
+
+    .fab-menu-item:nth-child(1) {
+        animation-delay: 0.05s;
+    }
+
+    .fab-menu-item:nth-child(2) {
+        animation-delay: 0.1s;
+    }
+
+    .fab-menu-item:nth-child(3) {
+        animation-delay: 0.15s;
+    }
+
+    @keyframes fabMenuSlide {
+        from {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+}
+
+/* ==========================================
+   5. MOBILE BOTTOM SHEET NAVIGATION
+   ========================================== */
+
+@media (max-width: 768px) {
+    .mobile-bottom-sheet {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 12px 16px 24px;
+        border-radius: 24px 24px 0 0;
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .mobile-bottom-sheet.active {
+        transform: translateY(0);
+    }
+
+    .bottom-sheet-handle {
+        width: 40px;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 2px;
+        margin: 0 auto 16px;
+    }
+
+    .bottom-sheet-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .bottom-sheet-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 16px;
+        color: #64748b;
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+    }
+
+    .bottom-sheet-item.active {
+        color: #6366f1;
+        background: rgba(99, 102, 241, 0.1);
+    }
+
+    .bottom-sheet-item:active {
+        transform: scale(0.95);
+    }
+}
+
+/* ==========================================
+   6. TOUCH-OPTIMIZED CARDS WITH ANIMATIONS
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* Card tap effect */
+    .interactive-card {
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .interactive-card:active {
+        transform: scale(0.97);
+    }
+
+    /* Card reveal animation on scroll */
+    .reveal-card {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: revealUp 0.6s ease-out forwards;
+    }
+
+    @keyframes revealUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Stagger animation delays */
+    .reveal-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .reveal-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .reveal-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    .reveal-card:nth-child(4) {
+        animation-delay: 0.4s;
+    }
+}
+
+/* ==========================================
+   7. SMOOTH SCROLL INDICATORS
+   ========================================== */
+
+@media (max-width: 768px) {
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
+        transform-origin: left;
+        z-index: 9999;
+        transition: transform 0.1s ease-out;
+    }
+
+    /* Scroll to top button */
+    .scroll-to-top {
+        position: fixed;
+        bottom: 100px;
+        right: 24px;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: white;
+        color: #6366f1;
+        border: 2px solid rgba(99, 102, 241, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        z-index: 998;
+    }
+
+    .scroll-to-top.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .scroll-to-top:active {
+        transform: scale(0.9);
+    }
+}
+
+/* ==========================================
+   8. SKELETON LOADING SCREENS
+   ========================================== */
+
+@media (max-width: 768px) {
+    .skeleton {
+        background: linear-gradient(90deg,
+                #f0f0f0 0%,
+                #e0e0e0 20%,
+                #f0f0f0 40%,
+                #f0f0f0 100%);
+        background-size: 200% 100%;
+        animation: skeletonLoading 1.5s ease-in-out infinite;
+        border-radius: 8px;
+    }
+
+    @keyframes skeletonLoading {
+        0% {
+            background-position: 200% 0;
+        }
+
+        100% {
+            background-position: -200% 0;
+        }
+    }
+
+    .skeleton-text {
+        height: 16px;
+        margin-bottom: 8px;
+    }
+
+    .skeleton-title {
+        height: 24px;
+        width: 70%;
+        margin-bottom: 12px;
+    }
+
+    .skeleton-card {
+        height: 200px;
+        border-radius: 16px;
+    }
+}
+
+/* ==========================================
+   9. PULL-TO-REFRESH INDICATOR
+   ========================================== */
+
+@media (max-width: 768px) {
+    .pull-to-refresh {
+        position: fixed;
+        top: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: top 0.3s ease;
+        z-index: 9998;
+    }
+
+    .pull-to-refresh.active {
+        top: 20px;
+    }
+
+    .pull-to-refresh svg {
+        animation: refreshSpin 1s linear infinite;
+    }
+
+    @keyframes refreshSpin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+/* ==========================================
+   10. CELEBRATE MICRO-INTERACTIONS
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* Success celebration */
+    .celebrate {
+        position: relative;
+        overflow: visible;
+    }
+
+    .celebrate::after {
+        content: '🎉';
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        animation: celebratePopconfetti 0.6s ease-out;
+        pointer-events: none;
+    }
+
+    @keyframes celebratePopconfetti {
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px) scale(0);
+        }
+
+        50% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px) scale(1.2);
+        }
+
+        100% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-40px) scale(0.8);
+        }
+    }
+
+    /* Button ripple effect */
+    .ripple-button {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ripple-button::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .ripple-button:active::before {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* ==========================================
+   11. ENHANCED TOUCH FEEDBACK
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* Visual haptic feedback */
+    .haptic-light:active {
+        animation: hapticPulse 0.3s ease;
+    }
+
+    @keyframes hapticPulse {
+
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(0.98);
+        }
+    }
+
+    /* Button press effect */
+    .press-effect:active {
+        transform: scale(0.96);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Smooth transitions for all interactive elements */
+    a,
+    button,
+    .interactive {
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+/* ==========================================
+   12. MOBILE-OPTIMIZED TYPOGRAPHY
+   ========================================== */
+
+@media (max-width: 768px) {
+
+    /* Slightly larger for better readability */
+    body {
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Optimal line length for mobile */
+    p,
+    li {
+        max-width: 100%;
+        line-height: 1.7;
+    }
+
+    /* Prevent text zoom on input focus (iOS) */
+    input,
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+}
