@@ -21,7 +21,7 @@ const Footer = () => {
                             <a href="#"><Facebook size={20} /></a>
                             <a href="#"><Twitter size={20} /></a>
                             <a href="https://www.linkedin.com/company/kam-global-for-digital-ai-media-solutions-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
-                            <a href="#"><Instagram size={20} /></a>
+                            <a href="https://www.instagram.com/eduaitutors?igsh=MWZmOTIyOW9nOW5xdQ=="><Instagram size={20} /></a>
                         </div>
                     </div>
 

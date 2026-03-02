@@ -11,7 +11,11 @@ import LMS from './pages/LMS';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
 import ApplyNow from './pages/ApplyNow';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import Support from './pages/Support';
 import FloatingActions from './components/FloatingActions';
+import CookieConsent from './components/CookieConsent';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
@@ -39,9 +43,13 @@ function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/apply-now" element={<ApplyNow />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/support" element={<Support />} />
           </Routes>
         </main>
         <FloatingActions />
+        <CookieConsent />
         <Footer />
       </div>
     </Router>
