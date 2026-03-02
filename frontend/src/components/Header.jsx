@@ -47,44 +47,49 @@ const Header = () => {
       </Link>
 
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-        <div className="container header-container">
-          <div className="header-left-spacer"></div>
-
-          {/* Desktop Nav */}
-          <nav className="desktop-nav">
-            {navLinks.map((link) => (
-              <div
-                key={link.name}
-                className="nav-item-wrapper"
-                onMouseEnter={() => link.dropdown && setServicesDropdown(true)}
-                onMouseLeave={() => link.dropdown && setServicesDropdown(false)}
-              >
-                <Link
-                  to={link.path}
-                  className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
-                  onClick={() => setServicesDropdown(false)}
+        <div className="header-main-wrapper flex items-center justify-between">
+          <div className="desktop-nav-container">
+            <nav className="desktop-nav">
+              {navLinks.map((link) => (
+                <div
+                  key={link.name}
+                  className="nav-item-wrapper"
+                  onMouseEnter={() => link.dropdown && setServicesDropdown(true)}
+                  onMouseLeave={() => link.dropdown && setServicesDropdown(false)}
                 >
-                  {link.name}
-                  {link.dropdown && <ChevronDown size={14} className={`dropdown-icon ${servicesDropdown ? 'rotate' : ''}`} />}
-                </Link>
+                  <Link
+                    to={link.path}
+                    className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+                    onClick={() => setServicesDropdown(false)}
+                  >
+                    {link.name}
+                    {link.dropdown && <ChevronDown size={14} className={`dropdown-icon ${servicesDropdown ? 'rotate' : ''}`} />}
+                  </Link>
 
-                {link.dropdown && servicesDropdown && (
-                  <div className="dropdown-menu glass">
-                    {link.dropdown.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className="dropdown-item"
-                        onClick={() => setServicesDropdown(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+                  {link.dropdown && servicesDropdown && (
+                    <div className="dropdown-menu glass">
+                      {link.dropdown.map((item) => (
+                        <Link
+                          key={item.name}
+                          to={item.path}
+                          className="dropdown-item"
+                          onClick={() => setServicesDropdown(false)}
+                        >
+                          {item.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+          </div>
+
+          <div className="nav-divider"></div>
+
+          <Link to="/contact" className="nav-contact-btn">
+            Contact us
+          </Link>
 
           {/* Mobile Toggle */}
           <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
@@ -124,12 +129,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-
-
-
-      <Link to="/contact" className={`contact-btn-fixed ${scrolled ? 'scrolled' : ''}`}>
-        Contact us
-      </Link>
     </>
   );
 };

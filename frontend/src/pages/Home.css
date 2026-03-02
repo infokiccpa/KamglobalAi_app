@@ -1,12 +1,10 @@
-/* Framed Hero Section Styles - Restored */
 .hero-framed-wrapper {
-    padding: 100px 2rem 4rem;
-    /* Reduced by >20% */
+    padding: 160px 2rem 4rem;
+    /* Increased breathing room for floating navbar */
     background: #f1f5f9;
     display: flex;
     justify-content: center;
     min-height: 90vh;
-    /* Tighter breathing room */
 }
 
 .hero-outer-frame {

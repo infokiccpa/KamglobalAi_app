@@ -1,60 +1,54 @@
 .logo-fixed {
     position: fixed;
-    top: 10px;
-    left: 20px;
-    z-index: 1001;
+    top: 20px;
+    left: 40px;
+    z-index: 1010;
     transition: all 0.4s ease;
 }
 
 .logo-fixed .logo-img {
-    height: 130px;
-    /* Reduced size */
+    height: 90px;
     width: auto;
     object-fit: contain;
     mix-blend-mode: multiply;
-    /* Removes white background */
-    filter: contrast(110%);
-    /* Sharpens the logo after blending */
     transition: all 0.4s ease;
 }
 
 .logo-fixed.scrolled {
-    top: 5px;
-    left: 15px;
+    top: 10px;
+    left: 30px;
 }
 
 .logo-fixed.scrolled .logo-img {
-    height: 100px;
-    /* Reduced scrolled size */
+    height: 70px;
 }
 
 .header {
     position: fixed;
-    top: 1.5rem;
+    top: 25px;
     left: 50%;
     transform: translateX(-50%);
     width: auto;
-    padding: 0 0.5rem;
-    min-width: 700px;
-    max-width: 90%;
-    height: 80px;
+    padding: 0 1rem;
+    height: 70px;
+    /* Standardized height */
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(25px) saturate(210%);
-    -webkit-backdrop-filter: blur(25px) saturate(210%);
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 100px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .header.scrolled {
-    height: 70px;
-    min-width: 750px;
-    top: 1rem;
+    height: 60px;
+    top: 15px;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .header-container {
@@ -62,6 +56,13 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.header-main-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    height: 100%;
 }
 
 /* Global logo styles moved to index.css */
@@ -72,41 +73,28 @@
 .desktop-nav {
     display: flex;
     align-items: center;
-    gap: 0.4rem;
-    /* Reduced from 0.75rem to save horizontal space */
+    gap: 0.25rem;
 }
 
 .nav-link {
     font-size: 0.9rem;
     font-weight: 600;
-    color: var(--foreground);
-    opacity: 0.85;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.25rem;
-    padding: 0.6rem 1rem;
-    /* Reduced from 1.25rem */
+    color: #0c213d;
+    /* Brand Navy */
+    opacity: 0.8;
+    padding: 0.6rem 1.1rem;
     border-radius: 50px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    background: transparent;
-    border: 1px solid transparent;
+    transition: all 0.3s ease;
     white-space: nowrap;
 }
 
 .nav-link:hover,
 .nav-link.active {
-    color: #0f172a;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    transform: translateY(-2px);
+    color: #f7941d;
+    /* Brand Orange */
+    opacity: 1;
+    background: rgba(247, 148, 29, 0.05);
 }
-
 
 .nav-item-wrapper {
     position: relative;
@@ -170,6 +158,32 @@
     background: rgba(15, 23, 42, 0.06);
     color: #0f172a;
     padding-left: 1.25rem;
+}
+
+.nav-divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0 0.5rem;
+}
+
+.nav-contact-btn {
+    background: #0c213d;
+    color: #ffffff;
+    padding: 0.7rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 8px 20px rgba(12, 33, 61, 0.15);
+}
+
+.nav-contact-btn:hover {
+    background: #1e293b;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(12, 33, 61, 0.25);
+    color: #ffffff;
 }
 
 .mobile-toggle {
@@ -236,6 +250,14 @@
     text-align: center;
 }
 
+@media (max-width: 1100px) {
+
+    .nav-divider,
+    .nav-contact-btn {
+        display: none;
+    }
+}
+
 @media (max-width: 1000px) {
     .header {
         width: 95%;
@@ -256,52 +278,7 @@
         padding: 0 1.5rem;
     }
 
-    .contact-btn-fixed {
-        display: none;
-    }
-
     .logo-fixed {
         display: none;
     }
-}
-
-.contact-btn-fixed {
-    position: fixed;
-    top: calc(1.5rem + 10px);
-    /* Centers 60px button within 80px header vertical space */
-    right: 2rem;
-    height: 60px;
-    padding: 0 2.5rem;
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    color: #1d1d1f;
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1001;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
-}
-
-.contact-btn-fixed.scrolled {
-    top: calc(1rem + 10px);
-    /* Centers 50px button within 70px scrolled header vertical space */
-    height: 50px;
-    right: 1.5rem;
-    padding: 0 2rem;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
-}
-
-.contact-btn-fixed:hover {
-    transform: translateY(-4px) scale(1.03);
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.2);
 }
