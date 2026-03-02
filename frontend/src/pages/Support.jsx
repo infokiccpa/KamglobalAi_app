@@ -73,7 +73,7 @@ const Support = () => {
                         </div>
                         <div>
                             <strong>Kam Groups (Kuwait)</strong>
-                            <p>Floor 2&6, Al Barsha Complex,<br />Tunis Street, Hawally, Kuwait.</p>
+                            <p>20408 Tunisia St, Hawally, Kuwait.</p>
                         </div>
                     </div>
                 </div>

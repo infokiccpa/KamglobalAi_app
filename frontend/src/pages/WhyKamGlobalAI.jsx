@@ -156,9 +156,6 @@ const WhyKamGlobalAI = () => {
                                 </div>
                                 <h3>{item.title}</h3>
                                 <p>{item.desc}</p>
-                                <button className="adv-read-more">
-                                    Read More <ArrowRight size={16} />
-                                </button>
                                 <div className="card-bottom-accent"></div>
                             </motion.div>
                         ))}

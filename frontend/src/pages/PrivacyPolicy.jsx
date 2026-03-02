@@ -71,7 +71,7 @@ const PrivacyPolicy = () => {
                     </p>
                     <p><strong>Email:</strong> info@kamglobalai.com</p>
                     <p><strong>Phone (India):</strong> +91 80507 66363</p>
-                    <p><strong>Phone (Kuwait):</strong> +965 22087764</p>
+                    <p><strong>Phone (Kuwait):</strong> +965 2434 5650</p>
                 </div>
             </section>
         </div>

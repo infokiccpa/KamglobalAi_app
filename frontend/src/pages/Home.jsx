@@ -85,7 +85,7 @@ const Home = () => {
         partnership: {
             title: "Strategic Partnership with KAM Group, Kuwait",
             desc: "A powerful synergy that integrates the industrial legacy and regional vision of KAM Group with our world-class engineering execution, creating a bridge of trust between Kuwait and the global technology market.",
-            location: "Kuwait City, Kuwait",
+            location: "20408 Tunisia St, Hawally, Kuwait",
             phone: "+965 2434 5650",
         },
         partners: [
@@ -275,7 +275,7 @@ const Home = () => {
                         <div className="contact-divider"></div>
                         <div className="contact-item">
                             <Phone size={16} />
-                            <span>{homeData.partnership.phone}</span>
+                            <span>+965 2434 5650</span>
                         </div>
                     </motion.div>
                 </div>

@@ -8,7 +8,9 @@
 
 /* Services Hero Modern */
 .services-hero-modern {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('/hero-tech-premium.png');
+    background-size: cover;
+    background-position: center;
     padding: 160px 1.5rem 80px;
     position: relative;
     overflow: hidden;
@@ -51,6 +53,8 @@
     line-height: 1.1;
     margin-bottom: 1.5rem;
     letter-spacing: -0.03em;
+    color: #ffffff;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .highlight-gradient {
