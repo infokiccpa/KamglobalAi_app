@@ -69,7 +69,7 @@ const Support = () => {
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
                         <div>
                             <strong>Kam Global (India)</strong>
-                            <p>No 544, 3rd cross, 3rd main,<br />RT Nagar, Bangalore-563125</p>
+                            <p>No 544, 3rd cross, 3rd main,<br />RT Nagar, Bangalore-560032</p>
                         </div>
                         <div>
                             <strong>Kam Groups (Kuwait)</strong>

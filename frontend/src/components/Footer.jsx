@@ -73,7 +73,7 @@ const Footer = () => {
                             <MapPin size={20} className="icon" />
                             <div>
                                 <strong>Kam Global (India):</strong>
-                                <p>No 544, 3rd cross, 3rd main,<br />Above TMC Bank, RT Nagar,<br />Bangalore-563125</p>
+                                <p>No 544, 3rd cross, 3rd main,<br />Above TMC Bank, RT Nagar,<br />Bangalore-560032</p>
                             </div>
                         </div>
                         <div className="contact-item">

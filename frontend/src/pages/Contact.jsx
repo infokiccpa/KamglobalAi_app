@@ -292,7 +292,7 @@ const Contact = () => {
                                     <h3>India Office</h3>
                                 </div>
                                 <div className="office-details">
-                                    <p>No 544, 3rd cross, 3rd main, Above TMC Bank, RT Nagar, Bangalore-563125</p>
+                                    <p>No 544, 3rd cross, 3rd main, Above TMC Bank, RT Nagar, Bangalore-560032</p>
                                     <a href="tel:+918050766363" className="office-link"><Phone size={14} /> +91 80507 66363</a>
                                     <a href="mailto:info@kamglobalai.com" className="office-link"><Mail size={14} /> info@kamglobalai.com</a>
                                     <div className="office-hours"><Clock size={14} /> Mon-Sat: 9:00 AM - 7:00 PM IST</div>
