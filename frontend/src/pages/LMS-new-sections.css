@@ -23,6 +23,173 @@
     margin: 0 auto;
 }
 
+/* ============================
+   PRODUCTS PAGE TOP SECTIONS
+   (match Our Products layout)
+   ============================ */
+
+.products-hero {
+    position: relative;
+    padding: 4.5rem 0;
+    margin-top: 7rem;
+    background-image: url('/images/products.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+.products-hero-inner {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.products-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92));
+    mix-blend-mode: multiply;
+    pointer-events: none;
+}
+
+.products-hero-content {
+    position: relative;
+    text-align: center;
+    color: #f9fafb;
+}
+
+.products-hero-title {
+    font-size: clamp(2.4rem, 4.4vw, 3.1rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    margin-bottom: 0.35rem;
+}
+
+.products-hero-subtitle {
+    font-size: 1.05rem;
+    color: #e5e7eb;
+    max-width: 540px;
+    line-height: 1.7;
+    margin: 0 auto;
+}
+
+.products-hero-underline {
+    width: 72px;
+    height: 3px;
+    border-radius: 999px;
+    margin: 0.6rem auto 0.9rem;
+    background: linear-gradient(to right, #22c55e, #06b6d4);
+}
+
+.flagship-product {
+    padding: 4rem 0 3rem;
+    background: #f3f4f6;
+}
+
+.flagship-layout {
+    margin-top: 2.5rem;
+    padding: 0;
+    border-radius: 26px 0 0 26px;
+    overflow: hidden;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    background: #ffffff;
+}
+
+.flagship-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1.4fr;
+    min-height: 360px;
+}
+
+.flagship-visual {
+    position: relative;
+}
+
+.flagship-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flagship-content {
+    padding: 2.75rem 2.9rem;
+    background: radial-gradient(circle at top left, #020617 0%, #020617 52%, #020617 90%);
+    color: #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.flagship-content .v-card-title {
+    color: #f9fafb;
+    margin-bottom: 0.75rem;
+}
+
+.flagship-content .v-card-desc {
+    color: #9ca3af;
+    font-size: 0.98rem;
+    line-height: 1.7;
+    margin-bottom: 1.3rem;
+}
+
+.flagship-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem 1.75rem;
+    font-size: 0.9rem;
+    color: #d1d5db;
+}
+
+.flagship-bullets li::before {
+    content: '✔';
+    margin-right: 0.45rem;
+    color: #22c55e;
+    font-size: 0.8rem;
+}
+
+.flagship-content .glass-pill.primary {
+    align-self: flex-start;
+}
+
+@media (max-width: 1024px) {
+    .flagship-grid {
+        grid-template-columns: 1.4fr 1.6fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-hero {
+        padding: 4.5rem 0 2.5rem;
+    }
+
+    .flagship-product {
+        padding: 2rem 0 4rem;
+    }
+
+    .flagship-layout {
+        border-radius: 20px;
+    }
+
+    .flagship-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flagship-content {
+        padding: 2rem 1.75rem 2.5rem;
+    }
+
+    .flagship-bullets {
+        grid-template-columns: 1fr;
+    }
+}
+
+
 /* About Our Product Section */
 .about-product-section {
     padding: 8rem 0;
