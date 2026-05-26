@@ -401,7 +401,7 @@
 }
 
 /* ===========================
-   5. Locations Link Section
+   5. Locations Section
    =========================== */
 .locations-section {
     padding: 40px 0 80px;
@@ -418,10 +418,10 @@
 
 .locations-wrapper {
     display: inline-flex;
-    align-items: center;
+    align-items: stretch;
     background: white;
-    padding: 16px 32px;
-    border-radius: 100px;
+    padding: 24px 32px;
+    border-radius: 24px;
     box-shadow: var(--shadow-soft);
     border: 1px solid var(--glass-border);
     gap: 32px;
@@ -429,8 +429,15 @@
 
 .location-item {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
+    text-align: left;
+}
+
+.location-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .pin-circle {
@@ -442,12 +449,21 @@
     align-items: center;
     justify-content: center;
     color: var(--text-primary);
+    flex-shrink: 0;
 }
 
 .location-item h3 {
     font-size: 16px;
     font-weight: 600;
     margin: 0;
+}
+
+.location-address {
+    font-style: normal;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    max-width: 280px;
 }
 
 .map-text-btn {
@@ -459,8 +475,9 @@
 
 .divider-line {
     width: 1px;
-    height: 40px;
+    align-self: stretch;
     background: #e5e5e5;
+    margin-right: 0;
 }
 
 /* ===========================
@@ -671,6 +688,12 @@
 
     .location-item {
         flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .location-text {
+        align-items: center;
         text-align: center;
     }
 

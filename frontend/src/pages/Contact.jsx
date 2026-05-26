@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { MapPin, Phone, Mail, Clock, ChevronDown, Briefcase, Headset, Target, ClipboardList, ArrowRight, CheckCircle, XCircle } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { OFFICE_LOCATIONS, getOfficeLocationsJsonLd } from '../config/officeLocations';
 import './Contact.css';
 
 const FAQItem = ({ question, answer, isOpen, onClick }) => (
@@ -96,6 +97,9 @@ const Contact = () => {
             <Helmet>
                 <title>Contact Us | KamGlobal AI - Global Support</title>
                 <meta name="description" content="Reach out to KamGlobal AI. Contact our Kuwait HQ or India Delivery Center for specialized IT consulting and support." />
+                <script type="application/ld+json">
+                    {JSON.stringify(getOfficeLocationsJsonLd())}
+                </script>
             </Helmet>
             {/* 1. Hero / Intro Section */}
             <section className="contact-hero">
@@ -303,22 +307,31 @@ const Contact = () => {
                 </div>
             </section>
 
-            {/* 5. Locations Map Link */}
-            <section className="section locations-section">
+            {/* 5. Locations */}
+            <section className="section locations-section" aria-label="Office locations">
                 <div className="container text-center">
                     <h2 className="section-title-sm">Global Presence</h2>
                     <div className="locations-wrapper">
-                        <div className="location-item">
-                            <div className="pin-circle"><MapPin size={24} /></div>
-                            <h3>Kuwait City</h3>
-                            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="map-text-btn">View on Google Maps</a>
-                        </div>
-                        <div className="divider-line"></div>
-                        <div className="location-item">
-                            <div className="pin-circle"><MapPin size={24} /></div>
-                            <h3>Bengaluru</h3>
-                            <a href="https://maps.app.goo.gl/soHoBqfEFJ2d8fV69" target="_blank" rel="noopener noreferrer" className="map-text-btn">View on Google Maps</a>
-                        </div>
+                        {OFFICE_LOCATIONS.map((office, index) => (
+                            <Fragment key={office.shortName}>
+                                {index > 0 && <div className="divider-line" aria-hidden="true" />}
+                                <div className="location-item">
+                                    <div className="pin-circle"><MapPin size={24} /></div>
+                                    <div className="location-text">
+                                        <h3>{office.shortName}</h3>
+                                        <address className="location-address">{office.streetAddress}</address>
+                                        <a
+                                            href={office.mapsUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="map-text-btn"
+                                        >
+                                            View on Google Maps
+                                        </a>
+                                    </div>
+                                </div>
+                            </Fragment>
+                        ))}
                     </div>
                 </div>
             </section>
