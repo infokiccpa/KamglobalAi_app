@@ -35,7 +35,6 @@ const Header = () => {
       ]
     },
     { name: 'Products', path: '/products' },
-    { name: 'Team', path: '/team' },
     { name: 'KamGlobalAI', path: '/kamglobal-ai' },
     { name: 'Careers', path: '/careers' },
   ];

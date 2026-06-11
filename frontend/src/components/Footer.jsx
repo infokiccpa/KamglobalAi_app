@@ -1,104 +1,176 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Linkedin, Instagram, MapPin, Phone, Mail, Brain } from 'lucide-react';
+import {
+    Facebook,
+    Twitter,
+    Linkedin,
+    Instagram,
+    Phone,
+    Mail,
+    MapPin,
+    ArrowUpRight,
+} from 'lucide-react';
+import { OFFICE_LOCATIONS } from '../config/officeLocations';
 import './Footer.css';
+
+const OFFICE_CONTACT = {
+    KW: { phone: '+965 22087764', email: 'info@kamgroups.com', label: 'Kuwait HQ' },
+    IN: { phone: '+91 80507 66363', email: 'info@kamglobalai.com', label: 'India Center' },
+};
+
+const companyLinks = [
+    { label: 'Home', to: '/' },
+    { label: 'About', to: '/about' },
+    { label: 'Leadership', to: '/about#leadership' },
+    { label: 'Products', to: '/products' },
+    { label: 'KamGlobalAI', to: '/kamglobal-ai' },
+    { label: 'Careers', to: '/careers' },
+];
+
+const serviceLinks = [
+    { label: 'All Services', to: '/services' },
+    { label: 'BOT Model', to: '/services#bot-model' },
+    { label: 'IT Development', to: '/services#it-dev' },
+    { label: 'Cloud Services', to: '/services#cloud' },
+    { label: 'IT Staffing', to: '/services#staffing' },
+    { label: 'Digital Marketing', to: '/services#marketing' },
+];
+
+const socialLinks = [
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    {
+        icon: Linkedin,
+        href: 'https://www.linkedin.com/company/kam-global-for-digital-ai-media-solutions-private-limited/posts/?feedView=all',
+        label: 'LinkedIn',
+    },
+    {
+        icon: Instagram,
+        href: 'https://www.instagram.com/eduaitutors?igsh=MWZmOTIyOW9nOW5xdQ==',
+        label: 'Instagram',
+    },
+];
 
 const Footer = () => {
     return (
         <footer className="footer">
-            <div className="container">
-                <div className="footer-grid">
-                    <div className="footer-brand">
-                        <Link to="/" className="footer-logo">
-                            <div className="logo-content">
-                                <img src="/logo.png" alt="KAM Global AI Logo" className="logo-img-footer" />
-                            </div>
-                        </Link>
-                        <p className="footer-desc">
-                            Connecting Kuwait's business vision with India's technical excellence through AI-powered digital transformation.
-                        </p>
-                        <div className="social-links">
-                            <a href="#"><Facebook size={20} /></a>
-                            <a href="#"><Twitter size={20} /></a>
-                            <a href="https://www.linkedin.com/company/kam-global-for-digital-ai-media-solutions-private-limited/posts/?feedView=all" target="_blank" rel="noopener noreferrer"><Linkedin size={20} /></a>
-                            <a href="https://www.instagram.com/eduaitutors?igsh=MWZmOTIyOW9nOW5xdQ=="><Instagram size={20} /></a>
-                        </div>
-                    </div>
+            <div className="footer-strip">
+                <div className="container footer-strip-inner">
+                    <p className="footer-strip-text">
+                        <span className="footer-strip-flags" aria-hidden="true">🇰🇼</span>
+                        Strategy from Kuwait
+                        <span className="footer-strip-dot" aria-hidden="true" />
+                        Engineering from India
+                        <span className="footer-strip-flags" aria-hidden="true">🇮🇳</span>
+                    </p>
+                    <Link to="/contact" className="footer-strip-cta">
+                        Contact Us <ArrowUpRight size={14} aria-hidden="true" />
+                    </Link>
+                </div>
+            </div>
 
-                    <div className="footer-links">
-                        <h3>Quick Links</h3>
-                        <ul>
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About Us</Link></li>
-                            <li><Link to="/services">Services</Link></li>
-                            <li><Link to="/products">Products</Link></li>
-                            <li><Link to="/team">Our Team</Link></li>
-                            <li><Link to="/careers">Careers</Link></li>
-                            <li><Link to="/kamglobal-ai">KamGlobalAI</Link></li>
-                        </ul>
-                    </div>
-
-                    <div className="footer-links">
-                        <h3>Services</h3>
-                        <ul>
-                            <li><Link to="/services#bot-model">BOT Model</Link></li>
-                            <li><Link to="/services#it-dev">IT Development</Link></li>
-                            <li><Link to="/services#cloud">Cloud Services</Link></li>
-                            <li><Link to="/services#staffing">IT Staffing</Link></li>
-                            <li><Link to="/services#marketing">Digital Marketing</Link></li>
-                            <li><Link to="/services#consulting">Consulting</Link></li>
-                        </ul>
-                    </div>
-
-                    <div className="footer-contact">
-                        <h3>Contact Us</h3>
-
-                        <div className="contact-item">
-                            <MapPin size={20} className="icon" />
-                            <div>
-                                <strong>Kam Groups (Kuwait):</strong>
-                                <p>20408 Tunisia St, Hawally, Kuwait.</p>
+            <div className="footer-body">
+                <div className="container">
+                    <div className="footer-layout">
+                        <div className="footer-brand">
+                            <Link to="/" className="footer-logo">
+                                <img src="/logo.png" alt="KAM Global AI" className="footer-logo-img" />
+                            </Link>
+                            <p className="footer-tagline">
+                                AI-powered digital transformation connecting Gulf business vision with
+                                India&apos;s engineering excellence.
+                            </p>
+                            <div className="footer-social">
+                                {socialLinks.map(({ icon: Icon, href, label }) => (
+                                    <a
+                                        key={label}
+                                        href={href}
+                                        aria-label={label}
+                                        className="footer-social-link"
+                                        target={href.startsWith('http') ? '_blank' : undefined}
+                                        rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                                    >
+                                        <Icon size={16} />
+                                    </a>
+                                ))}
                             </div>
                         </div>
-                        <div className="contact-item">
-                            <Phone size={18} className="icon" />
-                            <p>+965 22087764</p>
-                        </div>
-                        <div className="contact-item contact-item-mail">
-                            <Mail size={18} className="icon" />
-                            <p>info@kamgroups.com</p>
+
+                        <div className="footer-nav-block">
+                            <nav className="footer-nav" aria-label="Company">
+                                <h3>Company</h3>
+                                <ul>
+                                    {companyLinks.map(({ label, to }) => (
+                                        <li key={to}>
+                                            <Link to={to}>{label}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+                            <nav className="footer-nav" aria-label="Services">
+                                <h3>Services</h3>
+                                <ul>
+                                    {serviceLinks.map(({ label, to }) => (
+                                        <li key={to}>
+                                            <Link to={to}>{label}</Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
                         </div>
 
-                        <div className="contact-item">
-                            <MapPin size={20} className="icon" />
-                            <div>
-                                <strong>Kam Global (India):</strong>
-                                <p>No 544, 3rd cross, 3rd main,<br />Above TMC Bank, RT Nagar,<br />Bangalore-560032</p>
-                            </div>
-                        </div>
-                        <div className="contact-item">
-                            <Phone size={18} className="icon" />
-                            <p>+91 80507 66363</p>
-                        </div>
-                        <div className="contact-item contact-item-mail">
-                            <Mail size={18} className="icon" />
-                            <p>info@kamglobalai.com</p>
-                        </div>
-                        <div className="newsletter">
-                            <h4>Newsletter</h4>
-                            <div className="newsletter-form">
-                                <input type="email" placeholder="Your email" />
-                                <button className="btn btn-primary">Subscribe</button>
+                        <div className="footer-locations">
+                            <h3>Offices</h3>
+                            <div className="footer-loc-card">
+                                {OFFICE_LOCATIONS.map((office, idx) => {
+                                    const contact = OFFICE_CONTACT[office.addressCountry];
+                                    const isKuwait = office.addressCountry === 'KW';
+                                    return (
+                                        <React.Fragment key={office.shortName}>
+                                            {idx > 0 && <div className="footer-loc-divider" aria-hidden="true" />}
+                                            <div className="footer-loc">
+                                                <div className="footer-loc-head">
+                                                    <span aria-hidden="true">{isKuwait ? '🇰🇼' : '🇮🇳'}</span>
+                                                    <div>
+                                                        <strong>{contact.label}</strong>
+                                                        <span>{office.shortName}</span>
+                                                    </div>
+                                                </div>
+                                                <a
+                                                    href={office.mapsUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="footer-loc-address"
+                                                >
+                                                    <MapPin size={13} aria-hidden="true" />
+                                                    {office.streetAddress}
+                                                </a>
+                                                <div className="footer-loc-links">
+                                                    <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>
+                                                        <Phone size={13} aria-hidden="true" />
+                                                        {contact.phone}
+                                                    </a>
+                                                    <a href={`mailto:${contact.email}`}>
+                                                        <Mail size={13} aria-hidden="true" />
+                                                        {contact.email}
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div className="footer-bottom">
-                    <p>&copy; 2026 KAM Global AI. All rights reserved.</p>
-                    <div className="footer-legal">
-                        <Link to="/privacy">Privacy Policy</Link>
-                        <Link to="/terms">Terms of Service</Link>
+            <div className="footer-bar">
+                <div className="container footer-bar-inner">
+                    <p>&copy; {new Date().getFullYear()} Kam Global AI · Backed by KAM Group</p>
+                    <div className="footer-bar-links">
+                        <Link to="/privacy">Privacy</Link>
+                        <Link to="/terms">Terms</Link>
                         <Link to="/support">Support</Link>
                     </div>
                 </div>

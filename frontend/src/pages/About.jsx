@@ -1,188 +1,278 @@
-import { Target, Eye, Laptop, Cloud, Users, TrendingUp, Info, Rocket, Globe, CheckCircle2, ShieldCheck, Handshake, Lock, Sparkles, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useState } from 'react';
+import { motion } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+import {
+    Target,
+    Eye,
+    Sparkles,
+    ShieldCheck,
+    CheckCircle2,
+    Users,
+    ArrowRight,
+    BookOpen,
+    Compass,
+    Award,
+    Globe2
+} from 'lucide-react';
 import CountUp from 'react-countup';
+import FounderMessageSection from '../components/leadership/FounderMessageSection';
+import ExecutiveBoardSection from '../components/leadership/ExecutiveBoardSection';
+import GlobalBridgeSection from '../components/leadership/GlobalBridgeSection';
+import TeamLifeSection from '../components/leadership/TeamLifeSection';
+import '../components/leadership/leadership.css';
 import './About.css';
+
+const coreValues = [
+    { icon: Sparkles, title: 'Innovation with Purpose', desc: 'AI, automation, and cloud solutions that deliver measurable business impact.' },
+    { icon: ShieldCheck, title: 'Integrity & Transparency', desc: 'Open communication and accountability in every client engagement.' },
+    { icon: CheckCircle2, title: 'Excellence in Execution', desc: 'Precision, reliability, and continuous improvement at scale.' },
+    { icon: Users, title: 'Customer-Centric Mindset', desc: 'Solutions aligned to sustainable value and client objectives.' }
+];
+
+const heroStats = [
+    { value: 10, suffix: '+', label: 'Years Legacy' },
+    { value: 100, suffix: '%', label: 'Delivery Rate' },
+    { value: 2, suffix: '', label: 'Global Hubs' }
+];
+
+const jumpLinks = [
+    { href: '#story', label: 'Our Story', icon: BookOpen },
+    { href: '#purpose', label: 'Vision', icon: Compass },
+    { href: '#values', label: 'Values', icon: Award },
+    { href: '#leadership', label: 'Leadership', icon: Users },
+    { href: '#global', label: 'Global', icon: Globe2 }
+];
+
+const SectionEyebrow = ({ label, center = false, lines = true }) => (
+    <div className={`about-eyebrow${center ? ' about-eyebrow-center' : ''}`}>
+        {lines && <span className="about-eyebrow-line" aria-hidden="true" />}
+        <span>{label}</span>
+        {lines && <span className="about-eyebrow-line" aria-hidden="true" />}
+    </div>
+);
 
 const About = () => {
     return (
-        <div className="about-page premium-redesign">
+        <div className="about-page">
             <Helmet>
                 <title>About Us | KamGlobal AI - Kuwait-India Partnership</title>
-                <meta name="description" content="Learn about KamGlobal AI's strategic vision bridging Kuwait and India's engineering power. We specialize in secure, scalable digital foundations." />
+                <meta
+                    name="description"
+                    content="Learn about KamGlobal AI — our story, vision, leadership, and Kuwait-India global delivery model backed by KAM Group."
+                />
             </Helmet>
-            {/* Hero Section */}
-            <section className="about-hero-modern">
-                <div className="abstract-shape shape-1"></div>
-                <div className="abstract-shape shape-2"></div>
+
+            <section className="about-hero">
                 <div className="container">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        className="about-hero-inner"
+                        initial={{ opacity: 0, y: 28 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="hero-content-modern"
+                        transition={{ duration: 0.75 }}
                     >
-                        <span className="hero-badge-glow">Global Technology Partner</span>
-                        <h1>About KAM Global AI</h1>
-                        <p className="hero-modern-subtitle">Bridging Kuwait’s Strategic Vision with India’s Engineering Excellence</p>
-                    </motion.div>
-                </div>
-            </section>
+                        <SectionEyebrow label="About KamGlobal AI" center lines={false} />
+                        <h1>Bridging Vision &amp; Engineering Excellence</h1>
+                        <p>
+                            A premium technology partner connecting Kuwait&apos;s strategic leadership with
+                            India&apos;s world-class engineering talent.
+                        </p>
 
-            {/* Split Layout: Our Story */}
-            <section className="section story-split-section">
-                <div className="container">
-                    <div className="story-split-grid">
-                        <motion.div
-                            initial={{ opacity: 0, x: -40 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6 }}
-                            className="story-text-container"
-                        >
-                            <span className="badge-small">OUR STORY</span>
-                            <h2 className="premium-heading">Architecting the <span className="highlight-purple">Future</span></h2>
-                            <div className="title-underline-gradient"></div>
-                            <p className="premium-p">Founded in 2026, KAM Global AI is a premium IT solutions provider headquartered in India and backed by KAM Group, Kuwait. We seamlessly bridge Middle Eastern business leadership with India’s world-class engineering talent.</p>
-                            <p className="premium-p">We partner with global enterprises to architect secure, scalable, and future-ready digital foundations. Our execution-driven approach ensures measurable business impact through continuous technical innovation.</p>
-
-                            <div className="about-mini-stats">
-                                <div className="mini-stat-item glass-card-premium">
-                                    <span className="ms-num"><CountUp end={10} suffix="+" enableScrollSpy scrollSpyOnce /></span>
-                                    <span className="ms-lbl">Years Legacy</span>
+                        <div className="about-hero-stats">
+                            {heroStats.map((stat) => (
+                                <div key={stat.label} className="about-hero-stat">
+                                    <span className="about-hero-stat-num">
+                                        <CountUp end={stat.value} suffix={stat.suffix} enableScrollSpy scrollSpyOnce />
+                                    </span>
+                                    <span className="about-hero-stat-label">{stat.label}</span>
                                 </div>
-                                <div className="mini-stat-item glass-card-premium">
-                                    <span className="ms-num"><CountUp end={100} suffix="%" enableScrollSpy scrollSpyOnce /></span>
-                                    <span className="ms-lbl">Delivery Rate</span>
-                                </div>
-                            </div>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            className="story-image-asymmetric"
-                        >
-                            <div className="asymmetric-image-wrapper">
-                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800" alt="Team collaborating" />
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Vision & Mission Split Layers */}
-            <section className="section vision-layers">
-                <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="vision-card-layered glass-card-premium"
-                    >
-                        <div className="layer-content">
-                            <Target size={36} className="layer-icon text-purple" />
-                            <h3>Accelerating Business</h3>
-                            <p>Delivering intelligent, secure, and scalable technology frameworks that enable organizations to dominate the digital transformation era.</p>
-                        </div>
-                        <div className="layer-content">
-                            <Eye size={36} className="layer-icon text-blue" />
-                            <h3>Globally Trusted</h3>
-                            <p>Setting enterprise benchmarks in innovation, anticipating technological change, and engineering future-ready software solutions.</p>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Principles of Excellence (Accordion instead of cards) */}
-            <section className="section enterprise-principles">
-                <div className="container">
-                    <div className="principles-split">
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            className="principles-sticky-header"
-                        >
-                            <span className="badge-small">CORE VALUES</span>
-                            <h2 className="premium-heading">Principles of <br />Excellence</h2>
-                            <p className="premium-p">Foundational beliefs driving our global delivery, ensuring high-compliance and uncompromised quality.</p>
-                        </motion.div>
-
-                        <div className="principles-list">
-                            {[
-                                { icon: Sparkles, title: "Innovation with Purpose", desc: "We pursue innovation that delivers real business impact with AI, automation, and cloud." },
-                                { icon: ShieldCheck, title: "Integrity & Transparency", desc: "We operate with uncompromising integrity, open communication, and accountability." },
-                                { icon: CheckCircle2, title: "Excellence in Execution", desc: "We deliver quality with precision, reliability, and continuous improvement." },
-                                { icon: Users, title: "Customer-Centric Mindset", desc: "We align solutions with objectives to ensure measurable and sustainable value." }
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
-                                    className="principle-list-item glass-card-premium"
-                                >
-                                    <div className="ple-icon-wrap"><item.icon size={24} /></div>
-                                    <div className="ple-text">
-                                        <h4>{item.title}</h4>
-                                        <p>{item.desc}</p>
-                                    </div>
-                                </motion.div>
                             ))}
                         </div>
+
+                        <nav className="about-jump-nav" aria-label="About page sections">
+                            {jumpLinks.map(({ href, label, icon: Icon }) => (
+                                <a key={href} href={href} className="about-jump-link">
+                                    <Icon size={15} aria-hidden="true" />
+                                    {label}
+                                </a>
+                            ))}
+                        </nav>
+                    </motion.div>
+                </div>
+            </section>
+
+            <section id="story" className="about-section about-story-section">
+                <div className="container">
+                    <div className="about-story-layout">
+                        <motion.div
+                            className="about-story-copy"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            <SectionEyebrow label="Our Story" />
+                            <h2>Architecting the <span>Future</span></h2>
+                            <p className="about-story-lead">
+                                Founded in 2026, KamGlobal AI is a premium IT solutions partner headquartered in India
+                                and backed by KAM Group, Kuwait — built to connect strategic Gulf leadership with
+                                India&apos;s world-class engineering talent.
+                            </p>
+                            <p>
+                                We help enterprises design secure, scalable, and AI-ready digital foundations. From
+                                cloud-native platforms to intelligent automation, our teams deliver with precision,
+                                transparency, and a relentless focus on business outcomes.
+                            </p>
+                            <p>
+                                Our Kuwait–India operating model brings together regional trust, global partnerships,
+                                and round-the-clock execution — so clients get strategy and engineering in one
+                                accountable partner.
+                            </p>
+
+                            <ul className="about-story-highlights">
+                                <li>Backed by KAM Group, Kuwait</li>
+                                <li>Delivery hub in Bengaluru, India</li>
+                                <li>AI, cloud, and enterprise digital transformation</li>
+                            </ul>
+                        </motion.div>
+
+                        <motion.figure
+                            className="about-story-visual"
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.55 }}
+                        >
+                            <img
+                                src="/images/about-story.png"
+                                alt="KamGlobal AI team — Kuwait and India partnership"
+                                loading="lazy"
+                            />
+                            <figcaption className="about-story-caption">
+                                Strategy from Kuwait. Engineering from India.
+                            </figcaption>
+                        </motion.figure>
                     </div>
                 </div>
             </section>
 
-            {/* Global Expansion Map Section */}
-            <section className="section expansion-modern">
+            <section id="purpose" className="about-section about-vision-section">
+                <div className="container">
+                    <div className="about-section-header">
+                        <SectionEyebrow label="Purpose" center />
+                        <h2>Vision &amp; Mission</h2>
+                        <p>The direction behind every partnership, product, and delivery milestone.</p>
+                    </div>
+
+                    <div className="about-vision-grid">
+                        <motion.article
+                            className="about-vision-card about-vision-card-mission"
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45 }}
+                        >
+                            <span className="about-vision-icon"><Target size={22} /></span>
+                            <span className="about-vision-tag">Mission</span>
+                            <h3>Accelerating Business</h3>
+                            <p>
+                                Intelligent, secure, and scalable technology frameworks that help organizations
+                                lead in the digital transformation era.
+                            </p>
+                        </motion.article>
+
+                        <motion.article
+                            className="about-vision-card about-vision-card-vision"
+                            initial={{ opacity: 0, y: 16 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45, delay: 0.07 }}
+                        >
+                            <span className="about-vision-icon"><Eye size={22} /></span>
+                            <span className="about-vision-tag">Vision</span>
+                            <h3>Globally Trusted</h3>
+                            <p>
+                                Enterprise benchmarks in innovation — anticipating change and engineering
+                                future-ready solutions across markets.
+                            </p>
+                        </motion.article>
+                    </div>
+                </div>
+            </section>
+
+            <section id="values" className="about-section about-values-section">
+                <div className="container">
+                    <div className="about-section-header">
+                        <SectionEyebrow label="Core Values" center />
+                        <h2>Principles of Excellence</h2>
+                        <p>Beliefs that guide how we lead, build, and deliver for clients worldwide.</p>
+                    </div>
+
+                    <div className="about-values-grid">
+                        {coreValues.map(({ icon: Icon, title, desc }, idx) => (
+                            <motion.div
+                                key={title}
+                                className="about-value-card"
+                                initial={{ opacity: 0, y: 14 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                            >
+                                <span className="about-value-icon"><Icon size={22} strokeWidth={1.75} /></span>
+                                <h3>{title}</h3>
+                                <p>{desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <div id="leadership" className="about-leadership-hub">
+                <div className="container">
+                    <div className="about-section-header about-section-header-light">
+                        <SectionEyebrow label="Leadership" center />
+                        <h2>Meet the People Behind KamGlobal AI</h2>
+                        <p>Founder vision and executive leadership steering our Kuwait–India operations.</p>
+                    </div>
+                </div>
+
+                <FounderMessageSection
+                    id="about-founder-message"
+                    primaryCta={{ to: '/contact', label: 'Book a Demo' }}
+                    secondaryCta={{ to: '/careers', label: 'Join Our Team' }}
+                />
+
+                <ExecutiveBoardSection
+                    id="about-executive-board"
+                    subtitle="Executive leaders guiding strategy, operations, and growth."
+                />
+            </div>
+
+            <div id="global">
+                <GlobalBridgeSection id="about-global-bridge" showHighlights />
+            </div>
+
+            <TeamLifeSection id="about-team-life" />
+
+            <section className="about-section about-cta-section">
                 <div className="container">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        className="about-cta-card"
+                        initial={{ opacity: 0, y: 16 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-4"
+                        transition={{ duration: 0.5 }}
                     >
-                        <Globe size={48} color="#0ea5e9" style={{ margin: '0 auto 1.5rem', display: 'block' }} />
-                        <h2 className="premium-heading">Kuwait-India <span className="highlight-blue">Expansion</span></h2>
-                        <p className="premium-p max-w-800 mx-auto">Our dual-location model combines strategic investment with top-tier engineering talent.</p>
-                    </motion.div>
-
-                    <div className="expansion-glass-cards">
-                        <motion.div className="exp-card glass-card-premium" initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}>
-                            <div className="exp-dot kw"></div>
-                            <h3>Kuwait Headquarters</h3>
-                            <ul>
-                                <li><CheckCircle2 size={16} /> Strategic investor relations & business hub</li>
-                                <li><CheckCircle2 size={16} /> Regional market access & partnerships</li>
-                                <li><CheckCircle2 size={16} /> Client relationship management</li>
-                            </ul>
-                        </motion.div>
-                        <motion.div className="exp-card glass-card-premium" initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}>
-                            <div className="exp-dot in"></div>
-                            <h3>India Delivery Center</h3>
-                            <ul>
-                                <li><CheckCircle2 size={16} /> World-class engineering & product teams</li>
-                                <li><CheckCircle2 size={16} /> 24/7 support & technical operations</li>
-                                <li><CheckCircle2 size={16} /> Cloud & AI innovation labs</li>
-                            </ul>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Sticky Lead Capture CTA */}
-            <section className="section footer-lead-cta">
-                <div className="container">
-                    <div className="cta-modern-box glass-card-premium" style={{ marginBottom: 0 }}>
                         <h2>Ready to transform your enterprise?</h2>
-                        <p style={{ maxWidth: '600px', margin: '0 auto 2rem', color: '#64748b', fontSize: '1.1rem' }}>Get in touch with our consulting experts today to explore global solutions for your organization.</p>
-                        <a href="/contact" className="btn btn-orange">Schedule a Consultation</a>
-                    </div>
+                        <p>Partner with KamGlobal AI for secure, scalable, and future-ready digital solutions.</p>
+                        <div className="about-cta-actions">
+                            <Link to="/contact" className="about-btn about-btn-primary">
+                                Schedule a Consultation <ArrowRight size={16} />
+                            </Link>
+                            <Link to="/careers" className="about-btn about-btn-secondary">
+                                Explore Careers
+                            </Link>
+                        </div>
+                    </motion.div>
                 </div>
             </section>
         </div>

@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
-import Team from './pages/Team';
 import WhyKamGlobalAI from './pages/WhyKamGlobalAI';
 import LMS from './pages/LMS';
 import Careers from './pages/Careers';
@@ -19,10 +18,18 @@ import CookieConsent from './components/CookieConsent';
 
 // Scroll to top on route change
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const location = useLocation();
+  const { pathname } = location;
   useEffect(() => {
+    if (location.hash) {
+      const target = document.querySelector(location.hash);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, location.hash]);
   return null;
 };
 
@@ -38,7 +45,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/products" element={<LMS />} />
-            <Route path="/team" element={<Team />} />
+            <Route path="/team" element={<Navigate to="/about#leadership" replace />} />
             <Route path="/kamglobal-ai" element={<WhyKamGlobalAI />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/apply-now" element={<ApplyNow />} />

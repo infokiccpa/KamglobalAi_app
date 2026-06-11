@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Outfit', var(--font-body);
     --primary: #1e293b;
     --primary-dark: #0f172a;
     --secondary: #334155;
@@ -40,7 +42,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     background: linear-gradient(135deg,
             #f8fafc 0%,
             #f1f5f9 25%,
@@ -104,9 +106,10 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    line-height: 1.15;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     color: #1d1d1f;
 }
 
@@ -274,7 +277,7 @@ img {
     line-height: 1;
     color: #0f172a;
     letter-spacing: -0.04em;
-    font-family: 'Outfit', sans-serif;
+    font-family: var(--font-heading);
     transition: all 0.3s ease;
 }
 

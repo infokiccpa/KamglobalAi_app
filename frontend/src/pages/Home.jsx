@@ -88,13 +88,13 @@ const Home = () => {
             location: "20408 Tunisia St, Hawally, Kuwait",
             phone: "+965 2434 5650",
         },
-        partners: [
-            "KAM Groups",
-            "Innovative IT Services",
-            "Next-Gen AI Products",
-            "AI-Powered LMS",
-            "Launching Soon!",
-            "Global Solutions"
+        highlights: [
+            { label: 'Innovative IT Services' },
+            { label: 'Next-Gen AI Products' },
+            { label: 'AI-Powered LMS', tag: 'Launching Soon' },
+            { label: 'Global Solutions' },
+            { label: 'Cloud & Digital Transformation' },
+            { label: 'Kuwait · India Delivery' },
         ],
         globalPresence: {
             title: "Global Presence",
@@ -166,18 +166,25 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Partners Section */}
-            <section className="partners-bar">
-                <div className="container">
-                    <div className="partners-flex">
-                        <span className="partners-label">KAM GROUP</span>
-                        <div className="partners-track">
-                            {homeData.partners.map((partner, i) => (
-                                <span key={i} className="partner-logo">{partner}</span>
-                            ))}
-                            {/* Duplicate for infinite animation */}
-                            {homeData.partners.map((partner, i) => (
-                                <span key={i + 'd'} className="partner-logo">{partner}</span>
+            {/* Highlights Marquee */}
+            <section className="highlights-marquee" aria-label="KamGlobal AI highlights">
+                <div className="highlights-marquee-inner">
+                    <div className="highlights-marquee-badge">
+                        <span className="highlights-marquee-eyebrow">Backed by</span>
+                        <strong>KAM GROUP</strong>
+                        <span className="highlights-marquee-dot" aria-hidden="true" />
+                        <span className="highlights-marquee-location">Kuwait</span>
+                    </div>
+                    <div className="highlights-marquee-viewport">
+                        <div className="highlights-marquee-track" aria-hidden="true">
+                            {[...homeData.highlights, ...homeData.highlights].map((item, i) => (
+                                <span
+                                    key={`${item.label}-${i}`}
+                                    className={`highlight-chip${item.tag ? ' highlight-chip--featured' : ''}`}
+                                >
+                                    {item.label}
+                                    {item.tag ? <span className="highlight-chip-tag">{item.tag}</span> : null}
+                                </span>
                             ))}
                         </div>
                     </div>

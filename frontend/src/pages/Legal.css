@@ -2,7 +2,7 @@
     max-width: 1000px;
     margin: 120px auto 80px;
     padding: 0 40px;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: var(--font-body);
     color: #2d3748;
 }
 

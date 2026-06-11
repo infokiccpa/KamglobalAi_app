@@ -19,7 +19,7 @@
     color: var(--brand-navy);
     /* Brand Navy Text */
     padding: 120px 0 60px;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
     position: relative;
     overflow-x: hidden;
     transition: filter 0.5s ease;

@@ -1,283 +1,349 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from 'framer-motion'; // eslint-disable-line no-unused-vars
-import { useNavigate } from 'react-router-dom';
-import { Globe, DollarSign, Shield, BookOpen, Clock, ArrowRight, Laptop, Award, Search, Handshake, Sprout, Trophy, FileText, UserCheck, Mail, Briefcase, MapPin, CheckCircle } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { useNavigate, Link } from 'react-router-dom';
+import {
+    DollarSign,
+    Shield,
+    BookOpen,
+    Clock,
+    ArrowRight,
+    Laptop,
+    Award,
+    Search,
+    Mail,
+    Briefcase,
+    MapPin,
+    CheckCircle,
+    Users,
+} from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import './Careers.css';
 
-// Custom Flag Components for Kuwait & India Motifs
-const KuwaitFlag = () => (
-    <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="flag-motif">
-        <path d="M0 0H24V5.33333H0V0Z" fill="#007A3D" />
-        <path d="M0 5.33333H24V10.6667H0V5.33333Z" fill="white" />
-        <path d="M0 10.6667H24V16H0V10.6667Z" fill="#CE1126" />
-        <path d="M0 0L6 5.33333V10.6667L0 16V0Z" fill="black" />
-    </svg>
-);
-
-const IndiaFlag = () => (
-    <svg width="24" height="16" viewBox="0 0 24 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="flag-motif">
-        <path d="M0 0H24V5.33333H0V0Z" fill="#FF9933" />
-        <path d="M0 5.33333H24V10.6667H0V5.33333Z" fill="white" />
-        <path d="M0 10.6667H24V16H0V10.6667Z" fill="#138808" />
-        <circle cx="12" cy="8" r="2" fill="#000080" />
-    </svg>
-);
-
-const MagneticButton = ({ children, className, onClick, style }) => {
-    const ref = useRef(null);
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
-    const handleMouse = (e) => {
-        const { clientX, clientY } = e;
-        const { height, width, left, top } = ref.current.getBoundingClientRect();
-        const middleX = clientX - (left + width / 2);
-        const middleY = clientY - (top + height / 2);
-
-        // Calculate distance from center
-        const distance = Math.sqrt(middleX * middleX + middleY * middleY);
-        const maxDistance = 100; // Activation radius
-
-        if (distance < maxDistance) {
-            setPosition({ x: middleX * 0.4, y: middleY * 0.4 });
-        } else {
-            setPosition({ x: 0, y: 0 });
-        }
-    };
-
-    const reset = () => setPosition({ x: 0, y: 0 });
-
-    return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouse}
-            onMouseLeave={reset}
-            animate={{ x: position.x, y: position.y }}
-            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
-            style={{ ...style, display: "inline-block" }}
-        >
-            <button className={className} onClick={onClick}>
-                {children}
-            </button>
-        </motion.div>
-    );
-};
-
 const benefits = [
-    { icon: DollarSign, title: 'Global Compensation', desc: 'Premium payouts aligned with international standards.', flag: 'KW' },
-    { icon: Shield, title: 'Wellness Ecosystem', desc: 'Total health shielding for you and your dependents.', flag: 'IN' },
-    { icon: Clock, title: 'Fluid Flexibility', desc: 'Syncing work across time zones with ease.', flag: 'KW' },
-    { icon: BookOpen, title: 'Knowledge Hub', desc: 'Unlimited access to global engineering certifications.', flag: 'IN' },
-    { icon: Laptop, title: 'Modern Workspace', desc: 'State-of-the-art labs in Bengaluru & Kuwait.', flag: 'KW' },
-    { icon: Award, title: 'Elite Recognition', desc: 'Joining a legacy backed by KAM Group, Kuwait.', flag: 'IN' }
+    { icon: DollarSign, title: 'Global Compensation', desc: 'Competitive packages aligned with international standards.' },
+    { icon: Shield, title: 'Wellness Support', desc: 'Health and wellness benefits for you and your dependents.' },
+    { icon: Clock, title: 'Flexible Work', desc: 'Hybrid and remote-friendly options across time zones.' },
+    { icon: BookOpen, title: 'Learning & Growth', desc: 'Access to certifications, training, and mentorship.' },
+    { icon: Laptop, title: 'Modern Workspace', desc: 'State-of-the-art labs in Bengaluru and Kuwait.' },
+    { icon: Award, title: 'KAM Group Legacy', desc: 'Join a team backed by KAM Group, Kuwait.' },
 ];
 
 const jobs = [
-    { title: 'Ai Developer', team: 'Engineering', location: 'Bengaluru, India', id: '1', experience: '3+ Years', skills: ['Python', 'PyTorch', 'NLP'] },
-    { title: 'Digital Marketing', team: 'Strategy', location: 'Bengaluru / India', id: '2', experience: '2+ Years', skills: ['SEO', 'SEM', 'Social Media'] },
+    { title: 'AI Developer', team: 'Engineering', location: 'Bengaluru, India', id: '1', experience: '3+ Years', skills: ['Python', 'PyTorch', 'NLP'] },
+    { title: 'Digital Marketing', team: 'Strategy', location: 'Bengaluru, India', id: '2', experience: '2+ Years', skills: ['SEO', 'SEM', 'Social Media'] },
     { title: 'Full Stack Developer', team: 'Engineering', location: 'Bengaluru, India', experience: '5+ Years', id: '3', skills: ['React', 'Node.js', 'AWS'] },
-    { title: 'Technical Support', team: 'Support', location: 'Bengaluru, India', id: '4', experience: '1 Years', skills: ['Troubleshooting', 'CRM', 'Communication'] },
+    { title: 'Technical Support', team: 'Support', location: 'Bengaluru, India', id: '4', experience: '1+ Year', skills: ['Troubleshooting', 'CRM', 'Communication'] },
 ];
 
-const Careers = () => {
-    const shouldReduceMotion = useReducedMotion();
-    const containerRef = useRef(null);
-    const navigate = useNavigate();
-    const [searchTerm, setSearchTerm] = useState("");
-    const [activeCategory, setActiveCategory] = useState("All");
-    const [isSubscribed, setIsSubscribed] = useState(false);
+const categories = ['All', 'Engineering', 'Strategy', 'Support'];
 
-    // Parallax Effects
-    const { scrollY } = useScroll();
-    const bannerY = useTransform(scrollY, [0, 500], [0, 200]);
-    const heroBgY = useTransform(scrollY, [500, 1500], [-50, 50]);
+const jumpLinks = [
+    { href: '#benefits', label: 'Benefits' },
+    { href: '#culture', label: 'Culture' },
+    { href: '#jobs', label: 'Open Roles' },
+    { href: '#talent', label: 'Talent Network' },
+];
+
+const Eyebrow = ({ children, center, lines = true }) => (
+    <div className={`car-eyebrow${center ? ' car-eyebrow-center' : ''}`}>
+        {lines && <span className="car-eyebrow-line" aria-hidden="true" />}
+        <span>{children}</span>
+        {lines && <span className="car-eyebrow-line" aria-hidden="true" />}
+    </div>
+);
+
+const Careers = () => {
+    const navigate = useNavigate();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [activeCategory, setActiveCategory] = useState('All');
+    const [isSubscribed, setIsSubscribed] = useState(false);
 
     const handleApply = (job) => {
         navigate('/apply-now', { state: { job } });
     };
 
     const filteredJobs = useMemo(() => {
-        return jobs.filter(job => {
+        return jobs.filter((job) => {
             const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesCategory = activeCategory === "All" || job.team === activeCategory;
+            const matchesCategory = activeCategory === 'All' || job.team === activeCategory;
             return matchesSearch && matchesCategory;
         });
     }, [searchTerm, activeCategory]);
 
     return (
-        <div className="amazon-careers-container" ref={containerRef}>
+        <div className="careers-page">
             <Helmet>
                 <title>Careers at KamGlobal AI | Join Our Global Team</title>
-                <meta name="description" content="Explore job opportunities in AI development, Digital Marketing, and Engineering. Join a global team bridging Kuwait and India." />
-            </Helmet>
-            {/* New: Top Banner & Intro Section */}
-            <section className="careers-intro-banner">
-                <motion.img
-                    style={{ y: bannerY }}
-                    src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=2000"
-                    alt="KamGlobal AI Team"
+                <meta
+                    name="description"
+                    content="Explore careers in AI development, digital marketing, and engineering. Join a global team bridging Kuwait and India."
                 />
-            </section>
+            </Helmet>
 
-            <section className="careers-main-intro">
-                <div className="intro-container">
-                    <div className="intro-left">
-                        <span className="sub-heading">ARTIFICIAL INTELLIGENCE - {jobs.length} OPEN JOBS</span>
-                        <h1 className="main-heading">Breakthrough research meets real-world impact</h1>
-
-                        <div className="intro-text">
-                            <p>KamGlobal AI is transforming how people work and live through practical, useful generative AI. We've been developing and deploying AI and machine learning models to power customer experiences for more than a decade. Today, with our growing suite of AI services and applications—we're pioneering the future of AI agents to make businesses smarter and lives easier every day.</p>
-
-                            <p>We innovate across customer-facing services and internal operations, from our AI assistants used by global enterprises to the intelligent systems that optimize workflows in modern workspaces. We've launched entirely new capabilities based on AI, like our next-generation AI personal assistants and specialized enterprise models.</p>
-
-                            <p>We continue to build at all layers of the generative AI stack, including best-in-class infrastructure, AI models, and AI applications. Our approach is to blend breakthrough research with real-world impact, harnessing the power of generative AI to reinvent every customer experience.</p>
-                        </div>
-                    </div>
-
-                    <div className="intro-right-sidebar">
-                        <div className="sidebar-line"></div>
-                        <p>Join us in building AI that matters. Explore our teams and opportunities.</p>
-                        <MagneticButton
-                            className="btn-view-roles"
-                            onClick={() => document.querySelector('.job-search-bar').scrollIntoView({ behavior: 'smooth' })}
-                        >
-                            View open roles
-                        </MagneticButton>
-                    </div>
-                </div>
-            </section>
-
-            {/* New: Video Section */}
-            <section className="careers-video-story">
-                <div className="video-container">
-                    <div className="video-player-box">
-                        <div className="video-placeholder">
-                            <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=1200" alt="AI Team" />
-                            <div className="play-button-overlay">
-                                <div className="play-triangle"></div>
-                            </div>
-                            <div className="video-info-bar">
-                                <span>Build AI That Matters at KamGlobal AI</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="video-text-content">
-                        <h2>How will you change the world?</h2>
-                        <p>From groundbreaking custom solutions to pioneering frontier models, KamGlobal AI is rapidly reinventing what's possible in AI technology. Meet some of the passionate people behind our AI services and applications, and learn how we combine a start-up mindset with global infrastructure to build technology that makes a meaningful difference for businesses worldwide.</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Task 1 & 2: Talent Network Hero */}
-            <section className="talent-network-hero">
-                <motion.div
-                    className="hero-parallax-bg"
-                    style={{ y: heroBgY }}
-                ></motion.div>
-                <div className="hero-overlay"></div>
-                <div className="hero-inner">
+            <section className="car-hero">
+                <div className="container">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        className="car-hero-inner"
+                        initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="talent-card"
+                        transition={{ duration: 0.6 }}
                     >
-                        <h1>KamGlobal AI Talent Network</h1>
-                        <p>Join our talent network to learn about the latest AI news and career opportunities at KamGlobal AI.</p>
+                        <Eyebrow center lines={false}>Careers</Eyebrow>
+                        <h1>Build the Future of AI With Us</h1>
+                        <p>
+                            Join KamGlobal AI — where Kuwait&apos;s strategic vision meets India&apos;s
+                            engineering excellence. Work on meaningful AI and digital transformation projects.
+                        </p>
 
-                        <div className="subscribe-container">
-                            <MagneticButton
-                                className={`btn-subscribe ${isSubscribed ? 'success' : ''}`}
-                                onClick={() => setIsSubscribed(true)}
-                            >
-                                {isSubscribed ? <CheckCircle size={18} /> : <Mail size={18} />}
-                                {isSubscribed ? "Subscribed Successfully!" : "Subscribe to interest list"}
-                            </MagneticButton>
-                            <p className="consent-text">
-                                Opt in to receive email newsletters from KamGlobal AI. Unsubscribe at any time. For more details, check out our <span>Privacy and Data policies</span>.
-                            </p>
+                        <div className="car-hero-stats">
+                            <div className="car-stat">
+                                <strong>{jobs.length}</strong>
+                                <span>Open Roles</span>
+                            </div>
+                            <div className="car-stat">
+                                <strong>2</strong>
+                                <span>Global Hubs</span>
+                            </div>
+                            <div className="car-stat">
+                                <strong>Hybrid</strong>
+                                <span>Work Model</span>
+                            </div>
                         </div>
+
+                        <nav className="car-jump-nav" aria-label="Page sections">
+                            {jumpLinks.map((link) => (
+                                <a key={link.href} href={link.href} className="car-jump-link">
+                                    {link.label}
+                                </a>
+                            ))}
+                        </nav>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Search Section */}
-            <section className="job-search-bar">
-                <div className="search-grid">
-                    <div className="search-field">
-                        <label>Keyword search</label>
-                        <div className="input-with-icon">
-                            <Search size={20} />
-                            <input
-                                type="text"
-                                placeholder="Job title, keywords, or skills"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                        </div>
+            <section id="benefits" className="car-benefits">
+                <div className="container">
+                    <div className="car-section-header">
+                        <Eyebrow center>Why Join Us</Eyebrow>
+                        <h2>Benefits &amp; Perks</h2>
+                        <p>We invest in our people with competitive rewards and a culture of continuous growth.</p>
+                    </div>
+
+                    <div className="car-benefits-grid">
+                        {benefits.map((item, i) => (
+                            <motion.div
+                                key={item.title}
+                                className="car-benefit-card"
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.05 }}
+                            >
+                                <span className="car-benefit-icon" aria-hidden="true">
+                                    <item.icon size={20} strokeWidth={1.75} />
+                                </span>
+                                <h3>{item.title}</h3>
+                                <p>{item.desc}</p>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Job Board Layout */}
-            <section className="job-board-section">
-                <div className="job-board-container">
-                    {/* Sidebar Filters */}
-                    <aside className="job-filters-sidebar">
-                        <div className="filter-group">
-                            <h3>Category</h3>
-                            {["All", "Engineering", "Strategy", "Support"].map(cat => (
+            <section id="culture" className="car-culture">
+                <div className="container">
+                    <div className="car-culture-grid">
+                        <motion.div
+                            className="car-culture-content"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45 }}
+                        >
+                            <Eyebrow>Our Culture</Eyebrow>
+                            <h2>Where Innovation Meets Impact</h2>
+                            <p className="car-lead">
+                                We blend breakthrough research with real-world delivery — from AI assistants
+                                and enterprise platforms to the intelligent systems that power modern businesses.
+                            </p>
+                            <p>
+                                Our teams work across customer-facing products and internal operations,
+                                building at every layer of the AI stack. If you thrive in a collaborative,
+                                fast-moving environment with global reach, you&apos;ll fit right in.
+                            </p>
+                            <div className="car-culture-tags">
+                                <span><Users size={14} /> Collaborative teams</span>
+                                <span><Laptop size={14} /> Cutting-edge tech</span>
+                                <span><Award size={14} /> KAM Group backed</span>
+                            </div>
+                        </motion.div>
+                        <motion.div
+                            className="car-culture-visual"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45, delay: 0.08 }}
+                        >
+                            <img
+                                src="/images/car-culture-team.png"
+                                alt="KamGlobal AI team collaborating on AI and enterprise technology"
+                                loading="lazy"
+                            />
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="jobs" className="car-jobs">
+                <div className="container">
+                    <div className="car-section-header">
+                        <Eyebrow center>Open Positions</Eyebrow>
+                        <h2>Current Opportunities</h2>
+                        <p>Find your next role and apply directly through our application portal.</p>
+                    </div>
+
+                    <div className="car-jobs-toolbar">
+                        <div className="car-search">
+                            <Search size={18} aria-hidden="true" />
+                            <input
+                                type="text"
+                                placeholder="Search by job title or keyword..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                aria-label="Search jobs"
+                            />
+                        </div>
+                        <div className="car-filters" role="group" aria-label="Filter by category">
+                            {categories.map((cat) => (
                                 <button
                                     key={cat}
-                                    className={`filter-link ${activeCategory === cat ? 'active' : ''}`}
+                                    type="button"
+                                    className={`car-filter-btn${activeCategory === cat ? ' car-filter-btn--active' : ''}`}
                                     onClick={() => setActiveCategory(cat)}
                                 >
                                     {cat}
                                 </button>
                             ))}
                         </div>
-                    </aside>
+                    </div>
 
-                    {/* Job List */}
-                    <div className="job-results-list">
-                        <div className="results-count">
-                            {filteredJobs.length} {filteredJobs.length === 1 ? 'job' : 'jobs'} found
-                        </div>
+                    <p className="car-results-count">
+                        {filteredJobs.length} {filteredJobs.length === 1 ? 'position' : 'positions'} found
+                    </p>
 
-                        <AnimatePresence mode="popLayout">
-                            {filteredJobs.map((job) => (
-                                <motion.div
+                    <AnimatePresence mode="popLayout">
+                        {filteredJobs.length === 0 ? (
+                            <motion.div
+                                key="empty"
+                                className="car-jobs-empty"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                <p>No positions match your search. Try a different keyword or category.</p>
+                            </motion.div>
+                        ) : (
+                            filteredJobs.map((job) => (
+                                <motion.article
                                     layout
                                     key={job.id}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="job-list-item"
+                                    className="car-job-card"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
                                 >
-                                    <div className="item-header">
-                                        <h2 onClick={() => handleApply(job)}>{job.title}</h2>
-                                        <div className="item-meta">
+                                    <div className="car-job-main">
+                                        <button
+                                            type="button"
+                                            className="car-job-title"
+                                            onClick={() => handleApply(job)}
+                                        >
+                                            {job.title}
+                                        </button>
+                                        <div className="car-job-meta">
                                             <span><Briefcase size={14} /> {job.team}</span>
                                             <span><MapPin size={14} /> {job.location}</span>
-                                            {job.experience && <span className="exp-badge">{job.experience}</span>}
+                                            {job.experience && (
+                                                <span className="car-job-exp">{job.experience}</span>
+                                            )}
+                                        </div>
+                                        <div className="car-skill-tags">
+                                            {job.skills?.map((skill) => (
+                                                <span key={skill} className="car-skill-tag">{skill}</span>
+                                            ))}
                                         </div>
                                     </div>
-
-                                    <div className="item-body">
-                                        <div className="skill-tags">
-                                            {job.skills?.map(skill => <span key={skill} className="skill-tag">{skill}</span>)}
-                                        </div>
-                                        <MagneticButton className="btn-view-details" onClick={() => handleApply(job)}>
-                                            View details <ArrowRight size={16} />
-                                        </MagneticButton>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </div>
+                                    <button
+                                        type="button"
+                                        className="car-btn car-btn-outline"
+                                        onClick={() => handleApply(job)}
+                                    >
+                                        Apply <ArrowRight size={15} />
+                                    </button>
+                                </motion.article>
+                            ))
+                        )}
+                    </AnimatePresence>
                 </div>
             </section>
 
+            <section id="talent" className="car-talent">
+                <div className="container">
+                    <motion.div
+                        className="car-talent-card"
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.45 }}
+                    >
+                        <Eyebrow center>Talent Network</Eyebrow>
+                        <h2>Stay Connected</h2>
+                        <p>
+                            Join our talent network to hear about new roles, AI news, and career
+                            opportunities at KamGlobal AI.
+                        </p>
+                        <button
+                            type="button"
+                            className={`car-btn car-btn-primary${isSubscribed ? ' car-btn-success' : ''}`}
+                            onClick={() => setIsSubscribed(true)}
+                            disabled={isSubscribed}
+                        >
+                            {isSubscribed ? (
+                                <><CheckCircle size={16} /> Subscribed</>
+                            ) : (
+                                <><Mail size={16} /> Join Talent Network</>
+                            )}
+                        </button>
+                        <p className="car-talent-note">
+                            You can unsubscribe at any time. See our{' '}
+                            <Link to="/privacy">Privacy Policy</Link> for details.
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
 
+            <section className="car-cta">
+                <div className="container">
+                    <motion.div
+                        className="car-cta-card"
+                        initial={{ opacity: 0, y: 16 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.45 }}
+                    >
+                        <h2>Don&apos;t see the right role?</h2>
+                        <p>Send us your resume — we&apos;re always looking for exceptional talent.</p>
+                        <div className="car-cta-actions">
+                            <Link to="/apply-now" className="car-btn car-btn-primary">
+                                General Application <ArrowRight size={16} />
+                            </Link>
+                            <a href="mailto:careers@kamglobalai.com" className="car-btn car-btn-secondary">
+                                <Mail size={16} /> careers@kamglobalai.com
+                            </a>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
         </div>
     );
 };
