@@ -7,6 +7,7 @@ import About from './pages/About';
 import Services from './pages/Services';
 import WhyKamGlobalAI from './pages/WhyKamGlobalAI';
 import LMS from './pages/LMS';
+import LearnX from './pages/LearnX';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
 import ApplyNow from './pages/ApplyNow';
@@ -45,6 +46,8 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/products" element={<LMS />} />
+            <Route path="/products/learnx" element={<LearnX />} />
+            <Route path="/learnx" element={<Navigate to="/products/learnx" replace />} />
             <Route path="/team" element={<Navigate to="/about#leadership" replace />} />
             <Route path="/kamglobal-ai" element={<WhyKamGlobalAI />} />
             <Route path="/careers" element={<Careers />} />

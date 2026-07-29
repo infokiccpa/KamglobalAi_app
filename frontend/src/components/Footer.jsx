@@ -23,6 +23,7 @@ const companyLinks = [
     { label: 'About', to: '/about' },
     { label: 'Leadership', to: '/about#leadership' },
     { label: 'Products', to: '/products' },
+    { label: 'LearnX', to: '/products/learnx' },
     { label: 'KamGlobalAI', to: '/kamglobal-ai' },
     { label: 'Careers', to: '/careers' },
 ];

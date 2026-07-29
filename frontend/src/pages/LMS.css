@@ -112,6 +112,11 @@
     margin: 0 auto;
 }
 
+.prod-overview-grid--3 {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 960px;
+}
+
 .prod-overview-card {
     display: block;
     padding: 24px 22px;
@@ -488,6 +493,193 @@
     width: 100%;
 }
 
+.prod-btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.prod-btn-outline-navy {
+    background: #fff;
+    color: var(--prod-navy);
+    border: 1px solid var(--prod-border);
+}
+
+.prod-btn-outline-navy:hover {
+    border-color: var(--prod-orange);
+    color: var(--prod-orange);
+}
+
+.prod-lead a {
+    color: var(--prod-orange);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.prod-lead a:hover {
+    text-decoration: underline;
+}
+
+/* EduAiTutors deep dive */
+.prod-eduai-deep {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--prod-border);
+}
+
+.prod-method-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.prod-method-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: #fff;
+    border: 1px solid var(--prod-border);
+    border-radius: 999px;
+}
+
+.prod-method-step span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--prod-navy);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.prod-method-step strong {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.prod-eduai-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+}
+
+.prod-eduai-pillar {
+    padding: 20px 16px;
+    background: #fff;
+    border: 1px solid var(--prod-border);
+    border-radius: 14px;
+}
+
+.prod-eduai-pillar h3 {
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 10px 0 6px;
+}
+
+.prod-eduai-pillar p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--prod-muted);
+    margin: 0;
+}
+
+.prod-eduai-programs {
+    margin-bottom: 24px;
+}
+
+.prod-eduai-programs-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.prod-eduai-programs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.prod-eduai-program {
+    padding: 16px;
+    background: #fff;
+    border: 1px solid var(--prod-border);
+    border-radius: 12px;
+}
+
+.prod-eduai-program strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.prod-eduai-program span {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--prod-muted);
+}
+
+.prod-eduai-compare {
+    padding: 24px;
+    background: rgba(247, 148, 29, 0.06);
+    border: 1px solid rgba(247, 148, 29, 0.2);
+    border-radius: 14px;
+}
+
+.prod-eduai-compare h3 {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.prod-eduai-compare ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.prod-eduai-compare li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--prod-muted);
+}
+
+.prod-eduai-compare svg {
+    color: var(--prod-orange);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+@media (max-width: 900px) {
+    .prod-eduai-pillars {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .prod-eduai-pillars,
+    .prod-eduai-programs-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* CTA */
 .prod-cta {
     padding: 56px 0 80px;
@@ -556,12 +748,19 @@
     }
 }
 
+@media (max-width: 900px) {
+    .prod-overview-grid--3 {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 640px) {
     .prod-hero {
         padding: 112px 0 44px;
     }
 
-    .prod-overview-grid {
+    .prod-overview-grid,
+    .prod-overview-grid--3 {
         grid-template-columns: 1fr;
     }
 

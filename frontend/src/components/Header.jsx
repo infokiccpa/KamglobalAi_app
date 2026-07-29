@@ -1,43 +1,91 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, Brain } from 'lucide-react';
+import {
+  Menu,
+  X,
+  ChevronDown,
+  LayoutGrid,
+  Globe,
+  Laptop,
+  Cloud,
+  Users,
+  TrendingUp,
+  Wrench,
+  Handshake,
+  GraduationCap,
+  BookOpen,
+  Brain,
+  ArrowUpRight,
+} from 'lucide-react';
 import './Header.css';
+
+const navLinks = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  {
+    name: 'Services',
+    path: '/services',
+    dropdownLabel: 'Our Services',
+    dropdownHint: 'Enterprise IT & digital delivery',
+    dropdownWide: true,
+    dropdown: [
+      { name: 'All Services', desc: 'Full service overview', path: '/services', icon: LayoutGrid },
+      { name: 'BOT Model', desc: 'Build-Operate-Transfer teams', path: '/services#bot-model', icon: Globe },
+      { name: 'IT Development', desc: 'Custom enterprise platforms', path: '/services#it-dev', icon: Laptop },
+      { name: 'Cloud & DevOps', desc: 'Migration and CI/CD', path: '/services#cloud', icon: Cloud },
+      { name: 'IT Staffing', desc: 'Vetted engineering talent', path: '/services#staffing', icon: Users },
+      { name: 'Digital Marketing', desc: 'AI-driven growth', path: '/services#marketing', icon: TrendingUp },
+      { name: 'Managed IT', desc: 'Operations & support', path: '/services#managed-it', icon: Wrench },
+      { name: 'KAM Partnership', desc: 'Kuwait–India bridge', path: '/services#partnership', icon: Handshake },
+    ],
+  },
+  {
+    name: 'Products',
+    path: '/products',
+    dropdownLabel: 'Our Products',
+    dropdownHint: 'Education platforms by KamGlobal AI',
+    dropdownWide: false,
+    dropdownAlign: 'right',
+    dropdown: [
+      { name: 'All Products', desc: 'Browse every platform', path: '/products', icon: LayoutGrid },
+      { name: 'LearnX', desc: 'School ERP + LMS + AI Studio', path: '/products/learnx', icon: GraduationCap, badge: 'Flagship' },
+      { name: 'EduAiTutors', desc: 'NEET & JEE coaching', path: '/products#eduaitutors', icon: BookOpen },
+      { name: 'AI-Powered LMS', desc: 'Pre-KG to Grade 12', path: '/products#ai-lms', icon: Brain, badge: 'Live' },
+    ],
+  },
+  { name: 'KamGlobalAI', path: '/kamglobal-ai' },
+  { name: 'Careers', path: '/careers' },
+];
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [servicesDropdown, setServicesDropdown] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+  const [mobileExpand, setMobileExpand] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    {
-      name: 'Services',
-      path: '/services',
-      dropdown: [
-        { name: 'All Services', path: '/services' },
-        { name: 'BOT Model', path: '/services#bot-model' },
-        { name: 'IT Development', path: '/services#it-dev' },
-        { name: 'Cloud Development', path: '/services#cloud' },
-        { name: 'IT Staffing & Recruitment', path: '/services#staffing' },
-        { name: 'Digital Marketing', path: '/services#marketing' },
-        { name: 'Managed IT Services', path: '/services#managed-it' },
-        { name: 'Strategic Partnership with KAMGROUPS Kuwait', path: '/services#partnership' },
-      ]
-    },
-    { name: 'Products', path: '/products' },
-    { name: 'KamGlobalAI', path: '/kamglobal-ai' },
-    { name: 'Careers', path: '/careers' },
-  ];
+  useEffect(() => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+    setMobileExpand(null);
+  }, [location.pathname, location.hash]);
+
+  const isActive = (path) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
+
+  const closeAll = () => {
+    setIsOpen(false);
+    setOpenDropdown(null);
+    setMobileExpand(null);
+  };
 
   return (
     <>
@@ -46,37 +94,78 @@ const Header = () => {
       </Link>
 
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
-        <div className="header-main-wrapper flex items-center justify-between">
+        <div className="header-main-wrapper">
           <div className="desktop-nav-container">
-            <nav className="desktop-nav">
+            <nav className="desktop-nav" aria-label="Primary">
               {navLinks.map((link) => (
                 <div
                   key={link.name}
-                  className="nav-item-wrapper"
-                  onMouseEnter={() => link.dropdown && setServicesDropdown(true)}
-                  onMouseLeave={() => link.dropdown && setServicesDropdown(false)}
+                  className={`nav-item-wrapper${openDropdown === link.name ? ' is-open' : ''}`}
+                  onMouseEnter={() => link.dropdown && setOpenDropdown(link.name)}
+                  onMouseLeave={() => link.dropdown && setOpenDropdown(null)}
                 >
                   <Link
                     to={link.path}
-                    className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
-                    onClick={() => setServicesDropdown(false)}
+                    className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
+                    aria-expanded={link.dropdown ? openDropdown === link.name : undefined}
+                    aria-haspopup={link.dropdown ? 'menu' : undefined}
                   >
                     {link.name}
-                    {link.dropdown && <ChevronDown size={14} className={`dropdown-icon ${servicesDropdown ? 'rotate' : ''}`} />}
+                    {link.dropdown && (
+                      <ChevronDown
+                        size={14}
+                        className={`dropdown-icon${openDropdown === link.name ? ' rotate' : ''}`}
+                        aria-hidden="true"
+                      />
+                    )}
                   </Link>
 
-                  {link.dropdown && servicesDropdown && (
-                    <div className="dropdown-menu glass">
-                      {link.dropdown.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.path}
-                          className="dropdown-item"
-                          onClick={() => setServicesDropdown(false)}
-                        >
-                          {item.name}
-                        </Link>
-                      ))}
+                  {link.dropdown && (
+                    <div
+                      className={[
+                        'nav-dropdown',
+                        link.dropdownWide ? 'nav-dropdown--wide' : '',
+                        link.dropdownAlign === 'right' ? 'nav-dropdown--right' : '',
+                        openDropdown === link.name ? 'nav-dropdown--open' : '',
+                      ].filter(Boolean).join(' ')}
+                      role="menu"
+                    >
+                      <div className="nav-dropdown-inner">
+                        <div className="nav-dropdown-head">
+                          <span className="nav-dropdown-label">{link.dropdownLabel}</span>
+                          <span className="nav-dropdown-hint">{link.dropdownHint}</span>
+                        </div>
+                        <div className={`nav-dropdown-grid${link.dropdownWide ? ' nav-dropdown-grid--2' : ''}`}>
+                          {link.dropdown.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                              <Link
+                                key={item.name}
+                                to={item.path}
+                                className="nav-dropdown-item"
+                                role="menuitem"
+                                onClick={closeAll}
+                              >
+                                <span className="nav-dropdown-icon" aria-hidden="true">
+                                  <Icon size={16} strokeWidth={1.75} />
+                                </span>
+                                <span className="nav-dropdown-text">
+                                  <span className="nav-dropdown-title">
+                                    {item.name}
+                                    {item.badge && (
+                                      <span className={`nav-dropdown-badge${item.badge === 'Soon' ? ' nav-dropdown-badge--soon' : ''}`}>
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </span>
+                                  <span className="nav-dropdown-desc">{item.desc}</span>
+                                </span>
+                                <ArrowUpRight size={14} className="nav-dropdown-arrow" aria-hidden="true" />
+                              </Link>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -84,50 +173,92 @@ const Header = () => {
             </nav>
           </div>
 
-          <div className="nav-divider"></div>
+          <div className="nav-divider" aria-hidden="true" />
 
           <Link to="/contact" className="nav-contact-btn">
             Contact us
           </Link>
 
-          {/* Mobile Toggle */}
-          <button className="mobile-toggle" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button
+            type="button"
+            className="mobile-toggle"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isOpen}
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
+      </header>
 
-        {/* Mobile Nav */}
-        <div className={`mobile-nav ${isOpen ? 'open' : ''}`}>
+      <div className={`mobile-nav${isOpen ? ' open' : ''}`} aria-hidden={!isOpen}>
+        <div className="mobile-nav-panel">
+          <div className="mobile-nav-top">
+            <span className="mobile-nav-brand">Menu</span>
+            <button type="button" className="mobile-nav-close" onClick={closeAll} aria-label="Close menu">
+              <X size={22} />
+            </button>
+          </div>
+
           <div className="mobile-nav-links">
             {navLinks.map((link) => (
-              <React.Fragment key={link.name}>
-                <Link
-                  to={link.path}
-                  className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {link.name}
-                </Link>
-                {link.dropdown && (
-                  <div className="mobile-dropdown">
-                    {link.dropdown.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className="mobile-dropdown-item"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.name}
+              <div key={link.name} className="mobile-nav-group">
+                {link.dropdown ? (
+                  <>
+                    <button
+                      type="button"
+                      className={`mobile-link mobile-link--toggle${isActive(link.path) ? ' active' : ''}`}
+                      onClick={() => setMobileExpand(mobileExpand === link.name ? null : link.name)}
+                      aria-expanded={mobileExpand === link.name}
+                    >
+                      <span>{link.name}</span>
+                      <ChevronDown
+                        size={18}
+                        className={mobileExpand === link.name ? 'rotate' : ''}
+                        aria-hidden="true"
+                      />
+                    </button>
+                    <div className={`mobile-dropdown${mobileExpand === link.name ? ' open' : ''}`}>
+                      <Link to={link.path} className="mobile-dropdown-overview" onClick={closeAll}>
+                        View all {link.name.toLowerCase()}
                       </Link>
-                    ))}
-                  </div>
+                      {link.dropdown.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                          <Link
+                            key={item.name}
+                            to={item.path}
+                            className="mobile-dropdown-item"
+                            onClick={closeAll}
+                          >
+                            <Icon size={15} aria-hidden="true" />
+                            <span>
+                              <strong>{item.name}</strong>
+                              <em>{item.desc}</em>
+                            </span>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </>
+                ) : (
+                  <Link
+                    to={link.path}
+                    className={`mobile-link ${isActive(link.path) ? 'active' : ''}`}
+                    onClick={closeAll}
+                  >
+                    {link.name}
+                  </Link>
                 )}
-              </React.Fragment>
+              </div>
             ))}
-            <Link to="/contact" className="btn btn-primary" onClick={() => setIsOpen(false)}>Contact us</Link>
           </div>
+
+          <Link to="/contact" className="mobile-contact-btn" onClick={closeAll}>
+            Contact us
+          </Link>
         </div>
-      </header>
+      </div>
     </>
   );
 };

@@ -12,6 +12,11 @@ import {
     Mail,
     XCircle,
     CheckCircle,
+    Video,
+    Target,
+    MessageCircle,
+    Globe2,
+    BookOpen,
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import './LMS.css';
@@ -29,6 +34,38 @@ const lmsFeatures = [
     { icon: Users, title: 'Multi-Role Access', desc: 'Built for students, teachers, parents, and school leadership.' },
     { icon: GraduationCap, title: 'Pre-KG to Grade 12', desc: 'One platform covering the full educational journey.' },
 ];
+
+const eduaiPillars = [
+    {
+        icon: Video,
+        title: 'Live interactive classes',
+        desc: 'Real-time two-way sessions with digital whiteboards, polling, and doubt-solving — India & GCC batches.',
+    },
+    {
+        icon: Brain,
+        title: 'AI-powered mock analytics',
+        desc: 'Time-per-question tracking, gap reports, predictive rank trajectory, and repeat-error tagging.',
+    },
+    {
+        icon: MessageCircle,
+        title: '24/7 doubts & 1:1 mentorship',
+        desc: 'Text, photo, and voice doubts with weekly mentor calls from IITian and doctor mentors.',
+    },
+    {
+        icon: Globe2,
+        title: 'GCC / NRI-ready batches',
+        desc: 'UAE, Saudi & Oman-friendly timings, DASA/CIWG counselling, same NCERT curriculum.',
+    },
+];
+
+const eduaiPrograms = [
+    { title: 'NEET Full-Time / Crash', desc: 'Structured medical entrance prep with AI diagnostics and mentor reviews.' },
+    { title: 'JEE Mains & Advanced', desc: 'Concept-first Physics, Chemistry, and Maths with live mentoring.' },
+    { title: 'Foundation (Classes 6–10)', desc: 'Maths & Science basics for school success and future NEET/JEE readiness.' },
+    { title: 'Dropper batches', desc: 'Gap-led personalisation from your previous attempt — not a generic repeat syllabus.' },
+];
+
+const eduaiMethod = ['Diagnose', 'Design', 'Deliver', 'Evaluate', 'Improve'];
 
 const Eyebrow = ({ children, center }) => (
     <div className={`prod-eyebrow${center ? ' prod-eyebrow-center' : ''}`}>
@@ -72,7 +109,7 @@ const LMS = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setStatus({ type: 'success', message: 'You\'re on the waitlist! We\'ll be in touch soon.' });
+                setStatus({ type: 'success', message: 'Request received! We\'ll be in touch soon.' });
                 setFormData({ name: '', email: '', phone: '', institution: '', role: '', gradeRange: '' });
             } else {
                 setStatus({ type: 'error', message: data.message || 'Something went wrong. Please try again.' });
@@ -85,10 +122,10 @@ const LMS = () => {
     return (
         <div className="products-page">
             <Helmet>
-                <title>Our Products | KamGlobal AI — EduAiTutors & AI-Powered LMS</title>
+                <title>Our Products | KamGlobal AI — LearnX, EduAiTutors & LMS</title>
                 <meta
                     name="description"
-                    content="Explore KamGlobal AI products: EduAiTutors for NEET & JEE coaching and our upcoming AI-Powered LMS for Pre-KG to Grade 12."
+                    content="Explore KamGlobal AI products: LearnX school ERP + LMS + AI, EduAiTutors for NEET & JEE, and our AI-Powered LMS for Pre-KG to Grade 12."
                 />
             </Helmet>
 
@@ -103,13 +140,14 @@ const LMS = () => {
                         <Eyebrow center>Our Products</Eyebrow>
                         <h1>AI-Powered Learning Solutions</h1>
                         <p>
-                            Innovative education platforms developed by KamGlobal AI — from competitive
-                            exam coaching to school-wide intelligent learning.
+                            Education platforms from KamGlobal AI — school ERP &amp; AI Academic Studio,
+                            competitive exam coaching, and intelligent learning for campuses.
                         </p>
                         <nav className="prod-jump-nav" aria-label="Product sections">
+                            <Link to="/products/learnx" className="prod-jump-link">LearnX</Link>
                             <a href="#eduaitutors" className="prod-jump-link">EduAiTutors</a>
                             <a href="#ai-lms" className="prod-jump-link">AI-Powered LMS</a>
-                            <a href="#waitlist" className="prod-jump-link">Join Waitlist</a>
+                            <a href="#demo" className="prod-jump-link">Request Demo</a>
                         </nav>
                     </motion.div>
                 </div>
@@ -117,17 +155,72 @@ const LMS = () => {
 
             <section className="prod-overview">
                 <div className="container">
-                    <div className="prod-overview-grid">
+                    <div className="prod-overview-grid prod-overview-grid--3">
+                        <Link to="/products/learnx" className="prod-overview-card">
+                            <span className="prod-badge prod-badge--live">Flagship</span>
+                            <h3>LearnX</h3>
+                            <p>School ERP + LMS + AI Academic Studio for Indian boards</p>
+                        </Link>
                         <a href="#eduaitutors" className="prod-overview-card">
                             <span className="prod-badge prod-badge--live">Live</span>
                             <h3>EduAiTutors</h3>
                             <p>NEET & JEE online coaching for India and the GCC</p>
                         </a>
                         <a href="#ai-lms" className="prod-overview-card">
-                            <span className="prod-badge prod-badge--soon">Launching Soon</span>
+                            <span className="prod-badge prod-badge--live">Live</span>
                             <h3>AI-Powered LMS</h3>
                             <p>Adaptive learning platform for Pre-KG to Grade 12</p>
                         </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="learnx" className="prod-section">
+                <div className="container">
+                    <div className="prod-section-grid">
+                        <motion.div
+                            className="prod-section-content"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45 }}
+                        >
+                            <Eyebrow>Flagship Product</Eyebrow>
+                            <h2>LearnX</h2>
+                            <p className="prod-lead">
+                                The complete school operating system — modular ERP, LMS, white-label websites,
+                                parent portals, and AI Academic Studio built for CBSE, ICSE, and State Boards.
+                            </p>
+                            <ul className="prod-features-list">
+                                {[
+                                    'White-label school website + admin',
+                                    'Fees, attendance, transport & HR',
+                                    'AI question paper & lesson PPT tools',
+                                    'Multi-branch with secure tenancy',
+                                ].map((item) => (
+                                    <li key={item}>
+                                        <CheckCircle2 size={15} aria-hidden="true" />
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                            <Link to="/products/learnx" className="prod-btn prod-btn-primary">
+                                Explore LearnX <ArrowRight size={15} />
+                            </Link>
+                        </motion.div>
+                        <motion.div
+                            className="prod-section-visual"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45, delay: 0.08 }}
+                        >
+                            <img
+                                src="/images/learnx-hero.png"
+                                alt="LearnX school management platform"
+                                loading="lazy"
+                            />
+                        </motion.div>
                     </div>
                 </div>
             </section>
@@ -142,28 +235,44 @@ const LMS = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.45 }}
                         >
-                            <Eyebrow>Flagship Product</Eyebrow>
+                            <Eyebrow>Live Product</Eyebrow>
                             <h2>EduAiTutors</h2>
                             <p className="prod-lead">
-                                A comprehensive, AI-powered online coaching platform for NEET and JEE aspirants
-                                across India and the GCC — combining live classes with intelligent analytics.
+                                Best-in-class online NEET &amp; JEE coaching for India and the GCC — live mentor-led
+                                classes, AI mock analytics, NCERT mastery, and personalised study systems. Built by
+                                KamGlobal AI and available at{' '}
+                                <a href="https://www.eduaitutors.com/" target="_blank" rel="noopener noreferrer">
+                                    eduaitutors.com
+                                </a>.
                             </p>
                             <ul className="prod-features-list">
-                                {['Live NEET & JEE coaching', 'AI-powered rank analytics', 'GCC-friendly online batches', 'Weekly mentor-led insights'].map((item) => (
+                                {[
+                                    'Live India & GCC batches',
+                                    'AI mock tests & rank prediction',
+                                    '1:1 mentor calls (IITian / Doctor mentors)',
+                                    'Foundation Classes 6–10 + dropper tracks',
+                                    'Parent dashboard & monthly reviews',
+                                    'Zero commute — HD recordings 24/7',
+                                ].map((item) => (
                                     <li key={item}>
                                         <CheckCircle2 size={15} aria-hidden="true" />
                                         {item}
                                     </li>
                                 ))}
                             </ul>
-                            <a
-                                href="https://www.eduaitutors.com/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="prod-btn prod-btn-primary"
-                            >
-                                Visit EduAiTutors <ExternalLink size={15} />
-                            </a>
+                            <div className="prod-btn-row">
+                                <a
+                                    href="https://www.eduaitutors.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="prod-btn prod-btn-primary"
+                                >
+                                    Visit EduAiTutors <ExternalLink size={15} />
+                                </a>
+                                <a href="#demo" className="prod-btn prod-btn-outline-navy">
+                                    Talk to our team
+                                </a>
+                            </div>
                         </motion.div>
                         <motion.div
                             className="prod-section-visual"
@@ -172,8 +281,72 @@ const LMS = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.45, delay: 0.08 }}
                         >
-                            <img src="/images/eduaitutors.png" alt="EduAiTutors platform" loading="lazy" />
+                            <img src="/images/hm-eduaitutors.png" alt="EduAiTutors NEET and JEE online coaching" loading="lazy" />
                         </motion.div>
+                    </div>
+
+                    <div className="prod-eduai-deep">
+                        <div className="prod-section-header">
+                            <Eyebrow center>How EduAiTutors Works</Eyebrow>
+                            <h2>A system — not just content</h2>
+                            <p>
+                                Most platforms give lectures. EduAiTutors runs Diagnose → Design → Deliver → Evaluate → Improve
+                                so every student closes the right gaps before the real exam.
+                            </p>
+                        </div>
+
+                        <div className="prod-method-row" aria-label="Methodology stages">
+                            {eduaiMethod.map((step, i) => (
+                                <div key={step} className="prod-method-step">
+                                    <span>{i + 1}</span>
+                                    <strong>{step}</strong>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="prod-eduai-pillars">
+                            {eduaiPillars.map((p) => (
+                                <div key={p.title} className="prod-eduai-pillar">
+                                    <span className="prod-feature-icon" aria-hidden="true">
+                                        <p.icon size={18} strokeWidth={1.75} />
+                                    </span>
+                                    <h3>{p.title}</h3>
+                                    <p>{p.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="prod-eduai-programs">
+                            <h3 className="prod-eduai-programs-title">
+                                <BookOpen size={18} aria-hidden="true" /> Featured programs
+                            </h3>
+                            <div className="prod-eduai-programs-grid">
+                                {eduaiPrograms.map((prog) => (
+                                    <div key={prog.title} className="prod-eduai-program">
+                                        <strong>{prog.title}</strong>
+                                        <span>{prog.desc}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="prod-eduai-compare">
+                            <h3>Why students &amp; parents choose EduAiTutors</h3>
+                            <ul>
+                                {[
+                                    'Small mentor-accessible live batches — not 150–300 student mass halls',
+                                    'AI-personalised plans from diagnostic gaps, not one plan for everyone',
+                                    'Weekly AI reports shared with parents + real-time dashboard',
+                                    'Dedicated NRI/GCC support with local-friendly class timings',
+                                    'Study material, mocks, and recordings included — no hidden premium tiers',
+                                ].map((t) => (
+                                    <li key={t}>
+                                        <Target size={14} aria-hidden="true" />
+                                        {t}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -188,11 +361,12 @@ const LMS = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.45 }}
                         >
-                            <Eyebrow>Coming Soon</Eyebrow>
+                            <Eyebrow>Live Product</Eyebrow>
                             <h2>AI-Powered LMS</h2>
                             <p className="prod-lead">
-                                A revolutionary learning management system for Pre-KG to Grade 12 — personalized
-                                mastery through adaptive intelligence for schools and students.
+                                An intelligent learning management system for Pre-KG to Grade 12 — adaptive paths,
+                                multi-role access, and analytics for schools and learners. More detailed product data
+                                will be published here soon.
                             </p>
                             <div className="prod-feature-cards">
                                 {lmsFeatures.map(({ icon: Icon, title, desc }) => (
@@ -207,8 +381,8 @@ const LMS = () => {
                                     </div>
                                 ))}
                             </div>
-                            <a href="#waitlist" className="prod-section-link">
-                                Join the waitlist <ArrowRight size={15} />
+                            <a href="#demo" className="prod-section-link">
+                                Request a demo <ArrowRight size={15} />
                             </a>
                         </motion.div>
                         <motion.div
@@ -219,8 +393,8 @@ const LMS = () => {
                             transition={{ duration: 0.45, delay: 0.08 }}
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800"
-                                alt="Students learning with technology"
+                                src="/images/hm-ai-lms.png"
+                                alt="AI-Powered LMS for Pre-KG to Grade 12"
                                 loading="lazy"
                             />
                         </motion.div>
@@ -253,7 +427,7 @@ const LMS = () => {
                 </div>
             </section>
 
-            <section id="waitlist" className="prod-waitlist">
+            <section id="demo" className="prod-waitlist">
                 <div className="container">
                     <motion.div
                         className="prod-waitlist-card"
@@ -263,9 +437,12 @@ const LMS = () => {
                         transition={{ duration: 0.45 }}
                     >
                         <div className="prod-waitlist-head">
-                            <Eyebrow center>Early Access</Eyebrow>
-                            <h2>Join the AI-Powered LMS Waitlist</h2>
-                            <p>Be among the first schools and educators to experience the next generation of intelligent education.</p>
+                            <Eyebrow center>Get Started</Eyebrow>
+                            <h2>Request a product demo</h2>
+                            <p>
+                                Interested in LearnX, EduAiTutors partnerships, or AI-Powered LMS for your school?
+                                Share your details and our team will respond.
+                            </p>
                         </div>
 
                         {status.type !== 'idle' && (
@@ -290,15 +467,14 @@ const LMS = () => {
                             </select>
                             <input type="text" name="institution" placeholder="Institution / organization" value={formData.institution} onChange={handleInputChange} />
                             <select name="gradeRange" value={formData.gradeRange} onChange={handleInputChange}>
-                                <option value="" disabled>Grade range (if applicable)</option>
-                                <option value="Pre-KG">Pre-KG</option>
-                                <option value="Elementary">Elementary (G1–G5)</option>
-                                <option value="Middle School">Middle School (G6–G8)</option>
-                                <option value="High School">High School (G9–G12)</option>
-                                <option value="Multiple">Multiple levels</option>
+                                <option value="" disabled>Product interest</option>
+                                <option value="LearnX">LearnX</option>
+                                <option value="EduAiTutors">EduAiTutors</option>
+                                <option value="AI-Powered LMS">AI-Powered LMS</option>
+                                <option value="Multiple">Multiple products</option>
                             </select>
                             <button type="submit" className="prod-btn prod-btn-primary prod-btn-full" disabled={status.type === 'loading'}>
-                                {status.type === 'loading' ? 'Submitting...' : 'Request Invitation'}
+                                {status.type === 'loading' ? 'Submitting...' : 'Request Demo'}
                                 {status.type !== 'loading' && <ArrowRight size={16} />}
                             </button>
                         </form>
