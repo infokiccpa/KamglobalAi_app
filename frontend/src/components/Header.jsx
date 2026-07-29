@@ -89,8 +89,14 @@ const Header = () => {
 
   return (
     <>
-      <Link to="/" className={`logo-fixed ${scrolled ? 'scrolled' : ''}`}>
-        <img src="/logo.png" alt="KAM Global AI Logo" className="logo-img" />
+      <Link to="/" className={`logo-fixed ${scrolled ? 'scrolled' : ''}`} aria-label="KamGlobal AI home">
+        <img
+          src="/logo.png?v=3"
+          alt="Kam Global for Digital AI — Media Solutions"
+          className="logo-img"
+          width={280}
+          height={176}
+        />
       </Link>
 
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>

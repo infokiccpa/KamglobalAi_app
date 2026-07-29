@@ -75,7 +75,7 @@ const Footer = () => {
                     <div className="footer-layout">
                         <div className="footer-brand">
                             <Link to="/" className="footer-logo">
-                                <img src="/logo.png" alt="KAM Global AI" className="footer-logo-img" />
+                                <img src="/logo.png?v=4" alt="Kam Global for Digital AI" className="footer-logo-img" />
                             </Link>
                             <p className="footer-tagline">
                                 AI-powered digital transformation connecting Gulf business vision with
