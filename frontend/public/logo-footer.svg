@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" fill="none">
+  <defs>
+    <linearGradient id="kamK" x1="70" y1="20" x2="150" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFD24A"/>
+      <stop offset="0.45" stop-color="#FF9A1A"/>
+      <stop offset="1" stop-color="#F06A00"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Brush K (hard-edged shapes, no blur) -->
+  <path fill="url(#kamK)" d="M118.5 34.2c6.8-3.4 15.2.6 18.4 7.6 12.4 27.2 16.8 57.6 14.8 87.2-1.2 17.6-4.4 35-10.8 51.2-2.8 7.2-10.8 10.4-17.6 7.6-6.4-2.8-9.6-10-7.6-16.8 4.4-15.6 7.2-31.6 8-47.6 1.2-22.8-1.6-45.6-9.6-66.8-2.8-7.6.8-16.4 8.4-18.8 2-.8 4-1.6 6-1.6z"/>
+  <path fill="url(#kamK)" d="M98.2 48.6c8.8 2 14.8 11.2 13.2 20.4-4 24.8-6.4 50-4.8 75.2.4 7.6-5.2 14.4-12.8 14.8-7.6.4-14.4-5.2-14.8-12.8-1.6-28.4.8-56.8 5.6-84.4 1.6-8.8 10.4-14.8 18.4-12.8 1.6.4 3.2.8 5.2-.4z"/>
+  <path fill="url(#kamK)" d="M132.6 118.4c5.2-3.6 12.4-2.4 16.4 2.8 18.4 24 40.4 44.8 65.2 62 6.4 4.4 7.6 13.6 2.8 19.6-4.8 6-14 6.8-19.6 2-22.8-16-42.8-35.2-59.6-57.2-4.4-5.6-3.6-14 2-18.4 1.2-.8 2.4-1.6 3.2-2.4 1.6-.8 3.2-1.2 4.8-1.6 1.6 0 3.2.4 5.2.4z"/>
+  <path fill="url(#kamK)" d="M128.4 124.8c5.6.8 10 5.6 10.4 11.2 2.8 28.4 12.4 55.6 27.6 80 4 6.4.8 15.2-6 18-6.8 2.8-14.8-.8-17.2-7.6-14.4-24-23.2-51.2-26-79.2-.8-6.8 3.6-13.2 10.4-14.4 1.2-.4 2.4-.4 3.6-.4 1.2 0 2.4.4 3.6.4z"/>
+
+  <!-- Script am -->
+  <text x="188" y="148" fill="#2B9BFF" font-family="Segoe Script, 'Lucida Handwriting', 'Brush Script MT', cursive" font-size="108" font-weight="600">am</text>
+
+  <!-- Sharp company lines (navy — for light plate) -->
+  <text x="240" y="210" text-anchor="middle" fill="#0C213D" font-family="Segoe UI, system-ui, -apple-system, Arial, sans-serif" font-size="26" font-weight="700">Global for Digital AI</text>
+  <text x="240" y="246" text-anchor="middle" fill="#334155" font-family="Segoe UI, system-ui, -apple-system, Arial, sans-serif" font-size="18" font-weight="600">Media Solutions Pvt. Ltd.</text>
+</svg>

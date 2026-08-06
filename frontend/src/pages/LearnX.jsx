@@ -509,8 +509,8 @@ const LearnX = () => {
                         </div>
                         <div className="lx-ai-visual">
                             <img
-                                src="/images/learnx-ai-qp.png"
-                                alt="AI question paper generator for teachers"
+                                src="/images/learnx-ai-qp.png?v=2"
+                                alt="Teacher using LearnX platform dashboard in classroom"
                                 loading="lazy"
                             />
                         </div>

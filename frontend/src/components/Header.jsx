@@ -89,101 +89,103 @@ const Header = () => {
 
   return (
     <>
-      <Link to="/" className={`logo-fixed ${scrolled ? 'scrolled' : ''}`} aria-label="KamGlobal AI home">
-        <img
-          src="/logo.png?v=3"
-          alt="Kam Global for Digital AI — Media Solutions"
-          className="logo-img"
-          width={280}
-          height={176}
-        />
-      </Link>
-
       <header className={`header ${scrolled ? 'scrolled' : ''}`}>
         <div className="header-main-wrapper">
-          <div className="desktop-nav-container">
-            <nav className="desktop-nav" aria-label="Primary">
-              {navLinks.map((link) => (
-                <div
-                  key={link.name}
-                  className={`nav-item-wrapper${openDropdown === link.name ? ' is-open' : ''}`}
-                  onMouseEnter={() => link.dropdown && setOpenDropdown(link.name)}
-                  onMouseLeave={() => link.dropdown && setOpenDropdown(null)}
-                >
-                  <Link
-                    to={link.path}
-                    className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
-                    aria-expanded={link.dropdown ? openDropdown === link.name : undefined}
-                    aria-haspopup={link.dropdown ? 'menu' : undefined}
-                  >
-                    {link.name}
-                    {link.dropdown && (
-                      <ChevronDown
-                        size={14}
-                        className={`dropdown-icon${openDropdown === link.name ? ' rotate' : ''}`}
-                        aria-hidden="true"
-                      />
-                    )}
-                  </Link>
+          <Link to="/" className="header-logo" aria-label="KamGlobal AI home">
+            <img
+              src="/logo.png?v=5"
+              alt="Kam Global for Digital AI — Media Solutions"
+              className="logo-img"
+              width={200}
+              height={140}
+            />
+          </Link>
 
-                  {link.dropdown && (
-                    <div
-                      className={[
-                        'nav-dropdown',
-                        link.dropdownWide ? 'nav-dropdown--wide' : '',
-                        link.dropdownAlign === 'right' ? 'nav-dropdown--right' : '',
-                        openDropdown === link.name ? 'nav-dropdown--open' : '',
-                      ].filter(Boolean).join(' ')}
-                      role="menu"
+          <div className="header-nav-center">
+            <div className="desktop-nav-container">
+              <nav className="desktop-nav" aria-label="Primary">
+                {navLinks.map((link) => (
+                  <div
+                    key={link.name}
+                    className={`nav-item-wrapper${openDropdown === link.name ? ' is-open' : ''}`}
+                    onMouseEnter={() => link.dropdown && setOpenDropdown(link.name)}
+                    onMouseLeave={() => link.dropdown && setOpenDropdown(null)}
+                  >
+                    <Link
+                      to={link.path}
+                      className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
+                      aria-expanded={link.dropdown ? openDropdown === link.name : undefined}
+                      aria-haspopup={link.dropdown ? 'menu' : undefined}
                     >
-                      <div className="nav-dropdown-inner">
-                        <div className="nav-dropdown-head">
-                          <span className="nav-dropdown-label">{link.dropdownLabel}</span>
-                          <span className="nav-dropdown-hint">{link.dropdownHint}</span>
-                        </div>
-                        <div className={`nav-dropdown-grid${link.dropdownWide ? ' nav-dropdown-grid--2' : ''}`}>
-                          {link.dropdown.map((item) => {
-                            const Icon = item.icon;
-                            return (
-                              <Link
-                                key={item.name}
-                                to={item.path}
-                                className="nav-dropdown-item"
-                                role="menuitem"
-                                onClick={closeAll}
-                              >
-                                <span className="nav-dropdown-icon" aria-hidden="true">
-                                  <Icon size={16} strokeWidth={1.75} />
-                                </span>
-                                <span className="nav-dropdown-text">
-                                  <span className="nav-dropdown-title">
-                                    {item.name}
-                                    {item.badge && (
-                                      <span className={`nav-dropdown-badge${item.badge === 'Soon' ? ' nav-dropdown-badge--soon' : ''}`}>
-                                        {item.badge}
-                                      </span>
-                                    )}
+                      {link.name}
+                      {link.dropdown && (
+                        <ChevronDown
+                          size={14}
+                          className={`dropdown-icon${openDropdown === link.name ? ' rotate' : ''}`}
+                          aria-hidden="true"
+                        />
+                      )}
+                    </Link>
+
+                    {link.dropdown && (
+                      <div
+                        className={[
+                          'nav-dropdown',
+                          link.dropdownWide ? 'nav-dropdown--wide' : '',
+                          link.dropdownAlign === 'right' ? 'nav-dropdown--right' : '',
+                          openDropdown === link.name ? 'nav-dropdown--open' : '',
+                        ].filter(Boolean).join(' ')}
+                        role="menu"
+                      >
+                        <div className="nav-dropdown-inner">
+                          <div className="nav-dropdown-head">
+                            <span className="nav-dropdown-label">{link.dropdownLabel}</span>
+                            <span className="nav-dropdown-hint">{link.dropdownHint}</span>
+                          </div>
+                          <div className={`nav-dropdown-grid${link.dropdownWide ? ' nav-dropdown-grid--2' : ''}`}>
+                            {link.dropdown.map((item) => {
+                              const Icon = item.icon;
+                              return (
+                                <Link
+                                  key={item.name}
+                                  to={item.path}
+                                  className="nav-dropdown-item"
+                                  role="menuitem"
+                                  onClick={closeAll}
+                                >
+                                  <span className="nav-dropdown-icon" aria-hidden="true">
+                                    <Icon size={16} strokeWidth={1.75} />
                                   </span>
-                                  <span className="nav-dropdown-desc">{item.desc}</span>
-                                </span>
-                                <ArrowUpRight size={14} className="nav-dropdown-arrow" aria-hidden="true" />
-                              </Link>
-                            );
-                          })}
+                                  <span className="nav-dropdown-text">
+                                    <span className="nav-dropdown-title">
+                                      {item.name}
+                                      {item.badge && (
+                                        <span className={`nav-dropdown-badge${item.badge === 'Soon' ? ' nav-dropdown-badge--soon' : ''}`}>
+                                          {item.badge}
+                                        </span>
+                                      )}
+                                    </span>
+                                    <span className="nav-dropdown-desc">{item.desc}</span>
+                                  </span>
+                                  <ArrowUpRight size={14} className="nav-dropdown-arrow" aria-hidden="true" />
+                                </Link>
+                              );
+                            })}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
+                    )}
+                  </div>
+                ))}
+              </nav>
+            </div>
+
+            <div className="nav-divider" aria-hidden="true" />
+
+            <Link to="/contact" className="nav-contact-btn">
+              Contact us
+            </Link>
           </div>
-
-          <div className="nav-divider" aria-hidden="true" />
-
-          <Link to="/contact" className="nav-contact-btn">
-            Contact us
-          </Link>
 
           <button
             type="button"

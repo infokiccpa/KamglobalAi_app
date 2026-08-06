@@ -75,7 +75,19 @@ const Footer = () => {
                     <div className="footer-layout">
                         <div className="footer-brand">
                             <Link to="/" className="footer-logo">
-                                <img src="/logo.png?v=4" alt="Kam Global for Digital AI" className="footer-logo-img" />
+                                <img
+                                    src="/logo-mark.png?v=6"
+                                    alt=""
+                                    className="footer-logo-mark"
+                                    width={160}
+                                    height={72}
+                                    decoding="async"
+                                />
+                                <span className="footer-logo-text">
+                                    <span className="footer-logo-title">Global for Digital AI</span>
+                                    <span className="footer-logo-sub">Media Solutions Pvt. Ltd.</span>
+                                </span>
+                                <span className="sr-only">Kam Global for Digital AI Media Solutions Pvt. Ltd.</span>
                             </Link>
                             <p className="footer-tagline">
                                 AI-powered digital transformation connecting Gulf business vision with
