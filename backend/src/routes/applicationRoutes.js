@@ -1,54 +1,74 @@
 const express = require('express');
-const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const {
-    submitApplication,
-    getApplications,
-    getApplication,
-    updateApplicationStatus
-} = require('../controllers/applicationController');
+const crypto = require('crypto');
+const rateLimit = require('express-rate-limit');
+const { submitApplication } = require('../controllers/applicationController');
+const { asyncHandler } = require('../utils/http');
 
-// Configure multer for file upload
+const router = express.Router();
+
+const PDF_DOC = {
+    '.pdf': ['application/pdf'],
+    '.doc': ['application/msword'],
+    '.docx': ['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+};
+
+const WITH_IMAGES = {
+    ...PDF_DOC,
+    '.jpg': ['image/jpeg'],
+    '.jpeg': ['image/jpeg'],
+    '.png': ['image/png'],
+};
+
+const FIELDS = {
+    resume: { dir: 'uploads/resumes', types: PDF_DOC },
+    degreeCertificate: { dir: 'uploads/documents', types: WITH_IMAGES },
+    mastersCertificate: { dir: 'uploads/documents', types: WITH_IMAGES },
+    engineeringCertificate: { dir: 'uploads/documents', types: WITH_IMAGES },
+    salarySlip: { dir: 'uploads/documents', types: WITH_IMAGES },
+};
+
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/resumes/');
+    destination: (_req, file, cb) => cb(null, FIELDS[file.fieldname]?.dir || 'uploads/documents'),
+    filename: (_req, file, cb) => {
+        const ext = path.extname(file.originalname).toLowerCase();
+        cb(null, `${file.fieldname}-${Date.now()}-${crypto.randomBytes(6).toString('hex')}${ext}`);
     },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, 'resume-' + uniqueSuffix + path.extname(file.originalname));
-    }
 });
 
-const fileFilter = (req, file, cb) => {
-    // Accept only PDF, DOC, and DOCX files
-    const allowedTypes = /pdf|doc|docx/;
-    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype) ||
-        file.mimetype === 'application/msword' ||
-        file.mimetype === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-
-    if (mimetype && extname) {
-        return cb(null, true);
-    } else {
-        cb(new Error('Only PDF, DOC, and DOCX files are allowed!'));
-    }
+const fileFilter = (_req, file, cb) => {
+    const spec = FIELDS[file.fieldname];
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (spec?.types[ext]?.includes(file.mimetype)) return cb(null, true);
+    cb(new Error('Only PDF, DOC, DOCX, JPG, and PNG files are allowed'));
 };
 
 const upload = multer({
-    storage: storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB limit
-    },
-    fileFilter: fileFilter
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024, files: 5 },
+    fileFilter,
 });
 
-// Public routes
-router.post('/', upload.single('resume'), submitApplication);
+const submitLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    limit: 15,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: { success: false, error: 'Too many applications from this connection. Please try again later.' },
+});
 
-// Admin routes (should be protected with authentication middleware in production)
-router.get('/', getApplications);
-router.get('/:id', getApplication);
-router.put('/:id', updateApplicationStatus);
+router.post(
+    '/',
+    submitLimiter,
+    upload.fields([
+        { name: 'resume', maxCount: 1 },
+        { name: 'degreeCertificate', maxCount: 1 },
+        { name: 'mastersCertificate', maxCount: 1 },
+        { name: 'engineeringCertificate', maxCount: 1 },
+        { name: 'salarySlip', maxCount: 1 },
+    ]),
+    asyncHandler(submitApplication)
+);
 
 module.exports = router;

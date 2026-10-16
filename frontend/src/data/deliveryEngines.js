@@ -1,0 +1,126 @@
+import {
+    Code2,
+    Brain,
+    Database,
+    Cloud,
+    Server,
+    ClipboardCheck,
+    LifeBuoy,
+    MonitorSmartphone,
+    LineChart,
+    Headset,
+    FolderKanban,
+    UserSearch,
+    CalendarDays,
+    Contact,
+    ClipboardList,
+} from 'lucide-react';
+
+export const deliveryEngines = [
+    {
+        slug: 'india-engine',
+        key: 'india',
+        name: 'India Technology Engine',
+        label: 'India · Technology & Digital',
+        short: 'Technology and Digital Delivery',
+        subject: 'India Technology Delivery',
+        cardDesc: 'AI, software, data, cloud, infrastructure, IT support, QA, digital and technical delivery.',
+        chips: ['AI & software', 'Data & analytics', 'Cloud & DevOps', 'Infrastructure', 'QA', 'IT support', 'Digital services'],
+        image: '/images/hm-engine-india.webp',
+        alt: 'Engineering team collaborating on software architecture and cloud systems',
+        seo: {
+            title: 'India Technology Outsourcing | KAM Global AI',
+            description: "Explore software, AI, data, cloud, infrastructure, QA, and IT support capabilities through KAM Global AI's India delivery engine.",
+        },
+        hero: {
+            title: 'Technology and Digital Delivery from India',
+            sub: 'Engineering, data, cloud, infrastructure and technical support aligned to your requirements.',
+            body: 'The India engine is positioned for AI and software development, web and mobile applications, data engineering, analytics, cloud, DevOps, infrastructure, QA, IT support, service desk and digital services. The exact team and service availability are confirmed for each requirement.',
+            cta: 'Request India Capabilities',
+        },
+        capabilities: {
+            title: 'From Product Engineering to IT Operations',
+            intro: 'Explore software engineering, AI and automation, data and analytics, cloud and DevOps, infrastructure, QA, service desk, technical support, and digital delivery.',
+            items: [
+                { icon: Code2, title: 'Software Engineering', desc: 'Web, mobile, API and product engineering.', to: '/services/custom-development' },
+                { icon: Brain, title: 'AI & Automation', desc: 'Practical AI use cases and workflow automation.', to: '/services/ai-automation' },
+                { icon: Database, title: 'Data & Analytics', desc: 'Pipelines, reporting and dashboards.', to: '/services/data-analytics' },
+                { icon: Cloud, title: 'Cloud & DevOps', desc: 'Environments, CI/CD and release workflows.', to: '/services/cloud-devops' },
+                { icon: Server, title: 'Infrastructure', desc: 'Hosting, monitoring and operational support.', to: '/services/managed-it' },
+                { icon: ClipboardCheck, title: 'Quality Assurance', desc: 'Manual and automated testing support.', to: '/services/qa-testing' },
+                { icon: LifeBuoy, title: 'Service Desk & Technical Support', desc: 'User support, escalation and ownership.', to: '/services/managed-it' },
+                { icon: MonitorSmartphone, title: 'Digital Delivery', desc: 'Digital marketing, media and creative production.', to: '/outsourcing/digital-marketing-creative' },
+            ],
+        },
+        talent: {
+            title: 'Skills Aligned to Defined Roles',
+            intro: 'Potential talent categories include the areas below. Availability is validated against your actual requirement.',
+            chips: ['AI / ML', 'Software engineering', 'Cloud', 'DevOps', 'Data', 'BI', 'QA', 'Automation', 'ITSM', 'Technical support', 'UI / UX', 'Media', 'Digital marketing'],
+        },
+        process: {
+            title: 'Define the Role, Fit and Delivery Expectations',
+            intro: 'We clarify required skills, seniority, team integration, communication hours, access, start timing, and expected duration before confirming a proposed match.',
+            steps: [
+                { title: 'Role profile', desc: 'Required skills, seniority, and responsibilities.' },
+                { title: 'Team integration', desc: 'How the role works with your team and communication hours.' },
+                { title: 'Access and timing', desc: 'Systems access, equipment, start timing, and duration.' },
+                { title: 'Proposed match', desc: 'We confirm availability and propose a match for your review.' },
+            ],
+        },
+        cta: {
+            title: 'Discuss Your India Delivery Requirement',
+            text: 'Share the technical scope or role profile and the team can review fit and next steps.',
+        },
+    },
+    {
+        slug: 'philippines-engine',
+        key: 'philippines',
+        name: 'Philippines Business Operations Engine',
+        label: 'Philippines · Business Operations',
+        short: 'Business Operations and Workforce Support',
+        subject: 'Philippines Operations',
+        cardDesc: 'Sales support, customer experience, BPO, RPO, back-office operations, virtual assistance and workforce support.',
+        chips: ['Sales support', 'Customer experience', 'BPO', 'RPO', 'Back office', 'Virtual assistance'],
+        image: '/images/hm-engine-philippines.webp',
+        alt: 'Customer experience and business operations team working with headsets and laptops',
+        seo: {
+            title: 'Philippines Business Process Outsourcing | KAM Global AI',
+            description: 'Explore sales support, customer experience, BPO, RPO, virtual assistance, and business operations capabilities.',
+        },
+        hero: {
+            title: 'Business Operations and Workforce Support from the Philippines',
+            sub: 'Sales, customer experience, BPO, RPO and back-office support shaped around your workflows.',
+            body: 'The Philippines engine is positioned for people-intensive business support, including sales development, telesales, appointment setting, lead qualification, customer service, customer success support, L1 helpdesk, back-office operations, administrative services, recruitment outsourcing, virtual assistance, data processing, and CRM operations. Operating capacity, local arrangements, coverage, and compliance are confirmed for each request before a service is offered.',
+            cta: 'Discuss Operations Support',
+        },
+        capabilities: {
+            title: 'Support Across Customer and Internal Workflows',
+            intro: 'Explore sales support, customer experience, BPO, RPO, virtual assistance, back-office operations, CRM workflows, and administrative coordination.',
+            items: [
+                { icon: LineChart, title: 'Sales Support', desc: 'Prospecting, qualification and appointment setting.', to: '/outsourcing/sales-lead-generation' },
+                { icon: Headset, title: 'Customer Experience', desc: 'Customer service, success support and L1 helpdesk.', to: '/outsourcing/customer-experience' },
+                { icon: FolderKanban, title: 'BPO & Back Office', desc: 'Defined, repeatable processing workflows.', to: '/outsourcing/business-process-outsourcing' },
+                { icon: UserSearch, title: 'Recruitment (RPO)', desc: 'Sourcing, coordination and reporting.', to: '/outsourcing/recruitment-rpo' },
+                { icon: CalendarDays, title: 'Virtual Assistance', desc: 'Administrative and executive support.', to: '/outsourcing/virtual-assistance' },
+                { icon: Contact, title: 'CRM Workflows', desc: 'Record maintenance and task updates.', to: '/outsourcing/business-process-outsourcing' },
+                { icon: ClipboardList, title: 'Industry Operations', desc: 'Property, hospitality, e-commerce and admin workflows.', to: '/outsourcing/industry-operations' },
+            ],
+        },
+        talent: {
+            title: 'Build Around the Process You Need to Support',
+            intro: 'Potential talent categories include the areas below. Actual availability is confirmed per request.',
+            chips: ['Telesales', 'SDR', 'Appointment setting', 'Customer service', 'Customer success support', 'Virtual assistance', 'Recruitment support', 'Data entry', 'L1 technical helpdesk'],
+        },
+        operating: {
+            title: 'Agree on Coverage, Quality and Escalation',
+            intro: 'We clarify channels, operating hours, language requirements, process documentation, system access, quality review, and escalation responsibilities before mobilisation.',
+            items: ['Channels and contact types', 'Operating hours and coverage', 'Language requirements', 'Process documentation', 'System access and permissions', 'Quality review approach', 'Escalation responsibilities', 'Reporting cadence'],
+        },
+        cta: {
+            title: 'Discuss Your Operations Requirement',
+            text: 'Tell us about your process, expected volumes, coverage needs, and service goals so we can review potential fit.',
+        },
+    },
+];
+
+export const getDeliveryEngine = (slug) => deliveryEngines.find((e) => e.slug === slug);

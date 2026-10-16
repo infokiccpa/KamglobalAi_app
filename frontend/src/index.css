@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+.route-loading {
+    min-height: 100vh;
+    background: #fff;
+}
 
 :root {
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
@@ -33,6 +36,49 @@
     --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.08);
     --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.06);
+
+    /* Brand surface — plain white, shared by every hero and section */
+    --kg-cream: #ffffff;
+    --kg-line: rgba(12, 33, 61, 0.09);
+    --kg-hero-bg: #ffffff;
+    --kg-grid: none;
+}
+
+/* Page heroes share one plain white surface. */
+.kg-surface,
+.pg-hero,
+.about-hero,
+.svc-hero,
+.con-hero,
+.car-hero,
+.prod-hero,
+.wk-hero,
+.lx-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--kg-hero-bg);
+    border-bottom: 1px solid var(--kg-line);
+}
+
+.kg-surface::before,
+.pg-hero::before,
+.about-hero::before,
+.svc-hero::before,
+.con-hero::before,
+.car-hero::before,
+.prod-hero::before,
+.wk-hero::before,
+.lx-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--kg-grid);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 60% 75% at 30% 40%, #000 20%, transparent 75%);
+    mask-image: radial-gradient(ellipse 60% 75% at 30% 40%, #000 20%, transparent 75%);
 }
 
 * {
@@ -55,14 +101,7 @@
 
 body {
     font-family: var(--font-body);
-    background: linear-gradient(135deg,
-            #f8fafc 0%,
-            #f1f5f9 25%,
-            #f8fafc 50%,
-            #f1f5f9 75%,
-            #f8fafc 100%);
-    background-size: 400% 400%;
-    animation: gradientShift 20s ease infinite;
+    background: var(--kg-cream);
     color: var(--foreground);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -78,8 +117,7 @@ body::before {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 10% 20%, rgba(71, 85, 105, 0.03) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(30, 41, 59, 0.03) 0%, transparent 40%);
+    background: none;
     pointer-events: none;
     z-index: 0;
 }
@@ -315,4 +353,19 @@ img {
     border-radius: 50%;
     margin-left: 0.6rem;
     box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);
+}
+
+.kx-flag {
+    display: block;
+    flex-shrink: 0;
+    width: 30px;
+    height: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px rgba(12, 33, 61, 0.1), 0 4px 10px -4px rgba(12, 33, 61, 0.35);
+}
+
+.kx-flag--round {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
 }

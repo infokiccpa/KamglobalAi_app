@@ -1,0 +1,42 @@
+.rv-words {
+    display: inline;
+}
+
+.rv-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+}
+
+.rv-word-inner {
+    display: inline-block;
+    will-change: transform;
+}
+
+.rv-accent {
+    color: #f7941d;
+}
+
+/* Cursor spotlight: add .rv-spot to a card and call trackPointer on pointermove */
+.rv-spot {
+    position: relative;
+    isolation: isolate;
+}
+
+.rv-spot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(247, 148, 29, 0.13), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.rv-spot:hover::after {
+    opacity: 1;
+}

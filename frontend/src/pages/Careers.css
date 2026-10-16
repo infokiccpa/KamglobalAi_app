@@ -1,7 +1,7 @@
 /* Careers Page */
 
 .careers-page {
-    --car-bg: #fdfcf9;
+    --car-bg: #ffffff;
     --car-navy: #0c213d;
     --car-orange: #f7941d;
     --car-muted: #64748b;
@@ -50,8 +50,8 @@
 
 /* Hero */
 .car-hero {
-    padding: 128px 0 56px;
-    background: var(--car-bg);
+    padding: 150px 0 56px;
+    background: var(--kg-hero-bg);
     border-bottom: 1px solid var(--car-border);
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';  
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
@@ -30,6 +30,7 @@ import {
     LayoutDashboard,
     Sparkles,
 } from 'lucide-react';
+import { whatsappLink } from '../data/company';
 import './LearnX.css';
 
 const pillars = [
@@ -285,10 +286,10 @@ const LearnX = () => {
     return (
         <div className="learnx-page">
             <Helmet>
-                <title>LearnX | School Management System, ERP, LMS & AI Academic Tools</title>
+                <title>LearnX | KAM Global AI</title>
                 <meta
                     name="description"
-                    content="LearnX is a modular school ERP and LMS with white-label websites, fee management, parent portals, transport tracking, and AI question paper generation for CBSE, ICSE, and State Board schools in India."
+                    content="LearnX is a school ERP product from KAM Global AI. Explore modules, workflows, and deployment options available in the current release."
                 />
                 <meta
                     name="keywords"
@@ -307,10 +308,11 @@ const LearnX = () => {
                             transition={{ duration: 0.55 }}
                         >
                             <Eyebrow lines={false}>LearnX · School Operating System</Eyebrow>
-                            <h1>One platform to run your school — academics, operations, parents, and AI teaching tools.</h1>
+                            <h1>Bring School Operations and Digital Learning into a Connected Experience</h1>
                             <p className="lx-hero-lead">
-                                School ERP + LMS + AI — built for Indian boards. Replace Excel, WhatsApp groups,
-                                fee apps, and exam tools with one connected system for CBSE, ICSE, IGCSE, and State Boards.
+                                Digital learning and education technology, with product details aligned to the current
+                                release. LearnX is a school ERP with LMS and AI Academic Studio for CBSE, ICSE, IGCSE,
+                                and State Boards — modules and deployment options are confirmed for the release you evaluate.
                             </p>
                             <div className="lx-hero-actions">
                                 <a href="#demo" className="lx-btn lx-btn-primary">
@@ -339,7 +341,7 @@ const LearnX = () => {
                             transition={{ duration: 0.55, delay: 0.1 }}
                         >
                             <img
-                                src="/images/learnx-hero.png"
+                                src="/images/learnx-hero.webp"
                                 alt="LearnX school management platform hero"
                                 loading="eager"
                             />
@@ -391,7 +393,7 @@ const LearnX = () => {
                         </div>
                         <div className="lx-what-visual">
                             <img
-                                src="/images/learnx-before-after.png"
+                                src="/images/learnx-before-after.webp"
                                 alt="From manual school operations to LearnX digital platform"
                                 loading="lazy"
                             />
@@ -509,7 +511,7 @@ const LearnX = () => {
                         </div>
                         <div className="lx-ai-visual">
                             <img
-                                src="/images/learnx-ai-qp.png?v=2"
+                                src="/images/learnx-ai-qp.webp?v=2"
                                 alt="Teacher using LearnX platform dashboard in classroom"
                                 loading="lazy"
                             />
@@ -670,20 +672,6 @@ const LearnX = () => {
                         <Eyebrow center>Outcomes</Eyebrow>
                         <h2>Outcomes schools care about</h2>
                     </div>
-                    <div className="lx-proof-grid">
-                        <blockquote>
-                            “Fee follow-ups became clearer for parents and accounts in the first term.”
-                            <cite>— Principal, Multi-branch CBSE school</cite>
-                        </blockquote>
-                        <blockquote>
-                            “Teachers cut paper-setting time significantly with board and chapter controls.”
-                            <cite>— Academic Coordinator</cite>
-                        </blockquote>
-                        <blockquote>
-                            “Parents finally stopped asking ‘Did you send the notice?’ every week.”
-                            <cite>— School Admin</cite>
-                        </blockquote>
-                    </div>
                     <div className="lx-outcomes">
                         <div><strong>Fee recovery</strong><span>Clear dues + online payments</span></div>
                         <div><strong>Teacher time saved</strong><span>AI paper + PPT workflows</span></div>
@@ -748,7 +736,7 @@ const LearnX = () => {
                             </ul>
                             <div className="lx-demo-links">
                                 <a
-                                    href="https://wa.me/918050766363?text=Hi%2C%20I%27m%20interested%20in%20a%20LearnX%20demo%20for%20our%20school."
+                                    href={whatsappLink("Hello, I'm interested in a LearnX demo for our school.")}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="lx-btn lx-btn-outline"

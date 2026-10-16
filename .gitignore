@@ -1,6 +1,11 @@
 node_modules/
 .env
 dist/
+dist-ssr/
 build/
+backend/uploads/documents/*
+backend/uploads/resumes/*
+!backend/uploads/resumes/.gitkeep
+!backend/uploads/documents/.gitkeep
 .DS_Store
 *.log

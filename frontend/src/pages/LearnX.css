@@ -1,7 +1,7 @@
 /* LearnX Product Page */
 
 .learnx-page {
-    --lx-bg: #fdfcf9;
+    --lx-bg: #ffffff;
     --lx-navy: #0c213d;
     --lx-orange: #f7941d;
     --lx-muted: #64748b;
@@ -73,7 +73,7 @@
 
 /* Hero */
 .lx-hero {
-    padding: 120px 0 56px;
+    padding: 144px 0 56px;
     border-bottom: 1px solid var(--lx-border);
 }
 

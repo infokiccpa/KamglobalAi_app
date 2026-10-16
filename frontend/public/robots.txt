@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /admin
+
+# Search and AI-answer crawlers (explicitly allowed)
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: PerplexityBot
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /admin
+
+# AI training crawlers (GPTBot, ClaudeBot, Google-Extended, Applebot-Extended, CCBot)
+# are currently allowed by the default rule above. Blocking them is a business decision;
+# blocking Google-Extended does not affect Google Search ranking.
+
+Sitemap: https://kamglobalai.com/sitemap.xml

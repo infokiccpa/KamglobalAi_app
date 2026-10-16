@@ -9,7 +9,7 @@ const contactSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please add an email'],
         match: [
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+            /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/,
             'Please add a valid email'
         ]
     },
@@ -23,6 +23,38 @@ const contactSchema = new mongoose.Schema({
     message: {
         type: String,
         required: [true, 'Please add a message']
+    },
+    company: {
+        type: String,
+        trim: true,
+        maxlength: 200
+    },
+    country: {
+        type: String,
+        trim: true,
+        maxlength: 120
+    },
+    enquiryType: {
+        type: String,
+        trim: true,
+        maxlength: 80
+    },
+    startDate: {
+        type: String,
+        trim: true,
+        maxlength: 40
+    },
+    details: {
+        type: Map,
+        of: String
+    },
+    consent: {
+        type: Boolean,
+        default: false
+    },
+    reference: {
+        type: String,
+        index: true
     },
     status: {
         type: String,

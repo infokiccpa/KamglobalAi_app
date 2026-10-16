@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
+import { motion, AnimatePresence } from 'framer-motion';  
 import { useNavigate, Link } from 'react-router-dom';
 import {
     DollarSign,
@@ -17,6 +17,8 @@ import {
     Users,
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
+import { useJobs } from '../lib/useJobs';
+import { formatDeadline } from '../lib/deadline';
 import './Careers.css';
 
 const benefits = [
@@ -28,20 +30,42 @@ const benefits = [
     { icon: Award, title: 'KAM Group Legacy', desc: 'Join a team backed by KAM Group, Kuwait.' },
 ];
 
-const jobs = [
-    { title: 'AI Developer', team: 'Engineering', location: 'Bengaluru, India', id: '1', experience: '3+ Years', skills: ['Python', 'PyTorch', 'NLP'] },
-    { title: 'Digital Marketing', team: 'Strategy', location: 'Bengaluru, India', id: '2', experience: '2+ Years', skills: ['SEO', 'SEM', 'Social Media'] },
-    { title: 'Full Stack Developer', team: 'Engineering', location: 'Bengaluru, India', experience: '5+ Years', id: '3', skills: ['React', 'Node.js', 'AWS'] },
-    { title: 'Technical Support', team: 'Support', location: 'Bengaluru, India', id: '4', experience: '1+ Year', skills: ['Troubleshooting', 'CRM', 'Communication'] },
-];
+// Sample roles are for local development only; production shows the empty state if the jobs API is unreachable.
+const fallbackJobs = import.meta.env.DEV
+    ? [
+        { title: 'AI Developer', team: 'Engineering', location: 'Bengaluru, India', id: '1', experience: '3+ Years', skills: ['Python', 'PyTorch', 'NLP'] },
+        { title: 'Digital Marketing', team: 'Strategy', location: 'Bengaluru, India', id: '2', experience: '2+ Years', skills: ['SEO', 'SEM', 'Social Media'] },
+        { title: 'Full Stack Developer', team: 'Engineering', location: 'Bengaluru, India', experience: '5+ Years', id: '3', skills: ['React', 'Node.js', 'AWS'] },
+        { title: 'Technical Support', team: 'Support', location: 'Bengaluru, India', id: '4', experience: '1+ Year', skills: ['Troubleshooting', 'CRM', 'Communication'] },
+    ]
+    : [];
 
-const categories = ['All', 'Engineering', 'Strategy', 'Support'];
+const toCareersJob = (job) => ({ ...job, team: job.department || job.category, skills: [] });
 
 const jumpLinks = [
+    { href: '#teams', label: 'Teams' },
+    { href: '#what-to-expect', label: 'What to Expect' },
     { href: '#benefits', label: 'Benefits' },
     { href: '#culture', label: 'Culture' },
     { href: '#jobs', label: 'Open Roles' },
     { href: '#talent', label: 'Talent Network' },
+];
+
+const teamAreas = [
+    { title: 'Software Engineering', desc: 'Build products, platforms, and client delivery work.' },
+    { title: 'AI & Data', desc: 'Practical AI, analytics, and automation use cases.' },
+    { title: 'Cloud & DevOps', desc: 'Environments, releases, and reliability support.' },
+    { title: 'Customer Experience', desc: 'Service quality, support workflows, and operations.' },
+    { title: 'Sales & Recruitment Support', desc: 'Pipeline, coordination, and hiring workflows.' },
+    { title: 'Marketing & Operations', desc: 'Campaigns, content, and day-to-day coordination.' },
+];
+
+const expectSteps = [
+    { title: 'Apply', desc: 'Share your profile for an open role or the talent network.' },
+    { title: 'Screening', desc: 'We review fit against the published role requirements.' },
+    { title: 'Interviews', desc: 'Conversations with hiring managers and relevant team members.' },
+    { title: 'Assessment', desc: 'Role-appropriate exercises when the process requires them.' },
+    { title: 'Decision & communication', desc: 'We share the outcome through our recruitment channel.' },
 ];
 
 const Eyebrow = ({ children, center, lines = true }) => (
@@ -58,8 +82,13 @@ const Careers = () => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [isSubscribed, setIsSubscribed] = useState(false);
 
+    const { status, jobs: apiJobs } = useJobs('careers', fallbackJobs);
+    const jobs = useMemo(() => (status === 'ready' ? apiJobs.map(toCareersJob) : apiJobs), [status, apiJobs]);
+    const categories = useMemo(() => ['All', ...new Set(jobs.map((j) => j.team).filter(Boolean))], [jobs]);
+
     const handleApply = (job) => {
-        navigate('/apply-now', { state: { job } });
+        if (job.applyTo) navigate(job.applyTo);
+        else navigate('/apply-now', { state: { job } });
     };
 
     const filteredJobs = useMemo(() => {
@@ -68,15 +97,15 @@ const Careers = () => {
             const matchesCategory = activeCategory === 'All' || job.team === activeCategory;
             return matchesSearch && matchesCategory;
         });
-    }, [searchTerm, activeCategory]);
+    }, [jobs, searchTerm, activeCategory]);
 
     return (
         <div className="careers-page">
             <Helmet>
-                <title>Careers at KamGlobal AI | Join Our Global Team</title>
+                <title>Careers at KAM Global AI</title>
                 <meta
                     name="description"
-                    content="Explore careers in AI development, digital marketing, and engineering. Join a global team bridging Kuwait and India."
+                    content="Explore opportunities to contribute to technology, digital delivery, and business operations at KAM Global AI."
                 />
             </Helmet>
 
@@ -89,15 +118,16 @@ const Careers = () => {
                         transition={{ duration: 0.6 }}
                     >
                         <Eyebrow center lines={false}>Careers</Eyebrow>
-                        <h1>Build the Future of AI With Us</h1>
+                        <h1>Build Meaningful Work with KAM Global AI</h1>
                         <p>
-                            Join KamGlobal AI — where Kuwait&apos;s strategic vision meets India&apos;s
-                            engineering excellence. Work on meaningful AI and digital transformation projects.
+                            Explore opportunities across technology, digital delivery, and business support. We are
+                            interested in people who enjoy solving practical problems, collaborating across teams,
+                            and delivering work with clear expectations.
                         </p>
 
                         <div className="car-hero-stats">
                             <div className="car-stat">
-                                <strong>{jobs.length}</strong>
+                                <strong>{status === 'loading' ? '–' : jobs.length}</strong>
                                 <span>Open Roles</span>
                             </div>
                             <div className="car-stat">
@@ -118,6 +148,75 @@ const Careers = () => {
                             ))}
                         </nav>
                     </motion.div>
+                </div>
+            </section>
+
+            <section id="teams" className="car-benefits">
+                <div className="container">
+                    <div className="car-section-header">
+                        <Eyebrow center>Teams</Eyebrow>
+                        <h2>Different Skills. Shared Commitment to Delivery.</h2>
+                        <p>
+                            Depending on approved openings, opportunities may span software engineering, AI and data,
+                            cloud and DevOps, QA, customer experience, sales support, recruitment, operations, and
+                            marketing.
+                        </p>
+                    </div>
+                    <div className="car-benefits-grid">
+                        {teamAreas.map((item, i) => (
+                            <motion.div
+                                key={item.title}
+                                className="car-benefit-card"
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.05 }}
+                            >
+                                <h3>{item.title}</h3>
+                                <p>{item.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
+                        <a href="#jobs" className="car-btn car-btn-primary">
+                            Explore Opportunities <ArrowRight size={16} />
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="what-to-expect" className="car-benefits">
+                <div className="container">
+                    <div className="car-section-header">
+                        <Eyebrow center>What to Expect</Eyebrow>
+                        <h2>A Clear and Respectful Recruitment Process</h2>
+                        <p>
+                            Our process typically includes application, screening, interviews, and — where needed —
+                            a role-appropriate assessment. Timelines vary by role; we communicate through the approved
+                            recruitment channel.
+                        </p>
+                    </div>
+                    <div className="car-benefits-grid">
+                        {expectSteps.map((item, i) => (
+                            <motion.div
+                                key={item.title}
+                                className="car-benefit-card"
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.05 }}
+                            >
+                                <span className="car-benefit-icon" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                                <h3>{item.title}</h3>
+                                <p>{item.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                    <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
+                        <a href="#jobs" className="car-btn car-btn-primary">
+                            How to Apply <ArrowRight size={16} />
+                        </a>
+                    </div>
                 </div>
             </section>
 
@@ -173,7 +272,7 @@ const Careers = () => {
                             </p>
                             <div className="car-culture-tags">
                                 <span><Users size={14} /> Collaborative teams</span>
-                                <span><Laptop size={14} /> Cutting-edge tech</span>
+                                <span><Laptop size={14} /> Modern tech stack</span>
                                 <span><Award size={14} /> KAM Group backed</span>
                             </div>
                         </motion.div>
@@ -185,7 +284,7 @@ const Careers = () => {
                             transition={{ duration: 0.45, delay: 0.08 }}
                         >
                             <img
-                                src="/images/car-culture-team.png"
+                                src="/images/car-culture-team.webp"
                                 alt="KamGlobal AI team collaborating on AI and enterprise technology"
                                 loading="lazy"
                             />
@@ -240,7 +339,13 @@ const Careers = () => {
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
                             >
-                                <p>No positions match your search. Try a different keyword or category.</p>
+                                <p>
+                                    {status === 'loading'
+                                        ? 'Loading open positions…'
+                                        : jobs.length === 0
+                                            ? 'There are no open positions right now. Send a general application and we will contact you when a matching role opens.'
+                                            : 'No positions match your search. Try a different keyword or category.'}
+                                </p>
                             </motion.div>
                         ) : (
                             filteredJobs.map((job) => (
@@ -265,6 +370,9 @@ const Careers = () => {
                                             <span><MapPin size={14} /> {job.location}</span>
                                             {job.experience && (
                                                 <span className="car-job-exp">{job.experience}</span>
+                                            )}
+                                            {job.closesAt && (
+                                                <span><Clock size={14} /> Applications close {formatDeadline(job.closesAt)}</span>
                                             )}
                                         </div>
                                         <div className="car-skill-tags">
