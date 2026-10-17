@@ -3,9 +3,16 @@
     background: #fff;
 }
 
+@font-face {
+    font-family: 'Tanker';
+    src: url('/fonts/Tanker-Regular.woff2') format('woff2');
+    font-display: swap;
+}
+
 :root {
     --font-body: 'Inter', system-ui, -apple-system, sans-serif;
     --font-heading: 'Outfit', var(--font-body);
+    --font-display: 'Tanker', 'Outfit', var(--font-heading), sans-serif;
     --primary: #1e293b;
     --primary-dark: #0f172a;
     --secondary: #334155;

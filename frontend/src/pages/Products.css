@@ -2162,3 +2162,30 @@
         transition: none;
     }
 }
+
+.pr-hero h1,
+.pr-head h2,
+.pr-chapter-copy h2,
+.pr-demo-copy h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+}
+
+.pr-hero h1 {
+    font-size: clamp(2.4rem, 4.6vw, 4rem);
+}
+
+.pr-head h2,
+.pr-chapter-copy h2,
+.pr-demo-copy h2 {
+    font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+}
+
+.pr-hero-lead,
+.pr-head p {
+    font-size: 17.5px;
+    line-height: 1.75;
+}

@@ -35,23 +35,17 @@ import {
     ShoppingCart,
     Landmark,
     Truck,
-    UserPlus,
     FolderKanban,
-    Settings2,
     Search,
     FileText,
     Puzzle,
     Rocket,
     Code2,
     Briefcase,
-    Check,
     ChevronLeft,
     ChevronRight,
-    Target,
     RefreshCw,
     BarChart3,
-    Play,
-    Pause,
     Clock,
     Mail,
     Sparkles,
@@ -60,19 +54,18 @@ import HeroShowcase from '../components/HeroShowcase';
 import Flag from '../components/Flag';
 import { networkCountries } from '../data/countries';
 import { COMPANY } from '../data/company';
+import { deliveryEngines } from '../data/deliveryEngines';
 import { OFFICE_SCHEDULES, localTime, useNow } from '../lib/officeHours';
-import { Reveal, SplitText } from '../components/motion/Reveal';
+import { Reveal } from '../components/motion/Reveal';
 import {
     EASE_OUT,
     VIEWPORT,
     fadeUpItem,
-    popItem,
-    resetTilt,
     staggerParent,
     trackPointer,
-    trackTilt,
 } from '../components/motion/motionPresets';
 import './Home.css';
+import './HomeDepth.css';
 
 const MotionLink = motion.create(Link);
 
@@ -88,8 +81,8 @@ const products = [
         cta: 'Explore LearnX',
         secondary: { label: 'Book a demo', to: '/products/learnx#demo' },
         icon: GraduationCap,
-        image: '/images/products/learnx-app.webp',
-        alt: 'LearnX school dashboard showing enrolled students, attendance, fee collection and outstanding fees',
+        image: '/images/products/learnx-site.png',
+        alt: 'LearnX homepage with the headline Your whole school. In sync. and a parent phone view of attendance, the school bus and fees',
         audience: 'For schools',
         features: ['School ERP', 'Learning management (LMS)', 'AI Academic Studio', 'CBSE, ICSE & State Boards'],
     },
@@ -130,13 +123,6 @@ const industries = [
     { icon: Landmark, title: 'Banking, Finance & FinTech', desc: 'Process digitisation, customer onboarding support, and document-heavy back-office work.', to: '/industries/fintech', image: '/images/pages/pg-ind-fintech.webp' },
     { icon: Truck, title: 'Logistics & Supply Chain', desc: 'Tracking and reporting platforms, dispatch coordination, and operations support.', to: '/industries/logistics', image: '/images/pages/pg-ind-logistics.webp' },
     { icon: Building2, title: 'Real Estate', desc: 'CRM and portal development, enquiry handling, and administrative support.', to: '/industries/real-estate', image: '/images/pages/pg-ind-real-estate.webp' },
-];
-
-const engagementModels = [
-    { icon: UserPlus, step: '01', title: 'Dedicated Resource', desc: 'Add one skilled professional who works within your existing team and processes.', fit: 'Specific skill gaps', to: '/engagement-models/dedicated-resource' },
-    { icon: Users, step: '02', title: 'Dedicated Team', desc: 'A focused team aligned to your priorities, scaled up or down as needs change.', fit: 'Ongoing roadmaps', to: '/engagement-models/dedicated-team' },
-    { icon: FolderKanban, step: '03', title: 'Defined Project', desc: 'Agreed scope, milestones, and deliverables with clear ownership on our side.', fit: 'Fixed outcomes', to: '/engagement-models/project-outsourcing' },
-    { icon: Settings2, step: '04', title: 'Managed Operations', desc: 'We run an ongoing function against agreed service expectations and reporting.', fit: 'Long-term functions', to: '/engagement-models/managed-services' },
 ];
 
 const processSteps = [
@@ -198,66 +184,226 @@ const whyLines = [
     { icon: UserSearch, label: 'HR & Workforce', to: '/hr' },
 ];
 
-const Eyebrow = ({ children, center }) => (
-    <div className={`hm-eyebrow${center ? ' hm-eyebrow-center' : ''}`}>
-        <span className="hm-eyebrow-line" aria-hidden="true" />
-        <span>{children}</span>
-        <span className="hm-eyebrow-line" aria-hidden="true" />
-    </div>
-);
-
-const pathways = [
+const whoFocus = [
     {
+        n: '01',
+        title: 'Technology',
+        note: 'Software, AI, data, cloud and managed IT from India.',
         to: '/services',
-        icon: Laptop,
-        title: 'IT & Technology',
-        desc: 'Custom software and apps, AI and data, cloud and DevOps, managed IT, IT staffing and the BOT model, delivered by our India technology team.',
-        tags: ['Custom software', 'Cloud & DevOps', 'AI & data', 'Managed IT'],
-        cta: 'Explore IT services',
-        path: 'Service 01',
-        audience: 'Build & run technology',
-        image: '/images/hm-path-enterprise.webp',
-        alt: 'Project lead and operations manager reviewing a delivery dashboard on a large screen',
     },
     {
-        to: '/outsourcing',
-        icon: Headset,
-        title: 'Global Outsourcing',
-        desc: 'Customer experience, sales support, back-office BPO, virtual assistants and recruitment process outsourcing, run by operations teams in the Philippines.',
-        tags: ['CX & support', 'Sales support', 'BPO', 'RPO'],
-        cta: 'Explore outsourcing',
-        path: 'Service 02',
-        audience: 'Scale operations',
-        image: '/images/slide-outsourcing-ph.jpg',
-        alt: 'Customer support team working on headsets in a bright operations office',
-    },
-    {
+        n: '02',
+        title: 'Talent',
+        note: 'Recruitment, staffing and payroll across India, the GCC and the USA.',
         to: '/hr',
-        icon: UserSearch,
-        title: 'HR & Workforce',
-        desc: 'Recruitment, contract staffing, payroll outsourcing, HR advisory, executive search and background verification across India, the GCC and the USA.',
-        tags: ['Recruitment', 'Staffing', 'Payroll', 'Executive search'],
-        cta: 'Explore HR & Workforce',
-        path: 'Service 03',
-        audience: 'Hire, pay & manage people',
-        image: '/images/hr/hr-hero.jpg',
-        alt: 'Recruiter shaking hands with a candidate while the HR team reviews profiles',
     },
     {
-        to: '/products',
-        icon: GraduationCap,
-        title: 'Education Products',
-        desc: 'LearnX school operating system, EduAiTutors coaching, and AI-powered LMS — designed for Indian boards and modern campuses.',
-        tags: ['LearnX', 'EduAiTutors', 'AI-Powered LMS'],
-        cta: 'View Products',
-        accent: true,
-        wide: true,
-        path: 'Products',
-        audience: 'For schools & institutes',
-        image: '/images/hm-path-education.webp',
-        alt: 'School principal and administrator reviewing student progress on a tablet',
+        n: '03',
+        title: 'Operations',
+        note: 'Customer experience, sales support and back-office work from the Philippines.',
+        to: '/outsourcing',
     },
 ];
+
+const HELP_SLIDE_MS = 4200;
+
+const helpLines = [
+    {
+        id: 'it',
+        step: '01',
+        icon: Laptop,
+        title: 'IT and Technology',
+        tagline: 'Software, cloud, AI and data, delivered from India.',
+        source: { label: 'India · Bengaluru', codes: ['IN'], to: '/outsourcing/india-engine' },
+        exploreLabel: 'Explore all services',
+        exploreTo: '/services',
+        layout: 'list',
+        client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('India Technology Delivery') },
+        seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
+        services: [
+            { icon: Brain, label: 'AI and automation', to: '/services/ai-automation' },
+            { icon: Laptop, label: 'Software and app development', to: '/services/custom-development' },
+            { icon: Cloud, label: 'Cloud and data', to: '/services/cloud-devops' },
+            { icon: Shield, label: 'Managed IT support', to: '/services/managed-it' },
+        ],
+        roles: ['Software engineering', 'AI / ML', 'Cloud', 'DevOps', 'Data', 'QA', 'UI / UX', 'Technical support'],
+        slides: [
+            { image: '/images/hero/hero-tech-india.webp', alt: 'Two software engineers reviewing code and a cloud diagram on dual monitors', title: 'Software and app development', sub: 'Web, mobile and product engineering' },
+            { image: '/images/pages/pg-svc-ai-data.jpg', alt: 'Analysts reviewing data dashboards on a wide monitor', title: 'AI and automation', sub: 'Workflows shaped around a defined use case' },
+            { image: '/images/pages/pg-svc-cloud.webp', alt: 'Engineer reviewing a cloud architecture diagram in a bright office', title: 'Cloud and DevOps', sub: 'Environments, releases and support' },
+            { image: '/images/hm-path-enterprise.webp', alt: 'Project lead and operations manager reviewing a delivery dashboard', title: 'Dedicated technology teams', sub: 'Staffing, offshore teams and BOT' },
+        ],
+    },
+    {
+        id: 'ops',
+        step: '02',
+        icon: Headset,
+        title: 'Business Outsourcing',
+        tagline: 'Customer experience, sales support and back-office work from the Philippines.',
+        source: { label: 'Philippines', codes: ['PH'], to: '/outsourcing/philippines-engine' },
+        exploreLabel: 'Explore all services',
+        exploreTo: '/outsourcing',
+        layout: 'list',
+        client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('Philippines Operations') },
+        seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
+        services: [
+            { icon: Headset, label: 'Customer service and support', to: '/outsourcing/customer-experience' },
+            { icon: BarChart3, label: 'Sales and lead generation', to: '/outsourcing/sales-lead-generation' },
+            { icon: FolderKanban, label: 'Back office and BPO', to: '/outsourcing/business-process-outsourcing' },
+            { icon: ClipboardCheck, label: 'Virtual assistance', to: '/outsourcing/virtual-assistance' },
+        ],
+        roles: ['Customer service', 'Telesales', 'Appointment setting', 'Customer success', 'Virtual assistance', 'Data entry', 'L1 helpdesk', 'Recruitment support'],
+        slides: [
+            { image: '/images/hero/hero-cx-philippines.webp', alt: 'Customer support specialist on a headset, assisted by a team lead', title: 'Customer service and support', sub: 'Service, success support and L1 helpdesk' },
+            { image: '/images/slide-outsourcing-ph.webp', alt: 'Customer support team working on headsets in a bright operations office', title: 'Sales and lead generation', sub: 'Prospecting, qualification and appointments' },
+            { image: '/images/pages/pg-svc-bpo.webp', alt: 'Operations team processing back-office work at their desks', title: 'Back office and BPO', sub: 'Defined, repeatable processing workflows' },
+            { image: '/images/pages/pg-svc-va.webp', alt: 'Assistant coordinating schedules and documents on a laptop', title: 'Virtual assistance', sub: 'Administrative and executive support' },
+        ],
+    },
+    {
+        id: 'hr',
+        step: '03',
+        icon: UserSearch,
+        title: 'HR and Recruitment',
+        tagline: 'Hiring, contract staffing and payroll in the markets we already serve.',
+        source: { label: 'India, the GCC and the USA', codes: ['IN', 'US'], to: '/hr' },
+        exploreLabel: 'Explore all services',
+        exploreTo: '/hr',
+        layout: 'list',
+        client: { title: 'Client / Employer', text: 'Request staff', to: contactLink('HR & Workforce') },
+        seeker: { title: 'Job seeker', text: 'View openings', to: '/careers' },
+        services: [
+            { icon: UserSearch, label: 'Recruitment', to: '/hr/services/recruitment' },
+            { icon: Users, label: 'Contract staffing', to: '/hr/services/contract-staffing' },
+            { icon: ClipboardCheck, label: 'Payroll outsourcing', to: '/hr/services/payroll-outsourcing' },
+            { icon: Briefcase, label: 'Executive search', to: '/hr/services/executive-search' },
+        ],
+        roles: ['Recruitment', 'Contract staffing', 'Payroll', 'Executive search', 'HR advisory', 'Background verification', 'Permanent hiring', 'Workforce support'],
+        slides: [
+            { image: '/images/hr/hr-recruitment.jpg', alt: 'Recruiter interviewing a candidate while reviewing a shortlist', title: 'Recruitment', sub: 'Permanent hiring from requirement to joining' },
+            { image: '/images/hr/hr-contract-staffing.jpg', alt: 'Supervisor briefing a contract workforce team at an industrial site', title: 'Contract staffing', sub: 'Project, peak and ongoing workforce support' },
+            { image: '/images/hr/hr-payroll.jpg', alt: 'Payroll specialist reviewing salary dashboards and payslips', title: 'Payroll outsourcing', sub: 'Pay runs, payslips and compliance checks' },
+            { image: '/images/hr/hr-hero.jpg', alt: 'Recruiter shaking hands with a candidate while the HR team reviews profiles', title: 'Workforce support', sub: 'Hiring, pay and people operations' },
+        ],
+    },
+];
+
+const HelpCard = ({ line }) => {
+    const reduceMotion = useReducedMotion();
+    const rootRef = useRef(null);
+    const inView = useInView(rootRef, { amount: 0.4 });
+    const [index, setIndex] = useState(0);
+    const [paused, setPaused] = useState(false);
+    const count = line.slides.length;
+    const slide = line.slides[index];
+    const moving = inView && !paused && !reduceMotion;
+
+    useEffect(() => {
+        if (!moving) return undefined;
+        const id = setTimeout(() => setIndex((i) => (i + 1) % count), HELP_SLIDE_MS);
+        return () => clearTimeout(id);
+    }, [moving, index, count]);
+
+    return (
+        <article
+            className="hm-help-card"
+            ref={rootRef}
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocus={() => setPaused(true)}
+            onBlur={() => setPaused(false)}
+        >
+            <div className="hm-help-stage">
+                {line.slides.map((item, i) => (
+                    <div className={'hm-help-slide' + (i === index ? ' is-on' : '')} key={item.image} aria-hidden={i !== index}>
+                        <img src={item.image} alt={i === index ? item.alt : ''} />
+                    </div>
+                ))}
+                <span className="hm-help-kicker">{line.step}</span>
+                <span className="hm-help-progress" aria-hidden="true">
+                    <span key={`${index}-${moving}`} className={moving ? 'is-running' : ''} style={{ animationDuration: `${HELP_SLIDE_MS}ms` }} />
+                </span>
+            </div>
+
+            <div className="hm-help-body">
+                <div className="hm-help-now">
+                    <p key={slide.title}>{slide.title}</p>
+                    <div className="hm-help-dots" role="tablist" aria-label={`${line.title} images`}>
+                        {line.slides.map((item, i) => (
+                            <button
+                                key={item.image}
+                                type="button"
+                                role="tab"
+                                aria-selected={i === index}
+                                aria-label={item.title}
+                                className={i === index ? 'is-on' : ''}
+                                onClick={() => setIndex(i)}
+                            />
+                        ))}
+                    </div>
+                </div>
+                <div className="hm-help-title">
+                    <span className="hm-help-title-icon" aria-hidden="true"><line.icon size={20} /></span>
+                    <div>
+                        <h3>{line.title}</h3>
+                        <p>{line.tagline}</p>
+                    </div>
+                </div>
+
+                <Link to={line.source.to} className="hm-help-source">
+                    <span className="hm-help-flags" aria-hidden="true">
+                        {line.source.codes.map((code) => <Flag key={code} code={code} />)}
+                    </span>
+                    <span>
+                        <small>Sourced from</small>
+                        <strong>{line.source.label}</strong>
+                    </span>
+                    <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+
+                <ul className="hm-help-links">
+                    {line.services.map((service) => (
+                        <li key={service.to}>
+                            <Link to={service.to}>
+                                <service.icon size={16} aria-hidden="true" />
+                                <span>{service.label}</span>
+                                <ArrowRight size={14} aria-hidden="true" />
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+
+                <Link to={line.exploreTo} className="hm-help-all">
+                    {line.exploreLabel} <ArrowRight size={15} aria-hidden="true" />
+                </Link>
+
+                <div className="hm-help-roles">
+                    <span className="hm-help-roles-label">Explore roles</span>
+                    <div className="hm-help-roles-viewport">
+                        <div className="hm-help-roles-track">
+                            {[0, 1].map((copy) => (
+                                <ul key={copy} aria-hidden={copy === 1}>
+                                    {line.roles.map((role) => <li key={`${copy}-${role}`}>{role}</li>)}
+                                </ul>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <div className="hm-help-actions">
+                    <Link to={line.client.to} className="hm-help-action hm-help-action--client">
+                        <strong>{line.client.title}</strong>
+                        <small>{line.client.text}</small>
+                    </Link>
+                    <Link to={line.seeker.to} className="hm-help-action hm-help-action--seeker">
+                        <strong>{line.seeker.title}</strong>
+                        <small>{line.seeker.text}</small>
+                    </Link>
+                </div>
+            </div>
+        </article>
+    );
+};
 
 const presence = [
     { role: 'Strategic HQ', title: 'Kuwait', code: 'KW', utc: 'UTC+3', icon: Building2, angle: -90, desc: 'Parent company backing through KAM Group — regional trust, client relationships, and enterprise governance.' },
@@ -408,226 +554,118 @@ const gridMotion = (stagger = 0.08, delay = 0) => ({
     viewport: VIEWPORT,
 });
 
-const SectionHeader = ({ eyebrow, title, accent, children, wide, breakAccent }) => (
-    <div className={'hm-section-header' + (wide ? ' hm-section-header--wide' : '')}>
-        <Reveal y={12}>
-            <Eyebrow center>{eyebrow}</Eyebrow>
-        </Reveal>
-        <SplitText text={title} accent={accent} breakBeforeAccent={breakAccent} />
-        {children && (
-            <Reveal delay={0.2} y={16}>
-                <p>{children}</p>
-            </Reveal>
-        )}
-    </div>
-);
-
-const STEP_AUTOPLAY_MS = 5000;
-
 const ProcessJourney = () => {
     const [active, setActive] = useState(0);
-    const [autoplay, setAutoplay] = useState(true);
-    const rootRef = useRef(null);
-    const inView = useInView(rootRef, { amount: 0.4 });
-    const reduceMotion = useReducedMotion();
     const step = processSteps[active];
     const last = processSteps.length - 1;
-    const playing = autoplay && inView && !reduceMotion;
 
-    useEffect(() => {
-        if (!playing) return undefined;
-        const id = setTimeout(() => setActive((i) => (i === last ? 0 : i + 1)), STEP_AUTOPLAY_MS);
-        return () => clearTimeout(id);
-    }, [playing, active, last]);
-
-    const select = (i) => {
-        setAutoplay(false);
-        setActive(Math.max(0, Math.min(last, i)));
-    };
+    const select = (i) => setActive(Math.max(0, Math.min(last, i)));
 
     const onRailKey = (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            e.preventDefault();
-            const next = e.key === 'ArrowRight' ? (active === last ? 0 : active + 1) : (active === 0 ? last : active - 1);
-            select(next);
-            e.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus();
-        }
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const forward = e.key === 'ArrowDown' || e.key === 'ArrowRight';
+        const next = forward ? (active === last ? 0 : active + 1) : (active === 0 ? last : active - 1);
+        select(next);
+        e.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus();
     };
 
     return (
-        <div className="hm-flow" ref={rootRef}>
-            <div className="hm-flow-rail-wrap">
-                <span className="hm-flow-track" aria-hidden="true">
-                    <motion.span
-                        className="hm-flow-fill"
-                        initial={false}
-                        animate={{ scaleX: active / last }}
-                        transition={{ duration: 0.6, ease: EASE_OUT }}
-                    />
-                </span>
-                <motion.div
-                    className="hm-flow-rail"
+        <div className="hm-work">
+            <div className="hm-work-layout">
+                <div
+                    className="hm-work-rail"
                     role="tablist"
                     aria-label="How we work, step by step"
+                    aria-orientation="vertical"
                     onKeyDown={onRailKey}
-                    {...gridMotion(0.12, 0.15)}
                 >
-                    {processSteps.map((s, i) => {
-                        const state = i === active ? ' is-active' : i < active ? ' is-done' : '';
-                        return (
-                            <motion.button
-                                key={s.title}
-                                type="button"
-                                role="tab"
-                                id={`flow-tab-${i}`}
-                                aria-selected={i === active}
-                                aria-controls="flow-panel"
-                                tabIndex={i === active ? 0 : -1}
-                                className={'hm-flow-step' + state}
-                                onClick={() => select(i)}
-                                variants={popItem}
-                            >
-                                <span className="hm-flow-node" aria-hidden="true">
-                                    {i < active ? <Check size={18} strokeWidth={2.6} /> : <s.icon size={18} />}
-                                    {i === active && playing && (
-                                        <svg className="hm-flow-timer" viewBox="0 0 60 60" key={`t-${active}`}>
-                                            <circle cx="30" cy="30" r="28" style={{ animationDuration: `${STEP_AUTOPLAY_MS}ms` }} />
-                                        </svg>
-                                    )}
-                                </span>
-                                <span className="hm-flow-label">
-                                    <small>Step {String(i + 1).padStart(2, '0')}</small>
-                                    <strong>{s.title}</strong>
-                                </span>
-                            </motion.button>
-                        );
-                    })}
-                </motion.div>
-            </div>
+                    {processSteps.map((s, i) => (
+                        <button
+                            key={s.title}
+                            type="button"
+                            role="tab"
+                            id={`flow-tab-${i}`}
+                            aria-selected={i === active}
+                            aria-controls="flow-panel"
+                            tabIndex={i === active ? 0 : -1}
+                            className={'hm-work-step' + (i === active ? ' is-active' : '')}
+                            onClick={() => select(i)}
+                        >
+                            <span className="hm-work-step-num">{String(i + 1).padStart(2, '0')}</span>
+                            <span>
+                                <s.icon size={15} aria-hidden="true" />
+                                <strong>{s.title}</strong>
+                            </span>
+                        </button>
+                    ))}
+                </div>
 
-            <Reveal className="hm-flow-panel" y={24} delay={0.3}>
-                <div id="flow-panel" role="tabpanel" aria-labelledby={`flow-tab-${active}`} aria-live="polite">
+                <div id="flow-panel" className="hm-work-panel" role="tabpanel" aria-labelledby={`flow-tab-${active}`}>
                     <AnimatePresence mode="wait" initial={false}>
                         <motion.div
                             key={step.title}
-                            className="hm-flow-detail"
-                            initial={{ opacity: 0, y: 18 }}
+                            initial={{ opacity: 0, y: 12 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -12, transition: { duration: 0.18 } }}
-                            transition={{ duration: 0.45, ease: EASE_OUT }}
+                            exit={{ opacity: 0, y: -8, transition: { duration: 0.16 } }}
+                            transition={{ duration: 0.35, ease: EASE_OUT }}
                         >
-                            <div className="hm-flow-copy">
-                                <span className="hm-flow-ghost" aria-hidden="true">
-                                    {String(active + 1).padStart(2, '0')}
-                                </span>
-                                <span className="hm-flow-kicker">
-                                    <step.icon size={14} aria-hidden="true" /> Step {active + 1} of {processSteps.length}
-                                </span>
-                                <h3>{step.title}</h3>
-                                <p>{step.desc}</p>
-                                <div className="hm-flow-outcome">
-                                    <span className="hm-flow-outcome-icon" aria-hidden="true"><Target size={16} /></span>
-                                    <span>
-                                        <small>Outcome</small>
-                                        <strong>{step.outcome}</strong>
-                                    </span>
-                                </div>
-                            </div>
-                            <div className="hm-flow-covers">
-                                <span className="hm-flow-covers-title">What we cover</span>
-                                <motion.ul variants={staggerParent(0.09, 0.15)} initial="hidden" animate="show">
-                                    {step.covers.map((c, ci) => (
-                                        <motion.li key={c} variants={fadeUpItem}>
-                                            <span className="hm-flow-covers-num">{ci + 1}</span>
-                                            {c}
-                                        </motion.li>
-                                    ))}
-                                </motion.ul>
-                            </div>
+                            <span className="hm-work-ghost" aria-hidden="true">{String(active + 1).padStart(2, '0')}</span>
+                            <h3>{step.title}</h3>
+                            <p>{step.desc}</p>
+                            <p className="hm-work-outcome">
+                                <small>Outcome</small>
+                                {step.outcome}
+                            </p>
+                            <p className="hm-work-covers-title">What we cover</p>
+                            <ul>
+                                {step.covers.map((c, ci) => (
+                                    <li key={c}><span>{ci + 1}</span>{c}</li>
+                                ))}
+                            </ul>
                         </motion.div>
                     </AnimatePresence>
-                </div>
-                <div className="hm-flow-controls">
-                    <div className="hm-flow-bars" aria-hidden="true">
-                        {processSteps.map((s, i) => (
-                            <span key={s.title} className={i <= active ? 'is-on' : ''} />
-                        ))}
-                    </div>
-                    <div className="hm-flow-nav">
-                        <button
-                            type="button"
-                            className="hm-flow-btn"
-                            onClick={() => select(active - 1)}
-                            disabled={active === 0}
-                            aria-label="Previous step"
-                        >
+                    <div className="hm-work-nav">
+                        <button type="button" onClick={() => select(active - 1)} disabled={active === 0} aria-label="Previous step">
                             <ChevronLeft size={18} />
                         </button>
-                        <button
-                            type="button"
-                            className="hm-flow-btn hm-flow-btn--next"
-                            onClick={() => select(active + 1)}
-                            disabled={active === last}
-                            aria-label="Next step"
-                        >
+                        <button type="button" onClick={() => select(active + 1)} disabled={active === last} aria-label="Next step">
                             <ChevronRight size={18} />
                         </button>
                     </div>
                 </div>
-            </Reveal>
-
-            <motion.ul className="hm-flow-promises" {...gridMotion(0.1, 0.1)}>
+            </div>
+            <ul className="hm-work-promises">
                 {processPromises.map((p) => (
-                    <motion.li key={p.text} variants={fadeUpItem}>
-                        <span className="hm-flow-promise-icon" aria-hidden="true"><p.icon size={16} /></span>
+                    <li key={p.text}>
+                        <p.icon size={16} aria-hidden="true" />
                         {p.text}
-                    </motion.li>
+                    </li>
                 ))}
-            </motion.ul>
+            </ul>
         </div>
     );
 };
 
-const CountryMarquee = () => {
-    const [paused, setPaused] = useState(false);
-    const renderList = (copy) => (
-        <ul className="hm-reach-list" aria-hidden={copy ? 'true' : undefined}>
-            {networkCountries.map((c) => (
-                <li key={c.code} className="hm-reach-item" title={c.role}>
-                    <Flag code={c.code} />
-                    <span>{c.name}</span>
-                </li>
-            ))}
-        </ul>
-    );
-
-    return (
-        <section className="hm-reach" aria-label="Countries in our network">
-            <div className="container hm-reach-inner">
-                <p className="hm-reach-label">
-                    <span className="hm-reach-live" aria-hidden="true" />
-                    Our network
-                    <span className="hm-reach-count">{networkCountries.length}</span>
-                </p>
-                <div className={'hm-reach-viewport' + (paused ? ' is-paused' : '')}>
-                    <div className="hm-reach-track">
-                        {renderList(false)}
-                        {renderList(true)}
-                    </div>
-                </div>
-                <button
-                    type="button"
-                    className="hm-reach-toggle"
-                    onClick={() => setPaused((p) => !p)}
-                    aria-pressed={paused}
-                    aria-label={paused ? 'Play country list animation' : 'Pause country list animation'}
-                >
-                    {paused ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
-                </button>
-            </div>
-        </section>
-    );
-};
+const CountryMarquee = () => (
+    <section className="hm-reach" aria-label="Countries in our network">
+        <div className="container hm-reach-inner">
+            <p className="hm-reach-label">
+                <span className="hm-reach-live" aria-hidden="true" />
+                Our network
+                <span className="hm-reach-count">{networkCountries.length}</span>
+            </p>
+            <ul className="hm-reach-list hm-reach-list--static">
+                {networkCountries.map((c) => (
+                    <li key={c.code} className="hm-reach-item" title={c.role}>
+                        <Flag code={c.code} />
+                        <span>{c.name}</span>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </section>
+);
 
 const IndustriesGallery = () => {
     const [active, setActive] = useState(0);
@@ -667,58 +705,30 @@ const IndustriesGallery = () => {
     );
 };
 
-const PRODUCT_AUTOPLAY_MS = 7000;
-
 const ProductShowcase = () => {
     const [active, setActive] = useState(0);
-    const [paused, setPaused] = useState(false);
-    const [autoplay, setAutoplay] = useState(true);
-    const rootRef = useRef(null);
-    const inView = useInView(rootRef, { amount: 0.35 });
-    const reduceMotion = useReducedMotion();
     const product = products[active];
-    const last = products.length - 1;
-    const playing = autoplay && !paused && inView && !reduceMotion;
-
-    useEffect(() => {
-        if (!playing) return undefined;
-        const id = setTimeout(() => setActive((i) => (i === last ? 0 : i + 1)), PRODUCT_AUTOPLAY_MS);
-        return () => clearTimeout(id);
-    }, [playing, active, last]);
-
-    const select = (i) => {
-        setAutoplay(false);
-        setActive(i);
-    };
 
     const onTabKey = (e) => {
         const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
         if (!(e.key in keys)) return;
         e.preventDefault();
         const next = (active + keys[e.key] + products.length) % products.length;
-        select(next);
+        setActive(next);
         e.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus();
     };
 
     return (
-        <div
-            className="hm-px"
-            ref={rootRef}
-            onPointerEnter={() => setPaused(true)}
-            onPointerLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
-        >
-            <motion.div
-                className="hm-px-tabs"
+        <div className="hm-prod">
+            <div
+                className="hm-prod-list"
                 role="tablist"
                 aria-label="Our products"
                 aria-orientation="vertical"
                 onKeyDown={onTabKey}
-                {...gridMotion(0.1, 0.1)}
             >
                 {products.map((p, i) => (
-                    <motion.button
+                    <button
                         key={p.title}
                         type="button"
                         role="tab"
@@ -726,106 +736,84 @@ const ProductShowcase = () => {
                         aria-selected={i === active}
                         aria-controls="px-panel"
                         tabIndex={i === active ? 0 : -1}
-                        className={'hm-px-tab' + (i === active ? ' is-active' : '')}
-                        onClick={() => select(i)}
-                        variants={fadeUpItem}
+                        className={i === active ? 'is-active' : undefined}
+                        onClick={() => setActive(i)}
                     >
-                        <span className="hm-px-tab-icon" aria-hidden="true"><p.icon size={20} /></span>
-                        <span className="hm-px-tab-text">
+                        <span>{String(i + 1).padStart(2, '0')}</span>
+                        <span>
                             <strong>{p.title}</strong>
                             <small>{p.audience}</small>
-                            <em>{p.desc}</em>
                         </span>
-                        <span className="hm-px-tab-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                        {i === active && (
-                            <span className="hm-px-tab-progress" aria-hidden="true">
-                                <span
-                                    key={`${active}-${playing}`}
-                                    className={playing ? 'is-running' : autoplay && !reduceMotion ? 'is-waiting' : ''}
-                                    style={{ animationDuration: `${PRODUCT_AUTOPLAY_MS}ms` }}
-                                />
-                            </span>
-                        )}
-                    </motion.button>
+                    </button>
                 ))}
-                <Link to={contactLink('Product enquiry')} className="hm-px-all">
+                <Link to={contactLink('Product enquiry')} className="hm-prod-help">
                     <span>
                         <strong>Not sure which fits?</strong>
                         <small>Talk to our product team</small>
                     </span>
                     <ArrowUpRight size={18} aria-hidden="true" />
                 </Link>
-            </motion.div>
+            </div>
 
-            <Reveal className="hm-px-stage" y={30} delay={0.15}>
-                <div id="px-panel" role="tabpanel" aria-labelledby={`px-tab-${active}`}>
-                    <div className="hm-px-screen" onPointerMove={(e) => trackTilt(e, 3)} onPointerLeave={resetTilt}>
-                        <div className="hm-pd-browser hm-pd-browser--tilt">
-                            <span className="hm-pd-browser-bar">
-                                <span className="hm-pd-browser-dots" aria-hidden="true"><i /><i /><i /></span>
-                                <span className="hm-pd-browser-title">{product.title}</span>
-                                <span className={`hm-badge ${product.badgeClass}`}>
-                                    <span className="hm-badge-dot" aria-hidden="true" />
-                                    {product.badge}
-                                </span>
-                            </span>
-                            <span className="hm-px-shot">
-                                <AnimatePresence initial={false}>
-                                    <motion.img
-                                        key={product.image}
-                                        src={product.image}
-                                        alt={product.alt}
-                                        width="1024"
-                                        height="463"
-                                        loading="lazy"
-                                        initial={{ opacity: 0, scale: 1.03 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.55, ease: EASE_OUT }}
-                                    />
-                                </AnimatePresence>
-                            </span>
-                        </div>
-                    </div>
-
+            <div id="px-panel" className="hm-prod-stage" role="tabpanel" aria-labelledby={`px-tab-${active}`}>
+                <div className="hm-pd-browser">
+                    <span className="hm-pd-browser-bar">
+                        <span className="hm-pd-browser-dots" aria-hidden="true"><i /><i /><i /></span>
+                        <span className="hm-pd-browser-title">{product.title}</span>
+                        <span className={`hm-badge ${product.badgeClass}`}>
+                            <span className="hm-badge-dot" aria-hidden="true" />
+                            {product.badge}
+                        </span>
+                    </span>
                     <AnimatePresence mode="wait" initial={false}>
-                        <motion.div
-                            key={product.title}
-                            className="hm-px-info"
-                            initial={{ opacity: 0, y: 14 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10, transition: { duration: 0.15 } }}
-                            transition={{ duration: 0.4, ease: EASE_OUT }}
-                            aria-live="polite"
-                        >
-                            <div className="hm-px-copy">
-                                <h3>
-                                    {product.title}
-                                    {active === 0 && (
-                                        <span className="hm-px-flag">
-                                            <Sparkles size={12} aria-hidden="true" /> Flagship
-                                        </span>
-                                    )}
-                                </h3>
-                                <p>{product.desc}</p>
-                                <ul className="hm-px-features">
-                                    {product.features.map((f) => (
-                                        <li key={f}><CheckCircle2 size={14} aria-hidden="true" /> {f}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="hm-px-actions">
-                                <Link to={product.to} className="hm-btn hm-btn-primary">
-                                    {product.cta} <ArrowRight size={15} />
-                                </Link>
-                                <Link to={product.secondary.to} className="hm-text-link">
-                                    {product.secondary.label} <ArrowRight size={15} />
-                                </Link>
-                            </div>
-                        </motion.div>
+                        <motion.img
+                            key={product.image}
+                            src={product.image}
+                            alt={product.alt}
+                            width="1024"
+                            height="463"
+                            loading="lazy"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.35, ease: EASE_OUT }}
+                        />
                     </AnimatePresence>
                 </div>
-            </Reveal>
+                <AnimatePresence mode="wait" initial={false}>
+                    <motion.div
+                        key={product.title}
+                        className="hm-prod-copy"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8, transition: { duration: 0.14 } }}
+                        transition={{ duration: 0.35, ease: EASE_OUT }}
+                    >
+                        <h3>
+                            {product.title}
+                            {active === 0 && (
+                                <span className="hm-prod-flag">
+                                    <Sparkles size={12} aria-hidden="true" /> Flagship
+                                </span>
+                            )}
+                        </h3>
+                        <p>{product.desc}</p>
+                        <ul>
+                            {product.features.map((f) => (
+                                <li key={f}><CheckCircle2 size={14} aria-hidden="true" /> {f}</li>
+                            ))}
+                        </ul>
+                        <div className="hm-prod-actions">
+                            <Link to={product.to} className="hm-btn hm-btn-primary">
+                                {product.cta} <ArrowRight size={15} />
+                            </Link>
+                            <Link to={product.secondary.to} className="hm-text-link">
+                                {product.secondary.label} <ArrowRight size={15} />
+                            </Link>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
         </div>
     );
 };
@@ -870,27 +858,93 @@ const Home = () => {
             <CountryMarquee />
 
             {/* 2. Intro */}
-            <section className="hm-about">
+            <section className="hm-about hm-who" id="who-we-are" aria-labelledby="hm-who-title">
                 <div className="container">
-                    <div className="hm-ab-head">
-                        <div>
-                            <Reveal y={12}>
-                                <Eyebrow>Who We Are</Eyebrow>
-                            </Reveal>
-                            <h2>
-                                Technology, Talent and Operations—<span>Aligned to Your Goals</span>
-                            </h2>
-                        </div>
-                        <Reveal className="hm-ab-head-copy" delay={0.1} y={14}>
-                            <p>
-                                KAM Global AI is a technology and workforce services company. It provides software
-                                development, AI and automation, data and analytics, cloud and DevOps, managed IT, HR and
-                                recruitment services, and global outsourcing, with technology delivery from India and
-                                business operations support from the Philippines. Whether you are building a platform,
-                                improving IT operations, expanding customer-facing capacity or hiring, we can help you
-                                define the next step.
+                    <header className="hm-who-head">
+                        <p className="hm-who-kicker">Who We Are</p>
+                        <h2 id="hm-who-title">
+                            <span>Technology, Talent</span>
+                            <span>and Operations</span>
+                        </h2>
+                        <p className="hm-who-aim">Aligned to <span>your goals</span></p>
+                    </header>
+
+                    <p className="hm-who-lead">
+                        KAM Global AI is a technology and workforce services company. It provides software
+                        development, AI and automation, data and analytics, cloud and DevOps, managed IT, HR and
+                        recruitment services, and global outsourcing, with technology delivery from India and
+                        business operations support from the Philippines. Whether you are building a platform,
+                        improving IT operations, expanding customer-facing capacity or hiring, we can help you
+                        define the next step.
+                    </p>
+
+                    <div className="hm-who-grid">
+                        <figure className="hm-who-photo">
+                            <div className="hm-who-frame">
+                                <img
+                                    src="/images/hm-who-we-are.webp"
+                                    alt="KAM Group executive shaking hands with the KAM Global AI technology and operations team in a bright office"
+                                    loading="lazy"
+                                    width="1024"
+                                    height="768"
+                                />
+                                <figcaption className="hm-who-caption">
+                                    <span>
+                                        <Shield size={15} aria-hidden="true" />
+                                        <span><strong>Backed by KAM Group</strong><small>Kuwait</small></span>
+                                    </span>
+                                    <span>
+                                        <MapPin size={15} aria-hidden="true" />
+                                        <span><strong>One partner, three service lines</strong><small>Kuwait · India · Philippines</small></span>
+                                    </span>
+                                </figcaption>
+                            </div>
+                        </figure>
+
+                        <div className="hm-who-panel">
+                            <ol className="hm-who-lines">
+                                {whoFocus.map((item) => (
+                                    <li key={item.n}>
+                                        <Link to={item.to}>
+                                            <span className="hm-who-num">{item.n}</span>
+                                            <span>
+                                                <strong className="hm-who-name">{item.title}</strong>
+                                                <span className="hm-who-note">{item.note}</span>
+                                            </span>
+                                            <ArrowRight size={16} aria-hidden="true" />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ol>
+
+                            <p className="hm-who-backing">
+                                <Handshake size={18} aria-hidden="true" />
+                                Strategically backed by KAM Group, Kuwait, we connect regional business trust with
+                                reliable delivery, AI products, and long-term partnership.
                             </p>
-                            <div className="hm-about-actions">
+
+                            <div className="hm-who-facts">
+                                <div>
+                                    <strong>
+                                        <CountUp end={10} duration={2} enableScrollSpy scrollSpyOnce /><em>+</em>
+                                    </strong>
+                                    <span>Years group legacy</span>
+                                </div>
+                                <div>
+                                    <strong>
+                                        <CountUp end={3} duration={2} enableScrollSpy scrollSpyOnce />
+                                    </strong>
+                                    <span>Service lines</span>
+                                </div>
+                                <div>
+                                    <strong>
+                                        <CountUp end={networkCountries.length} duration={2} enableScrollSpy scrollSpyOnce />
+                                    </strong>
+                                    <span>Countries in our network</span>
+                                </div>
+                            </div>
+
+                            <div className="hm-who-actions">
                                 <Link to="/about" className="hm-btn hm-btn-primary">
                                     About KAM Global AI <ArrowRight size={15} />
                                 </Link>
@@ -898,134 +952,93 @@ const Home = () => {
                                     See where we operate <ArrowRight size={15} />
                                 </a>
                             </div>
-                        </Reveal>
-                    </div>
-
-                    <div className="hm-ab-bento hm-ab-bento--duo">
-                        <motion.figure
-                            className="hm-ab-photo"
-                            initial={{ opacity: 0, y: 24 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, amount: 0.2 }}
-                            transition={{ duration: 0.7, ease: EASE_OUT }}
-                        >
-                            <img
-                                src="/images/hm-who-we-are.webp"
-                                alt="KAM Group executive shaking hands with the KAM Global AI technology and operations team in a bright office"
-                                loading="lazy"
-                                width="1024"
-                                height="768"
-                            />
-                            <figcaption className="hm-ab-tag hm-ab-tag--top">
-                                <span className="hm-ab-tag-icon" aria-hidden="true"><Shield size={15} /></span>
-                                <span>
-                                    <strong>Backed by KAM Group</strong>
-                                    <small>Kuwait</small>
-                                </span>
-                            </figcaption>
-                            <span className="hm-ab-tag hm-ab-tag--bottom">
-                                <span className="hm-ab-tag-icon" aria-hidden="true"><MapPin size={15} /></span>
-                                <span>
-                                    <strong>One partner, three service lines</strong>
-                                    <small>Kuwait · India · Philippines</small>
-                                </span>
-                            </span>
-                        </motion.figure>
-
-                        <Reveal className="hm-ab-stats" delay={0.2} y={20}>
-                            <p className="hm-ab-backing">
-                                <Handshake size={18} aria-hidden="true" />
-                                Strategically backed by KAM Group, Kuwait, we connect regional business trust with
-                                reliable delivery, AI products, and long-term partnership.
-                            </p>
-                            <div className="hm-ab-stat-row">
-                                <div className="hm-ab-stat">
-                                    <strong>
-                                        <CountUp end={10} duration={2} enableScrollSpy scrollSpyOnce /><em>+</em>
-                                    </strong>
-                                    <span>Years group legacy</span>
-                                </div>
-                                <div className="hm-ab-stat">
-                                    <strong>
-                                        <CountUp end={3} duration={2} enableScrollSpy scrollSpyOnce />
-                                    </strong>
-                                    <span>Service lines</span>
-                                </div>
-                                <div className="hm-ab-stat">
-                                    <strong>
-                                        <CountUp end={networkCountries.length} duration={2} enableScrollSpy scrollSpyOnce />
-                                    </strong>
-                                    <span>Countries in our network</span>
-                                </div>
-                            </div>
-                        </Reveal>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* 5. Dual pathways */}
-            <section className="hm-pathways">
+            <section className="hm-bm" id="delivery-engines" aria-labelledby="hm-model-title">
                 <div className="container">
-                    <SectionHeader eyebrow="What We Offer" title="Three service lines for" accent="your organisation">
-                        IT &amp; technology, global outsourcing, and HR &amp; workforce, plus our education products. Pick the line that matches what you need and start there.
-                    </SectionHeader>
-                    <div className="hm-paths">
-                        <svg className="hm-paths-fork" viewBox="0 0 1000 80" preserveAspectRatio="none" aria-hidden="true">
-                            {['M500 0 V28 Q500 44 484 44 H182 Q166 44 166 60 V80', 'M500 0 V80', 'M500 0 V28 Q500 44 516 44 H818 Q834 44 834 60 V80'].map((d) => (
-                                <motion.path
-                                    key={d}
-                                    d={d}
-                                    vectorEffect="non-scaling-stroke"
-                                    initial={{ pathLength: 0 }}
-                                    whileInView={{ pathLength: 1 }}
-                                    viewport={VIEWPORT}
-                                    transition={{ duration: 1.2, ease: EASE_OUT, delay: 0.3 }}
-                                />
-                            ))}
-                        </svg>
-                        <motion.div className="hm-paths-grid hm-paths-grid--three" {...gridMotion(0.15, 0.6)} viewport={{ ...VIEWPORT, amount: 0.08 }}>
-                            {pathways.map(({ to, icon: Icon, title, desc, tags, cta, accent, wide, path, audience, image, alt }) => (
-                                <MotionLink
-                                    key={title}
-                                    to={to}
-                                    className={'hm-path-card rv-spot' + (accent ? ' hm-path-card--accent' : '') + (wide ? ' hm-path-card--wide' : '')}
-                                    variants={fadeUpItem}
-                                    onPointerMove={trackPointer}
-                                >
-                                    <div className="hm-path-media">
-                                        <img src={image} alt={alt} loading="lazy" width="1024" height="576" />
-                                        <span className="hm-path-badge">{path}</span>
-                                    </div>
-                                    <div className="hm-path-body">
-                                        <span className="hm-path-audience">
-                                            <span className="hm-path-audience-icon" aria-hidden="true"><Icon size={15} /></span>
-                                            {audience}
-                                        </span>
-                                        <h3>{title}</h3>
-                                        <p>{desc}</p>
-                                        <ul className="hm-path-tags">
-                                            {tags.map((t) => <li key={t}>{t}</li>)}
-                                        </ul>
-                                        <span className="hm-path-cta">
-                                            {cta}
-                                            <span className="hm-path-cta-arrow" aria-hidden="true"><ArrowRight size={16} /></span>
-                                        </span>
-                                    </div>
-                                </MotionLink>
-                            ))}
-                        </motion.div>
+                    <header className="hm-bm-head">
+                        <p className="hm-who-kicker">The Business Model</p>
+                        <h2 id="hm-model-title">
+                            <span>One partner.</span>
+                            <span>Two talent engines.</span>
+                        </h2>
+                        <p>
+                            Kuwait holds the relationship. Technology is delivered from India. Business operations are delivered from the Philippines. The engine depends on the scope, and not every service is offered from every location.
+                        </p>
+                    </header>
+                    <div className="hm-bm-map">
+                        <div>
+                            <small>Relationship</small>
+                            <strong>Kuwait</strong>
+                            <p>Governance and the client partnership sit here. Delivery then comes from the engine that fits the work.</p>
+                        </div>
+                        <div>
+                            <small>Technology</small>
+                            <strong>India</strong>
+                            <p>Software, AI, data, cloud and managed IT are delivered from the India engine.</p>
+                        </div>
+                        <div>
+                            <small>Operations</small>
+                            <strong>Philippines</strong>
+                            <p>Customer experience, sales support and back-office work are delivered from the Philippines engine.</p>
+                        </div>
+                    </div>
+                    <div className="hm-bm-pair">
+                        {deliveryEngines.map((engine) => (
+                            <article key={engine.key} className="hm-bm-card">
+                                <img src={engine.image} alt={engine.alt} width="1024" height="576" />
+                                <div>
+                                    <p>{engine.key === 'india' ? 'India' : 'Philippines'}</p>
+                                    <h3>{engine.short}</h3>
+                                    <p className="hm-bm-desc">{engine.cardDesc}</p>
+                                    <ul>
+                                        {engine.capabilities.items.slice(0, 4).map((item) => (
+                                            <li key={item.title}><Link to={item.to}>{item.title}</Link></li>
+                                        ))}
+                                    </ul>
+                                    <Link to={`/outsourcing/${engine.slug}`} className="hm-bm-go">
+                                        Explore the {engine.key === 'india' ? 'India' : 'Philippines'} engine <ArrowRight size={16} aria-hidden="true" />
+                                    </Link>
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="hm-help" id="how-we-help" aria-labelledby="hm-help-title">
+                <div className="container">
+                    <header className="hm-band-head">
+                        <p className="hm-who-kicker">How can we help you?</p>
+                        <h2 id="hm-help-title">
+                            <span>Three service lines</span>
+                        </h2>
+                        <p className="hm-band-lead">Pick where to start. Technology from India. Operations from the Philippines. HR in the markets we already serve.</p>
+                    </header>
+                    <div className="hm-help-grid">
+                        {helpLines.map((line) => <HelpCard key={line.id} line={line} />)}
                     </div>
                 </div>
             </section>
 
             {/* 7. Industries */}
-            <section className="hm-industries" id="industries">
+            <section className="hm-industries" id="industries" aria-labelledby="hm-industries-title">
                 <div className="container">
-                    <SectionHeader eyebrow="Industries" title="Built for Different" accent="Industries" wide>
-                        We work to understand the workflows, customers, and operating requirements that make each
-                        industry different. Explore how our technology and support capabilities may apply to your
-                        sector.
-                    </SectionHeader>
+                    <header className="hm-band-head">
+                        <p className="hm-who-kicker">Industries</p>
+                        <h2 id="hm-industries-title">
+                            <span>Built for different</span>
+                            <span>industries</span>
+                        </h2>
+                        <p className="hm-band-lead">
+                            We work to understand the workflows, customers, and operating requirements that make each
+                            industry different. Explore how our technology and support capabilities may apply to your
+                            sector.
+                        </p>
+                    </header>
                     <IndustriesGallery />
                     <div className="hm-section-footer">
                         <Link to="/industries" className="hm-btn hm-btn-outline">
@@ -1035,93 +1048,20 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* 8. Engagement models */}
-            <section className="hm-engagement" id="engagement-models">
-                <div className="container">
-                    <SectionHeader eyebrow="Engagement Models" title="Choose a Delivery Model" accent="That Fits" wide breakAccent>
-                        Start with a dedicated resource, build a team, commission a defined project, or discuss
-                        ongoing managed operations. The model is selected around scope, ownership, timelines, and
-                        service expectations.
-                    </SectionHeader>
-                    <div className="hm-eng-spectrum" aria-hidden="true">
-                        <div className="hm-eng-spectrum-labels">
-                            <span><Users size={14} /> You lead day-to-day</span>
-                            <span>We run it end-to-end <Settings2 size={14} /></span>
-                        </div>
-                        <div className="hm-eng-track">
-                            <motion.span
-                                className="hm-eng-track-fill"
-                                initial={{ scaleX: 0 }}
-                                whileInView={{ scaleX: 1 }}
-                                viewport={VIEWPORT}
-                                transition={{ duration: 1.6, ease: EASE_OUT, delay: 0.2 }}
-                            />
-                            <motion.span className="hm-eng-nodes" {...gridMotion(0.3, 0.35)}>
-                                {engagementModels.map((m) => (
-                                    <motion.span key={m.title} className="hm-eng-node" variants={popItem}>
-                                        {m.step}
-                                    </motion.span>
-                                ))}
-                            </motion.span>
-                        </div>
-                    </div>
-                    <motion.ol className="hm-engagement-flow hm-eng-flow" {...gridMotion(0.15, 0.3)}>
-                        {engagementModels.map((m, i) => (
-                            <motion.li
-                                key={m.title}
-                                className="hm-engagement-step hm-eng-card rv-spot"
-                                variants={fadeUpItem}
-                                onPointerMove={trackPointer}
-                            >
-                                <div className="hm-engagement-top">
-                                    <span className="hm-engagement-icon" aria-hidden="true">
-                                        <m.icon size={20} />
-                                    </span>
-                                    <span className="hm-engagement-num">{m.step}</span>
-                                </div>
-                                <h3><Link to={m.to}>{m.title}</Link></h3>
-                                <p>{m.desc}</p>
-                                <div className="hm-eng-meter">
-                                    <span className="hm-eng-meter-label">Our ownership</span>
-                                    <span className="hm-eng-meter-bars" role="img" aria-label={`Ownership level ${i + 1} of 4`}>
-                                        {engagementModels.map((_, k) => (
-                                            <span key={k} className={k <= i ? 'is-on' : undefined} />
-                                        ))}
-                                    </span>
-                                </div>
-                                <span className="hm-engagement-fit">Suited for: {m.fit}</span>
-                                <span className="hm-eng-go" aria-hidden="true"><ArrowUpRight size={16} /></span>
-                            </motion.li>
-                        ))}
-                    </motion.ol>
-                    <Reveal className="hm-eng-bot" y={20}>
-                        <span className="hm-eng-bot-icon" aria-hidden="true"><Handshake size={22} /></span>
-                        <div className="hm-eng-bot-text">
-                            <strong>Planning to own the team long-term?</strong>
-                            <span>
-                                Ask about our Build-Operate-Transfer (BOT) model — we build and run the team, then
-                                transfer it to you.
-                            </span>
-                        </div>
-                        <Link to="/services/bot-model" className="hm-btn hm-btn-primary">
-                            Explore BOT Model <ArrowRight size={15} />
-                        </Link>
-                    </Reveal>
-                    <div className="hm-section-footer">
-                        <Link to="/engagement-models" className="hm-btn hm-btn-outline">
-                            Compare Engagement Models <ArrowRight size={15} />
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
             {/* 9. Products */}
-            <section className="hm-products" id="products">
+            <section className="hm-products hm-prod-section" id="products" aria-labelledby="hm-products-title">
                 <div className="container">
-                    <SectionHeader eyebrow="Products" title="Digital Products from" accent="KAM Global AI" breakAccent>
-                        Discover LearnX, EduAiTutors, and our AI-powered learning platform offerings — from school
-                        ERP to competitive exam coaching.
-                    </SectionHeader>
+                    <header className="hm-band-head">
+                        <p className="hm-who-kicker">Products</p>
+                        <h2 id="hm-products-title">
+                            <span>Digital products</span>
+                            <span>from KAM Global AI</span>
+                        </h2>
+                        <p className="hm-band-lead">
+                            Discover LearnX, EduAiTutors, and our AI-powered learning platform offerings — from school
+                            ERP to competitive exam coaching.
+                        </p>
+                    </header>
                     <ProductShowcase />
                     <div className="hm-section-footer">
                         <Link to="/products" className="hm-btn hm-btn-outline">
@@ -1132,12 +1072,19 @@ const Home = () => {
             </section>
 
             {/* 10. How we work */}
-            <section className="hm-process" id="how-we-work">
+            <section className="hm-process hm-work-section" id="how-we-work" aria-labelledby="hm-work-title">
                 <div className="container">
-                    <SectionHeader eyebrow="How We Work" title="Clear Scope." accent="Collaborative Delivery." wide breakAccent>
-                        We begin by understanding your goals, defining requirements, confirming the appropriate
-                        capabilities, and agreeing on delivery expectations before work begins.
-                    </SectionHeader>
+                    <header className="hm-band-head">
+                        <p className="hm-who-kicker">How We Work</p>
+                        <h2 id="hm-work-title">
+                            <span>Clear scope.</span>
+                            <span>Collaborative delivery.</span>
+                        </h2>
+                        <p className="hm-band-lead">
+                            We begin by understanding your goals, defining requirements, confirming the appropriate
+                            capabilities, and agreeing on delivery expectations before work begins.
+                        </p>
+                    </header>
                     <ProcessJourney />
                     <div className="hm-section-footer">
                         <Link to="/about#approach" className="hm-btn hm-btn-outline">
@@ -1182,10 +1129,13 @@ const Home = () => {
                         </Reveal>
 
                         <div className="hm-wy-content">
-                            <Reveal y={12}>
-                                <Eyebrow>Why KAM Global AI</Eyebrow>
-                            </Reveal>
-                            <SplitText text="Global capability. Local trust." accent="Proven execution." />
+                            <header className="hm-band-head">
+                                <p className="hm-who-kicker">Why KAM Global AI</p>
+                                <h2>
+                                    <span>Global capability. Local trust.</span>
+                                    <span>Proven execution.</span>
+                                </h2>
+                            </header>
                             <Reveal delay={0.2} y={16}>
                                 <p className="hm-wy-lead">
                                     Clients choose us for one accountable partner across technology, operations and HR
@@ -1229,10 +1179,16 @@ const Home = () => {
             {/* 12. Global presence */}
             <section className="hm-presence" id="global-presence">
                 <div className="container">
-                    <SectionHeader eyebrow="Global Presence" title="Three hubs. Eight countries." accent="One delivery standard." breakAccent>
-                        Strategy and governance in Kuwait, technology delivery from India, and business operations
-                        from the Philippines — extended through partner markets across the GCC and the USA.
-                    </SectionHeader>
+                    <header className="hm-band-head">
+                        <p className="hm-who-kicker">Global Presence</p>
+                        <h2>
+                            <span>Three hubs. Eight countries.</span>
+                            <span>One delivery standard.</span>
+                        </h2>
+                        <p className="hm-band-lead">
+                            Kuwait holds the group relationship. The same delivery reaches partner markets across the GCC and the USA.
+                        </p>
+                    </header>
                     <PresenceNetwork />
                 </div>
             </section>
@@ -1258,13 +1214,14 @@ const Home = () => {
                                 </g>
                             </svg>
                             <motion.div className="hm-talk-copy" {...gridMotion(0.1, 0.2)}>
-                                <motion.span className="hm-cta-kicker" variants={fadeUpItem}>
-                                    <span className="hm-cta-kicker-dot" aria-hidden="true" /> Let&apos;s talk
-                                </motion.span>
-                                <SplitText text="Tell Us What Your" accent="Business Needs" breakBeforeAccent />
+                                <motion.p className="hm-who-kicker" variants={fadeUpItem}>Let&apos;s talk</motion.p>
+                                <motion.h2 variants={fadeUpItem}>
+                                    <span>Build what</span>
+                                    <span>comes next</span>
+                                </motion.h2>
                                 <motion.p variants={fadeUpItem}>
-                                    Share your goals, challenge, timeline, or resource requirement. Our team can review
-                                    the context and discuss a suitable next step.
+                                    Technology, talent, and operations aligned to your business goals. Share the
+                                    requirement and we will discuss a suitable next step after the scope is clear.
                                 </motion.p>
                                 <motion.ul className="hm-talk-points" variants={staggerParent(0.08)}>
                                     <motion.li variants={fadeUpItem}><CheckCircle2 size={15} aria-hidden="true" /> Free consultation for qualified enquiries</motion.li>
@@ -1273,7 +1230,7 @@ const Home = () => {
                                 </motion.ul>
                                 <motion.div className="hm-talk-actions" variants={fadeUpItem}>
                                     <Link to="/contact" className="hm-btn hm-btn-accent">
-                                        Start a Conversation <ArrowRight size={16} />
+                                        Discuss Your Requirements <ArrowRight size={16} />
                                     </Link>
                                     <Link to={contactLink('Request a Proposal')} className="hm-btn hm-btn-secondary">
                                         Request a Proposal

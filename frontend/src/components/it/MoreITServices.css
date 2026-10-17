@@ -345,3 +345,12 @@
         transform: none;
     }
 }
+
+.mis-head h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+}

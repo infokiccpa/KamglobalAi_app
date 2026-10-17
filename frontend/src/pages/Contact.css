@@ -3136,3 +3136,29 @@
         animation: none;
     }
 }
+
+.con-hero h1,
+.con-section-header h2,
+.con-faq-intro h2,
+.con-form-head h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+}
+
+.con-hero h1 {
+    font-size: clamp(2.4rem, 4.6vw, 4rem);
+}
+
+.con-section-header h2,
+.con-faq-intro h2,
+.con-form-head h2 {
+    font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+}
+
+.con-hero-lead {
+    font-size: 17.5px;
+    line-height: 1.75;
+}

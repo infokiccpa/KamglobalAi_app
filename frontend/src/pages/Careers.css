@@ -646,3 +646,36 @@
         padding: 28px 20px;
     }
 }
+
+.car-hero h1,
+.car-section-header h2,
+.car-culture-content h2,
+.car-talent-card h2,
+.car-cta-card h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+}
+
+.car-hero h1 {
+    font-size: clamp(2.4rem, 4.6vw, 4rem);
+}
+
+.car-section-header h2,
+.car-culture-content h2,
+.car-talent-card h2,
+.car-cta-card h2 {
+    font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+}
+
+.car-cta-card h2 {
+    color: #fff;
+}
+
+.car-hero p,
+.car-section-header p {
+    font-size: 17.5px;
+    line-height: 1.75;
+}

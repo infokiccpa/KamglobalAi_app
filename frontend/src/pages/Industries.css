@@ -1258,3 +1258,30 @@
         transition: none;
     }
 }
+
+.in-hero-copy h1,
+.in-head h2,
+.in-approach-intro h2,
+.in-page .in-cta h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 0.92;
+    text-transform: uppercase;
+}
+
+.in-hero-copy h1 {
+    font-size: clamp(2.4rem, 4.6vw, 4rem);
+}
+
+.in-head h2,
+.in-approach-intro h2,
+.in-page .in-cta h2 {
+    font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+}
+
+.in-hero-lead,
+.in-approach-intro p {
+    font-size: 17.5px;
+    line-height: 1.75;
+}

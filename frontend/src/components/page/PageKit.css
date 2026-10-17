@@ -166,54 +166,51 @@
 .pg-hero-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    padding: 0.45rem 0.95rem 0.45rem 0.7rem;
-    margin-bottom: 1.25rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.75);
-    border: 1px solid var(--kg-line);
-    box-shadow: 0 4px 14px rgba(12, 33, 61, 0.05);
-    color: var(--pg-navy);
-    font-size: 0.75rem;
+    gap: 12px;
+    margin-bottom: 18px;
+    color: #c56a12;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
 }
 
 .pg-hero-eyebrow::before {
     content: '';
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--pg-orange);
-    box-shadow: 0 0 0 4px rgba(247, 148, 29, 0.18);
+    width: 28px;
+    height: 2px;
+    background: #f7941d;
     flex-shrink: 0;
 }
 
 .pg-hero h1 {
     color: var(--pg-navy);
-    font-size: clamp(2rem, 3.6vw, 3.25rem);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4.6vw, 4rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+    text-transform: uppercase;
     margin-bottom: 1.1rem;
     text-wrap: balance;
 }
 
 .pg-hero-sub {
-    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
-    color: var(--pg-orange-deep);
-    font-weight: 600;
-    line-height: 1.5;
+    font-family: var(--font-heading);
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    color: #c56a12;
+    font-weight: 520;
+    letter-spacing: -0.03em;
+    line-height: 1.25;
     margin-bottom: 1rem;
     max-width: 640px;
 }
 
 .pg-hero-body {
     color: var(--pg-muted);
-    font-size: 1rem;
+    font-size: 17.5px;
     line-height: 1.75;
-    max-width: 620px;
+    max-width: 68ch;
 }
 
 .pg-hero-actions {
@@ -314,21 +311,20 @@
 .pg-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-bottom: 0.9rem;
-    font-size: 0.76rem;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--pg-orange-deep);
+    color: #c56a12;
 }
 
 .pg-eyebrow::before {
     content: '';
-    width: 22px;
+    width: 28px;
     height: 2px;
-    border-radius: 2px;
-    background: var(--pg-orange);
+    background: #f7941d;
 }
 
 .pg-eyebrow--light {
@@ -337,17 +333,19 @@
 
 .pg-section-head h2,
 .pg-split-copy h2 {
-    font-size: clamp(1.75rem, 2.8vw, 2.5rem);
-    line-height: 1.15;
-    color: var(--pg-ink);
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 3.8vw, 3.3rem);
+    line-height: 0.92;
+    color: var(--pg-navy);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
     text-wrap: balance;
 }
 
 .pg-section-head p {
     margin-top: 1rem;
-    font-size: 1.05rem;
+    font-size: 17.5px;
     line-height: 1.75;
     color: var(--pg-muted);
 }
@@ -818,9 +816,12 @@
 
 .pg-cta-copy h2 {
     color: #fff;
-    font-size: clamp(1.6rem, 2.6vw, 2.3rem);
-    line-height: 1.15;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.4vw, 3rem);
+    line-height: 0.92;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
 }
 
 .pg-cta-copy p {

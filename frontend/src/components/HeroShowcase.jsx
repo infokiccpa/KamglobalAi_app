@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, ArrowUpRight, Building2, Globe2, Award } from 'lucide-react';
@@ -8,7 +8,6 @@ import './HeroShowcase.css';
 const NUM_SLICES = 14;
 const SWEEP_MS = 1250;
 const AUTO_MS = 4500;
-const TYPE_MS = 18;
 const SLIT_RADIUS = 2.5;
 const SLIT_FADE_MS = 320;
 const EASE_OUT = [0.16, 1, 0.3, 1];
@@ -17,14 +16,13 @@ const SLIDES = [
     {
         image: '/images/hero/hero-two-engines.webp',
         alt: 'Team reviewing a delivery roadmap on a wall screen in a bright meeting room',
-        kicker: 'Technology · Outsourcing · HR & Workforce · Products',
+        kicker: 'India technology · Philippines operations',
         label: 'Two Delivery Engines',
-        caption: 'India technology · Philippines operations',
-        to: '/about',
+        caption: 'Technology and operations, one relationship',
+        to: '/#delivery-engines',
         segments: [
-            { text: 'Build in India. ', tone: 'muted' },
-            { text: 'Scale from the Philippines. ' },
-            { text: 'Grow with one partner.', tone: 'accent' },
+            { text: 'One Global Partner. ', tone: 'muted' },
+            { text: 'Two Powerful Talent Engines.', tone: 'accent' },
         ],
     },
     {
@@ -101,44 +99,6 @@ function paintSlits(slices, x, amp) {
     }
 }
 
-const TypedHeadline = ({ segments, instant }) => {
-    const total = useMemo(() => segments.reduce((n, s) => n + s.text.length, 0), [segments]);
-    const [typed, setTyped] = useState(instant ? total : 0);
-    const done = typed >= total;
-
-    useEffect(() => {
-        if (done) return undefined;
-        const id = setTimeout(() => setTyped((t) => t + 1), TYPE_MS);
-        return () => clearTimeout(id);
-    }, [typed, done]);
-
-    const parts = useMemo(() => {
-        const out = [];
-        let left = typed;
-        let cursorPlaced = false;
-        segments.forEach((s, i) => {
-            const shown = Math.max(0, Math.min(s.text.length, left));
-            left -= s.text.length;
-            const withCursor = !cursorPlaced && (shown < s.text.length || i === segments.length - 1);
-            if (withCursor) cursorPlaced = true;
-            out.push({ key: i, tone: s.tone, shown: s.text.slice(0, shown), rest: s.text.slice(shown), withCursor });
-        });
-        return out;
-    }, [segments, typed]);
-
-    return (
-        <span className="kx-typed" aria-hidden="true">
-            {parts.map((p) => (
-                <span key={p.key} className={p.tone ? 'kx-seg kx-seg--' + p.tone : 'kx-seg'}>
-                    {p.shown}
-                    {p.withCursor && <span className={'kx-cursor' + (done ? ' is-done' : '')} />}
-                    <span className="kx-untyped">{p.rest}</span>
-                </span>
-            ))}
-        </span>
-    );
-};
-
 const HeroButton = ({ to, label, variant }) => (
     <Link to={to} className={'kx-btn kx-btn--' + variant} aria-label={label}>
         <span className="kx-btn-label" aria-hidden="true">
@@ -167,7 +127,6 @@ const HeroShowcase = () => {
 
     const active = incoming ?? index;
     const slide = SLIDES[active];
-    const fullTitle = slide.segments.map((s) => s.text).join('');
 
     const setSliceEl = (k, part) => (el) => {
         if (!slicesRef.current[k]) slicesRef.current[k] = {};
@@ -309,25 +268,19 @@ const HeroShowcase = () => {
                     </div>
 
                     <h1 id="kx-title" className="kx-title">
-                        <span className="sr-only">{fullTitle}</span>
-                        <span className="kx-title-stack" aria-hidden="true">
-                            {SLIDES.map((s) => (
-                                <span key={s.label} className="kx-title-ghost">
-                                    {s.segments.map((x) => x.text).join('')}
-                                </span>
-                            ))}
-                            <TypedHeadline key={active} segments={slide.segments} instant={reduced} />
-                        </span>
+                        <span className="kx-seg kx-seg--muted">One Global Partner. </span>
+                        <span className="kx-seg kx-seg--accent">Two Powerful Talent Engines.</span>
                     </h1>
 
                     <p className="kx-lead">
-                        IT &amp; technology delivery, global outsourcing, HR &amp; workforce solutions, education
-                        products, and flexible engagement models — shaped around what you need next.
+                        Technology and digital delivery from India. Business operations and workforce services from
+                        the Philippines. KAM Global AI helps you develop digital solutions, strengthen technology
+                        operations, and extend capacity through an engagement model that fits the scope.
                     </p>
 
                     <div className="kx-actions">
-                        <HeroButton to={discoveryLink('Home Hero')} label="Discuss Your Needs" variant="primary" />
-                        <HeroButton to="/services" label="Explore Services" variant="ghost" />
+                        <HeroButton to={discoveryLink('Home Hero')} label="Discuss Your Requirements" variant="primary" />
+                        <HeroButton to="/services" label="Explore Our Services" variant="ghost" />
                     </div>
 
                     <ul className="kx-trust">
@@ -344,7 +297,7 @@ const HeroShowcase = () => {
                 </motion.div>
 
                 <motion.div
-                    className="kx-stage"
+                    className="kx-stage kx-depth"
                     initial={reduced ? false : { opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: 0.1, ease: EASE_OUT }}

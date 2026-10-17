@@ -307,6 +307,7 @@
     min-width: 0;
 }
 
+
 /* Offset brand outline sitting behind the photo frame */
 .kx-stage::before {
     content: '';
@@ -567,4 +568,5 @@
         animation: none !important;
         transition: none !important;
     }
+
 }

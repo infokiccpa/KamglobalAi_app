@@ -35,7 +35,7 @@ const FloatingActions = () => {
     };
 
     return (
-        <div className="floating-actions">
+        <>
             <a
                 className="wa-fab"
                 href={whatsappLink()}
@@ -44,8 +44,9 @@ const FloatingActions = () => {
                 aria-label="Chat with KAM Global AI on WhatsApp"
             >
                 <span className="wa-fab-icon"><WhatsAppIcon /></span>
-                <span className="wa-fab-label">WhatsApp</span>
+                <span className="wa-fab-label">Chat</span>
             </a>
+            <div className="floating-actions">
             {/* Scroll to Top Button */}
             <AnimatePresence>
                 {isVisible && (
@@ -63,7 +64,8 @@ const FloatingActions = () => {
                     </motion.button>
                 )}
             </AnimatePresence>
-        </div>
+            </div>
+        </>
     );
 };
 
