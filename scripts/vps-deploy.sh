@@ -11,9 +11,5 @@ npm install --omit=dev --prefix backend
 npm install --prefix frontend
 npm run build --prefix frontend
 
-if pm2 describe kamglobal-backend >/dev/null 2>&1; then
-  pm2 restart kamglobal-backend --update-env
-else
-  pm2 start ecosystem.config.cjs --env production
-fi
+pm2 startOrReload ecosystem.config.cjs --env production
 pm2 save
