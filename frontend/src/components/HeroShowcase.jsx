@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Building2, Globe2, Award } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Brain, Code2, Globe, Users } from 'lucide-react';
 import { discoveryLink } from '../data/links';
 import './HeroShowcase.css';
 
@@ -79,10 +79,11 @@ const SLIDES = [
     },
 ];
 
-const TRUST = [
-    { icon: Building2, title: 'Backed by KAM Group', sub: 'Kuwait' },
-    { icon: Globe2, title: 'Two delivery engines', sub: 'India · Philippines' },
-    { icon: Award, title: '10+ years legacy', sub: 'Group experience' },
+const FEATURES = [
+    { icon: Brain, title: 'AI-Powered Digital Solutions' },
+    { icon: Code2, title: 'Product Development' },
+    { icon: Users, title: 'Scalable Talent & Operations' },
+    { icon: Globe, title: 'Global Delivery Model' },
 ];
 
 const prefersReducedMotion = () =>
@@ -250,47 +251,31 @@ const HeroShowcase = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.9, delay: 0.2, ease: EASE_OUT }}
                 >
-                    <div className="kx-kicker-row">
-                        <div className="kx-kicker-wrap">
-                            <AnimatePresence mode="wait" initial={false}>
-                                <motion.p
-                                    key={active}
-                                    className="kx-kicker"
-                                    initial={{ opacity: 0, x: -8 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: 8 }}
-                                    transition={{ duration: 0.35, ease: 'easeOut' }}
-                                >
-                                    {slide.kicker}
-                                </motion.p>
-                            </AnimatePresence>
-                        </div>
-                    </div>
+                    <p className="kx-eyebrow">
+                        <span className="kx-eyebrow-rule" aria-hidden="true" />
+                        <span>Technology · AI · Digital Delivery · Workforce Solutions</span>
+                    </p>
 
                     <h1 id="kx-title" className="kx-title">
-                        <span className="kx-seg kx-seg--muted">One Global Partner. </span>
+                        <span className="kx-seg kx-seg--navy">One Global Partner.</span>
                         <span className="kx-seg kx-seg--accent">Two Powerful Talent Engines.</span>
                     </h1>
 
                     <p className="kx-lead">
-                        Technology and digital delivery from India. Business operations and workforce services from
-                        the Philippines. KAM Global AI helps you develop digital solutions, strengthen technology
-                        operations, and extend capacity through an engagement model that fits the scope.
+                        Build digital products, leverage AI, and scale your operations with technology expertise from
+                        India and business operations and workforce capabilities from the Philippines.
                     </p>
 
                     <div className="kx-actions">
-                        <HeroButton to={discoveryLink('Home Hero')} label="Discuss Your Requirements" variant="primary" />
+                        <HeroButton to={discoveryLink('Home Hero')} label="Let's Discuss Your Project" variant="primary" />
                         <HeroButton to="/services" label="Explore Our Services" variant="ghost" />
                     </div>
 
-                    <ul className="kx-trust">
-                        {TRUST.map(({ icon: Icon, title, sub }) => (
+                    <ul className="kx-features">
+                        {FEATURES.map(({ icon: Icon, title }) => (
                             <li key={title}>
-                                <span className="kx-trust-icon" aria-hidden="true"><Icon size={16} /></span>
-                                <span>
-                                    <strong>{title}</strong>
-                                    <small>{sub}</small>
-                                </span>
+                                <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
+                                <span>{title}</span>
                             </li>
                         ))}
                     </ul>
