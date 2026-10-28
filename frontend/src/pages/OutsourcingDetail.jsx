@@ -123,6 +123,7 @@ const ServicePage = ({ service }) => {
                 text={`Share your ${service.name.toLowerCase()} needs, priorities, and timing. We will review the information and confirm the most appropriate next step.`}
                 primary={{ label: service.hero.cta, to: primaryLink }}
                 secondary={{ label: 'Book a Discovery Call', to: discoveryLink(service.subject) }}
+                jobs
             />
         </div>
     );
@@ -216,6 +217,7 @@ const EnginePage = ({ engine }) => {
                 text={engine.cta.text}
                 primary={{ label: 'Contact Us', to: primaryLink }}
                 secondary={{ label: 'Request Talent', to: talentLink(engine.subject) }}
+                jobs
             />
         </div>
     );

@@ -8,14 +8,22 @@ const User = require('./models/User');
  */
 const ensureSuperAdmin = async () => {
     if (mongoose.connection.readyState !== 1) return;
-    const { ADMIN_EMAIL, ADMIN_PASSWORD, ADMIN_NAME } = process.env;
-    if (!ADMIN_EMAIL || !ADMIN_PASSWORD) return;
-    if (await User.exists({})) return;
+    const email = String(process.env.ADMIN_EMAIL || '').toLowerCase().trim();
+    const password = process.env.ADMIN_PASSWORD;
+    const name = process.env.ADMIN_NAME || 'Super Admin';
+    if (!email || !password) return;
 
-    const user = new User({ name: ADMIN_NAME || 'Super Admin', email: ADMIN_EMAIL, role: 'super_admin' });
-    await user.setPassword(ADMIN_PASSWORD);
+    let user = await User.findOne({ role: 'super_admin' });
+    if (!user) user = await User.findOne({ email });
+    const created = !user;
+    if (!user) user = new User({ name, email, role: 'super_admin' });
+    user.name = name;
+    user.email = email;
+    user.role = 'super_admin';
+    user.active = true;
+    await user.setPassword(password);
     await user.save();
-    console.log(`Super Admin created for ${user.email}. Remove ADMIN_PASSWORD from .env now.`);
+    console.log(`Super Admin ${created ? 'created' : 'updated'} for ${user.email}.`);
 };
 
 module.exports = { ensureSuperAdmin };

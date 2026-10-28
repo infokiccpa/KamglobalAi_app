@@ -1,0 +1,92 @@
+.iso-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 320px;
+    padding: 8px 16px 8px 8px;
+    border-radius: 18px;
+    text-decoration: none;
+    line-height: 1.2;
+}
+
+.iso-badge--light {
+    background: #fff;
+    border: 1px solid rgba(12, 33, 61, 0.12);
+    color: #0c213d;
+    box-shadow: 0 8px 24px rgba(12, 33, 61, 0.06);
+}
+
+.iso-badge--dark {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: #fff;
+}
+
+.iso-seal {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+}
+
+.iso-badge em,
+.iso-badge strong,
+.iso-badge small {
+    display: block;
+    font-style: normal;
+}
+
+.iso-badge em {
+    color: #c56a12;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.iso-badge--dark em { color: #f7941d; }
+
+.iso-badge strong {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+}
+
+.iso-badge small {
+    margin-top: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    opacity: 0.72;
+}
+
+.iso-badge:hover {
+    border-color: #f7941d;
+}
+
+.iso-badge--large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 280px;
+    gap: 14px;
+    padding: 18px 18px 20px;
+    border-radius: 24px;
+}
+
+.iso-badge--large .iso-seal {
+    width: 132px;
+    height: 132px;
+}
+
+.iso-badge--large em { font-size: 13px; }
+
+.iso-badge--large strong { font-size: 20px; }
+
+.iso-badge--large small { font-size: 13px; }
+
+@media (max-width: 640px) {
+    .iso-badge {
+        max-width: none;
+    }
+}

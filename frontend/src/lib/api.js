@@ -38,6 +38,7 @@ export const applyPath = (job) => `/apply-now?job=${encodeURIComponent(job.id)}`
 export const toJobCard = (j) => ({
     id: j._id,
     board: j.board,
+    serviceLine: j.serviceLine,
     title: j.title,
     category: j.category || j.department || 'General',
     department: j.department,

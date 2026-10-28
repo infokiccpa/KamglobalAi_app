@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, NavLink, Navigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { LayoutDashboard, Briefcase, Inbox, MessageSquare, Users, KeyRound, LogOut, Menu, X, ExternalLink } from 'lucide-react';
-import { useSession, clearSession, saveSession, adminRequest, isSuperAdmin, ROLE_LABELS } from './session';
+import { LayoutDashboard, Briefcase, Inbox, MessageSquare, Users, KeyRound, LogOut, Menu, X, ExternalLink, FolderOpen } from 'lucide-react';
+import { useSession, clearSession, saveSession, adminRequest, isSuperAdmin, can, ROLE_LABELS } from './session';
 import AdminLogin from './AdminLogin';
 import Dashboard from './Dashboard';
 import JobsAdmin from './JobsAdmin';
@@ -11,14 +11,16 @@ import ApplicationsAdmin from './ApplicationsAdmin';
 import ApplicationDetail from './ApplicationDetail';
 import EnquiriesAdmin from './EnquiriesAdmin';
 import UsersAdmin from './UsersAdmin';
+import ResourcesAdmin from './ResourcesAdmin';
 import AccountAdmin from './AccountAdmin';
 import './admin.css';
 
 const NAV = [
     { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },
-    { to: '/admin/jobs', label: 'Job openings', icon: Briefcase },
-    { to: '/admin/applications', label: 'Applications', icon: Inbox },
-    { to: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare },
+    { to: '/admin/jobs', label: 'Job openings', icon: Briefcase, area: 'jobs' },
+    { to: '/admin/applications', label: 'Applications', icon: Inbox, area: 'applications' },
+    { to: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare, area: 'enquiries' },
+    { to: '/admin/resources', label: 'Resources', icon: FolderOpen, area: 'resources' },
     { to: '/admin/users', label: 'Users & access', icon: Users, superOnly: true },
     { to: '/admin/account', label: 'My account', icon: KeyRound },
 ];
@@ -43,7 +45,7 @@ const AdminShell = ({ session }) => {
                     <button type="button" className="adm-nav-close" aria-label="Close menu" onClick={() => setOpen(false)}><X size={20} /></button>
                 </div>
                 <nav>
-                    {NAV.filter((n) => !n.superOnly || isSuperAdmin(user)).map(({ to, label, icon: Icon, end }) => (
+                    {NAV.filter((n) => (!n.superOnly || isSuperAdmin(user)) && (!n.area || can(user, n.area))).map(({ to, label, icon: Icon, end }) => (
                         <NavLink key={to} to={to} end={end} onClick={() => setOpen(false)}>
                             <Icon size={18} aria-hidden="true" /> {label}
                         </NavLink>
@@ -73,9 +75,10 @@ const AdminShell = ({ session }) => {
                         <Route path="jobs" element={<JobsAdmin user={user} />} />
                         <Route path="jobs/new" element={<JobEditor user={user} />} />
                         <Route path="jobs/:id" element={<JobEditor user={user} />} />
-                        <Route path="applications" element={<ApplicationsAdmin user={user} />} />
-                        <Route path="applications/:id" element={<ApplicationDetail user={user} />} />
-                        <Route path="enquiries" element={<EnquiriesAdmin user={user} />} />
+                        <Route path="applications" element={can(user, 'applications') ? <ApplicationsAdmin user={user} /> : <Navigate to="/admin" replace />} />
+                        <Route path="applications/:id" element={can(user, 'applications') ? <ApplicationDetail user={user} /> : <Navigate to="/admin" replace />} />
+                        <Route path="enquiries" element={can(user, 'enquiries') ? <EnquiriesAdmin user={user} /> : <Navigate to="/admin" replace />} />
+                        <Route path="resources" element={can(user, 'resources') ? <ResourcesAdmin user={user} /> : <Navigate to="/admin" replace />} />
                         <Route path="users" element={isSuperAdmin(user) ? <UsersAdmin user={user} /> : <Navigate to="/admin" replace />} />
                         <Route path="account" element={<AccountAdmin user={user} />} />
                         <Route path="login" element={<Navigate to="/admin" replace />} />

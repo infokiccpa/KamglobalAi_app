@@ -33,7 +33,7 @@ const CookieConsent = () => {
                     <div className="cookie-icon">🍪</div>
                     <div className="cookie-text">
                         <p>
-                            We use cookies to improve your experience and analyze traffic. By clicking "Accept All", you consent to our use of cookies. <a href="/privacy">View Policy</a>
+                            We store your choice in this browser. We do not use advertising or analytics cookies on this site. <a href="/privacy">Privacy policy</a>
                         </p>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ const CookieConsent = () => {
                         Decline
                     </button>
                     <button className="cookie-btn accept" onClick={handleAccept}>
-                        Accept All
+                        Accept
                     </button>
                 </div>
             </div>

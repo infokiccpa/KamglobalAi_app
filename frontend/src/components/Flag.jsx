@@ -8,8 +8,15 @@ const serrated = (inner, outer, teeth) => {
     return pts.join(' ');
 };
 
-const usStripes = Array.from({ length: 13 }, (_, i) => i).filter((i) => i % 2 === 0);
-const usStars = Array.from({ length: 20 }, (_, i) => [1.2 + (i % 5) * 2.4 + (Math.floor(i / 5) % 2) * 1.2, 1.3 + Math.floor(i / 5) * 2.4]);
+const star = (cx, cy, r, points = 5) => {
+    const pts = [];
+    for (let i = 0; i < points * 2; i += 1) {
+        const rad = (Math.PI / points) * i - Math.PI / 2;
+        const radius = i % 2 === 0 ? r : r * 0.4;
+        pts.push(`${(cx + radius * Math.cos(rad)).toFixed(2)},${(cy + radius * Math.sin(rad)).toFixed(2)}`);
+    }
+    return pts.join(' ');
+};
 
 const FLAGS = {
     KW: (
@@ -54,15 +61,62 @@ const FLAGS = {
     US: (
         <>
             <rect width="30" height="20" fill="#fff" />
-            {usStripes.map((i) => (
-                <rect key={i} y={(i * 20) / 13} width="30" height={20 / 13} fill="#b22234" />
+            {Array.from({ length: 7 }, (_, i) => (
+                <rect key={i} y={(i * 40) / 13} width="30" height={20 / 13} fill="#b22234" />
             ))}
             <rect width="13" height={(20 / 13) * 7} fill="#3c3b6e" />
             <g fill="#fff">
-                {usStars.map(([cx, cy]) => (
-                    <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.45" />
-                ))}
+                {Array.from({ length: 20 }, (_, i) => {
+                    const cx = 1.2 + (i % 5) * 2.4 + (Math.floor(i / 5) % 2) * 1.2;
+                    const cy = 1.3 + Math.floor(i / 5) * 2.4;
+                    return <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r="0.45" />;
+                })}
             </g>
+        </>
+    ),
+    VN: (
+        <>
+            <rect width="30" height="20" fill="#da251d" />
+            <polygon points={star(15, 10, 5.2)} fill="#ff0" />
+        </>
+    ),
+    ID: (
+        <>
+            <rect width="30" height="10" fill="#ce1126" />
+            <rect y="10" width="30" height="10" fill="#fff" />
+        </>
+    ),
+    KE: (
+        <>
+            <rect width="30" height="20" fill="#fff" />
+            <rect width="30" height="5.6" fill="#000" />
+            <rect y="7.2" width="30" height="5.6" fill="#bb0000" />
+            <rect y="14.4" width="30" height="5.6" fill="#006600" />
+            <ellipse cx="15" cy="10" rx="3.2" ry="4.4" fill="#fff" />
+            <ellipse cx="15" cy="10" rx="2.2" ry="3.4" fill="#bb0000" />
+            <ellipse cx="15" cy="10" rx="1.1" ry="2.2" fill="#000" />
+        </>
+    ),
+    GH: (
+        <>
+            <rect width="30" height="6.67" fill="#ce1126" />
+            <rect y="6.67" width="30" height="6.67" fill="#fcd116" />
+            <rect y="13.33" width="30" height="6.67" fill="#006b3f" />
+            <polygon points={star(15, 10, 2.8)} fill="#000" />
+        </>
+    ),
+    TN: (
+        <>
+            <rect width="30" height="20" fill="#e70013" />
+            <circle cx="15" cy="10" r="5" fill="#fff" />
+            <circle cx="16.1" cy="10" r="3.7" fill="#e70013" />
+            <polygon points={star(17.4, 10, 2.1)} fill="#e70013" />
+        </>
+    ),
+    MA: (
+        <>
+            <rect width="30" height="20" fill="#c1272d" />
+            <polygon points={star(15, 10, 4.6)} fill="none" stroke="#006233" strokeWidth="0.7" />
         </>
     ),
     IN: (

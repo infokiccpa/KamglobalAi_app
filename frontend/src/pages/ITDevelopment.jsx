@@ -283,6 +283,9 @@ export default function ITDevelopment() {
                                     <span>Contact Our Team</span>
                                     <MessageSquareText size={16} aria-hidden="true" />
                                 </Link>
+                                <Link to="/careers#jobs" className="pg-btn pg-btn--ghost">
+                                    <span>Explore job openings</span>
+                                </Link>
                             </div>
                         </div>
                         <ol className="dv-idea-steps" aria-label="How we start">

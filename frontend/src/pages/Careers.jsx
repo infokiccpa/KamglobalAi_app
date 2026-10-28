@@ -13,8 +13,12 @@ import {
     Mail,
     Briefcase,
     MapPin,
-    CheckCircle,
     Users,
+    Code2,
+    Bot,
+    Cloud,
+    Headset,
+    Megaphone,
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { useJobs } from '../lib/useJobs';
@@ -48,16 +52,16 @@ const jumpLinks = [
     { href: '#benefits', label: 'Benefits' },
     { href: '#culture', label: 'Culture' },
     { href: '#jobs', label: 'Open Roles' },
-    { href: '#talent', label: 'Talent Network' },
+    { href: '#talent', label: 'Apply' },
 ];
 
 const teamAreas = [
-    { title: 'Software Engineering', desc: 'Build products, platforms, and client delivery work.' },
-    { title: 'AI & Data', desc: 'Practical AI, analytics, and automation use cases.' },
-    { title: 'Cloud & DevOps', desc: 'Environments, releases, and reliability support.' },
-    { title: 'Customer Experience', desc: 'Service quality, support workflows, and operations.' },
-    { title: 'Sales & Recruitment Support', desc: 'Pipeline, coordination, and hiring workflows.' },
-    { title: 'Marketing & Operations', desc: 'Campaigns, content, and day-to-day coordination.' },
+    { icon: Code2, title: 'Software Engineering', desc: 'Build products, platforms, and client delivery work.' },
+    { icon: Bot, title: 'AI & Data', desc: 'Practical AI, analytics, and automation use cases.' },
+    { icon: Cloud, title: 'Cloud & DevOps', desc: 'Environments, releases, and reliability support.' },
+    { icon: Headset, title: 'Customer Experience', desc: 'Service quality, support workflows, and operations.' },
+    { icon: Users, title: 'Sales & Recruitment Support', desc: 'Pipeline, coordination, and hiring workflows.' },
+    { icon: Megaphone, title: 'Marketing & Operations', desc: 'Campaigns, content, and day-to-day coordination.' },
 ];
 
 const expectSteps = [
@@ -80,7 +84,6 @@ const Careers = () => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
-    const [isSubscribed, setIsSubscribed] = useState(false);
 
     const { status, jobs: apiJobs } = useJobs('careers', fallbackJobs);
     const jobs = useMemo(() => (status === 'ready' ? apiJobs.map(toCareersJob) : apiJobs), [status, apiJobs]);
@@ -110,44 +113,165 @@ const Careers = () => {
             </Helmet>
 
             <section className="car-hero">
-                <div className="container">
+                <div className="container car-hero-layout">
                     <motion.div
-                        className="car-hero-inner"
+                        className="car-hero-copy"
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <Eyebrow center lines={false}>Careers</Eyebrow>
+                        <Eyebrow lines={false}>Careers</Eyebrow>
                         <h1>Build Meaningful Work with KAM Global AI</h1>
                         <p>
                             Explore opportunities across technology, digital delivery, and business support. We are
                             interested in people who enjoy solving practical problems, collaborating across teams,
                             and delivering work with clear expectations.
                         </p>
-
-                        <div className="car-hero-stats">
-                            <div className="car-stat">
-                                <strong>{status === 'loading' ? '–' : jobs.length}</strong>
-                                <span>Open Roles</span>
-                            </div>
-                            <div className="car-stat">
-                                <strong>2</strong>
-                                <span>Global Hubs</span>
-                            </div>
-                            <div className="car-stat">
-                                <strong>Hybrid</strong>
-                                <span>Work Model</span>
-                            </div>
+                        <div className="car-hero-actions">
+                            <a href="#jobs" className="car-btn car-btn-primary">
+                                See open roles <ArrowRight size={16} aria-hidden="true" />
+                            </a>
+                            <Link to="/apply-now" className="car-btn car-btn-ghost">
+                                General application
+                            </Link>
                         </div>
-
-                        <nav className="car-jump-nav" aria-label="Page sections">
-                            {jumpLinks.map((link) => (
-                                <a key={link.href} href={link.href} className="car-jump-link">
-                                    {link.label}
-                                </a>
-                            ))}
-                        </nav>
                     </motion.div>
+                    <motion.aside
+                        className="car-hero-panel"
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.08 }}
+                    >
+                        <p className="car-hero-count">
+                            <strong>{status === 'loading' ? '–' : jobs.length}</strong>
+                            <span>{jobs.length === 1 ? 'Open role' : 'Open roles'}</span>
+                        </p>
+                        <ul>
+                            <li><MapPin size={16} aria-hidden="true" /> Bengaluru and Kuwait</li>
+                            <li><Laptop size={16} aria-hidden="true" /> Hybrid and remote-friendly options</li>
+                            <li><Mail size={16} aria-hidden="true" /> No matching role? Send a general application</li>
+                        </ul>
+                    </motion.aside>
+                </div>
+                <div className="container">
+                    <nav className="car-jump-nav" aria-label="Page sections">
+                        {jumpLinks.map((link) => (
+                            <a key={link.href} href={link.href} className="car-jump-link">
+                                {link.label}
+                            </a>
+                        ))}
+                    </nav>
+                </div>
+            </section>
+
+            <section id="jobs" className="car-jobs">
+                <div className="container">
+                    <div className="car-section-header car-section-header--left">
+                        <Eyebrow>Open Positions</Eyebrow>
+                        <h2>Current Opportunities</h2>
+                        <p>Find your next role and apply directly through our application portal.</p>
+                    </div>
+
+                    {jobs.length > 0 && <div className="car-jobs-toolbar">
+                        <div className="car-search">
+                            <Search size={18} aria-hidden="true" />
+                            <input
+                                type="text"
+                                placeholder="Search by job title or keyword..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                aria-label="Search jobs"
+                            />
+                        </div>
+                        <div className="car-filters" role="group" aria-label="Filter by category">
+                            {categories.map((cat) => (
+                                <button
+                                    key={cat}
+                                    type="button"
+                                    className={`car-filter-btn${activeCategory === cat ? ' car-filter-btn--active' : ''}`}
+                                    onClick={() => setActiveCategory(cat)}
+                                >
+                                    {cat}
+                                </button>
+                            ))}
+                        </div>
+                    </div>}
+
+                    {jobs.length > 0 && (
+                        <p className="car-results-count">
+                            {filteredJobs.length} {filteredJobs.length === 1 ? 'position' : 'positions'} found
+                        </p>
+                    )}
+
+                    <AnimatePresence mode="popLayout">
+                        {filteredJobs.length === 0 ? (
+                            <motion.div
+                                key="empty"
+                                className="car-jobs-empty"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                            >
+                                {status === 'loading' ? (
+                                    <p>Loading open positions…</p>
+                                ) : jobs.length === 0 ? (
+                                    <>
+                                        <Briefcase size={22} aria-hidden="true" />
+                                        <h3>No open positions right now</h3>
+                                        <p>Send a general application and we will contact you when a matching role opens.</p>
+                                        <Link to="/apply-now" className="car-btn car-btn-primary">
+                                            General application <ArrowRight size={16} aria-hidden="true" />
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <p>No positions match your search. Try a different keyword or category.</p>
+                                )}
+                            </motion.div>
+                        ) : (
+                            filteredJobs.map((job) => (
+                                <motion.article
+                                    layout
+                                    key={job.id}
+                                    className="car-job-card"
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                >
+                                    <div className="car-job-main">
+                                        <button
+                                            type="button"
+                                            className="car-job-title"
+                                            onClick={() => handleApply(job)}
+                                        >
+                                            {job.title}
+                                        </button>
+                                        <div className="car-job-meta">
+                                            <span><Briefcase size={14} /> {job.team}</span>
+                                            <span><MapPin size={14} /> {job.location}</span>
+                                            {job.experience && (
+                                                <span className="car-job-exp">{job.experience}</span>
+                                            )}
+                                            {job.closesAt && (
+                                                <span><Clock size={14} /> Applications close {formatDeadline(job.closesAt)}</span>
+                                            )}
+                                        </div>
+                                        <div className="car-skill-tags">
+                                            {job.skills?.map((skill) => (
+                                                <span key={skill} className="car-skill-tag">{skill}</span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="car-btn car-btn-outline"
+                                        onClick={() => handleApply(job)}
+                                    >
+                                        Apply <ArrowRight size={15} />
+                                    </button>
+                                </motion.article>
+                            ))
+                        )}
+                    </AnimatePresence>
                 </div>
             </section>
 
@@ -163,29 +287,30 @@ const Careers = () => {
                         </p>
                     </div>
                     <div className="car-benefits-grid">
-                        {teamAreas.map((item, i) => (
-                            <motion.div
-                                key={item.title}
-                                className="car-benefit-card"
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: i * 0.05 }}
-                            >
-                                <h3>{item.title}</h3>
-                                <p>{item.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
-                        <a href="#jobs" className="car-btn car-btn-primary">
-                            Explore Opportunities <ArrowRight size={16} />
-                        </a>
+                        {teamAreas.map((item, i) => {
+                            const Icon = item.icon;
+                            return (
+                                <motion.div
+                                    key={item.title}
+                                    className="car-benefit-card"
+                                    initial={{ opacity: 0, y: 16 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: i * 0.05 }}
+                                >
+                                    <span className="car-benefit-icon" aria-hidden="true">
+                                        <Icon size={20} strokeWidth={1.75} />
+                                    </span>
+                                    <h3>{item.title}</h3>
+                                    <p>{item.desc}</p>
+                                </motion.div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
 
-            <section id="what-to-expect" className="car-benefits">
+            <section id="what-to-expect" className="car-process">
                 <div className="container">
                     <div className="car-section-header">
                         <Eyebrow center>What to Expect</Eyebrow>
@@ -196,27 +321,15 @@ const Careers = () => {
                             recruitment channel.
                         </p>
                     </div>
-                    <div className="car-benefits-grid">
+                    <ol className="car-path">
                         {expectSteps.map((item, i) => (
-                            <motion.div
-                                key={item.title}
-                                className="car-benefit-card"
-                                initial={{ opacity: 0, y: 16 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.4, delay: i * 0.05 }}
-                            >
-                                <span className="car-benefit-icon" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                            <li key={item.title}>
+                                <span>{String(i + 1).padStart(2, '0')}</span>
                                 <h3>{item.title}</h3>
                                 <p>{item.desc}</p>
-                            </motion.div>
+                            </li>
                         ))}
-                    </div>
-                    <div style={{ textAlign: 'center', marginTop: '1.75rem' }}>
-                        <a href="#jobs" className="car-btn car-btn-primary">
-                            How to Apply <ArrowRight size={16} />
-                        </a>
-                    </div>
+                    </ol>
                 </div>
             </section>
 
@@ -293,144 +406,7 @@ const Careers = () => {
                 </div>
             </section>
 
-            <section id="jobs" className="car-jobs">
-                <div className="container">
-                    <div className="car-section-header">
-                        <Eyebrow center>Open Positions</Eyebrow>
-                        <h2>Current Opportunities</h2>
-                        <p>Find your next role and apply directly through our application portal.</p>
-                    </div>
-
-                    <div className="car-jobs-toolbar">
-                        <div className="car-search">
-                            <Search size={18} aria-hidden="true" />
-                            <input
-                                type="text"
-                                placeholder="Search by job title or keyword..."
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                                aria-label="Search jobs"
-                            />
-                        </div>
-                        <div className="car-filters" role="group" aria-label="Filter by category">
-                            {categories.map((cat) => (
-                                <button
-                                    key={cat}
-                                    type="button"
-                                    className={`car-filter-btn${activeCategory === cat ? ' car-filter-btn--active' : ''}`}
-                                    onClick={() => setActiveCategory(cat)}
-                                >
-                                    {cat}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    <p className="car-results-count">
-                        {filteredJobs.length} {filteredJobs.length === 1 ? 'position' : 'positions'} found
-                    </p>
-
-                    <AnimatePresence mode="popLayout">
-                        {filteredJobs.length === 0 ? (
-                            <motion.div
-                                key="empty"
-                                className="car-jobs-empty"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <p>
-                                    {status === 'loading'
-                                        ? 'Loading open positions…'
-                                        : jobs.length === 0
-                                            ? 'There are no open positions right now. Send a general application and we will contact you when a matching role opens.'
-                                            : 'No positions match your search. Try a different keyword or category.'}
-                                </p>
-                            </motion.div>
-                        ) : (
-                            filteredJobs.map((job) => (
-                                <motion.article
-                                    layout
-                                    key={job.id}
-                                    className="car-job-card"
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
-                                >
-                                    <div className="car-job-main">
-                                        <button
-                                            type="button"
-                                            className="car-job-title"
-                                            onClick={() => handleApply(job)}
-                                        >
-                                            {job.title}
-                                        </button>
-                                        <div className="car-job-meta">
-                                            <span><Briefcase size={14} /> {job.team}</span>
-                                            <span><MapPin size={14} /> {job.location}</span>
-                                            {job.experience && (
-                                                <span className="car-job-exp">{job.experience}</span>
-                                            )}
-                                            {job.closesAt && (
-                                                <span><Clock size={14} /> Applications close {formatDeadline(job.closesAt)}</span>
-                                            )}
-                                        </div>
-                                        <div className="car-skill-tags">
-                                            {job.skills?.map((skill) => (
-                                                <span key={skill} className="car-skill-tag">{skill}</span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <button
-                                        type="button"
-                                        className="car-btn car-btn-outline"
-                                        onClick={() => handleApply(job)}
-                                    >
-                                        Apply <ArrowRight size={15} />
-                                    </button>
-                                </motion.article>
-                            ))
-                        )}
-                    </AnimatePresence>
-                </div>
-            </section>
-
-            <section id="talent" className="car-talent">
-                <div className="container">
-                    <motion.div
-                        className="car-talent-card"
-                        initial={{ opacity: 0, y: 16 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.45 }}
-                    >
-                        <Eyebrow center>Talent Network</Eyebrow>
-                        <h2>Stay Connected</h2>
-                        <p>
-                            Join our talent network to hear about new roles, AI news, and career
-                            opportunities at KamGlobal AI.
-                        </p>
-                        <button
-                            type="button"
-                            className={`car-btn car-btn-primary${isSubscribed ? ' car-btn-success' : ''}`}
-                            onClick={() => setIsSubscribed(true)}
-                            disabled={isSubscribed}
-                        >
-                            {isSubscribed ? (
-                                <><CheckCircle size={16} /> Subscribed</>
-                            ) : (
-                                <><Mail size={16} /> Join Talent Network</>
-                            )}
-                        </button>
-                        <p className="car-talent-note">
-                            You can unsubscribe at any time. See our{' '}
-                            <Link to="/privacy">Privacy Policy</Link> for details.
-                        </p>
-                    </motion.div>
-                </div>
-            </section>
-
-            <section className="car-cta">
+            <section id="talent" className="car-cta">
                 <div className="container">
                     <motion.div
                         className="car-cta-card"
@@ -440,13 +416,13 @@ const Careers = () => {
                         transition={{ duration: 0.45 }}
                     >
                         <h2>Don&apos;t see the right role?</h2>
-                        <p>Send us your resume — we&apos;re always looking for exceptional talent.</p>
+                        <p>Send a general application and we will contact you when a matching role opens.</p>
                         <div className="car-cta-actions">
                             <Link to="/apply-now" className="car-btn car-btn-primary">
-                                General Application <ArrowRight size={16} />
+                                General application <ArrowRight size={16} aria-hidden="true" />
                             </Link>
                             <a href="mailto:careers@kamglobalai.com" className="car-btn car-btn-secondary">
-                                <Mail size={16} /> careers@kamglobalai.com
+                                <Mail size={16} aria-hidden="true" /> careers@kamglobalai.com
                             </a>
                         </div>
                     </motion.div>

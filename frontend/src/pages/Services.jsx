@@ -172,6 +172,9 @@ const Services = () => {
                             <Link to={discoveryLink('Technology Services')} className="svc-btn svc-btn-secondary">
                                 Book a Discovery Call
                             </Link>
+                            <Link to="/careers#jobs" className="svc-btn svc-btn-secondary">
+                                Explore job openings
+                            </Link>
                         </div>
                         <ul className="svc-hero-facts" aria-label="About our delivery">
                             <li><MapPin size={15} aria-hidden="true" />Delivered from India</li>

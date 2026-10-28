@@ -2231,6 +2231,32 @@
     color: var(--hr-muted);
 }
 
+.hr-cert {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.hr-cert div {
+    padding: 16px 18px;
+    border: 1px solid var(--hr-line);
+    border-radius: 14px;
+    background: #fff;
+}
+
+.hr-cert dt {
+    margin: 0 0 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hr-muted);
+}
+
+.hr-cert dd { margin: 0; color: var(--hr-navy); }
+
 /* ---------- FAQ ---------- */
 
 .hr-faq {
@@ -2510,6 +2536,7 @@
     .hr-trust,
     .hr-partner-benefits,
     .hr-pending,
+    .hr-cert,
     .hr-cover-list { grid-template-columns: 1fr; }
 
     .hr-search { grid-template-columns: 1fr; }

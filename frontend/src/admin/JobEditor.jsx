@@ -4,12 +4,13 @@ import { ArrowLeft, Save, Loader } from 'lucide-react';
 import { useAdminData } from './useAdminData';
 import { adminRequest, canEdit } from './session';
 import { PageTitle, Spinner, ErrorNote, Field } from './AdminUi';
-import { BOARDS, JOB_STATUSES } from './format';
+import { BOARDS, JOB_STATUSES, SERVICE_LINES } from './format';
 import { jobCategories, hrCountries } from '../data/hrWorkforce';
 import { JOB_DOCUMENTS } from '../data/jobDocuments';
 
 const EMPTY = {
     board: 'hr',
+    serviceLine: 'hr',
     title: '',
     category: '',
     department: '',
@@ -97,6 +98,11 @@ const JobForm = ({ initial, id, user }) => {
                             {BOARDS.map((b) => <option key={b.value} value={b.value}>{b.label}</option>)}
                         </select>
                     </Field>
+                    <Field label="Service line" hint="Which of the three services this role belongs to.">
+                        <select value={form.serviceLine} onChange={set('serviceLine')}>
+                            {SERVICE_LINES.map((line) => <option key={line.value} value={line.value}>{line.label}</option>)}
+                        </select>
+                    </Field>
                     <Field label="Job title *">
                         <input required maxLength={120} value={form.title} onChange={set('title')} placeholder="Ex: Site Engineer (Civil)" />
                     </Field>
@@ -141,7 +147,7 @@ const JobForm = ({ initial, id, user }) => {
                     <Field label="Short summary" full hint="One or two sentences shown on the job card and in search results.">
                         <input maxLength={400} value={form.summary} onChange={set('summary')} />
                     </Field>
-                    <Field label="Description" full hint="Leave a blank line between paragraphs.">
+                    <Field label="Job description" full hint="This is the JD candidates read. Leave a blank line between paragraphs.">
                         <textarea rows={7} maxLength={8000} value={form.description} onChange={set('description')} />
                     </Field>
                     <Field label="Documents from applicants" full hint="The résumé is always required. Tick only the extra documents this role needs. Applicants are asked for these and nothing further.">

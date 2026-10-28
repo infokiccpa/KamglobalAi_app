@@ -40,6 +40,7 @@ const Overview = () => (
             text="Book a demo and we will walk you through the workflows that matter to your team."
             primary={{ label: 'Book a Demo', to: hrDemoLink('HR Technology') }}
             secondary={{ label: 'Trust & security', to: '/hr/trust' }}
+            jobs
         />
     </div>
 );
@@ -93,6 +94,7 @@ const Detail = ({ tech }) => {
                 text="Book a demo and we will show the workflows that matter to your team."
                 primary={{ label: 'Book a Demo', to: hrDemoLink(`HR ${tech.name}`) }}
                 secondary={{ label: 'HR services', to: '/hr#services' }}
+                jobs
             />
         </div>
     );

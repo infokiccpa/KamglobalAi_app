@@ -638,7 +638,7 @@ const ApplyNow = () => {
                                             <input type="checkbox" name="consent" checked={formData.consent} onChange={handleInputChange} />
                                             <span>
                                                 I confirm that the details and documents I have provided are accurate, and I agree to the{' '}
-                                                <Link to="/privacy-policy">privacy policy</Link>.
+                                                <Link to="/privacy">privacy policy</Link>.
                                             </span>
                                         </label>
                                         {errors.consent && <span className="field-error">{errors.consent}</span>}

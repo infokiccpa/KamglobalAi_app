@@ -50,15 +50,21 @@
 
 /* Hero */
 .car-hero {
-    padding: 150px 0 56px;
-    background: var(--kg-hero-bg);
+    padding: 132px 0 0;
+    background: #fff;
     border-bottom: 1px solid var(--car-border);
 }
 
-.car-hero-inner {
-    text-align: center;
+.car-hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
+    gap: 48px;
+    align-items: end;
+    padding-bottom: 28px;
+}
+
+.car-hero-copy {
     max-width: 680px;
-    margin: 0 auto;
 }
 
 .car-hero h1 {
@@ -77,56 +83,93 @@
     margin-bottom: 28px;
 }
 
-.car-hero-stats {
+.car-hero-actions {
     display: flex;
-    justify-content: center;
-    gap: 32px;
-    margin-bottom: 28px;
-    padding-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.car-hero-panel {
+    padding: 28px 26px;
+    background: #f6f8fb;
+    border: 1px solid var(--car-border);
+    border-radius: 20px;
+}
+
+.car-hero-count {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 0 0 18px;
+    padding-bottom: 18px;
     border-bottom: 1px solid var(--car-border);
 }
 
-.car-stat {
-    text-align: center;
-}
-
-.car-stat strong {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 1.75rem;
-    font-weight: 600;
+.car-hero-count strong {
+    font-family: var(--font-display);
+    font-size: 3.4rem;
+    font-weight: 400;
+    line-height: 0.85;
     color: var(--car-navy);
-    line-height: 1.2;
 }
 
-.car-stat span {
-    font-size: 12px;
-    font-weight: 500;
+.car-hero-count span {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--car-muted);
+}
+
+.car-hero-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+}
+
+.car-hero-panel li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14.5px;
+    line-height: 1.5;
+}
+
+.car-hero-panel svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--car-orange);
 }
 
 .car-jump-nav {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
+    gap: 6px 22px;
+    padding: 14px 0;
+    border-top: 1px solid var(--car-border);
 }
 
 .car-jump-link {
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--car-navy);
+    padding: 6px 0;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--car-muted);
     text-decoration: none;
-    background: #fff;
-    border: 1px solid var(--car-border);
-    border-radius: 999px;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    transition: color 0.2s ease;
 }
 
 .car-jump-link:hover {
-    border-color: var(--car-orange);
     color: var(--car-orange);
+}
+
+.car-section-header--left {
+    text-align: left;
+    margin-left: 0;
+    max-width: 640px;
 }
 
 /* Section header */
@@ -268,7 +311,82 @@
     border: 1px solid var(--car-border);
 }
 
+/* Process */
+.car-process {
+    padding: 64px 0;
+    background: #fff;
+    border-bottom: 1px solid var(--car-border);
+}
+
+.car-path {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.car-path li {
+    position: relative;
+}
+
+.car-path li::before {
+    content: '';
+    position: absolute;
+    top: 21px;
+    left: 52px;
+    right: -10px;
+    height: 1px;
+    background: rgba(247, 148, 29, 0.45);
+}
+
+.car-path li:last-child::before {
+    display: none;
+}
+
+.car-path span {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    border: 1px solid rgba(247, 148, 29, 0.55);
+    background: #fff;
+    color: var(--car-orange);
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    line-height: 1;
+}
+
+.car-path h3 {
+    margin: 0 0 8px;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.2rem;
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+}
+
+.car-path p {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--car-muted);
+}
+
 /* Jobs */
+#jobs,
+#teams,
+#what-to-expect,
+#benefits,
+#culture,
+#talent { scroll-margin-top: 120px; }
 .car-jobs {
     padding: 56px 0;
     background: #fff;
@@ -350,17 +468,36 @@
 }
 
 .car-jobs-empty {
-    padding: 40px 24px;
-    text-align: center;
-    background: var(--car-bg);
-    border: 1px dashed var(--car-border);
-    border-radius: 14px;
+    display: grid;
+    justify-items: start;
+    gap: 8px;
+    padding: 28px;
+    text-align: left;
+    background: #f6f8fb;
+    border: 1px solid var(--car-border);
+    border-radius: 18px;
+}
+
+.car-jobs-empty svg {
+    color: var(--car-orange);
+}
+
+.car-jobs-empty h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 2.4vw, 2rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 }
 
 .car-jobs-empty p {
-    font-size: 14px;
+    max-width: 36rem;
+    margin: 0 0 8px;
+    font-size: 15px;
+    line-height: 1.6;
     color: var(--car-muted);
-    margin: 0;
 }
 
 .car-job-card {
@@ -528,6 +665,29 @@
     transform: translateY(-1px);
 }
 
+.car-btn-ghost {
+    background: #fff;
+    color: var(--car-navy);
+    border: 1px solid rgba(12, 33, 61, 0.16);
+}
+
+.car-btn-ghost:hover {
+    border-color: var(--car-orange);
+    color: var(--car-orange);
+}
+
+.car-cta-card .car-btn-primary {
+    background: var(--car-orange);
+    border-color: var(--car-orange);
+    color: #0c213d;
+}
+
+.car-cta-card .car-btn-primary:hover:not(:disabled) {
+    background: #fff;
+    border-color: #fff;
+    color: var(--car-navy);
+}
+
 .car-btn-success {
     background: #15803d !important;
     border-color: #15803d !important;
@@ -595,6 +755,24 @@
 
 /* Responsive */
 @media (max-width: 1024px) {
+    .car-hero-layout,
+    .car-path {
+        grid-template-columns: 1fr;
+    }
+
+    .car-path li::before {
+        top: 22px;
+        left: 21px;
+        right: auto;
+        bottom: -18px;
+        width: 1px;
+        height: auto;
+    }
+
+    .car-path li:last-child::before {
+        display: none;
+    }
+
     .car-benefits-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -626,12 +804,12 @@
 
 @media (max-width: 640px) {
     .car-hero {
-        padding: 112px 0 44px;
+        padding: 104px 0 0;
     }
 
-    .car-hero-stats {
-        flex-direction: column;
-        gap: 16px;
+    .car-hero-actions,
+    .car-hero-actions .car-btn {
+        width: 100%;
     }
 
     .car-cta-actions {

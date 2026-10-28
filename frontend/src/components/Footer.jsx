@@ -15,6 +15,7 @@ import {
     MessageSquare,
 } from 'lucide-react';
 import { COMPANY, whatsappLink } from '../data/company';
+import IsoBadge from './IsoBadge';
 import { OFFICE_LOCATIONS } from '../config/officeLocations';
 import Flag from './Flag';
 import { OFFICE_SCHEDULES, officeStatus, useNow } from '../lib/officeHours';
@@ -276,6 +277,7 @@ const Footer = () => {
                             <span className="footer-backing">
                                 <ShieldCheck size={14} aria-hidden="true" /> {COMPANY.backing}
                             </span>
+                            <IsoBadge tone="dark" size="large" />
                             <div className="footer-social">
                                 {socialLinks.map(({ icon: Icon, href, label }) => (
                                     <a

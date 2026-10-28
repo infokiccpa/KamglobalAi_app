@@ -1,353 +1,183 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+    ArrowRight,
+    Briefcase,
+    Building2,
+    Code2,
+    Handshake,
+    Users,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ArrowUpRight, Brain, Code2, Globe, Users } from 'lucide-react';
-import { discoveryLink } from '../data/links';
+import { contactLink } from '../data/links';
 import './HeroShowcase.css';
 
-const NUM_SLICES = 14;
-const SWEEP_MS = 1250;
-const AUTO_MS = 4500;
-const SLIT_RADIUS = 2.5;
-const SLIT_FADE_MS = 320;
-const EASE_OUT = [0.16, 1, 0.3, 1];
+const EASE = [0.16, 1, 0.3, 1];
 
 const SLIDES = [
     {
-        image: '/images/hero/hero-two-engines.webp',
-        alt: 'Team reviewing a delivery roadmap on a wall screen in a bright meeting room',
-        kicker: 'India technology · Philippines operations',
-        label: 'Two Delivery Engines',
-        caption: 'Technology and operations, one relationship',
-        to: '/#delivery-engines',
-        segments: [
-            { text: 'One Global Partner. ', tone: 'muted' },
-            { text: 'Two Powerful Talent Engines.', tone: 'accent' },
-        ],
+        src: '/images/hero/hero-sunset.webp',
+        label: 'One global partner',
+        alt: 'Colleagues working together at laptops in an office at sunset, with a world map and a city skyline behind them',
+        width: 1024,
+        height: 853,
     },
     {
-        image: '/images/hero/hero-tech-india.webp',
-        alt: 'Two software engineers reviewing code and a cloud architecture diagram on dual monitors',
-        kicker: 'India Engine · Enterprise Technology',
-        label: 'Enterprise Technology',
-        caption: 'Software, cloud, AI & data delivery',
-        to: '/services',
-        segments: [
-            { text: 'Software, cloud & AI ', tone: 'muted' },
-            { text: 'delivered by a dedicated ' },
-            { text: 'India technology team.', tone: 'accent' },
-        ],
+        src: '/images/slide-tech-india.jpg',
+        label: 'IT services',
+        alt: 'Software and IT team reviewing application and cloud work on screens in a modern office',
+        width: 1376,
+        height: 768,
     },
     {
-        image: '/images/hero/hero-cx-philippines.webp',
-        alt: 'Customer support specialist wearing a headset, assisted by a team lead in a bright operations office',
-        kicker: 'Philippines Engine · Global Outsourcing',
-        label: 'Global Outsourcing',
-        caption: 'CX, BPO, sales support & RPO',
-        to: '/outsourcing',
-        segments: [
-            { text: 'Customer experience & BPO ', tone: 'muted' },
-            { text: 'run by operations teams ' },
-            { text: 'in the Philippines.', tone: 'accent' },
-        ],
+        src: '/images/pages/pg-svc-bpo.jpg',
+        label: 'Outsourcing',
+        alt: 'Operations team working through documents and process screens in an office',
+        width: 1280,
+        height: 720,
     },
     {
-        image: '/images/hr/hr-hero.jpg',
-        alt: 'Recruiter shaking hands with a candidate while the HR team reviews profiles',
-        kicker: 'HR & Workforce · India, GCC & USA',
-        label: 'HR & Workforce',
-        caption: 'Recruitment, staffing & payroll',
-        to: '/hr',
-        segments: [
-            { text: 'Hire smarter, ', tone: 'muted' },
-            { text: 'pay accurately and ' },
-            { text: 'grow your workforce globally.', tone: 'accent' },
-        ],
+        src: '/images/hr/hr-hero.jpg',
+        label: 'HR',
+        alt: 'Two colleagues shaking hands across a desk during a hiring conversation',
+        width: 1280,
+        height: 720,
     },
     {
-        image: '/images/hero/hero-digital-learning.webp',
-        alt: 'Teacher guiding students using tablets and laptops in a bright classroom',
-        kicker: 'Digital Products · LearnX & EduAiTutors',
-        label: 'Digital Products',
-        caption: 'School ERP, LMS & coaching platforms',
-        to: '/products/learnx',
-        segments: [
-            { text: 'School ERP, LMS & coaching ', tone: 'muted' },
-            { text: 'platforms built for ' },
-            { text: 'modern education.', tone: 'accent' },
-        ],
+        src: '/images/pages/pg-svc-marketing.jpg',
+        label: 'AI media',
+        alt: 'Creative team reviewing design and content on a large screen',
+        width: 1280,
+        height: 720,
     },
 ];
 
-const FEATURES = [
-    { icon: Brain, title: 'AI-Powered Digital Solutions' },
-    { icon: Code2, title: 'Product Development' },
-    { icon: Users, title: 'Scalable Talent & Operations' },
-    { icon: Globe, title: 'Global Delivery Model' },
+const AUDIENCE = [
+    { title: 'For Clients', text: 'Build and scale', to: '/services', icon: Building2 },
+    { title: 'For Partners', text: 'Deliver together', to: contactLink('Partnership', 'Partnership'), icon: Handshake },
+    { title: 'For Careers', text: 'Grow with us', to: '/hr/jobs', icon: Briefcase },
 ];
 
-const prefersReducedMotion = () =>
-    typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-
-const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
-function paintSlits(slices, x, amp) {
-    for (let k = 0; k < NUM_SLICES; k++) {
-        const el = slices[k] && slices[k].slit;
-        if (!el) continue;
-        const d = Math.abs(k + 0.5 - x);
-        const v = d < SLIT_RADIUS ? 0.5 * (1 + Math.cos((Math.PI * d) / SLIT_RADIUS)) * amp : 0;
-        el.style.transform = 'scaleX(' + v.toFixed(3) + ')';
-    }
-}
-
-const HeroButton = ({ to, label, variant }) => (
-    <Link to={to} className={'kx-btn kx-btn--' + variant} aria-label={label}>
-        <span className="kx-btn-label" aria-hidden="true">
-            {label.split('').map((ch, i) => (
-                <span key={i} className="kx-btn-char" style={{ '--i': i }}>
-                    {ch === ' ' ? '\u00A0' : ch}
-                </span>
-            ))}
-        </span>
-        <span className="kx-btn-arrow" aria-hidden="true">
-            <ArrowRight size={20} className="kx-btn-arrow-a" />
-            <ArrowRight size={20} className="kx-btn-arrow-b" />
-        </span>
-    </Link>
+const rise = (reduced, delay) => (
+    reduced
+        ? {}
+        : {
+            initial: { opacity: 0, y: 16 },
+            animate: { opacity: 1, y: 0 },
+            transition: { duration: 0.7, delay, ease: EASE },
+        }
 );
 
 const HeroShowcase = () => {
-    const [reduced] = useState(prefersReducedMotion);
+    const reduced = useReducedMotion();
     const [index, setIndex] = useState(0);
-    const [incoming, setIncoming] = useState(null);
-    const [pageHidden, setPageHidden] = useState(false);
-
-    const slicesRef = useRef([]);
-    const panelRef = useRef(null);
-    const slitRef = useRef({ x: -10, amp: 0, frame: 0, fade: 0 });
-
-    const active = incoming ?? index;
-    const slide = SLIDES[active];
-
-    const setSliceEl = (k, part) => (el) => {
-        if (!slicesRef.current[k]) slicesRef.current[k] = {};
-        slicesRef.current[k][part] = el;
-    };
-
-    const goTo = useCallback(
-        (target) => {
-            if (incoming !== null || target === index) return;
-            if (reduced) {
-                setIndex(target);
-                return;
-            }
-            setIncoming(target);
-        },
-        [incoming, index, reduced],
-    );
-
-    // Slice sweep: each slice starts (k / 14) * 0.5 into the run and finishes inside a 0.5 window.
-    useEffect(() => {
-        if (incoming === null) return undefined;
-        let raf = 0;
-        const start = performance.now();
-        const step = (now) => {
-            const p = clamp01((now - start) / SWEEP_MS);
-            for (let k = 0; k < NUM_SLICES; k++) {
-                const s = slicesRef.current[k];
-                if (!s) continue;
-                const t = clamp01((p - (k / NUM_SLICES) * 0.5) / 0.5);
-                const e = 1 - Math.pow(1 - t, 3);
-                if (s.base) s.base.style.clipPath = 'inset(0 0 0 ' + (e * 100).toFixed(2) + '%)';
-                if (s.next) s.next.style.clipPath = 'inset(0 ' + ((1 - e) * 100).toFixed(2) + '% 0 0)';
-                if (s.seam) {
-                    s.seam.style.left = (e * 100).toFixed(2) + '%';
-                    s.seam.style.opacity = t > 0 && t < 1 ? '1' : '0';
-                }
-            }
-            if (p < 1) {
-                raf = requestAnimationFrame(step);
-            } else {
-                setIndex(incoming);
-                setIncoming(null);
-            }
-        };
-        raf = requestAnimationFrame(step);
-        return () => cancelAnimationFrame(raf);
-    }, [incoming]);
-
-    // The base layer now shows the new slide; clear sweep clipping before paint.
-    useLayoutEffect(() => {
-        slicesRef.current.forEach((s) => {
-            if (s?.base) s.base.style.clipPath = '';
-            if (s?.seam) s.seam.style.opacity = '0';
-        });
-    }, [index]);
+    const [paused, setPaused] = useState(false);
 
     useEffect(() => {
-        const next = SLIDES[(index + 1) % SLIDES.length];
-        const img = new Image();
-        img.src = next.image;
-    }, [index]);
-
-    useEffect(() => {
-        const onVis = () => setPageHidden(document.hidden);
-        document.addEventListener('visibilitychange', onVis);
-        return () => document.removeEventListener('visibilitychange', onVis);
-    }, []);
-
-    useEffect(() => {
-        if (reduced || pageHidden || incoming !== null) return undefined;
-        const id = setTimeout(() => goTo((index + 1) % SLIDES.length), AUTO_MS);
-        return () => clearTimeout(id);
-    }, [index, incoming, pageHidden, reduced, goTo]);
-
-    // Hover lens: a cream slit opens across the slices nearest the cursor with a cosine falloff.
-    const onPointerMove = (e) => {
-        if (reduced || e.pointerType !== 'mouse' || !panelRef.current) return;
-        const rect = panelRef.current.getBoundingClientRect();
-        const s = slitRef.current;
-        s.x = ((e.clientX - rect.left) / rect.width) * NUM_SLICES;
-        s.amp = 1;
-        cancelAnimationFrame(s.fade);
-        if (!s.frame) {
-            s.frame = requestAnimationFrame(() => {
-                s.frame = 0;
-                paintSlits(slicesRef.current, s.x, s.amp);
-            });
-        }
-    };
-
-    const onPointerLeave = () => {
-        const s = slitRef.current;
-        if (s.amp === 0) return;
-        const from = s.amp;
-        const start = performance.now();
-        const fade = (now) => {
-            s.amp = from * (1 - clamp01((now - start) / SLIT_FADE_MS));
-            paintSlits(slicesRef.current, s.x, s.amp);
-            if (s.amp > 0) s.fade = requestAnimationFrame(fade);
-        };
-        cancelAnimationFrame(s.fade);
-        s.fade = requestAnimationFrame(fade);
-    };
-
-    useEffect(() => {
-        const s = slitRef.current;
-        return () => {
-            cancelAnimationFrame(s.frame);
-            cancelAnimationFrame(s.fade);
-        };
-    }, []);
-
-    const sliceStyle = (k) => ({ width: NUM_SLICES * 100 + '%', left: -(k * 100) + '%' });
+        if (reduced || paused) return undefined;
+        const id = window.setInterval(() => {
+            setIndex((current) => (current + 1) % SLIDES.length);
+        }, 4800);
+        return () => window.clearInterval(id);
+    }, [reduced, paused]);
 
     return (
-        <section className="kx" aria-labelledby="kx-title">
-            <div className="container kx-inner">
-                <motion.div
-                    className="kx-copy"
-                    initial={reduced ? false : { opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, delay: 0.2, ease: EASE_OUT }}
-                >
-                    <p className="kx-eyebrow">
-                        <span className="kx-eyebrow-rule" aria-hidden="true" />
-                        <span>Technology · AI · Digital Delivery · Workforce Solutions</span>
-                    </p>
-
-                    <h1 id="kx-title" className="kx-title">
-                        <span className="kx-seg kx-seg--navy">One Global Partner.</span>
-                        <span className="kx-seg kx-seg--accent">Two Powerful Talent Engines.</span>
+        <section className="hx" aria-labelledby="hx-title">
+            <div className="container hx-top">
+                <div className="hx-copy">
+                    <motion.p className="hx-eyebrow" {...rise(reduced, 0.05)}>
+                        <span className="hx-eyebrow-rule" aria-hidden="true" />
+                        Software · IT services · Outsourcing · HR · AI media
+                    </motion.p>
+                    <h1 id="hx-title" className="hx-title">
+                        <motion.span {...rise(reduced, 0.12)}>Technology That</motion.span>
+                        <motion.span {...rise(reduced, 0.2)}>Moves Business</motion.span>
+                        <motion.span className="hx-title-accent" {...rise(reduced, 0.28)}>Forward.</motion.span>
                     </h1>
-
-                    <p className="kx-lead">
-                        Build digital products, leverage AI, and scale your operations with technology expertise from
-                        India and business operations and workforce capabilities from the Philippines.
-                    </p>
-
-                    <div className="kx-actions">
-                        <HeroButton to={discoveryLink('Home Hero')} label="Let's Discuss Your Project" variant="primary" />
-                        <HeroButton to="/services" label="Explore Our Services" variant="ghost" />
-                    </div>
-
-                    <ul className="kx-features">
-                        {FEATURES.map(({ icon: Icon, title }) => (
-                            <li key={title}>
-                                <Icon size={22} strokeWidth={1.75} aria-hidden="true" />
-                                <span>{title}</span>
+                    <motion.p className="hx-partner" {...rise(reduced, 0.36)}>
+                        One global partner. Connected teams.
+                    </motion.p>
+                    <motion.p className="hx-lead" {...rise(reduced, 0.44)}>
+                        KAM Global AI builds software and IT services from India, runs business operations from
+                        the Philippines, supports recruitment, staffing and payroll, and produces AI video, design
+                        and content.
+                    </motion.p>
+                    <motion.div className="hx-actions" {...rise(reduced, 0.52)}>
+                        <Link to="/services" className="hx-btn hx-btn--primary">
+                            <Code2 size={18} aria-hidden="true" />
+                            Explore Our Services
+                            <ArrowRight size={18} aria-hidden="true" />
+                        </Link>
+                        <Link to="/contact" className="hx-btn hx-btn--ghost">
+                            <Users size={18} aria-hidden="true" />
+                            Talk to Our Team
+                            <ArrowRight size={18} aria-hidden="true" />
+                        </Link>
+                    </motion.div>
+                    <motion.ul className="hx-audience" {...rise(reduced, 0.6)}>
+                        {AUDIENCE.map((item) => (
+                            <li key={item.title}>
+                                <Link to={item.to}>
+                                    <span className="hx-audience-icon" aria-hidden="true">
+                                        <item.icon size={18} />
+                                    </span>
+                                    <span>
+                                        <strong>{item.title}</strong>
+                                        <small>{item.text}</small>
+                                    </span>
+                                    <ArrowRight size={16} aria-hidden="true" />
+                                </Link>
                             </li>
                         ))}
-                    </ul>
-                </motion.div>
+                    </motion.ul>
+                </div>
 
-                <motion.div
-                    className="kx-stage kx-depth"
-                    initial={reduced ? false : { opacity: 0, y: 40 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.9, delay: 0.1, ease: EASE_OUT }}
+                <div
+                    className="hx-visual"
+                    onMouseEnter={() => setPaused(true)}
+                    onMouseLeave={() => setPaused(false)}
+                    onFocus={() => setPaused(true)}
+                    onBlur={() => setPaused(false)}
                 >
                     <div
-                        ref={panelRef}
-                        className="kx-panel"
-                        onPointerMove={onPointerMove}
-                        onPointerLeave={onPointerLeave}
+                        className="hx-track"
+                        style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
                     >
-                        <div className="kx-slices" role="img" aria-label={slide.alt}>
-                            {Array.from({ length: NUM_SLICES }, (_, k) => (
-                                <div key={k} className="kx-slice">
-                                    <img
-                                        ref={setSliceEl(k, 'base')}
-                                        src={SLIDES[index].image}
-                                        alt=""
-                                        style={sliceStyle(k)}
-                                        fetchpriority={k === 0 && index === 0 ? 'high' : undefined}
-                                        decoding="async"
-                                        draggable="false"
-                                    />
-                                    {incoming !== null && (
-                                        <img
-                                            ref={setSliceEl(k, 'next')}
-                                            src={SLIDES[incoming].image}
-                                            alt=""
-                                            className="kx-slice-next"
-                                            style={sliceStyle(k)}
-                                            decoding="async"
-                                            draggable="false"
-                                        />
-                                    )}
-                                    <span ref={setSliceEl(k, 'seam')} className="kx-seam" />
-                                    <span ref={setSliceEl(k, 'slit')} className="kx-slit" />
-                                </div>
-                            ))}
-                        </div>
-                        <div className="kx-scrim" aria-hidden="true" />
-
-                        <AnimatePresence mode="wait" initial={false}>
-                            <motion.div
-                                key={active}
-                                className="kx-caption"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -6 }}
-                                transition={{ duration: 0.35, ease: 'easeOut' }}
-                            >
-                                <span className="kx-caption-dot" aria-hidden="true" />
-                                <span className="kx-caption-text">
-                                    <strong>{slide.label}</strong>
-                                    <small>{slide.caption}</small>
-                                </span>
-                                <Link
-                                    to={slide.to}
-                                    className="kx-caption-link"
-                                    aria-label={'Explore ' + slide.label}
-                                >
-                                    <ArrowUpRight size={16} aria-hidden="true" />
-                                </Link>
-                            </motion.div>
-                        </AnimatePresence>
+                        {SLIDES.map((slide, slideIndex) => (
+                            <div className={`hx-slide${slideIndex === index ? ' is-active' : ''}`} key={slide.src}>
+                                <img
+                                    className="hx-photo"
+                                    src={slide.src}
+                                    alt={slide.alt}
+                                    width={slide.width}
+                                    height={slide.height}
+                                    fetchpriority={slideIndex === 0 ? 'high' : 'auto'}
+                                    decoding="async"
+                                />
+                            </div>
+                        ))}
                     </div>
-                </motion.div>
+                    <span className="hx-frame" aria-hidden="true">
+                        <span /><span /><span /><span />
+                    </span>
+                    <p className="hx-slide-label" key={SLIDES[index].label}>
+                        <span>{String(index + 1).padStart(2, '0')}</span>
+                        {SLIDES[index].label}
+                    </p>
+                    <div className="hx-dots" role="tablist" aria-label="Service images">
+                        {SLIDES.map((slide, slideIndex) => (
+                            <button
+                                key={slide.label}
+                                type="button"
+                                role="tab"
+                                className={slideIndex === index ? 'is-active' : undefined}
+                                aria-selected={slideIndex === index}
+                                aria-label={slide.label}
+                                onClick={() => setIndex(slideIndex)}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         </section>
     );

@@ -26,6 +26,7 @@ import {
     GraduationCap,
     Building2,
     Headset,
+    Clapperboard,
     MapPin,
     ExternalLink,
     Handshake,
@@ -69,7 +70,7 @@ const heroHubs = [
     { code: 'PH', country: 'Philippines', role: 'Operations & CX', timeZone: 'Asia/Manila' },
 ];
 
-const NOW_SERVING = ['TECHNOLOGY', 'HR & WORKFORCE', 'OUTSOURCING', 'EDTECH'];
+const NOW_SERVING = ['TECHNOLOGY', 'AI MEDIA', 'HR & WORKFORCE', 'OUTSOURCING', 'EDTECH'];
 const FLAP_CHARS = ' ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&:-';
 
 const hubTime = (timeZone, now) =>
@@ -227,6 +228,24 @@ const practices = [
         ],
     },
     {
+        key: 'media',
+        icon: Clapperboard,
+        name: 'AI media',
+        tagline: 'Video, design and content',
+        desc: 'AI video, design and content for campaigns and brand work, delivered from India.',
+        from: 'India',
+        image: '/images/hero/ai-media-studio.webp',
+        alt: 'Creative studio producing video and design work',
+        to: '/outsourcing/digital-marketing-creative',
+        cta: 'Explore AI media',
+        items: [
+            { label: 'Content and creative', to: '/outsourcing/digital-marketing-creative#content-creative' },
+            { label: 'Video and motion', to: '/outsourcing/digital-marketing-creative#video-motion' },
+            { label: 'SEO and campaign support', to: '/outsourcing/digital-marketing-creative#seo-campaign' },
+            { label: 'Marketing operations', to: '/outsourcing/digital-marketing-creative#marketing-operations' },
+        ],
+    },
+    {
         key: 'hr',
         icon: Users,
         name: 'HR & Workforce',
@@ -360,7 +379,7 @@ function PracticeExplorer() {
                                 animate="show"
                             >
                                 {practice.items.map((item) => (
-                                    <motion.li key={item.to} variants={fadeUpItem}>
+                                    <motion.li key={item.label} variants={fadeUpItem}>
                                         <Link to={item.to} className="ab-pr-item">
                                             <CheckCircle2 size={15} aria-hidden="true" />
                                             <span>{item.label}</span>
@@ -921,8 +940,8 @@ const About = () => {
             <section id="capabilities" className="ab-section">
                 <div className="container">
                     <div className="ab-split-head">
-                        <SectionHead eyebrow="What We Do" title="Four Practices," accent="One Partner">
-                            IT &amp; technology, HR &amp; workforce, outsourcing and our own EdTech products — run by one
+                        <SectionHead eyebrow="What We Do" title="Five Practices," accent="One Partner">
+                            IT &amp; technology, AI media, HR &amp; workforce, outsourcing and our own EdTech products — run by one
                             team, so you can start with one and add the others when you need them.
                         </SectionHead>
                         <Reveal delay={0.2} y={12}>

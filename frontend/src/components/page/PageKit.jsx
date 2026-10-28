@@ -214,7 +214,7 @@ export const CardGrid = ({ items, cols = 3, variant = 'default', headingLevel = 
                     </>
                 );
                 return (
-                    <motion.div key={item.title} {...reveal} transition={{ ...reveal.transition, delay: Math.min(i, 6) * 0.05 }}>
+                    <motion.div id={item.id} key={item.title} {...reveal} transition={{ ...reveal.transition, delay: Math.min(i, 6) * 0.05 }}>
                         {item.to ? (
                             isExternal(item.to) ? (
                                 <a href={item.to} className="pg-card pg-card--link" target="_blank" rel="noopener noreferrer">{inner}</a>
@@ -345,7 +345,7 @@ export const Notice = ({ children, title = 'Good to know' }) => (
     </aside>
 );
 
-export const CtaBand = ({ id, eyebrow, title, text, primary, secondary, tertiary }) => (
+export const CtaBand = ({ id, eyebrow, title, text, primary, secondary, tertiary, jobs = false }) => (
     <section id={id} className="pg-cta-section" aria-labelledby={id ? `${id}-title` : 'pg-cta-title'}>
         <div className="container">
             <motion.div className="pg-cta" {...reveal}>
@@ -364,6 +364,7 @@ export const CtaBand = ({ id, eyebrow, title, text, primary, secondary, tertiary
                     {primary && <CtaLink to={primary.to} variant="primary">{primary.label}</CtaLink>}
                     {secondary && <CtaLink to={secondary.to} variant="ghost">{secondary.label}</CtaLink>}
                     {tertiary && <CtaLink to={tertiary.to} variant="text-light">{tertiary.label}</CtaLink>}
+                    {jobs && <CtaLink to="/careers#jobs" variant="text-light">Explore job openings</CtaLink>}
                 </div>
             </motion.div>
         </div>

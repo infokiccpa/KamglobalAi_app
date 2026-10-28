@@ -388,6 +388,7 @@
 
 .pg-cards > div {
     display: flex;
+    scroll-margin-top: 128px;
 }
 
 .pg-card {
@@ -1799,4 +1800,33 @@
         font-weight: 700;
         color: var(--pg-navy);
     }
+}
+
+.res-files {
+    display: grid;
+    gap: 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.res-files li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+    padding: 18px 20px;
+    background: var(--pg-cream);
+    border: 1px solid var(--pg-line);
+    border-radius: var(--pg-radius);
+}
+
+.res-files strong { display: block; color: var(--pg-navy); }
+.res-files span { display: block; margin-top: 2px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--pg-orange, #f7941d); }
+.res-files p { margin: 6px 0 0; color: var(--pg-muted, #5c6b7a); }
+.res-files svg { color: var(--pg-navy); }
+
+@media (max-width: 720px) {
+    .res-files li { grid-template-columns: auto minmax(0, 1fr); }
+    .res-files a { grid-column: 2; justify-self: start; }
 }

@@ -42,9 +42,36 @@ const subscribe = (fn) => {
 
 export const useSession = () => useSyncExternalStore(subscribe, () => session, () => null);
 
-export const ROLE_LABELS = { super_admin: 'Super Admin', recruiter: 'Recruiter / HR', viewer: 'Viewer' };
+export const ROLE_LABELS = {
+    super_admin: 'Super Admin',
+    admin: 'Admin',
+    hr: 'HR',
+    recruiter: 'Recruiter',
+    department_manager: 'Department Manager',
+    sales: 'Sales',
+    marketing: 'Marketing',
+    viewer: 'Viewer',
+};
 
-export const canEdit = (user) => user?.role === 'super_admin' || user?.role === 'recruiter';
+const ACCESS = {
+    super_admin: { jobs: 'write', applications: 'write', enquiries: 'write', resources: 'write', users: true },
+    admin: { jobs: 'write', applications: 'write', enquiries: 'write', resources: 'write', users: false },
+    hr: { jobs: 'write', applications: 'write', enquiries: 'read', resources: 'none', users: false },
+    recruiter: { jobs: 'write', applications: 'write', enquiries: 'write', resources: 'none', users: false },
+    department_manager: { jobs: 'read', applications: 'read', enquiries: 'read', resources: 'read', users: false },
+    sales: { jobs: 'read', applications: 'none', enquiries: 'write', resources: 'none', users: false },
+    marketing: { jobs: 'read', applications: 'none', enquiries: 'read', resources: 'write', users: false },
+    viewer: { jobs: 'read', applications: 'read', enquiries: 'read', resources: 'read', users: false },
+};
+
+export const can = (user, area, level = 'read') => {
+    const value = ACCESS[user?.role]?.[area];
+    if (!value || value === 'none' || value === false) return false;
+    if (level === 'write') return value === 'write' || value === true;
+    return true;
+};
+
+export const canEdit = (user) => can(user, 'jobs', 'write');
 export const isSuperAdmin = (user) => user?.role === 'super_admin';
 
 export const adminRequest = async (path, opts = {}) => {

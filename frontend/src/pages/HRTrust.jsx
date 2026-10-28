@@ -1,6 +1,7 @@
 import { Seo, PageHero, Section, CtaBand, Notice } from '../components/page/PageKit';
 import { TrustGrid } from '../components/hr/HRKit';
 import { trustPending, TRUST_UNCONFIRMED, hrContactLink } from '../data/hrWorkforce';
+import { ISO_27001 } from '../data/company';
 
 const confirmedDetails = trustPending.filter((p) => p.value && p.value !== TRUST_UNCONFIRMED);
 
@@ -23,9 +24,35 @@ const HRTrust = () => (
         <Section id="controls" tone="white" eyebrow="Controls" title="What Is in Place">
             <TrustGrid />
             <Notice title="Security documentation">
-                We only list certifications and hosting details once they are confirmed. Contact our team for current
-                security documentation.
+                Hosting and retention details are listed once they are confirmed. The ISO/IEC 27001:2022 registration
+                for this company is below.
             </Notice>
+        </Section>
+        <Section
+            id="certification"
+            tone="cream"
+            eyebrow="Certification"
+            title="ISO/IEC 27001:2022"
+            intro={`${ISO_27001.legalName} is ISO certified for an ${ISO_27001.system}. The registration details are below.`}
+        >
+            <dl className="hr-cert">
+                {[
+                    ['Standard', ISO_27001.standard],
+                    ['Certificate number', ISO_27001.number],
+                    ['Certified company', ISO_27001.legalName],
+                    ['Scope', ISO_27001.scope],
+                    ['Statement of Applicability', ISO_27001.statement],
+                    ['Certification body', ISO_27001.body],
+                    ['Initial registration', ISO_27001.registered],
+                    ['Date of expiry', ISO_27001.expires],
+                    ['Surveillance due', ISO_27001.surveillance],
+                ].map(([label, value]) => (
+                    <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                    </div>
+                ))}
+            </dl>
         </Section>
         {confirmedDetails.length > 0 && (
             <Section id="details" tone="cream" eyebrow="Details" title="Security Details">

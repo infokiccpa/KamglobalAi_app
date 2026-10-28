@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import FloatingActions from './components/FloatingActions';
+import KaiChat from './components/KaiChat';
 import CookieConsent from './components/CookieConsent';
 
 const About = lazy(() => import('./pages/About'));
@@ -42,14 +43,26 @@ const ScrollToTop = () => {
   const location = useLocation();
   const { pathname } = location;
   useEffect(() => {
-    if (location.hash) {
-      const target = document.querySelector(location.hash);
+    if (!location.hash) {
+      window.scrollTo(0, 0);
+      return undefined;
+    }
+    let tries = 0;
+    let timer;
+    const go = () => {
+      let target = null;
+      try { target = document.querySelector(location.hash); } catch { target = null; }
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
       }
-    }
-    window.scrollTo(0, 0);
+      if (tries < 15) {
+        tries += 1;
+        timer = window.setTimeout(go, 80);
+      }
+    };
+    go();
+    return () => window.clearTimeout(timer);
   }, [pathname, location.hash]);
   return null;
 };
@@ -112,6 +125,7 @@ const Site = () => {
             <Route path="/apply-now" element={<ApplyNow />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/privacy-policy" element={<Navigate to="/privacy" replace />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/support" element={<Support />} />
             <Route path="*" element={<NotFound />} />
@@ -119,6 +133,7 @@ const Site = () => {
           </Suspense>
         </main>
         <FloatingActions />
+        <KaiChat />
         <CookieConsent />
         <Footer />
       </div>

@@ -140,6 +140,10 @@
     margin-bottom: 16px;
 }
 
+.footer-brand .iso-badge {
+    margin: 0 0 18px;
+}
+
 .footer-backing {
     display: inline-flex;
     align-items: center;

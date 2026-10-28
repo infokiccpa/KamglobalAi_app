@@ -9,6 +9,7 @@ const { ensureSuperAdmin } = require('./seed');
 getSecret();
 fs.mkdirSync('uploads/resumes', { recursive: true });
 fs.mkdirSync('uploads/documents', { recursive: true });
+fs.mkdirSync('uploads/resources', { recursive: true });
 
 const app = express();
 
@@ -29,8 +30,11 @@ app.use((_req, res, next) => {
 });
 
 // Resumes are private and only downloadable through the authenticated admin API.
+// Published resources are public files.
+app.use('/uploads/resources', express.static(require('path').resolve('uploads', 'resources')));
 
 app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/resources', require('./routes/resourceRoutes'));
 app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/waitlist', require('./routes/waitlistRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
@@ -55,7 +59,9 @@ app.use('/api', (_req, res) => {
 // eslint-disable-next-line no-unused-vars
 app.use((err, _req, res, _next) => {
     if (err?.name === 'MulterError' || /Only PDF|files are allowed/.test(err?.message)) {
-        const message = err.code === 'LIMIT_FILE_SIZE' ? 'Each file must be 5 MB or smaller' : err.message;
+        const message = err.code === 'LIMIT_FILE_SIZE'
+            ? `Each file must be ${err.limit > 5 * 1024 * 1024 ? '8' : '5'} MB or smaller`
+            : err.message;
         return res.status(400).json({ success: false, error: message });
     }
     if (err?.name === 'ValidationError' || err?.name === 'CastError') {

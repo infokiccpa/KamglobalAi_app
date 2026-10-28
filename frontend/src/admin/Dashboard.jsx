@@ -1,23 +1,28 @@
 import { Link } from 'react-router-dom';
 import { Briefcase, FilePen, Inbox, Sparkles, CalendarDays, MessageSquare, Plus } from 'lucide-react';
 import { useAdminData } from './useAdminData';
-import { canEdit } from './session';
+import { can, canEdit } from './session';
 import { PageTitle, Spinner, ErrorNote, Badge } from './AdminUi';
 import { APP_STATUSES, formatDate } from './format';
 
 const Dashboard = ({ user }) => {
+    const seesApplications = can(user, 'applications');
     const stats = useAdminData('/api/admin/stats');
-    const recent = useAdminData('/api/admin/applications?limit=6');
+    const recent = useAdminData(seesApplications ? '/api/admin/applications?limit=6' : null);
     const s = stats.data?.data;
 
     const cards = s
         ? [
             { icon: Briefcase, label: 'Open jobs', value: s.openJobs, to: '/admin/jobs?status=published' },
             { icon: FilePen, label: 'Draft jobs', value: s.draftJobs, to: '/admin/jobs?status=draft' },
-            { icon: Sparkles, label: 'New applications', value: s.newApps, to: '/admin/applications?status=pending' },
-            { icon: CalendarDays, label: 'Applications this week', value: s.weekApps, to: '/admin/applications' },
-            { icon: Inbox, label: 'All applications', value: s.totalApps, to: '/admin/applications' },
-            { icon: MessageSquare, label: 'New enquiries', value: s.newEnquiries, to: '/admin/enquiries?status=new' },
+            ...(can(user, 'applications') ? [
+                { icon: Sparkles, label: 'New applications', value: s.newApps, to: '/admin/applications?status=pending' },
+                { icon: CalendarDays, label: 'Applications this week', value: s.weekApps, to: '/admin/applications' },
+                { icon: Inbox, label: 'All applications', value: s.totalApps, to: '/admin/applications' },
+            ] : []),
+            ...(can(user, 'enquiries') ? [
+                { icon: MessageSquare, label: 'New enquiries', value: s.newEnquiries, to: '/admin/enquiries?status=new' },
+            ] : []),
         ]
         : [];
 
@@ -43,7 +48,7 @@ const Dashboard = ({ user }) => {
                 </div>
             )}
 
-            {s && (
+            {s && seesApplications && (
                 <section className="adm-card">
                     <h2>Pipeline</h2>
                     <div className="adm-pipeline">
@@ -57,7 +62,7 @@ const Dashboard = ({ user }) => {
                 </section>
             )}
 
-            <section className="adm-card">
+            {seesApplications && <section className="adm-card">
                 <div className="adm-card-head">
                     <h2>Latest applications</h2>
                     <Link to="/admin/applications">View all</Link>
@@ -77,7 +82,7 @@ const Dashboard = ({ user }) => {
                         ))}
                     </ul>
                 ) : !recent.error && <p className="adm-muted">No applications yet. They appear here as soon as candidates apply on the website.</p>}
-            </section>
+            </section>}
         </>
     );
 };

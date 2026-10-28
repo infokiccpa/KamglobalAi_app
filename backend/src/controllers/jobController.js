@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Job = require('../models/Job');
 const Application = require('../models/Application');
-const { BOARDS, STATUSES, DOCUMENT_KEYS } = require('../models/Job');
+const { BOARDS, STATUSES, DOCUMENT_KEYS, SERVICE_LINES } = require('../models/Job');
 
 const EDITABLE = [
-    'board', 'title', 'category', 'department', 'location', 'country', 'experience', 'employmentType',
+    'board', 'serviceLine', 'title', 'category', 'department', 'location', 'country', 'experience', 'employmentType',
     'vacancies', 'package', 'summary', 'description', 'requirements', 'requiredDocuments', 'status', 'publishAt', 'closesAt',
 ];
 
@@ -27,6 +27,11 @@ const pick = (body = {}) => {
     if (typeof out.requirements === 'string') {
         out.requirements = out.requirements.split('\n').map((r) => r.trim()).filter(Boolean);
     }
+    if (out.serviceLine !== undefined && !SERVICE_LINES.includes(out.serviceLine)) {
+        const error = new Error('Choose a service line');
+        error.name = 'ValidationError';
+        throw error;
+    }
     if (out.requiredDocuments !== undefined) {
         const list = Array.isArray(out.requiredDocuments) ? out.requiredDocuments : [out.requiredDocuments];
         out.requiredDocuments = [...new Set(list.map((key) => String(key)).filter((key) => DOCUMENT_KEYS.includes(key)))];
@@ -40,7 +45,7 @@ const pick = (body = {}) => {
     return out;
 };
 
-const PUBLIC_FIELDS = 'board title category department location country experience employmentType vacancies package summary description requirements requiredDocuments publishedAt closesAt';
+const PUBLIC_FIELDS = 'board serviceLine title category department location country experience employmentType vacancies package summary description requirements requiredDocuments publishedAt closesAt';
 
 const openFilter = () => {
     const now = new Date();

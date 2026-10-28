@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ChevronDown, Mail } from 'lucide-react';
 import { useAdminData } from './useAdminData';
-import { adminRequest, canEdit } from './session';
+import { adminRequest, can } from './session';
 import { PageTitle, Spinner, ErrorNote, Badge, Empty, Pager } from './AdminUi';
 import { ENQUIRY_STATUSES, formatDate, toQuery } from './format';
 
@@ -13,7 +13,7 @@ const EnquiriesAdmin = ({ user }) => {
     const { data, error, loading, reload } = useAdminData(`/api/admin/enquiries${toQuery({ status, page })}`);
     const [openId, setOpenId] = useState(null);
     const [actionError, setActionError] = useState('');
-    const editable = canEdit(user);
+    const editable = can(user, 'enquiries', 'write');
 
     const setFilter = (key, value) => {
         const next = new URLSearchParams(params);

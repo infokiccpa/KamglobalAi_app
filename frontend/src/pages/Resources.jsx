@@ -1,6 +1,8 @@
-import { BookOpen, Building2, Code2, Globe, Users, Briefcase } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { BookOpen, Building2, Clapperboard, Code2, Globe, Users, Briefcase, FileDown } from 'lucide-react';
 import { Seo, PageHero, Section, CardGrid, CtaBand } from '../components/page/PageKit';
 import { contactLink } from '../data/links';
+import { apiUrl, request } from '../lib/api';
 
 const caseStudies = [
     {
@@ -35,12 +37,55 @@ const caseStudies = [
 const profile = [
     { icon: Building2, title: 'About us', desc: 'Who we are, how we work and our leadership.', to: '/about', cta: 'Read more' },
     { icon: Code2, title: 'IT & Technology', desc: 'Software, AI, cloud, managed IT, IT staffing and BOT.', to: '/services', cta: 'Explore IT services' },
+    { icon: Clapperboard, title: 'AI media', desc: 'Content, video, SEO support and marketing operations.', to: '/outsourcing/digital-marketing-creative', cta: 'Explore AI media' },
     { icon: Globe, title: 'Global Outsourcing', desc: 'Customer experience, sales support, BPO and more.', to: '/outsourcing', cta: 'Explore outsourcing' },
     { icon: Users, title: 'HR & Workforce', desc: 'Recruitment, staffing, payroll and HR technology.', to: '/hr', cta: 'Explore HR services' },
     { icon: BookOpen, title: 'Products', desc: 'LearnX, EduAiTutors and AI-Powered LMS.', to: '/products', cta: 'View products' },
     { icon: BookOpen, title: 'Glossary', desc: 'Plain-English definitions of BPO, RPO, BOT, ATS, HRMS and other terms.', to: '/resources/glossary', cta: 'Read the glossary' },
     { icon: Briefcase, title: 'Careers', desc: 'Open roles and life at KAM Global AI.', to: '/careers', cta: 'See careers' },
 ];
+
+const PublishedFiles = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        let live = true;
+        request('/api/resources')
+            .then((res) => { if (live) setItems(res.data || []); })
+            .catch(() => {});
+        return () => { live = false; };
+    }, []);
+
+    if (!items.length) return null;
+
+    return (
+        <Section
+            id="downloads"
+            tone="white"
+            eyebrow="From the team"
+            title="Files You Can Download"
+            intro="Guides and documents published by our team."
+        >
+            <ul className="res-files">
+                {items.map((item) => (
+                    <li key={item.id}>
+                        <FileDown size={20} aria-hidden="true" />
+                        <div>
+                            <strong>{item.title}</strong>
+                            <span>{item.category}</span>
+                            <p>{item.summary}</p>
+                        </div>
+                        {item.fileUrl && (
+                            <a className="pg-btn pg-btn--navy" href={apiUrl(item.fileUrl)} target="_blank" rel="noopener noreferrer">
+                                Open file
+                            </a>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </Section>
+    );
+};
 
 const Resources = () => (
     <div className="pg-page">
@@ -73,6 +118,8 @@ const Resources = () => (
         >
             <CardGrid cols={3} items={caseStudies} />
         </Section>
+
+        <PublishedFiles />
 
         <Section
             id="company-profile"

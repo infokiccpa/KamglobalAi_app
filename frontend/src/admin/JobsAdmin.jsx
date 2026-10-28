@@ -4,7 +4,7 @@ import { Plus, ExternalLink } from 'lucide-react';
 import { useAdminData } from './useAdminData';
 import { adminRequest, canEdit } from './session';
 import { PageTitle, Spinner, ErrorNote, Badge, Empty } from './AdminUi';
-import { JOB_STATUSES, boardLabel, formatDate, isScheduled, jobStatusLabel, toQuery } from './format';
+import { JOB_STATUSES, boardLabel, formatDate, isScheduled, jobStatusLabel, serviceLineLabel, toQuery } from './format';
 
 const publicPath = (job) => (job.board === 'hr' ? `/hr/jobs/${job._id}` : '/careers#jobs');
 
@@ -87,7 +87,7 @@ const JobsAdmin = ({ user }) => {
                                 <tr key={job._id}>
                                     <td>
                                         <Link to={`/admin/jobs/${job._id}`} className="adm-strong">{job.title}</Link>
-                                        <span className="adm-sub">{job.location}{job.category ? ` · ${job.category}` : ''}</span>
+                                        <span className="adm-sub">{[serviceLineLabel(job.serviceLine), job.location, job.category].filter(Boolean).join(' · ')}</span>
                                     </td>
                                     <td>{boardLabel(job.board)}</td>
                                     <td>

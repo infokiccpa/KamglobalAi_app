@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const Application = require('../models/Application');
 const Job = require('../models/Job');
-const { STATUSES } = require('../models/Application');
+const { STATUSES, INTERVIEW_ROUNDS, INTERVIEW_MODES, INTERVIEW_OUTCOMES } = require('../models/Application');
 const { escapeHtml, escapeRegex, csvCell } = require('../utils/http');
 
 const RESUME_ROOT = path.resolve('uploads', 'resumes');
@@ -312,7 +312,7 @@ const getApplications = async (req, res) => {
 // @route   GET /api/admin/applications/:id
 const getApplication = async (req, res) => {
     if (!mongoose.isValidObjectId(req.params.id)) return res.status(404).json({ success: false, error: 'Application not found' });
-    const application = await Application.findById(req.params.id).populate('job', 'title location board status');
+    const application = await Application.findById(req.params.id).populate('job', 'title location board status serviceLine');
     if (!application) return res.status(404).json({ success: false, error: 'Application not found' });
     res.json({ success: true, data: application });
 };
@@ -323,19 +323,57 @@ const updateApplication = async (req, res) => {
     const application = await Application.findById(req.params.id);
     if (!application) return res.status(404).json({ success: false, error: 'Application not found' });
 
-    const { status, note } = req.body || {};
+    const { status, note, interview, interviewUpdate } = req.body || {};
+    const actor = { by: req.user._id, byName: req.user.name };
     if (status !== undefined) {
         if (!STATUSES.includes(status)) return res.status(400).json({ success: false, error: 'Invalid status' });
         if (status !== application.status) {
-            application.notes.push({ text: `Status changed from ${application.status} to ${status}`, by: req.user._id, byName: req.user.name });
+            application.notes.push({ text: `Status changed from ${application.status} to ${status}`, ...actor });
             application.status = status;
         }
     }
     if (note && String(note).trim()) {
-        application.notes.push({ text: String(note).trim(), by: req.user._id, byName: req.user.name });
+        application.notes.push({ text: String(note).trim(), ...actor });
+    }
+    if (interview) {
+        if (!INTERVIEW_ROUNDS.includes(interview.round)) {
+            return res.status(400).json({ success: false, error: 'Choose a valid interview round' });
+        }
+        const scheduledAt = new Date(interview.scheduledAt);
+        if (Number.isNaN(scheduledAt.getTime())) {
+            return res.status(400).json({ success: false, error: 'Enter a valid interview date and time' });
+        }
+        const roundLabel = { screening: 'Screening call', interview: 'Interview', final: 'Final discussion' }[interview.round];
+        application.interviews.push({
+            round: interview.round,
+            scheduledAt,
+            mode: INTERVIEW_MODES.includes(interview.mode) ? interview.mode : 'video',
+            interviewer: String(interview.interviewer || '').trim().slice(0, 80),
+            notes: String(interview.notes || '').trim().slice(0, 1000),
+            outcome: 'scheduled',
+            ...actor,
+        });
+        application.notes.push({ text: `${roundLabel} scheduled for ${scheduledAt.toISOString()}`, ...actor });
+        if (['pending', 'reviewed', 'shortlisted'].includes(application.status)) {
+            application.notes.push({ text: `Status changed from ${application.status} to interview`, ...actor });
+            application.status = 'interview';
+        }
+    }
+    if (interviewUpdate?.id) {
+        const item = application.interviews.id(interviewUpdate.id);
+        if (!item) return res.status(404).json({ success: false, error: 'Interview not found' });
+        if (interviewUpdate.outcome !== undefined) {
+            if (!INTERVIEW_OUTCOMES.includes(interviewUpdate.outcome)) {
+                return res.status(400).json({ success: false, error: 'Choose a valid interview outcome' });
+            }
+            item.outcome = interviewUpdate.outcome;
+        }
+        if (interviewUpdate.notes !== undefined) {
+            item.notes = String(interviewUpdate.notes).trim().slice(0, 1000);
+        }
     }
     await application.save();
-    await application.populate('job', 'title location board status');
+    await application.populate('job', 'title location board status serviceLine');
     res.json({ success: true, data: application });
 };
 

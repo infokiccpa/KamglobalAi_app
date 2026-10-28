@@ -30,6 +30,34 @@ export const BOARDS = [
     { value: 'careers', label: 'KAM Global AI careers (/careers)' },
 ];
 
+export const SERVICE_LINES = [
+    { value: 'technology', label: 'Technology — India' },
+    { value: 'operations', label: 'Operations — Philippines' },
+    { value: 'hr', label: 'HR & Workforce' },
+];
+
+export const serviceLineLabel = (value) => SERVICE_LINES.find((s) => s.value === value)?.label || '';
+
+export const INTERVIEW_ROUNDS = [
+    { value: 'screening', label: 'Screening call' },
+    { value: 'interview', label: 'Interview' },
+    { value: 'final', label: 'Final discussion' },
+];
+
+export const INTERVIEW_MODES = [
+    { value: 'phone', label: 'Phone' },
+    { value: 'video', label: 'Video' },
+    { value: 'in_person', label: 'In person' },
+];
+
+export const INTERVIEW_OUTCOMES = [
+    { value: 'scheduled', label: 'Scheduled' },
+    { value: 'completed', label: 'Completed' },
+    { value: 'no_show', label: 'No show' },
+    { value: 'selected', label: 'Selected' },
+    { value: 'not_selected', label: 'Not selected' },
+];
+
 export const boardLabel = (value) => (value === 'hr' ? 'HR & Workforce' : 'Careers');
 
 export const isScheduled = (job) => Boolean(job?.status === 'published' && job.publishAt && new Date(job.publishAt) > new Date());

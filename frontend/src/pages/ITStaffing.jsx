@@ -318,6 +318,7 @@ export default function ITStaffing() {
                 primary={{ label: service.hero.cta, to: primaryLink }}
                 secondary={{ label: 'Book a Discovery Call', to: callLink }}
                 tertiary={{ label: 'Compare Engagement Models', to: '/engagement-models' }}
+                jobs
             />
         </div>
     );

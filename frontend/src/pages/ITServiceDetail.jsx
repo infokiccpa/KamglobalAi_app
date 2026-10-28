@@ -185,6 +185,7 @@ const ITServicePage = ({ service }) => {
                 primary={{ label: service.hero.cta, to: primaryLink }}
                 secondary={service.cta?.secondary || { label: 'Book a Discovery Call', to: discoveryLink(service.subject) }}
                 tertiary={service.cta?.secondary ? { label: 'Book a Discovery Call', to: discoveryLink(service.subject) } : undefined}
+                jobs
             />
         </div>
     );

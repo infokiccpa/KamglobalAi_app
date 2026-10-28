@@ -434,6 +434,7 @@ const HRWorkforce = () => {
                 primary={{ label: 'Book a Demo', to: hrDemoLink('HR Technology') }}
                 secondary={{ label: 'Talk to a Recruiter', to: hrContactLink('Recruitment') }}
                 tertiary={{ label: 'Register as a candidate', to: candidateLink() }}
+                jobs
             />
         </div>
     );

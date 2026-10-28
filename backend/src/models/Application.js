@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 
 const STATUSES = ['pending', 'reviewed', 'shortlisted', 'interview', 'hired', 'rejected'];
+const INTERVIEW_ROUNDS = ['screening', 'interview', 'final'];
+const INTERVIEW_MODES = ['phone', 'video', 'in_person'];
+const INTERVIEW_OUTCOMES = ['scheduled', 'completed', 'no_show', 'selected', 'not_selected'];
 
 const noteSchema = new mongoose.Schema(
     {
@@ -136,6 +139,16 @@ const applicationSchema = new mongoose.Schema({
         enum: STATUSES,
         default: 'pending'
     },
+    interviews: [{
+        round: { type: String, enum: INTERVIEW_ROUNDS, required: true },
+        scheduledAt: { type: Date, required: true },
+        mode: { type: String, enum: INTERVIEW_MODES, default: 'video' },
+        interviewer: { type: String, trim: true, maxlength: 80 },
+        outcome: { type: String, enum: INTERVIEW_OUTCOMES, default: 'scheduled' },
+        notes: { type: String, trim: true, maxlength: 1000 },
+        by: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        byName: String,
+    }],
     notes: [noteSchema],
     appliedAt: {
         type: Date,
@@ -165,3 +178,6 @@ applicationSchema.set('toJSON', {
 
 module.exports = mongoose.model('Application', applicationSchema);
 module.exports.STATUSES = STATUSES;
+module.exports.INTERVIEW_ROUNDS = INTERVIEW_ROUNDS;
+module.exports.INTERVIEW_MODES = INTERVIEW_MODES;
+module.exports.INTERVIEW_OUTCOMES = INTERVIEW_OUTCOMES;

@@ -28,6 +28,11 @@ import {
   Crown,
   KanbanSquare,
   Bot,
+  Clapperboard,
+  PenTool,
+  Search,
+  Video,
+  Megaphone,
 } from 'lucide-react';
 import { discoveryLink, proposalLink, talentLink, demoLink } from '../data/links';
 import { COMPANY } from '../data/company';
@@ -98,6 +103,13 @@ const itFeatured = [
   { name: 'BOT Model', desc: 'Build-Operate-Transfer teams', path: '/services/bot-model', icon: Globe },
 ];
 
+const mediaFeatured = [
+  { name: 'Content and creative', desc: 'Brand assets from an agreed brief', path: '/outsourcing/digital-marketing-creative#content-creative', icon: PenTool },
+  { name: 'Video and motion', desc: 'Edits, motion and short-form video', path: '/outsourcing/digital-marketing-creative#video-motion', icon: Video },
+  { name: 'SEO and campaign support', desc: 'On-page content, setup and reporting', path: '/outsourcing/digital-marketing-creative#seo-campaign', icon: Search },
+  { name: 'Marketing operations', desc: 'Calendars, approvals and assets', path: '/outsourcing/digital-marketing-creative#marketing-operations', icon: Megaphone },
+];
+
 const outsourcingFeatured = [
   { name: 'India Engine', desc: 'Technology & digital delivery', path: '/outsourcing/india-engine', icon: Code2 },
   { name: 'Philippines Engine', desc: 'Business operations & CX', path: '/outsourcing/philippines-engine', icon: Headset },
@@ -151,6 +163,26 @@ const navLinks = [
         },
         items: itFeatured,
         more: moreTile(itAll, itFeatured, 'View all IT services', '/services'),
+      },
+      {
+        id: 'media',
+        label: 'AI media',
+        short: 'Video, design and content from India',
+        icon: Clapperboard,
+        intro: {
+          eyebrow: 'AI media',
+          title: 'Video, design and content',
+          text: 'Content, creative, video, SEO and campaign support delivered from India.',
+          cta: { label: 'Explore AI media', to: '/outsourcing/digital-marketing-creative' },
+        },
+        feature: {
+          title: 'Need campaign support?',
+          text: 'Share the brief and we will confirm the fit.',
+          cta: { label: 'Discuss AI media', to: '/contact?subject=Digital%20Marketing%20%26%20Creative#form' },
+          image: '/images/hero/ai-media-studio.webp',
+          imageAlt: 'Creative studio producing video and design work',
+        },
+        items: mediaFeatured,
       },
       {
         id: 'outsourcing',
@@ -242,193 +274,30 @@ const navLinks = [
   { name: 'Careers', path: '/careers', mobileOnly: true },
 ];
 
-const MegaGrid = ({ items, more, onNavigate }) => {
-  if (items.some((item) => item.image)) {
-    return (
-      <ul className="sh-mega-cards">
-        {items.map((item, i) => {
-          const Icon = item.icon;
-          return (
-            <li key={item.name} style={{ '--i': i }}>
-              <Link to={item.path} className="sh-mega-card" onClick={onNavigate}>
-                <span className="sh-mega-card-media">
-                  <img
-                    src={item.image}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    style={item.imagePosition ? { objectPosition: item.imagePosition } : undefined}
-                  />
-                  {item.badge && <span className="sh-badge sh-mega-card-badge">{item.badge}</span>}
-                </span>
-                <span className="sh-mega-card-body">
-                  <span className="sh-mega-card-title">
-                    <Icon size={15} strokeWidth={2} aria-hidden="true" />
-                    {item.name}
-                  </span>
-                  <span className="sh-mega-link-desc">{item.desc}</span>
-                </span>
-                <ArrowUpRight size={14} className="sh-mega-card-arrow" aria-hidden="true" />
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    );
-  }
-  return (
-  <ul className={`sh-mega-grid${items.length <= 3 && !more ? ' sh-mega-grid--single' : ''}`}>
-    {items.map((item, i) => {
+const DropLinks = ({ items, onNavigate }) => (
+  <ul className="sh-drop-list">
+    {items.map((item) => {
       const Icon = item.icon;
       return (
-        <li key={item.name} style={{ '--i': i }}>
-          <Link to={item.path} className="sh-mega-link" onClick={onNavigate}>
-            <span className="sh-mega-icon" aria-hidden="true">
-              <Icon size={18} strokeWidth={1.75} />
-            </span>
-            <span className="sh-mega-link-text">
-              <span className="sh-mega-link-title">
+        <li key={item.name}>
+          <Link to={item.path} className="sh-drop-link" onClick={onNavigate}>
+            <span className="sh-drop-icon" aria-hidden="true"><Icon size={16} strokeWidth={1.75} /></span>
+            <span>
+              <strong>
                 {item.name}
                 {item.badge && <span className="sh-badge">{item.badge}</span>}
-              </span>
-              <span className="sh-mega-link-desc">{item.desc}</span>
+              </strong>
+              <small>{item.desc}</small>
             </span>
-            <ArrowUpRight size={14} className="sh-mega-arrow" aria-hidden="true" />
           </Link>
         </li>
       );
     })}
-    {more && (
-      <li style={{ '--i': items.length }}>
-        <Link to={more.to} className="sh-mega-all" onClick={onNavigate}>
-          {more.label}
-          <ArrowRight size={15} aria-hidden="true" />
-        </Link>
-      </li>
-    )}
   </ul>
-  );
-};
-
-const ProductPreview = ({ theme }) => {
-  if (theme === 'learnx') {
-    return (
-      <span className="sh-pv sh-pv--learnx" aria-hidden="true">
-        <span className="sh-pv-tabs">
-          <i>Principal</i>
-          <i className="is-on">Parent</i>
-          <i>Finance</i>
-        </span>
-        <span className="sh-pv-stats">
-          <span><b>96%</b><small>Attendance</small></span>
-          <span><b>2</b><small>Homework</small></span>
-          <span><b>Fri</b><small>PTM</small></span>
-        </span>
-      </span>
-    );
-  }
-  if (theme === 'edu') {
-    return (
-      <span className="sh-pv sh-pv--edu" aria-hidden="true">
-        <span className="sh-pv-head"><b>Mock test 12</b><small>Rank trend</small></span>
-        <svg viewBox="0 0 120 34" className="sh-pv-spark" preserveAspectRatio="none">
-          <path d="M2 30 L20 26 L36 28 L54 18 L72 20 L90 10 L118 5" pathLength="1" />
-          <circle cx="118" cy="5" r="3" />
-        </svg>
-        <span className="sh-pv-bars">
-          <i style={{ '--w': '42%' }} />
-          <i style={{ '--w': '78%' }} />
-        </span>
-      </span>
-    );
-  }
-  return (
-    <span className="sh-pv sh-pv--lms" aria-hidden="true">
-      <svg viewBox="0 0 36 36" className="sh-pv-ring">
-        <circle cx="18" cy="18" r="15" className="sh-pv-ring-bg" />
-        <circle cx="18" cy="18" r="15" className="sh-pv-ring-fg" pathLength="1" />
-      </svg>
-      <span className="sh-pv-ring-label"><b>86%</b><small>Progress</small></span>
-      <span className="sh-pv-tasks">
-        <i className="is-done" />
-        <i className="is-done" />
-        <i />
-      </span>
-    </span>
-  );
-};
-
-const ProductsMega = ({ link, onNavigate }) => (
-  <div className="sh-container sh-mega-inner sh-mega-inner--products">
-    <div className="sh-mega-intro">
-      <span className="sh-mega-eyebrow">{link.intro.eyebrow}</span>
-      <p className="sh-mega-title">{link.intro.title}</p>
-      <Link to={link.intro.cta.to} className="sh-mega-intro-cta" onClick={onNavigate}>
-        {link.intro.cta.label} <ArrowRight size={14} aria-hidden="true" />
-      </Link>
-    </div>
-
-    <ul className="sh-prod-cards">
-      {link.items.map((item, i) => {
-        const Icon = item.icon;
-        return (
-          <li key={item.name} className={`sh-prod-card sh-prod--${item.theme}`} style={{ '--i': i }}>
-            <span className="sh-prod-window">
-              <span className="sh-prod-bar" aria-hidden="true">
-                <i /><i /><i />
-                <em>{item.domain}</em>
-                {item.badge && <span className="sh-prod-live">{item.badge}</span>}
-              </span>
-              <ProductPreview theme={item.theme} />
-            </span>
-            <span className="sh-prod-body">
-              <span className="sh-prod-icon" aria-hidden="true">
-                <Icon size={16} strokeWidth={2} />
-              </span>
-              <span className="sh-prod-text">
-                <Link to={item.path} className="sh-prod-name" onClick={onNavigate}>
-                  {item.name}
-                </Link>
-                <span className="sh-prod-desc">{item.desc}</span>
-              </span>
-            </span>
-            <span className="sh-prod-actions">
-              <span className="sh-prod-explore" aria-hidden="true">
-                Explore <ArrowRight size={13} />
-              </span>
-              <a
-                href={item.site}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sh-prod-site"
-                aria-label={`Visit ${item.domain} (opens in a new tab)`}
-              >
-                Visit site <ArrowUpRight size={13} aria-hidden="true" />
-              </a>
-            </span>
-          </li>
-        );
-      })}
-    </ul>
-
-    <div className="sh-prod-feature">
-      <span className="sh-prod-feature-visual" aria-hidden="true">
-        <span className="sh-prod-feature-row"><i /><b>Fee paid · receipt sent</b></span>
-        <span className="sh-prod-feature-row"><i /><b>Bus ETA 6 min</b></span>
-        <span className="sh-prod-feature-row"><i /><b>Report card published</b></span>
-      </span>
-      <p className="sh-mega-feature-title">{link.feature.title}</p>
-      <p className="sh-mega-feature-text">{link.feature.text}</p>
-      <Link to={link.feature.cta.to} className="sh-mega-feature-cta" onClick={onNavigate}>
-        {link.feature.cta.label} <ArrowRight size={14} aria-hidden="true" />
-      </Link>
-    </div>
-  </div>
 );
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [megaTab, setMegaTab] = useState({});
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileExpand, setMobileExpand] = useState(null);
@@ -471,7 +340,6 @@ const Header = () => {
     return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
   const isLinkActive = (link) => (link.match || [link.path]).some(isActive);
-  const setTab = (name, index) => setMegaTab((prev) => ({ ...prev, [name]: index }));
 
   const openNow = (name) => {
     clearTimeout(closeTimer.current);
@@ -533,8 +401,6 @@ const Header = () => {
                 {desktopLinks.map((link) => {
                   const hasMenu = Boolean(link.items || link.groups);
                   const open = openMenu === link.name;
-                  const tabIndex = megaTab[link.name] ?? 0;
-                  const group = link.groups?.[tabIndex];
                   return (
                     <li
                       key={link.name}
@@ -562,60 +428,62 @@ const Header = () => {
                             if (!e.currentTarget.parentElement.contains(e.relatedTarget)) setOpenMenu(null);
                           }}
                         >
-                          {group ? (
-                            <div className="sh-container sh-mega-inner sh-mega-inner--tabs">
-                              <div className="sh-mega-tabs">
-                                <div className="sh-mega-tablist" role="tablist" aria-label={`${link.name} types`}>
-                                  {link.groups.map((g, gi) => (
-                                    <button
-                                      key={g.id}
-                                      type="button"
-                                      role="tab"
-                                      id={`mega-tab-${g.id}`}
-                                      aria-selected={gi === tabIndex}
-                                      aria-controls={`mega-panel-${link.name}`}
-                                      className={`sh-mega-tab${gi === tabIndex ? ' is-active' : ''}`}
-                                      onMouseEnter={() => setTab(link.name, gi)}
-                                      onFocus={() => setTab(link.name, gi)}
-                                      onClick={() => setTab(link.name, gi)}
-                                    >
-                                      <span className="sh-mega-tab-icon" aria-hidden="true">
-                                        <g.icon size={18} strokeWidth={1.75} />
-                                      </span>
-                                      <span className="sh-mega-tab-text">
-                                        <strong>{g.label}</strong>
-                                        {g.more && <span className="sh-mega-tab-count">{g.more.total}</span>}
-                                      </span>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-
-                              <div
-                                key={group.id}
-                                className="sh-mega-panel"
-                                id={`mega-panel-${link.name}`}
-                                role="tabpanel"
-                                aria-labelledby={`mega-tab-${group.id}`}
-                              >
-                                <MegaGrid items={group.items} onNavigate={closeAll} />
-                                <div className="sh-mega-actions">
-                                  {group.more && (
-                                    <Link to={group.more.to} className="sh-mega-all" onClick={closeAll}>
-                                      {group.more.label} <ArrowRight size={15} aria-hidden="true" />
+                          {link.groups ? (
+                            <div className="sh-container sh-drop">
+                              <div className="sh-drop-cols">
+                                {link.groups.map((g) => (
+                                  <section key={g.id} className="sh-drop-col">
+                                    <Link to={g.intro.cta.to} className="sh-drop-col-title" onClick={closeAll}>
+                                      <g.icon size={16} aria-hidden="true" />
+                                      {g.label}
+                                      <ArrowUpRight size={14} aria-hidden="true" />
                                     </Link>
-                                  )}
-                                  <Link to={group.feature.cta.to} className="sh-mega-aside-cta" onClick={closeAll}>
-                                    {group.feature.cta.label} <ArrowRight size={14} aria-hidden="true" />
-                                  </Link>
-                                </div>
+                                    <p>{g.short}</p>
+                                    <DropLinks items={g.items} onNavigate={closeAll} />
+                                  </section>
+                                ))}
                               </div>
                             </div>
                           ) : link.products ? (
-                            <ProductsMega link={link} onNavigate={closeAll} />
+                            <div className="sh-container sh-drop">
+                              <div className="sh-drop-bar">
+                                <p>{link.intro.title}</p>
+                                <Link to={link.intro.cta.to} onClick={closeAll}>
+                                  {link.intro.cta.label} <ArrowRight size={14} aria-hidden="true" />
+                                </Link>
+                              </div>
+                              <ul className="sh-drop-products">
+                                {link.items.map((item) => {
+                                  const Icon = item.icon;
+                                  return (
+                                    <li key={item.path}>
+                                      <Link to={item.path} className="sh-drop-product" onClick={closeAll}>
+                                        <span className="sh-drop-icon" aria-hidden="true"><Icon size={18} strokeWidth={1.75} /></span>
+                                        <span>
+                                          <strong>
+                                            {item.name}
+                                            {item.badge && <span className="sh-badge">{item.badge}</span>}
+                                          </strong>
+                                          <small>{item.desc}</small>
+                                        </span>
+                                      </Link>
+                                      <a href={item.site} target="_blank" rel="noopener noreferrer" className="sh-drop-domain">
+                                        {item.domain} <ArrowUpRight size={13} aria-hidden="true" />
+                                      </a>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            </div>
                           ) : (
-                            <div className="sh-container sh-mega-inner sh-mega-inner--plain">
-                              <MegaGrid items={link.items} more={link.more} onNavigate={closeAll} />
+                            <div className="sh-container sh-drop">
+                              <div className="sh-drop-bar">
+                                <p>{link.intro.title}</p>
+                                <Link to={link.intro.cta.to} onClick={closeAll}>
+                                  {link.intro.cta.label} <ArrowRight size={14} aria-hidden="true" />
+                                </Link>
+                              </div>
+                              <DropLinks items={link.items} onNavigate={closeAll} />
                             </div>
                           )}
                         </div>
@@ -627,7 +495,7 @@ const Header = () => {
             </nav>
 
             <div className="sh-actions">
-              <Link to="/contact" className={`sh-contact-link${isActive('/contact') ? ' is-active' : ''}`}>
+              <Link to="/contact" className={`sh-cta sh-cta--bar${isActive('/contact') ? ' is-active' : ''}`}>
                 Contact
               </Link>
               <button

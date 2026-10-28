@@ -98,6 +98,17 @@
     color: #0c213d;
 }
 
+.legal-section a {
+    color: #0c213d;
+    font-weight: 650;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+
+.legal-section a:hover {
+    color: #e07d06;
+}
+
 @media (max-width: 768px) {
     .legal-container {
         margin: 100px auto 40px;

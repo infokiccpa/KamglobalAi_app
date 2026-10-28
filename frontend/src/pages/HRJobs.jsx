@@ -203,6 +203,7 @@ const JobDetail = ({ job, sample }) => {
         description: job.description || job.summary || `${job.title} in ${job.location}.`,
     };
     const meta = [
+        [Briefcase, 'Service line', { technology: 'Technology — India', operations: 'Operations — Philippines', hr: 'HR & Workforce' }[job.serviceLine]],
         [MapPin, 'Location', job.location],
         [Briefcase, 'Experience / eligibility', job.experience],
         [Clock, 'Employment type', job.type],
@@ -246,7 +247,7 @@ const JobDetail = ({ job, sample }) => {
                         <div className="hr-job-body">
                             {job.description && (
                                 <>
-                                    <h2>About the role</h2>
+                                    <h2>Job description</h2>
                                     {job.description.split(/\n{2,}/).map((para) => <p key={para.slice(0, 40)}>{para}</p>)}
                                 </>
                             )}

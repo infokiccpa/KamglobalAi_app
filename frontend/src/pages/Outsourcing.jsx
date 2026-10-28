@@ -300,6 +300,7 @@ const Outsourcing = () => {
                 primary={{ label: 'Request Talent', to: talentLink('Global Outsourcing') }}
                 secondary={{ label: 'Book a Discovery Call', to: discoveryLink('Global Outsourcing') }}
                 tertiary={{ label: 'Compare engagement models', to: '/engagement-models' }}
+                jobs
             />
         </div>
     );

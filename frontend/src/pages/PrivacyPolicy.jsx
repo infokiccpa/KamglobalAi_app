@@ -1,81 +1,144 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { COMPANY } from '../data/company';
 import './Legal.css';
 
-const PrivacyPolicy = () => {
-    return (
-        <div className="legal-container">
-            <header className="legal-header">
-                <h1>Privacy Policy</h1>
-                <p>Last updated: March 02, 2026</p>
-            </header>
+const PrivacyPolicy = () => (
+    <div className="legal-container">
+        <Helmet>
+            <title>Privacy Policy | KAM Global AI</title>
+            <meta
+                name="description"
+                content="How KAM Global AI handles enquiries, job applications, client information, and website visits across IT, AI media, outsourcing, and HR services."
+            />
+        </Helmet>
+        <header className="legal-header">
+            <h1>Privacy Policy</h1>
+            <p>Last updated: 29 October 2026</p>
+        </header>
 
-            <section className="legal-content">
-                <div className="legal-section">
-                    <h2>1. Introduction</h2>
-                    <p>
-                        Welcome to Kamglobal AI. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.
-                    </p>
-                </div>
+        <section className="legal-content">
+            <div className="legal-section">
+                <h2>1. Who we are</h2>
+                <p>
+                    This notice explains how {COMPANY.legalName} (“KAM Global AI”, “we”) handles personal information on kamglobalai.com and in the services described on this website. The company is backed by KAM Group, Kuwait. Technology delivery is from our Bengaluru office. Business operations may be delivered from the Philippines. The Kuwait office is our relationship office.
+                </p>
+                <p>
+                    Write to us at <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>, call {COMPANY.phone}, or use the <Link to="/contact">contact form</Link>. Our published offices are in Hawally, Kuwait, and RT Nagar, Bengaluru.
+                </p>
+            </div>
 
-                <div className="legal-section">
-                    <h2>2. The Data We Collect About You</h2>
-                    <p>
-                        Personal data, or personal information, means any information about an individual from which that person can be identified. It does not include data where the identity has been removed (anonymous data).
-                    </p>
-                    <p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:</p>
-                    <ul>
-                        <li><strong>Identity Data</strong> includes first name, last name, username or similar identifier.</li>
-                        <li><strong>Contact Data</strong> includes email address and telephone numbers.</li>
-                        <li><strong>Technical Data</strong> includes internet protocol (IP) address, your login data, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access this website.</li>
-                        <li><strong>Usage Data</strong> includes information about how you use our website, products and services.</li>
-                    </ul>
-                </div>
+            <div className="legal-section">
+                <h2>2. What this notice covers</h2>
+                <p>It covers personal information connected with:</p>
+                <ul>
+                    <li><strong>IT &amp; Technology</strong> — software, websites, apps, AI and automation, data and analytics, cloud and DevOps, managed IT, IT staffing, and Build-Operate-Transfer teams.</li>
+                    <li><strong>AI media</strong> — content and creative work, video and motion, SEO and campaign support, and marketing operations.</li>
+                    <li><strong>Global outsourcing</strong> — India technology delivery, Philippines business operations, customer experience, BPO and back office, and sales support.</li>
+                    <li><strong>HR &amp; workforce</strong> — recruitment, contract staffing, payroll outsourcing, executive search, and HR technology, for clients in the markets we serve, including India, the GCC, and the USA, where the engagement allows it.</li>
+                    <li><strong>Products</strong> — information you send us about LearnX, EduAiTutors, or the AI-Powered LMS. Use of those products themselves is covered by the agreement or notice for that product.</li>
+                    <li><strong>Careers</strong> — applications and general applications submitted on this website.</li>
+                </ul>
+            </div>
 
-                <div className="legal-section">
-                    <h2>3. How We Use Your Personal Data</h2>
-                    <p>
-                        We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:
-                    </p>
-                    <ul>
-                        <li>Where we need to perform the contract we are about to enter into or have entered into with you.</li>
-                        <li>Where it is necessary for our legitimate interests (or those of a third party) and your interests and fundamental rights do not override those interests.</li>
-                        <li>Where we need to comply with a legal obligation.</li>
-                    </ul>
-                </div>
+            <div className="legal-section">
+                <h2>3. Information we collect</h2>
+                <p>We collect only what the form or the engagement asks for.</p>
+                <ul>
+                    <li><strong>Enquiries.</strong> Name, work email, company, country, phone, the service you ask about, and the message you write.</li>
+                    <li><strong>Job applications.</strong> Name, contact details, location, education, experience, the role, and any optional details you add, such as notice period, expected compensation, or profile links. The form also asks for a résumé. Where the role asks for them, it may also ask for education certificates or a salary slip.</li>
+                    <li><strong>Product interest.</strong> Name, email, phone, institution, role, and the product you ask about, when you use a product request form.</li>
+                    <li><strong>Website visits.</strong> Our host may record the IP address, browser type, and time of a request so the site can run and so we can investigate misuse. We do not run an advertising or analytics cookie programme on this website.</li>
+                    <li><strong>Assistant on the site.</strong> The on-page assistant keeps the conversation in your browser so it can point you to a service, a job, or a contact path. It does not send that chat to our servers.</li>
+                </ul>
+            </div>
 
-                <div className="legal-section">
-                    <h2>4. Cookies</h2>
-                    <p>
-                        Our website uses cookies to distinguish you from other users of our website. This helps us to provide you with a good experience when you browse our website and also allows us to improve our site. For detailed information on the cookies we use and the purposes for which we use them see our Cookie policy.
-                    </p>
-                </div>
+            <div className="legal-section">
+                <h2>4. How we use it</h2>
+                <ul>
+                    <li>To reply to an enquiry and route it to the IT, AI media, outsourcing, HR, or product team it concerns.</li>
+                    <li>To assess an application, contact you about that role or a later matching role, and keep a record of the decision.</li>
+                    <li>To prepare a proposal, deliver an agreed service, invoice, and handle support for that engagement.</li>
+                    <li>To protect the website, our staff, and the people whose information we hold, and to meet a legal duty such as tax, employment, or a lawful request from an authority.</li>
+                </ul>
+                <p>We do not sell personal information. We do not use enquiry or application details to build advertising profiles.</p>
+            </div>
 
-                <div className="legal-section">
-                    <h2>5. Data Security</h2>
-                    <p>
-                        We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed. In addition, we limit access to your personal data to those employees, agents, contractors and other third parties who have a business need to know.
-                    </p>
-                </div>
+            <div className="legal-section">
+                <h2>5. Information we handle for a client</h2>
+                <p>
+                    During a project we may see personal information that belongs to our client: customer records in a support or BPO workflow, candidate or employee records in recruitment, staffing, or payroll work, and files supplied for software, content, or campaign work. We use that information only to perform the written engagement, on the client’s instructions. Access is limited to the people assigned to the work.
+                </p>
+                <p>
+                    Healthcare-related work on this site is administrative and non-clinical. A background check, payroll run, or staffing placement is done only when the engagement includes it and the people concerned have been informed as the engagement requires.
+                </p>
+            </div>
 
-                <div className="legal-section">
-                    <h2>6. Your Legal Rights</h2>
-                    <p>
-                        Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to request access, correction, erasure, restriction, transfer, to object to processing, to portability of data and (where the lawful ground of processing is consent) to withdraw consent.
-                    </p>
-                </div>
+            <div className="legal-section">
+                <h2>6. Who we share it with</h2>
+                <ul>
+                    <li>Staff and contractors assigned to the enquiry, application, or engagement, including people working from India, the Philippines, or the Kuwait relationship office when the work requires it.</li>
+                    <li>A client, when we present a candidate for a role that client has asked us to fill, or when the contract says we must return work product that contains personal information.</li>
+                    <li>A hosting, email, or file-storage provider that processes the information for us under our instructions.</li>
+                    <li>WhatsApp, if you choose to message us there. That conversation is then handled by WhatsApp as well as by us.</li>
+                    <li>A court, regulator, or other authority when the law requires it.</li>
+                </ul>
+            </div>
 
-                <div className="legal-section">
-                    <h2>7. Contact Us</h2>
-                    <p>
-                        If you have any questions about this privacy policy or our privacy practices, please contact us at:
-                    </p>
-                    <p><strong>Email:</strong> info@kamglobalai.com</p>
-                    <p><strong>Phone (India):</strong> +91 80507 66363</p>
-                    <p><strong>Phone (Kuwait):</strong> +965 2434 5650</p>
-                </div>
-            </section>
-        </div>
-    );
-};
+            <div className="legal-section">
+                <h2>7. How long we keep it</h2>
+                <p>
+                    Enquiry records are kept long enough to respond and to keep a record of the conversation. Application records, including the résumé and any documents you upload, are kept for the hiring process and for a later matching role, unless you ask us to delete them and we are not required to keep them for a legal claim or duty. Client files are kept for the life of the engagement and for the period the contract or the law requires after it ends. We then delete or return them.
+                </p>
+            </div>
+
+            <div className="legal-section">
+                <h2>8. Security</h2>
+                <p>
+                    Application files are stored so they are not publicly downloadable. Only signed-in staff with the right role can open them. We limit access to people who need it for the work. The company holds ISO/IEC 27001:2022 for the published scope of consultancy for web and software development services. Certificate details are on the <Link to="/hr/trust">trust page</Link>. That certificate does not, by itself, change the security terms of a separate HR, media, or operations engagement. Those terms are in the agreement for that work.
+                </p>
+            </div>
+
+            <div className="legal-section">
+                <h2>9. Cookies and browser storage</h2>
+                <p>
+                    This website stores a note in your browser when you accept or decline the notice at the bottom of the page. That note remembers your choice. It is not an advertising cookie. If you are a staff member, the admin sign-in keeps a session in the browser until you sign out. The careers page can also remember roles you save on that device. You can clear these in your browser settings. Declining the notice does not block the contact form or a job application.
+                </p>
+            </div>
+
+            <div className="legal-section">
+                <h2>10. Your choices</h2>
+                <p>
+                    You can ask us what personal information we hold about you, ask for a correction, or ask us to delete an enquiry or a general application. You can object to us keeping a general application for future roles. We will honour a request unless a law, a tax duty, or an active client contract requires us to keep the record. Contact {COMPANY.email} and include the email address you used, so we can find the record.
+                </p>
+                <p>
+                    If you are in India, you may also use the rights in the Digital Personal Data Protection Act, 2023. If another law applies because of where you live or where a client engagement is performed, we will handle the request under that law as well.
+                </p>
+            </div>
+
+            <div className="legal-section">
+                <h2>11. Students and education products</h2>
+                <p>
+                    kamglobalai.com is for businesses and adult applicants. We do not ask children to create an account here. LearnX, EduAiTutors, and the AI-Powered LMS may be used by schools, parents, and students. Student information for those products is handled under the product agreement with the school or the account holder, not under a child’s use of this corporate website.
+                </p>
+            </div>
+
+            <div className="legal-section">
+                <h2>12. Changes and contact</h2>
+                <p>
+                    We will post any change on this page and update the date above. Continued use of the website after that date means the new notice applies to new enquiries and applications.
+                </p>
+                <p>
+                    <strong>Email:</strong> <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a><br />
+                    <strong>India:</strong> {COMPANY.phone}<br />
+                    <strong>Kuwait office:</strong> +965 22087764
+                </p>
+                <p>
+                    The terms for using the website and for buying services are in the <Link to="/terms">Terms &amp; Conditions</Link>.
+                </p>
+            </div>
+        </section>
+    </div>
+);
 
 export default PrivacyPolicy;

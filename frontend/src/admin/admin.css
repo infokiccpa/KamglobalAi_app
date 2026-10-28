@@ -449,6 +449,7 @@ a.adm-strong:hover { text-decoration: underline; }
 }
 
 .adm-form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.adm-check { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-weight: 650; color: var(--adm-navy); }
 
 .adm-narrow { max-width: 520px; }
 
@@ -498,6 +499,10 @@ a.adm-strong:hover { text-decoration: underline; }
 
 .adm-status-btns button[aria-pressed='true'] { background: var(--adm-navy); border-color: var(--adm-navy); color: #fff; }
 
+.adm-interviews { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 10px; }
+.adm-interviews li { display: grid; gap: 4px; padding: 12px; border: 1px solid var(--adm-line, #e4e8ee); border-radius: 10px; }
+.adm-interviews span, .adm-interviews small { color: var(--adm-muted, #5c6b7a); font-size: 13px; }
+.adm-interviews select { justify-self: start; margin-top: 4px; }
 .adm-note-form { display: grid; gap: 10px; margin-bottom: 16px; }
 
 .adm-note-form .adm-btn { justify-self: start; }

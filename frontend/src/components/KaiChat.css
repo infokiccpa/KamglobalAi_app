@@ -1,0 +1,322 @@
+.kai-launcher {
+    position: fixed;
+    right: 24px;
+    bottom: 84px;
+    z-index: 10020;
+    display: inline-flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 16px 0 6px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #143056, #0c213d 55%, #1a3d66);
+    color: #fff;
+    box-shadow: 0 16px 32px -16px rgba(12, 33, 61, 0.8);
+    cursor: pointer;
+}
+
+.kai-launcher[hidden] {
+    display: none;
+}
+
+.kai-launcher:hover,
+.kai-launcher:focus-visible {
+    background: linear-gradient(135deg, #1b446e, #0c213d 60%, #24507f);
+}
+
+.kai-launcher:focus-visible,
+.kai-close:focus-visible,
+.kai-choices button:focus-visible,
+.kai-links a:focus-visible,
+.kai-restart:focus-visible,
+.kai-panel:focus-visible,
+.kai-compose button:focus-visible {
+    outline: 2px solid #f7941d;
+    outline-offset: 3px;
+}
+
+.kai-launcher-mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffb04a, #f7941d 45%, #ea6800);
+    color: #0c213d;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.kai-launcher-label {
+    margin-left: 10px;
+    font-family: var(--font-heading);
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: 0.08em;
+}
+
+.kai-panel {
+    position: fixed;
+    right: 24px;
+    bottom: 84px;
+    z-index: 10020;
+    display: flex;
+    flex-direction: column;
+    width: min(380px, calc(100vw - 32px));
+    max-height: min(600px, calc(100dvh - 140px));
+    overflow: hidden;
+    border: 1px solid rgba(12, 33, 61, 0.08);
+    border-radius: 22px;
+    background: #fff;
+    color: #0c213d;
+    box-shadow: 0 24px 50px -28px rgba(12, 33, 61, 0.55);
+}
+
+.kai-head {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 108px;
+    padding: 16px 14px 16px 16px;
+    background:
+        linear-gradient(115deg, rgba(6, 18, 36, 0.92) 8%, rgba(8, 26, 48, 0.78) 48%, rgba(160, 78, 8, 0.55) 100%),
+        url('/images/hero/hero-globe-team.webp') center 42% / cover no-repeat;
+    color: #fff;
+}
+
+.kai-id {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
+}
+
+.kai-orb {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffe1b5, #f7941d);
+    color: #0c213d;
+    box-shadow: 0 0 0 4px rgba(247, 148, 29, 0.22);
+}
+
+.kai-name {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    background: linear-gradient(100deg, #fff 10%, #ffe7c4 42%, #ffb04a 78%, #fff 100%);
+    background-size: 180% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: kai-name 5.5s ease-in-out infinite;
+}
+
+.kai-tag {
+    margin: 3px 0 0;
+    max-width: 230px;
+    color: #ffe8cc;
+    font-size: 13px;
+    line-height: 1.35;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.kai-close {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    cursor: pointer;
+}
+
+.kai-close:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.kai-log {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px;
+    overflow: auto;
+}
+
+.kai-msg {
+    margin: 0;
+    max-width: 92%;
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-size: 14.5px;
+    line-height: 1.45;
+}
+
+.kai-msg--kai {
+    align-self: flex-start;
+    background: linear-gradient(180deg, #f7f9fc, #eef3f9);
+    border-bottom-left-radius: 4px;
+    box-shadow: inset 3px 0 0 #f7941d;
+}
+
+.kai-msg--user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, #143056, #0c213d);
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.kai-choices,
+.kai-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.kai-choices button,
+.kai-links a,
+.kai-restart,
+.kai-compose button {
+    font: inherit;
+    cursor: pointer;
+}
+
+.kai-choices button,
+.kai-links a {
+    padding: 10px 12px;
+    border: 1px solid rgba(12, 33, 61, 0.14);
+    border-radius: 12px;
+    background: #fff;
+    color: #0c213d;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    text-decoration: none;
+}
+
+.kai-choices button:hover,
+.kai-links a:hover {
+    border-color: #f7941d;
+    background: #fff8f1;
+    color: #9a4e00;
+}
+
+.kai-links a:first-child {
+    background: linear-gradient(135deg, #ffb04a, #f7941d);
+    border-color: #f7941d;
+    color: #0c213d;
+}
+
+.kai-restart {
+    align-self: flex-start;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #c56a00;
+    font-size: 13px;
+    font-weight: 650;
+    text-align: left;
+    text-decoration: none;
+}
+
+.kai-compose {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid rgba(12, 33, 61, 0.08);
+    background: #fff;
+}
+
+.kai-compose input {
+    flex: 1;
+    min-width: 0;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid rgba(12, 33, 61, 0.16);
+    border-radius: 12px;
+    background: #f7f9fc;
+    color: #0c213d;
+    font: inherit;
+    font-size: 14px;
+}
+
+.kai-compose input:focus {
+    outline: 2px solid #f7941d;
+    outline-offset: 1px;
+    background: #fff;
+}
+
+.kai-compose button {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 12px;
+    background: #0c213d;
+    color: #f7941d;
+}
+
+.kai-compose button:disabled {
+    background: #d5deea;
+    color: #fff;
+    cursor: default;
+}
+
+@keyframes kai-name {
+    0%, 70% { background-position: 100% 0; }
+    100% { background-position: 0% 0; }
+}
+
+@media (max-width: 768px) {
+    .kai-launcher,
+    .kai-panel {
+        right: 16px;
+        bottom: 74px;
+    }
+
+    .kai-launcher {
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        justify-content: center;
+    }
+
+    .kai-launcher-label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .kai-name {
+        animation: none;
+    }
+
+    .kai-launcher,
+    .kai-choices button,
+    .kai-links a,
+    .kai-compose button {
+        transition: none;
+    }
+}

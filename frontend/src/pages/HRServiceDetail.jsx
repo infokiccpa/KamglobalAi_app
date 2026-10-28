@@ -136,6 +136,7 @@ const HRServiceDetail = () => {
                 text="Share your roles, locations and timing. We will review the requirement and confirm the next step."
                 primary={{ label: 'Talk to our team', to: primary }}
                 secondary={slug === 'executive-search' ? undefined : { label: 'Book a demo', to: hrContactLink('HR Technology demo') }}
+                jobs
             />
         </div>
     );

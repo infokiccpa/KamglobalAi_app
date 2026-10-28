@@ -7,11 +7,16 @@ import { formatDate } from './format';
 
 const ROLE_HELP = {
     super_admin: 'Everything, including creating users and changing access.',
-    recruiter: 'Post and edit jobs, review applications, add notes, export, handle enquiries.',
-    viewer: 'Read-only: see jobs, applications, résumés and enquiries.',
+    admin: 'Jobs, applications, enquiries and resources. Cannot create users.',
+    hr: 'Post jobs and review applications.',
+    recruiter: 'Same hiring access as HR, plus enquiry updates.',
+    department_manager: 'Read-only view of jobs, applications, enquiries and resources.',
+    sales: 'Read jobs and update enquiries.',
+    marketing: 'Publish resources and read enquiries.',
+    viewer: 'Read-only: jobs, applications, résumés and enquiries.',
 };
 
-const BLANK = { name: '', email: '', role: 'recruiter', password: '' };
+const BLANK = { name: '', email: '', role: 'hr', password: '' };
 
 const UsersAdmin = ({ user: me }) => {
     const { data, error, loading, reload } = useAdminData('/api/admin/users');

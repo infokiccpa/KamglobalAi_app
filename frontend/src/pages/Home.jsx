@@ -9,6 +9,7 @@ import {
 } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import IsoBadge from '../components/IsoBadge';
 import { Helmet } from 'react-helmet-async';
 import CountUp from 'react-countup';
 import {
@@ -28,7 +29,6 @@ import {
     Building2,
     Layers,
     Headset,
-    PhoneCall,
     ClipboardCheck,
     UserSearch,
     HeartPulse,
@@ -42,18 +42,18 @@ import {
     Rocket,
     Code2,
     Briefcase,
-    ChevronLeft,
-    ChevronRight,
+    Clapperboard,
     RefreshCw,
     BarChart3,
     Clock,
-    Mail,
+    Megaphone,
+    PenTool,
     Sparkles,
+    Video,
 } from 'lucide-react';
 import HeroShowcase from '../components/HeroShowcase';
 import Flag from '../components/Flag';
 import { networkCountries } from '../data/countries';
-import { COMPANY } from '../data/company';
 import { deliveryEngines } from '../data/deliveryEngines';
 import { OFFICE_SCHEDULES, localTime, useNow } from '../lib/officeHours';
 import { Reveal } from '../components/motion/Reveal';
@@ -62,12 +62,9 @@ import {
     VIEWPORT,
     fadeUpItem,
     staggerParent,
-    trackPointer,
 } from '../components/motion/motionPresets';
 import './Home.css';
 import './HomeDepth.css';
-
-const MotionLink = motion.create(Link);
 
 const contactLink = (subject) => `/contact?subject=${encodeURIComponent(subject)}#form`;
 
@@ -93,7 +90,7 @@ const products = [
         desc: 'Live NEET & JEE coaching with AI mocks, mentorship, and GCC-friendly batches.',
         to: '/products/eduaitutors',
         cta: 'Explore EduAiTutors',
-        secondary: { label: 'Talk to us', to: contactLink('EduAiTutors enquiry') },
+        secondary: { label: 'Talk to us', to: contactLink('EduAiTutors') },
         icon: BookOpen,
         image: '/images/products/eduaitutors-app.webp',
         alt: 'EduAiTutors website showing the Foundation Program for Classes 6 to 10',
@@ -107,7 +104,7 @@ const products = [
         desc: 'Adaptive learning platform for Pre-KG to Grade 12 — personalized mastery at scale.',
         to: '/products/ai-powered-lms',
         cta: 'Explore AI LMS',
-        secondary: { label: 'Talk to us', to: contactLink('AI-Powered LMS enquiry') },
+        secondary: { label: 'Talk to us', to: contactLink('AI-Powered LMS') },
         icon: Brain,
         image: '/images/products/ai-lms-app.webp',
         alt: 'AI-Powered LMS home page with a personalised study plan and learner progress',
@@ -170,7 +167,7 @@ const processPromises = [
 ];
 
 const advantages = [
-    { icon: Briefcase, title: 'One accountable partner', desc: 'Technology, operations and HR & workforce coordinated through a single team and point of contact.' },
+    { icon: Briefcase, title: 'One accountable partner', desc: 'Technology, AI media, operations and HR & workforce coordinated through a single team and point of contact.' },
     { icon: Shield, title: 'KAM Group backing', desc: 'Enterprise stability, governance and Gulf regional trust from Kuwait.' },
     { icon: Code2, title: 'India engineering talent', desc: 'Software, cloud, AI and data delivery without quality compromise.' },
     { icon: Headset, title: 'Philippines operations', desc: 'Customer experience, sales support and back-office capacity.' },
@@ -180,6 +177,7 @@ const advantages = [
 
 const whyLines = [
     { icon: Code2, label: 'Technology', to: '/services' },
+    { icon: Clapperboard, label: 'AI media', to: '/outsourcing/digital-marketing-creative' },
     { icon: Headset, label: 'Operations', to: '/outsourcing' },
     { icon: UserSearch, label: 'HR & Workforce', to: '/hr' },
 ];
@@ -202,6 +200,12 @@ const whoFocus = [
         title: 'Operations',
         note: 'Customer experience, sales support and back-office work from the Philippines.',
         to: '/outsourcing',
+    },
+    {
+        n: '04',
+        title: 'AI media',
+        note: 'AI video, design and content.',
+        to: '/outsourcing/digital-marketing-creative',
     },
 ];
 
@@ -235,12 +239,49 @@ const helpLines = [
         ],
     },
     {
-        id: 'ops',
+        id: 'media',
         step: '02',
+        icon: Clapperboard,
+        title: 'AI media',
+        tagline: 'AI video, design and content from India.',
+        source: { label: 'India', codes: ['IN'], to: '/outsourcing/india-engine' },
+        exploreLabel: 'Explore AI media',
+        exploreTo: '/outsourcing/digital-marketing-creative',
+        layout: 'list',
+        client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('Digital Marketing & Creative') },
+        seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
+        services: [
+            { icon: PenTool, label: 'Content and creative', to: '/outsourcing/digital-marketing-creative' },
+            { icon: Video, label: 'Video and motion', to: '/outsourcing/digital-marketing-creative' },
+            { icon: Search, label: 'SEO and campaign support', to: '/outsourcing/digital-marketing-creative' },
+            { icon: Megaphone, label: 'Marketing operations', to: '/outsourcing/digital-marketing-creative' },
+        ],
+        roles: ['Content', 'Brand design', 'Video editing', 'Motion', 'SEO support', 'Campaign coordination', 'Social creatives', 'Marketing operations'],
+        slides: [
+            {
+                image: '/images/hero/ai-media-studio.webp',
+                alt: 'Creative team reviewing a video storyboard, design prints and content layouts in a bright studio',
+                title: 'AI video, design and content',
+                sub: 'Storyboards, brand design and short-form content',
+            },
+        ],
+    },
+    {
+        id: 'ops',
+        step: '03',
         icon: Headset,
         title: 'Business Outsourcing',
-        tagline: 'Customer experience, sales support and back-office work from the Philippines.',
-        source: { label: 'Philippines', codes: ['PH'], to: '/outsourcing/philippines-engine' },
+        tagline: 'Customer experience, sales support and back-office work from the Philippines, with partnership reach in more countries.',
+        places: [
+            { code: 'PH', name: 'Philippines' },
+            { code: 'IN', name: 'India' },
+            { code: 'GH', name: 'Ghana' },
+            { code: 'MA', name: 'Morocco' },
+            { code: 'VN', name: 'Vietnam' },
+            { code: 'ID', name: 'Indonesia' },
+            { code: 'TN', name: 'Tunisia' },
+            { code: 'KE', name: 'Kenya' },
+        ],
         exploreLabel: 'Explore all services',
         exploreTo: '/outsourcing',
         layout: 'list',
@@ -262,7 +303,7 @@ const helpLines = [
     },
     {
         id: 'hr',
-        step: '03',
+        step: '04',
         icon: UserSearch,
         title: 'HR and Recruitment',
         tagline: 'Hiring, contract staffing and payroll in the markets we already serve.',
@@ -270,7 +311,7 @@ const helpLines = [
         exploreLabel: 'Explore all services',
         exploreTo: '/hr',
         layout: 'list',
-        client: { title: 'Client / Employer', text: 'Request staff', to: contactLink('HR & Workforce') },
+        client: { title: 'Client / Employer', text: 'Request staff', to: contactLink('HR Partnership') },
         seeker: { title: 'Job seeker', text: 'View openings', to: '/careers' },
         services: [
             { icon: UserSearch, label: 'Recruitment', to: '/hr/services/recruitment' },
@@ -306,7 +347,7 @@ const HelpCard = ({ line }) => {
 
     return (
         <article
-            className="hm-help-card"
+            className="hm-help-row"
             ref={rootRef}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
@@ -320,14 +361,8 @@ const HelpCard = ({ line }) => {
                     </div>
                 ))}
                 <span className="hm-help-kicker">{line.step}</span>
-                <span className="hm-help-progress" aria-hidden="true">
-                    <span key={`${index}-${moving}`} className={moving ? 'is-running' : ''} style={{ animationDuration: `${HELP_SLIDE_MS}ms` }} />
-                </span>
-            </div>
-
-            <div className="hm-help-body">
-                <div className="hm-help-now">
-                    <p key={slide.title}>{slide.title}</p>
+                <p className="hm-help-caption" key={slide.title}>{slide.title}</p>
+                {line.slides.length > 1 && (
                     <div className="hm-help-dots" role="tablist" aria-label={`${line.title} images`}>
                         {line.slides.map((item, i) => (
                             <button
@@ -341,63 +376,66 @@ const HelpCard = ({ line }) => {
                             />
                         ))}
                     </div>
-                </div>
+                )}
+            </div>
+
+            <div className="hm-help-body">
                 <div className="hm-help-title">
-                    <span className="hm-help-title-icon" aria-hidden="true"><line.icon size={20} /></span>
+                    <span className="hm-help-title-icon" aria-hidden="true"><line.icon size={18} /></span>
                     <div>
                         <h3>{line.title}</h3>
                         <p>{line.tagline}</p>
                     </div>
                 </div>
 
-                <Link to={line.source.to} className="hm-help-source">
-                    <span className="hm-help-flags" aria-hidden="true">
-                        {line.source.codes.map((code) => <Flag key={code} code={code} />)}
-                    </span>
-                    <span>
-                        <small>Sourced from</small>
-                        <strong>{line.source.label}</strong>
-                    </span>
-                    <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-
-                <ul className="hm-help-links">
-                    {line.services.map((service) => (
-                        <li key={service.to}>
-                            <Link to={service.to}>
-                                <service.icon size={16} aria-hidden="true" />
-                                <span>{service.label}</span>
-                                <ArrowRight size={14} aria-hidden="true" />
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-
-                <Link to={line.exploreTo} className="hm-help-all">
-                    {line.exploreLabel} <ArrowRight size={15} aria-hidden="true" />
-                </Link>
-
-                <div className="hm-help-roles">
-                    <span className="hm-help-roles-label">Explore roles</span>
-                    <div className="hm-help-roles-viewport">
-                        <div className="hm-help-roles-track">
-                            {[0, 1].map((copy) => (
-                                <ul key={copy} aria-hidden={copy === 1}>
-                                    {line.roles.map((role) => <li key={`${copy}-${role}`}>{role}</li>)}
-                                </ul>
+                {line.places ? (
+                    <div className="hm-help-reach">
+                        <small>Philippines delivery · partnership reach</small>
+                        <ul>
+                            {line.places.map((place) => (
+                                <li key={place.code}>
+                                    <Flag code={place.code} />
+                                    <span>{place.name}</span>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
+                ) : (
+                    <Link to={line.source.to} className="hm-help-source">
+                        <span className="hm-help-flags" aria-hidden="true">
+                            {line.source.codes.map((code) => <Flag key={code} code={code} />)}
+                        </span>
+                        <span>
+                            <small>Where</small>
+                            <strong>{line.source.label}</strong>
+                        </span>
+                        <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
+                )}
+
+                <div className="hm-help-covers">
+                    <span>What this covers</span>
+                    <ul className="hm-help-links">
+                        {line.services.map((service) => (
+                            <li key={service.label}>
+                                <Link to={service.to}>
+                                    <service.icon size={15} aria-hidden="true" />
+                                    <span>{service.label}</span>
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
 
                 <div className="hm-help-actions">
+                    <Link to={line.exploreTo} className="hm-help-all">
+                        {line.exploreLabel} <ArrowRight size={15} aria-hidden="true" />
+                    </Link>
                     <Link to={line.client.to} className="hm-help-action hm-help-action--client">
-                        <strong>{line.client.title}</strong>
-                        <small>{line.client.text}</small>
+                        {line.client.text}
                     </Link>
                     <Link to={line.seeker.to} className="hm-help-action hm-help-action--seeker">
-                        <strong>{line.seeker.title}</strong>
-                        <small>{line.seeker.text}</small>
+                        {line.seeker.text}
                     </Link>
                 </div>
             </div>
@@ -417,22 +455,6 @@ const orbitPoint = (angle, radius) => ({
     left: `${50 + radius * Math.cos((angle * Math.PI) / 180)}%`,
     top: `${50 + radius * Math.sin((angle * Math.PI) / 180)}%`,
 });
-
-const ctaIntents = [
-    { icon: Code2, title: 'Technology delivery', hint: 'Software, cloud, AI & teams from India', subject: 'India Technology Delivery' },
-    { icon: Headset, title: 'Business operations', hint: 'CX, sales support & BPO from the Philippines', subject: 'Philippines Operations' },
-    { icon: UserSearch, title: 'Hiring & payroll', hint: 'Recruitment, staffing, payroll & HR advisory', subject: 'HR & Workforce' },
-    { icon: GraduationCap, title: 'Education products', hint: 'LearnX, EduAiTutors & AI-Powered LMS', subject: 'Products' },
-    { icon: PhoneCall, title: 'Not sure yet?', hint: 'Start with a discovery call', subject: 'Discovery Call' },
-];
-
-const ctaNextSteps = ['Share your requirement', 'We review the context', 'Discuss a suitable next step'];
-
-const directContacts = [
-    { code: 'KW', label: 'Kuwait HQ', value: '+965 22087764', href: 'tel:+96522087764' },
-    { code: 'IN', label: 'India Center', value: COMPANY.phone, href: `tel:${COMPANY.tel}` },
-    { label: 'Email us', value: COMPANY.email, href: `mailto:${COMPANY.email}` },
-];
 
 const PresenceNetwork = () => {
     const [active, setActive] = useState(0);
@@ -465,7 +487,7 @@ const PresenceNetwork = () => {
 
                     <div className="hm-net-partners" aria-hidden="true">
                         {partnerMarkets.map((c, i) => (
-                            <span key={c.code} className="hm-net-partner" style={orbitPoint(-54 + i * 72, 44)}>
+                            <span key={c.code} className="hm-net-partner" style={orbitPoint(-90 + (i * 360) / partnerMarkets.length, 44)}>
                                 <span className="hm-net-partner-inner">
                                     <Flag code={c.code} round />
                                     <small>{c.name}</small>
@@ -554,98 +576,84 @@ const gridMotion = (stagger = 0.08, delay = 0) => ({
     viewport: VIEWPORT,
 });
 
-const ProcessJourney = () => {
-    const [active, setActive] = useState(0);
-    const step = processSteps[active];
-    const last = processSteps.length - 1;
-
-    const select = (i) => setActive(Math.max(0, Math.min(last, i)));
-
-    const onRailKey = (e) => {
-        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp' && e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-        e.preventDefault();
-        const forward = e.key === 'ArrowDown' || e.key === 'ArrowRight';
-        const next = forward ? (active === last ? 0 : active + 1) : (active === 0 ? last : active - 1);
-        select(next);
-        e.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus();
-    };
-
-    return (
-        <div className="hm-work">
-            <div className="hm-work-layout">
-                <div
-                    className="hm-work-rail"
-                    role="tablist"
-                    aria-label="How we work, step by step"
-                    aria-orientation="vertical"
-                    onKeyDown={onRailKey}
+const ProcessJourney = () => (
+    <div className="hm-work">
+        <ol className="hm-work-path">
+            {processSteps.map((step, index) => (
+                <motion.li
+                    key={step.title}
+                    className="hm-work-item"
+                    initial={{ opacity: 0, y: 28 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.45 }}
+                    transition={{ duration: 0.65, ease: EASE_OUT }}
                 >
-                    {processSteps.map((s, i) => (
-                        <button
-                            key={s.title}
-                            type="button"
-                            role="tab"
-                            id={`flow-tab-${i}`}
-                            aria-selected={i === active}
-                            aria-controls="flow-panel"
-                            tabIndex={i === active ? 0 : -1}
-                            className={'hm-work-step' + (i === active ? ' is-active' : '')}
-                            onClick={() => select(i)}
-                        >
-                            <span className="hm-work-step-num">{String(i + 1).padStart(2, '0')}</span>
-                            <span>
-                                <s.icon size={15} aria-hidden="true" />
-                                <strong>{s.title}</strong>
-                            </span>
-                        </button>
-                    ))}
-                </div>
-
-                <div id="flow-panel" className="hm-work-panel" role="tabpanel" aria-labelledby={`flow-tab-${active}`}>
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.div
-                            key={step.title}
-                            initial={{ opacity: 0, y: 12 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -8, transition: { duration: 0.16 } }}
-                            transition={{ duration: 0.35, ease: EASE_OUT }}
-                        >
-                            <span className="hm-work-ghost" aria-hidden="true">{String(active + 1).padStart(2, '0')}</span>
-                            <h3>{step.title}</h3>
-                            <p>{step.desc}</p>
-                            <p className="hm-work-outcome">
-                                <small>Outcome</small>
-                                {step.outcome}
-                            </p>
-                            <p className="hm-work-covers-title">What we cover</p>
-                            <ul>
-                                {step.covers.map((c, ci) => (
-                                    <li key={c}><span>{ci + 1}</span>{c}</li>
-                                ))}
-                            </ul>
-                        </motion.div>
-                    </AnimatePresence>
-                    <div className="hm-work-nav">
-                        <button type="button" onClick={() => select(active - 1)} disabled={active === 0} aria-label="Previous step">
-                            <ChevronLeft size={18} />
-                        </button>
-                        <button type="button" onClick={() => select(active + 1)} disabled={active === last} aria-label="Next step">
-                            <ChevronRight size={18} />
-                        </button>
+                    <span className="hm-work-num">{String(index + 1).padStart(2, '0')}</span>
+                    <div className="hm-work-card">
+                        <h3>
+                            <step.icon size={18} aria-hidden="true" />
+                            {step.title}
+                        </h3>
+                        <p>{step.desc}</p>
+                        <p className="hm-work-outcome">
+                            <small>Outcome</small>
+                            {step.outcome}
+                        </p>
+                        <ul>
+                            {step.covers.map((item) => (
+                                <li key={item}>{item}</li>
+                            ))}
+                        </ul>
                     </div>
-                </div>
-            </div>
-            <ul className="hm-work-promises">
-                {processPromises.map((p) => (
-                    <li key={p.text}>
-                        <p.icon size={16} aria-hidden="true" />
-                        {p.text}
-                    </li>
-                ))}
-            </ul>
+                </motion.li>
+            ))}
+        </ol>
+        <ul className="hm-work-promises">
+            {processPromises.map((item) => (
+                <li key={item.text}>
+                    <item.icon size={16} aria-hidden="true" />
+                    {item.text}
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
+const CLIENTS = [
+    { name: '9to6 Consultants', src: '/images/clients/9to6-consultants.png' },
+    { name: 'CGrey', src: '/images/clients/cgrey.svg' },
+    { name: 'G.P.P. Education Trust', src: '/images/clients/gpp-education-trust.jpg' },
+];
+
+const ClientTrust = () => (
+    <div className="hm-clients">
+        <div className="hm-clients-copy">
+            <h3 className="hm-clients-title">Trusted by our valued clients</h3>
+            <p className="hm-clients-note">Education trusts, consultancies and campus teams.</p>
         </div>
-    );
-};
+        <ul className="hm-clients-list">
+            {CLIENTS.map((client) => (
+                <li key={client.name}>
+                    <span className="hm-clients-mark">
+                        <img src={client.src} alt="" />
+                    </span>
+                    <strong>{client.name}</strong>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
+const CountryRow = ({ hidden = false }) => (
+    <ul className="hm-reach-list" aria-hidden={hidden || undefined}>
+        {networkCountries.map((c) => (
+            <li key={hidden ? `${c.code}-copy` : c.code} className="hm-reach-item" title={hidden ? undefined : c.role}>
+                <Flag code={c.code} />
+                <span>{c.name}</span>
+            </li>
+        ))}
+    </ul>
+);
 
 const CountryMarquee = () => (
     <section className="hm-reach" aria-label="Countries in our network">
@@ -655,14 +663,12 @@ const CountryMarquee = () => (
                 Our network
                 <span className="hm-reach-count">{networkCountries.length}</span>
             </p>
-            <ul className="hm-reach-list hm-reach-list--static">
-                {networkCountries.map((c) => (
-                    <li key={c.code} className="hm-reach-item" title={c.role}>
-                        <Flag code={c.code} />
-                        <span>{c.name}</span>
-                    </li>
-                ))}
-            </ul>
+            <div className="hm-reach-viewport">
+                <div className="hm-reach-track">
+                    <CountryRow />
+                    <CountryRow hidden />
+                </div>
+            </div>
         </div>
     </section>
 );
@@ -705,102 +711,32 @@ const IndustriesGallery = () => {
     );
 };
 
-const ProductShowcase = () => {
-    const [active, setActive] = useState(0);
-    const product = products[active];
-
-    const onTabKey = (e) => {
-        const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
-        if (!(e.key in keys)) return;
-        e.preventDefault();
-        const next = (active + keys[e.key] + products.length) % products.length;
-        setActive(next);
-        e.currentTarget.querySelectorAll('[role="tab"]')[next]?.focus();
-    };
-
-    return (
-        <div className="hm-prod">
-            <div
-                className="hm-prod-list"
-                role="tablist"
-                aria-label="Our products"
-                aria-orientation="vertical"
-                onKeyDown={onTabKey}
-            >
-                {products.map((p, i) => (
-                    <button
-                        key={p.title}
-                        type="button"
-                        role="tab"
-                        id={`px-tab-${i}`}
-                        aria-selected={i === active}
-                        aria-controls="px-panel"
-                        tabIndex={i === active ? 0 : -1}
-                        className={i === active ? 'is-active' : undefined}
-                        onClick={() => setActive(i)}
-                    >
-                        <span>{String(i + 1).padStart(2, '0')}</span>
-                        <span>
-                            <strong>{p.title}</strong>
-                            <small>{p.audience}</small>
-                        </span>
-                    </button>
-                ))}
-                <Link to={contactLink('Product enquiry')} className="hm-prod-help">
-                    <span>
-                        <strong>Not sure which fits?</strong>
-                        <small>Talk to our product team</small>
-                    </span>
-                    <ArrowUpRight size={18} aria-hidden="true" />
-                </Link>
-            </div>
-
-            <div id="px-panel" className="hm-prod-stage" role="tabpanel" aria-labelledby={`px-tab-${active}`}>
-                <div className="hm-pd-browser">
-                    <span className="hm-pd-browser-bar">
-                        <span className="hm-pd-browser-dots" aria-hidden="true"><i /><i /><i /></span>
-                        <span className="hm-pd-browser-title">{product.title}</span>
-                        <span className={`hm-badge ${product.badgeClass}`}>
-                            <span className="hm-badge-dot" aria-hidden="true" />
-                            {product.badge}
-                        </span>
-                    </span>
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.img
-                            key={product.image}
-                            src={product.image}
-                            alt={product.alt}
-                            width="1024"
-                            height="463"
-                            loading="lazy"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.35, ease: EASE_OUT }}
-                        />
-                    </AnimatePresence>
-                </div>
-                <AnimatePresence mode="wait" initial={false}>
-                    <motion.div
-                        key={product.title}
-                        className="hm-prod-copy"
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8, transition: { duration: 0.14 } }}
-                        transition={{ duration: 0.35, ease: EASE_OUT }}
-                    >
-                        <h3>
-                            {product.title}
-                            {active === 0 && (
+const ProductShowcase = () => (
+    <>
+        <ul className="hm-prod">
+            {products.map((product) => (
+                <li key={product.title} className="hm-prod-card">
+                    <Link to={product.to} className="hm-prod-shot">
+                        <img src={product.image} alt={product.alt} width="1024" height="640" loading="lazy" />
+                    </Link>
+                    <div className="hm-prod-copy">
+                        <p className="hm-prod-meta">
+                            <span className={`hm-badge ${product.badgeClass}`}>
+                                <span className="hm-badge-dot" aria-hidden="true" />
+                                {product.badge}
+                            </span>
+                            <span>{product.audience}</span>
+                            {product.title === 'LearnX' && (
                                 <span className="hm-prod-flag">
                                     <Sparkles size={12} aria-hidden="true" /> Flagship
                                 </span>
                             )}
-                        </h3>
+                        </p>
+                        <h3>{product.title}</h3>
                         <p>{product.desc}</p>
                         <ul>
-                            {product.features.map((f) => (
-                                <li key={f}><CheckCircle2 size={14} aria-hidden="true" /> {f}</li>
+                            {product.features.map((feature) => (
+                                <li key={feature}><CheckCircle2 size={14} aria-hidden="true" /> {feature}</li>
                             ))}
                         </ul>
                         <div className="hm-prod-actions">
@@ -811,12 +747,19 @@ const ProductShowcase = () => {
                                 {product.secondary.label} <ArrowRight size={15} />
                             </Link>
                         </div>
-                    </motion.div>
-                </AnimatePresence>
-            </div>
-        </div>
-    );
-};
+                    </div>
+                </li>
+            ))}
+        </ul>
+        <Link to={contactLink('Products')} className="hm-prod-help">
+            <span>
+                <strong>Not sure which fits?</strong>
+                <small>Talk to our product team</small>
+            </span>
+            <ArrowUpRight size={18} aria-hidden="true" />
+        </Link>
+    </>
+);
 
 const Home = () => {
     const pageRef = useRef(null);
@@ -833,21 +776,21 @@ const Home = () => {
                 aria-hidden="true"
             />
             <Helmet>
-                <title>KAM Global AI | Technology, Outsourcing &amp; Digital Solutions</title>
+                <title>KAM Global AI | Software, IT Outsourcing &amp; HR Services</title>
                 <meta
                     name="description"
-                    content="Explore KAM Global AI's technology services, digital products, and flexible outsourcing capabilities for organizations across industries."
+                    content="KAM Global AI delivers software development and IT services from India, outsourcing and business operations from the Philippines, and HR, recruitment, staffing and payroll."
                 />
                 <meta
                     name="keywords"
-                    content="KAM Global AI, technology services, outsourcing, BPO, customer experience, RPO, software development, cloud, BOT model, LearnX, EduAiTutors, India, Philippines"
+                    content="KAM Global AI, software development, IT services, IT outsourcing, software outsourcing, business process outsourcing, BPO, HR services, recruitment, staffing, payroll, India, Philippines"
                 />
                 <link rel="canonical" href="https://kamglobalai.com/" />
                 <meta property="og:url" content="https://kamglobalai.com/" />
-                <meta property="og:title" content="KAM Global AI | Technology, Outsourcing & Digital Solutions" />
+                <meta property="og:title" content="KAM Global AI | Software, IT Outsourcing & HR Services" />
                 <meta
                     property="og:description"
-                    content="Explore KAM Global AI's technology services, digital products, and flexible outsourcing capabilities for organizations across industries."
+                    content="Software development and IT services from India, outsourcing from the Philippines, and HR, recruitment, staffing and payroll."
                 />
             </Helmet>
 
@@ -863,8 +806,8 @@ const Home = () => {
                     <header className="hm-who-head">
                         <p className="hm-who-kicker">Who We Are</p>
                         <h2 id="hm-who-title">
-                            <span>Technology, Talent</span>
-                            <span>and Operations</span>
+                            <span>Technology, Talent,</span>
+                            <span>Operations and Media</span>
                         </h2>
                         <p className="hm-who-aim">Aligned to <span>your goals</span></p>
                     </header>
@@ -872,10 +815,10 @@ const Home = () => {
                     <p className="hm-who-lead">
                         KAM Global AI is a technology and workforce services company. It provides software
                         development, AI and automation, data and analytics, cloud and DevOps, managed IT, HR and
-                        recruitment services, and global outsourcing, with technology delivery from India and
-                        business operations support from the Philippines. Whether you are building a platform,
-                        improving IT operations, expanding customer-facing capacity or hiring, we can help you
-                        define the next step.
+                        recruitment services, global outsourcing, and AI video, design and content, with technology
+                        delivery from India and business operations support from the Philippines. Whether you are
+                        building a platform, improving IT operations, expanding customer-facing capacity or hiring,
+                        we can help you define the next step.
                     </p>
 
                     <div className="hm-who-grid">
@@ -895,7 +838,7 @@ const Home = () => {
                                     </span>
                                     <span>
                                         <MapPin size={15} aria-hidden="true" />
-                                        <span><strong>One partner, three service lines</strong><small>Kuwait · India · Philippines</small></span>
+                                        <span><strong>One partner, four service lines</strong><small>Kuwait · India · Philippines</small></span>
                                     </span>
                                 </figcaption>
                             </div>
@@ -932,7 +875,7 @@ const Home = () => {
                                 </div>
                                 <div>
                                     <strong>
-                                        <CountUp end={3} duration={2} enableScrollSpy scrollSpyOnce />
+                                        <CountUp end={4} duration={2} enableScrollSpy scrollSpyOnce />
                                     </strong>
                                     <span>Service lines</span>
                                 </div>
@@ -942,6 +885,10 @@ const Home = () => {
                                     </strong>
                                     <span>Countries in our network</span>
                                 </div>
+                            </div>
+
+                            <div className="hm-who-iso">
+                                <IsoBadge />
                             </div>
 
                             <div className="hm-who-actions">
@@ -1014,11 +961,12 @@ const Home = () => {
                     <header className="hm-band-head">
                         <p className="hm-who-kicker">How can we help you?</p>
                         <h2 id="hm-help-title">
-                            <span>Three service lines</span>
+                            <span>Pick the work</span>
+                            <span>you need</span>
                         </h2>
-                        <p className="hm-band-lead">Pick where to start. Technology from India. Operations from the Philippines. HR in the markets we already serve.</p>
+                        <p className="hm-band-lead">Each line shows what the work includes, where it is delivered, and how to start.</p>
                     </header>
-                    <div className="hm-help-grid">
+                    <div className="hm-help-list">
                         {helpLines.map((line) => <HelpCard key={line.id} line={line} />)}
                     </div>
                 </div>
@@ -1058,8 +1006,7 @@ const Home = () => {
                             <span>from KAM Global AI</span>
                         </h2>
                         <p className="hm-band-lead">
-                            Discover LearnX, EduAiTutors, and our AI-powered learning platform offerings — from school
-                            ERP to competitive exam coaching.
+                            LearnX for schools, EduAiTutors for NEET and JEE, and an AI-powered LMS from Pre-KG to Grade 12.
                         </p>
                     </header>
                     <ProductShowcase />
@@ -1076,7 +1023,7 @@ const Home = () => {
                 <div className="container">
                     <header className="hm-band-head">
                         <p className="hm-who-kicker">How We Work</p>
-                        <h2 id="hm-work-title">
+                        <h2 id="hm-work-title" className="hm-work-title">
                             <span>Clear scope.</span>
                             <span>Collaborative delivery.</span>
                         </h2>
@@ -1113,7 +1060,7 @@ const Home = () => {
                                     </span>
                                     <span>
                                         <strong>One accountable partner</strong>
-                                        <small>Across three service lines</small>
+                                        <small>Across four service lines</small>
                                     </span>
                                 </figcaption>
                             </figure>
@@ -1138,7 +1085,7 @@ const Home = () => {
                             </header>
                             <Reveal delay={0.2} y={16}>
                                 <p className="hm-wy-lead">
-                                    Clients choose us for one accountable partner across technology, operations and HR
+                                    Clients choose us for one accountable partner across technology, AI media, operations and HR
                                     &amp; workforce: regional relationships and governance paired with cost-efficient,
                                     high-quality delivery.
                                 </p>
@@ -1173,6 +1120,7 @@ const Home = () => {
                             </Reveal>
                         </div>
                     </div>
+                    <ClientTrust />
                 </div>
             </section>
 
@@ -1182,121 +1130,14 @@ const Home = () => {
                     <header className="hm-band-head">
                         <p className="hm-who-kicker">Global Presence</p>
                         <h2>
-                            <span>Three hubs. Eight countries.</span>
+                            <span>Three hubs. Nine countries.</span>
                             <span>One delivery standard.</span>
                         </h2>
                         <p className="hm-band-lead">
-                            Kuwait holds the group relationship. The same delivery reaches partner markets across the GCC and the USA.
+                            Kuwait holds the group relationship. The same delivery reaches the countries in our network.
                         </p>
                     </header>
                     <PresenceNetwork />
-                </div>
-            </section>
-
-            {/* 13. Final CTA */}
-            <section className="hm-cta">
-                <div className="container">
-                    <motion.div
-                        className="hm-talk"
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ ...VIEWPORT, amount: 0.1 }}
-                        transition={{ duration: 0.8, ease: EASE_OUT }}
-                    >
-                        <div className="hm-talk-main rv-spot" onPointerMove={trackPointer}>
-                            <svg className="hm-cta-art" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                                <g fill="none" stroke="currentColor" strokeWidth="1">
-                                    <ellipse cx="600" cy="200" rx="520" ry="150" />
-                                    <ellipse cx="600" cy="200" rx="380" ry="110" />
-                                    <ellipse cx="600" cy="200" rx="230" ry="66" />
-                                    <path d="M80 200 Q600 -40 1120 200" />
-                                    <path d="M80 200 Q600 440 1120 200" />
-                                </g>
-                            </svg>
-                            <motion.div className="hm-talk-copy" {...gridMotion(0.1, 0.2)}>
-                                <motion.p className="hm-who-kicker" variants={fadeUpItem}>Let&apos;s talk</motion.p>
-                                <motion.h2 variants={fadeUpItem}>
-                                    <span>Build what</span>
-                                    <span>comes next</span>
-                                </motion.h2>
-                                <motion.p variants={fadeUpItem}>
-                                    Technology, talent, and operations aligned to your business goals. Share the
-                                    requirement and we will discuss a suitable next step after the scope is clear.
-                                </motion.p>
-                                <motion.ul className="hm-talk-points" variants={staggerParent(0.08)}>
-                                    <motion.li variants={fadeUpItem}><CheckCircle2 size={15} aria-hidden="true" /> Free consultation for qualified enquiries</motion.li>
-                                    <motion.li variants={fadeUpItem}><CheckCircle2 size={15} aria-hidden="true" /> Modular product &amp; service engagement</motion.li>
-                                    <motion.li variants={fadeUpItem}><CheckCircle2 size={15} aria-hidden="true" /> Onboarding support included</motion.li>
-                                </motion.ul>
-                                <motion.div className="hm-talk-actions" variants={fadeUpItem}>
-                                    <Link to="/contact" className="hm-btn hm-btn-accent">
-                                        Discuss Your Requirements <ArrowRight size={16} />
-                                    </Link>
-                                    <Link to={contactLink('Request a Proposal')} className="hm-btn hm-btn-secondary">
-                                        Request a Proposal
-                                    </Link>
-                                </motion.div>
-                                <motion.div variants={fadeUpItem}>
-                                    <Link to="/products/learnx#demo" className="hm-cta-tertiary">
-                                        Looking for LearnX? Book a demo <ArrowRight size={14} />
-                                    </Link>
-                                </motion.div>
-                            </motion.div>
-
-                            <div className="hm-talk-direct">
-                                <span className="hm-talk-direct-label">Prefer to talk directly?</span>
-                                <div className="hm-talk-direct-list">
-                                    {directContacts.map((c) => (
-                                        <a key={c.href} href={c.href} className="hm-talk-direct-item">
-                                            {c.code ? (
-                                                <Flag code={c.code} />
-                                            ) : (
-                                                <span className="hm-talk-direct-icon" aria-hidden="true"><Mail size={14} /></span>
-                                            )}
-                                            <span>
-                                                <small>{c.label}</small>
-                                                <strong>{c.value}</strong>
-                                            </span>
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <aside className="hm-talk-panel" aria-labelledby="cta-panel-title">
-                            <span className="hm-talk-step-tag">Step 1 of 2</span>
-                            <h3 id="cta-panel-title" className="hm-talk-panel-title">What do you need help with?</h3>
-                            <p className="hm-talk-panel-sub">Pick a starting point — we&apos;ll pre-fill the enquiry for you.</p>
-                            <motion.div className="hm-talk-intents" {...gridMotion(0.07, 0.3)}>
-                                {ctaIntents.map((it, i) => (
-                                    <MotionLink
-                                        key={it.subject}
-                                        to={contactLink(it.subject)}
-                                        className={'hm-talk-intent' + (i === ctaIntents.length - 1 ? ' hm-talk-intent--wide' : '')}
-                                        variants={fadeUpItem}
-                                    >
-                                        <span className="hm-talk-intent-icon" aria-hidden="true"><it.icon size={18} /></span>
-                                        <span className="hm-talk-intent-text">
-                                            <strong>{it.title}</strong>
-                                            <small>{it.hint}</small>
-                                        </span>
-                                        <ArrowUpRight size={16} className="hm-talk-intent-arrow" aria-hidden="true" />
-                                    </MotionLink>
-                                ))}
-                            </motion.div>
-                            <div className="hm-talk-next">
-                                <span className="hm-talk-next-title">What happens next</span>
-                                <ol>
-                                    {ctaNextSteps.map((s, i) => (
-                                        <li key={s}>
-                                            <span className="hm-talk-next-num">{i + 1}</span>
-                                            {s}
-                                        </li>
-                                    ))}
-                                </ol>
-                            </div>
-                        </aside>
-                    </motion.div>
                 </div>
             </section>
         </div>

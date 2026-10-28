@@ -3,8 +3,8 @@ import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Download, Mail, Phone, Send, Loader } from 'lucide-react';
 import { useAdminData } from './useAdminData';
 import { adminRequest, canEdit, downloadFile } from './session';
-import { PageTitle, Spinner, ErrorNote, Badge } from './AdminUi';
-import { APP_STATUSES, appStatusLabel, boardLabel, formatDate } from './format';
+import { PageTitle, Spinner, ErrorNote, Badge, Field } from './AdminUi';
+import { APP_STATUSES, INTERVIEW_MODES, INTERVIEW_OUTCOMES, INTERVIEW_ROUNDS, appStatusLabel, boardLabel, formatDate, serviceLineLabel } from './format';
 
 const safeUrl = (url) => (/^https?:\/\//i.test(url || '') ? url : null);
 
@@ -12,6 +12,7 @@ const ApplicationDetail = ({ user }) => {
     const { id } = useParams();
     const { data, error, loading, reload } = useAdminData(`/api/admin/applications/${id}`);
     const [note, setNote] = useState('');
+    const [meeting, setMeeting] = useState({ round: 'screening', scheduledAt: '', mode: 'video', interviewer: '', notes: '' });
     const [busy, setBusy] = useState(false);
     const [actionError, setActionError] = useState('');
     const editable = canEdit(user);
@@ -23,6 +24,7 @@ const ApplicationDetail = ({ user }) => {
         try {
             await adminRequest(`/api/admin/applications/${id}`, { method: 'PATCH', body });
             setNote('');
+            if (body.interview) setMeeting({ round: 'screening', scheduledAt: '', mode: 'video', interviewer: '', notes: '' });
             reload();
         } catch (err) {
             setActionError(err.message);
@@ -71,6 +73,7 @@ const ApplicationDetail = ({ user }) => {
         ['Portfolio', safeUrl(a.portfolioUrl) && <a href={a.portfolioUrl} target="_blank" rel="noopener noreferrer">{a.portfolioUrl}</a>],
         ['Board', boardLabel(a.board)],
         ['Job posting', a.job && <Link to={`/admin/jobs/${a.job._id}`}>{a.job.title} ({a.job.location})</Link>],
+        ['Service line', a.job?.serviceLine && serviceLineLabel(a.job.serviceLine)],
         ['Applied', formatDate(a.appliedAt, true)],
     ].filter(([, v]) => v);
 
@@ -133,6 +136,60 @@ const ApplicationDetail = ({ user }) => {
                             ))}
                         </div>
                     )}
+                    <h2>Interview schedule</h2>
+                    {editable && (
+                        <form
+                            className="adm-note-form"
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                if (!meeting.scheduledAt) return;
+                                update({ interview: meeting });
+                            }}
+                        >
+                            <div className="adm-grid">
+                                <Field label="Round">
+                                    <select value={meeting.round} onChange={(e) => setMeeting((m) => ({ ...m, round: e.target.value }))}>
+                                        {INTERVIEW_ROUNDS.map((r) => <option key={r.value} value={r.value}>{r.label}</option>)}
+                                    </select>
+                                </Field>
+                                <Field label="Date and time">
+                                    <input type="datetime-local" required value={meeting.scheduledAt} onChange={(e) => setMeeting((m) => ({ ...m, scheduledAt: e.target.value }))} />
+                                </Field>
+                                <Field label="How">
+                                    <select value={meeting.mode} onChange={(e) => setMeeting((m) => ({ ...m, mode: e.target.value }))}>
+                                        {INTERVIEW_MODES.map((m) => <option key={m.value} value={m.value}>{m.label}</option>)}
+                                    </select>
+                                </Field>
+                                <Field label="Interviewer">
+                                    <input maxLength={80} value={meeting.interviewer} onChange={(e) => setMeeting((m) => ({ ...m, interviewer: e.target.value }))} placeholder="Name" />
+                                </Field>
+                            </div>
+                            <label className="sr-only" htmlFor="adm-interview-note">Interview note</label>
+                            <textarea id="adm-interview-note" rows={2} maxLength={1000} value={meeting.notes} onChange={(e) => setMeeting((m) => ({ ...m, notes: e.target.value }))} placeholder="What this round covers" />
+                            <button type="submit" className="adm-btn" disabled={busy || !meeting.scheduledAt}>Schedule</button>
+                        </form>
+                    )}
+                    {a.interviews?.length ? (
+                        <ul className="adm-interviews">
+                            {[...a.interviews].reverse().map((item) => (
+                                <li key={item._id}>
+                                    <strong>{INTERVIEW_ROUNDS.find((r) => r.value === item.round)?.label || item.round}</strong>
+                                    <span>{formatDate(item.scheduledAt, true)} · {INTERVIEW_MODES.find((m) => m.value === item.mode)?.label || item.mode}{item.interviewer ? ` · ${item.interviewer}` : ''}</span>
+                                    {item.notes && <p>{item.notes}</p>}
+                                    {editable ? (
+                                        <select
+                                            aria-label="Interview outcome"
+                                            value={item.outcome}
+                                            disabled={busy}
+                                            onChange={(e) => update({ interviewUpdate: { id: item._id, outcome: e.target.value } })}
+                                        >
+                                            {INTERVIEW_OUTCOMES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+                                        </select>
+                                    ) : <small>{INTERVIEW_OUTCOMES.find((o) => o.value === item.outcome)?.label}</small>}
+                                </li>
+                            ))}
+                        </ul>
+                    ) : <p className="adm-muted">No interviews scheduled.</p>}
                     <h2>Notes &amp; history</h2>
                     {editable && (
                         <form className="adm-note-form" onSubmit={(e) => { e.preventDefault(); if (note.trim()) update({ note }); }}>

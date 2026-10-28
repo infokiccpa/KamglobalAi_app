@@ -1,0 +1,81 @@
+/* Navy light sweep used on homepage section titles and page headings. */
+
+@keyframes kg-heading-sheen {
+    0%,
+    22% { background-position: 100% 0; }
+    48%,
+    100% { background-position: 0% 0; }
+}
+
+body .hm-who-head h2 span,
+body .hm-bm-head h2 span,
+body .hm-band-head h2 span,
+body .hm-work-title span,
+body .pg-hero h1,
+body .ab-hero h1,
+body .car-hero h1,
+body .svc-hero h1,
+body .lx-hero h1,
+body .legal-header h1,
+body .sidebar-job-card h1,
+body .hr-hero h1 .hr-word,
+body .hr-head:not(.hr-head--light) h2,
+body .pg-section-head h2,
+body .pg-section--navy .pg-section-head h2,
+body .pg-split-copy h2,
+body .pg-section--navy .pg-split-copy h2,
+body :is(h1, h2) .rv-word-inner:not(.rv-accent) {
+    color: transparent;
+    background-image: linear-gradient(
+        105deg,
+        #0c213d 0%,
+        #0c213d 42%,
+        #4d6d92 49%,
+        #f7b15a 51%,
+        #0c213d 58%,
+        #0c213d 100%
+    );
+    background-size: 240% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: kg-heading-sheen 8s ease-in-out infinite;
+}
+
+body .ab-head--light :is(h1, h2) .rv-word-inner {
+    animation: none;
+    color: #fff;
+    background: none;
+    -webkit-text-fill-color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body .hm-who-head h2 span,
+    body .hm-bm-head h2 span,
+    body .hm-band-head h2 span,
+    body .hm-work-title span,
+    body .pg-hero h1,
+    body .ab-hero h1,
+    body .car-hero h1,
+    body .svc-hero h1,
+    body .lx-hero h1,
+    body .legal-header h1,
+    body .sidebar-job-card h1,
+    body .hr-hero h1 .hr-word,
+    body .hr-head:not(.hr-head--light) h2,
+    body .pg-section-head h2,
+    body .pg-section--navy .pg-section-head h2,
+    body .pg-split-copy h2,
+    body .pg-section--navy .pg-split-copy h2,
+    body :is(h1, h2) .rv-word-inner:not(.rv-accent) {
+        animation: none;
+        color: #0c213d;
+        background: none;
+        -webkit-text-fill-color: #0c213d;
+    }
+
+    body .ab-head--light :is(h1, h2) .rv-word-inner {
+        color: #fff;
+        -webkit-text-fill-color: #fff;
+    }
+}

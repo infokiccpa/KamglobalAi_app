@@ -335,6 +335,7 @@ export default function BOTModel() {
                 primary={{ label: service.hero.cta, to: primaryLink }}
                 secondary={{ label: 'Book a Discovery Call', to: callLink }}
                 tertiary={{ label: 'Contact Our Team', to: '/contact' }}
+                jobs
             />
         </div>
     );
