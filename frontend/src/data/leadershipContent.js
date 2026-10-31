@@ -47,7 +47,7 @@ export const teamDepartments = [
         alt: 'KAM Global AI media team in matching navy polos at our India office',
         summary: 'AI-assisted video, design and content that tells your story across every channel.',
         points: ['AI video & motion content', 'Brand design & social creatives', 'Product demos & marketing media'],
-        link: { label: 'Marketing & creative', to: '/outsourcing/digital-marketing-creative' }
+        link: { label: 'AI Media & Creative', to: '/services/ai-media-creative' }
     },
     {
         key: 'ai-data',
@@ -57,7 +57,7 @@ export const teamDepartments = [
         alt: 'AI and data team discussing analytics dashboards on a large display',
         summary: 'Applied AI, analytics and automation built into real business workflows.',
         points: ['AI assistants & process automation', 'Data engineering & dashboards', 'AI features across our products'],
-        link: { label: 'AI, data & automation', to: '/services/ai-automation' }
+        link: { label: 'AI & automation', to: '/services/it-technology/ai-automation' }
     },
     {
         key: 'operations',
@@ -67,7 +67,7 @@ export const teamDepartments = [
         alt: 'Customer experience team wearing headsets in a modern contact centre',
         summary: 'CX, sales support, BPO and back-office teams that extend your operations.',
         points: ['Customer support & CX', 'Sales & lead generation support', 'BPO, RPO & virtual assistance'],
-        link: { label: 'Outsourcing services', to: '/outsourcing' }
+        link: { label: 'Business Outsourcing', to: '/services/business-outsourcing' }
     },
     {
         key: 'hr',
@@ -75,9 +75,9 @@ export const teamDepartments = [
         location: 'India · GCC',
         image: '/images/about/team-hr.webp',
         alt: 'HR and recruitment team reviewing candidate profiles on a tablet',
-        summary: 'Recruitment, staffing, payroll and workforce advisory under one roof.',
-        points: ['Permanent & contract hiring', 'Payroll & compliance support', 'Executive search & verification'],
-        link: { label: 'HR & workforce', to: '/hr' }
+        summary: 'Recruitment, staffing and payroll administration for employers.',
+        points: ['Permanent and contract hiring', 'Payroll administration', 'Executive search'],
+        link: { label: 'HR Solutions', to: '/services/hr-solutions' }
     },
     {
         key: 'education',

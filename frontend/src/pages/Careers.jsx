@@ -14,11 +14,6 @@ import {
     Briefcase,
     MapPin,
     Users,
-    Code2,
-    Bot,
-    Cloud,
-    Headset,
-    Megaphone,
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { useJobs } from '../lib/useJobs';
@@ -37,32 +32,58 @@ const benefits = [
 // Sample roles are for local development only; production shows the empty state if the jobs API is unreachable.
 const fallbackJobs = import.meta.env.DEV
     ? [
-        { title: 'AI Developer', team: 'Engineering', location: 'Bengaluru, India', id: '1', experience: '3+ Years', skills: ['Python', 'PyTorch', 'NLP'] },
-        { title: 'Digital Marketing', team: 'Strategy', location: 'Bengaluru, India', id: '2', experience: '2+ Years', skills: ['SEO', 'SEM', 'Social Media'] },
-        { title: 'Full Stack Developer', team: 'Engineering', location: 'Bengaluru, India', experience: '5+ Years', id: '3', skills: ['React', 'Node.js', 'AWS'] },
-        { title: 'Technical Support', team: 'Support', location: 'Bengaluru, India', id: '4', experience: '1+ Year', skills: ['Troubleshooting', 'CRM', 'Communication'] },
+        { title: 'AI Developer', team: 'Engineering', location: 'Bengaluru, India', id: '1', experience: '3+ Years', skills: ['Python', 'PyTorch', 'NLP'], serviceLine: 'it-technology' },
+        { title: 'Digital Marketing', team: 'Strategy', location: 'Bengaluru, India', id: '2', experience: '2+ Years', skills: ['SEO', 'SEM', 'Social Media'], serviceLine: 'ai-media-creative' },
+        { title: 'Full Stack Developer', team: 'Engineering', location: 'Bengaluru, India', experience: '5+ Years', id: '3', skills: ['React', 'Node.js', 'AWS'], serviceLine: 'it-technology' },
+        { title: 'Technical Support', team: 'Support', location: 'Bengaluru, India', id: '4', experience: '1+ Year', skills: ['Troubleshooting', 'CRM', 'Communication'], serviceLine: 'business-outsourcing' },
     ]
     : [];
 
 const toCareersJob = (job) => ({ ...job, team: job.department || job.category, skills: [] });
 
 const jumpLinks = [
-    { href: '#teams', label: 'Teams' },
+    { href: '#jobs', label: 'Open Roles' },
     { href: '#what-to-expect', label: 'What to Expect' },
     { href: '#benefits', label: 'Benefits' },
     { href: '#culture', label: 'Culture' },
-    { href: '#jobs', label: 'Open Roles' },
     { href: '#talent', label: 'Apply' },
 ];
 
-const teamAreas = [
-    { icon: Code2, title: 'Software Engineering', desc: 'Build products, platforms, and client delivery work.' },
-    { icon: Bot, title: 'AI & Data', desc: 'Practical AI, analytics, and automation use cases.' },
-    { icon: Cloud, title: 'Cloud & DevOps', desc: 'Environments, releases, and reliability support.' },
-    { icon: Headset, title: 'Customer Experience', desc: 'Service quality, support workflows, and operations.' },
-    { icon: Users, title: 'Sales & Recruitment Support', desc: 'Pipeline, coordination, and hiring workflows.' },
-    { icon: Megaphone, title: 'Marketing & Operations', desc: 'Campaigns, content, and day-to-day coordination.' },
+const serviceFilters = [
+    { id: 'All', label: 'All services' },
+    { id: 'it-technology', label: 'IT & Technology' },
+    { id: 'ai-media-creative', label: 'AI Media & Creative' },
+    { id: 'business-outsourcing', label: 'Business Outsourcing' },
+    { id: 'hr-solutions', label: 'HR Solutions' },
+    { id: 'edtech', label: 'EdTech' },
 ];
+
+const serviceOf = (job) => {
+    const line = String(job.serviceLine || '').toLowerCase();
+    const known = {
+        technology: 'it-technology',
+        'it-technology': 'it-technology',
+        operations: 'business-outsourcing',
+        'business-outsourcing': 'business-outsourcing',
+        hr: 'hr-solutions',
+        'hr-solutions': 'hr-solutions',
+        'ai-media-creative': 'ai-media-creative',
+        edtech: 'edtech',
+    };
+    if (known[line]) return known[line];
+    const blob = `${job.title || ''} ${job.team || ''} ${job.category || ''} ${job.department || ''}`.toLowerCase();
+    const rules = [
+        ['edtech', ['edtech', 'education', 'learnx', 'tutor', 'school']],
+        ['ai-media-creative', ['media', 'creative', 'video', 'design', 'content', 'marketing']],
+        ['hr-solutions', ['recruit', 'staffing', 'payroll', 'workforce']],
+        ['business-outsourcing', ['outsourc', 'bpo', 'customer', 'support', 'operations', 'virtual']],
+        ['it-technology', ['software', 'developer', 'engineer', 'cloud', 'devops', 'data']],
+    ];
+    const hit = rules.find(([, words]) => words.some((word) => blob.includes(word)));
+    return hit ? hit[0] : '';
+};
+
+const serviceLabel = (job) => serviceFilters.find((item) => item.id === serviceOf(job))?.label || job.team;
 
 const expectSteps = [
     { title: 'Apply', desc: 'Share your profile for an open role or the talent network.' },
@@ -83,24 +104,24 @@ const Eyebrow = ({ children, center, lines = true }) => (
 const Careers = () => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
-    const [activeCategory, setActiveCategory] = useState('All');
+    const [activeService, setActiveService] = useState('All');
 
-    const { status, jobs: apiJobs } = useJobs('careers', fallbackJobs);
+    const { status, jobs: apiJobs } = useJobs('', fallbackJobs);
     const jobs = useMemo(() => (status === 'ready' ? apiJobs.map(toCareersJob) : apiJobs), [status, apiJobs]);
-    const categories = useMemo(() => ['All', ...new Set(jobs.map((j) => j.team).filter(Boolean))], [jobs]);
+
+    const filteredJobs = useMemo(() => {
+        return jobs.filter((job) => {
+            const haystack = `${job.title} ${job.team || ''} ${job.location || ''}`.toLowerCase();
+            const matchesSearch = haystack.includes(searchTerm.toLowerCase());
+            const matchesService = activeService === 'All' || serviceOf(job) === activeService;
+            return matchesSearch && matchesService;
+        });
+    }, [jobs, searchTerm, activeService]);
 
     const handleApply = (job) => {
         if (job.applyTo) navigate(job.applyTo);
         else navigate('/apply-now', { state: { job } });
     };
-
-    const filteredJobs = useMemo(() => {
-        return jobs.filter((job) => {
-            const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesCategory = activeCategory === 'All' || job.team === activeCategory;
-            return matchesSearch && matchesCategory;
-        });
-    }, [jobs, searchTerm, activeCategory]);
 
     return (
         <div className="careers-page">
@@ -169,10 +190,10 @@ const Careers = () => {
                     <div className="car-section-header car-section-header--left">
                         <Eyebrow>Open Positions</Eyebrow>
                         <h2>Current Opportunities</h2>
-                        <p>Find your next role and apply directly through our application portal.</p>
+                        <p>Every open role is listed here, under the service it belongs to. Service pages do not repeat these openings.</p>
                     </div>
 
-                    {jobs.length > 0 && <div className="car-jobs-toolbar">
+                    <div className="car-jobs-toolbar">
                         <div className="car-search">
                             <Search size={18} aria-hidden="true" />
                             <input
@@ -183,19 +204,19 @@ const Careers = () => {
                                 aria-label="Search jobs"
                             />
                         </div>
-                        <div className="car-filters" role="group" aria-label="Filter by category">
-                            {categories.map((cat) => (
+                        <div className="car-filters" role="group" aria-label="Filter by service">
+                            {serviceFilters.map((service) => (
                                 <button
-                                    key={cat}
+                                    key={service.id}
                                     type="button"
-                                    className={`car-filter-btn${activeCategory === cat ? ' car-filter-btn--active' : ''}`}
-                                    onClick={() => setActiveCategory(cat)}
+                                    className={`car-filter-btn${activeService === service.id ? ' car-filter-btn--active' : ''}`}
+                                    onClick={() => setActiveService(service.id)}
                                 >
-                                    {cat}
+                                    {service.label}
                                 </button>
                             ))}
                         </div>
-                    </div>}
+                    </div>
 
                     {jobs.length > 0 && (
                         <p className="car-results-count">
@@ -218,13 +239,13 @@ const Careers = () => {
                                     <>
                                         <Briefcase size={22} aria-hidden="true" />
                                         <h3>No open positions right now</h3>
-                                        <p>Send a general application and we will contact you when a matching role opens.</p>
+                                        <p>Openings are published on this page only. Send a general application and we will contact you when a matching role opens.</p>
                                         <Link to="/apply-now" className="car-btn car-btn-primary">
                                             General application <ArrowRight size={16} aria-hidden="true" />
                                         </Link>
                                     </>
                                 ) : (
-                                    <p>No positions match your search. Try a different keyword or category.</p>
+                                    <p>No open roles in this service right now. Try another service, or send a general application.</p>
                                 )}
                             </motion.div>
                         ) : (
@@ -246,7 +267,7 @@ const Careers = () => {
                                             {job.title}
                                         </button>
                                         <div className="car-job-meta">
-                                            <span><Briefcase size={14} /> {job.team}</span>
+                                            <span><Briefcase size={14} /> {serviceLabel(job)}</span>
                                             <span><MapPin size={14} /> {job.location}</span>
                                             {job.experience && (
                                                 <span className="car-job-exp">{job.experience}</span>
@@ -272,41 +293,6 @@ const Careers = () => {
                             ))
                         )}
                     </AnimatePresence>
-                </div>
-            </section>
-
-            <section id="teams" className="car-benefits">
-                <div className="container">
-                    <div className="car-section-header">
-                        <Eyebrow center>Teams</Eyebrow>
-                        <h2>Different Skills. Shared Commitment to Delivery.</h2>
-                        <p>
-                            Depending on approved openings, opportunities may span software engineering, AI and data,
-                            cloud and DevOps, QA, customer experience, sales support, recruitment, operations, and
-                            marketing.
-                        </p>
-                    </div>
-                    <div className="car-benefits-grid">
-                        {teamAreas.map((item, i) => {
-                            const Icon = item.icon;
-                            return (
-                                <motion.div
-                                    key={item.title}
-                                    className="car-benefit-card"
-                                    initial={{ opacity: 0, y: 16 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.4, delay: i * 0.05 }}
-                                >
-                                    <span className="car-benefit-icon" aria-hidden="true">
-                                        <Icon size={20} strokeWidth={1.75} />
-                                    </span>
-                                    <h3>{item.title}</h3>
-                                    <p>{item.desc}</p>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
                 </div>
             </section>
 

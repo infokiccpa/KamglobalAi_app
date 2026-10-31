@@ -98,30 +98,21 @@ const companyGroups = [
 
 const serviceGroups = [
     {
-        title: 'Technology',
+        title: 'Services',
         links: [
-            { label: 'All Services', to: '/services' },
-            { label: 'IT & Development', to: '/services/custom-development' },
-            { label: 'AI & Automation', to: '/services/ai-automation' },
-            { label: 'Cloud & DevOps', to: '/services/cloud-devops' },
-            { label: 'BOT Model', to: '/services/bot-model' },
+            { label: 'All services', to: '/services' },
+            { label: 'IT & Technology', to: '/services/it-technology' },
+            { label: 'AI Media & Creative', to: '/services/ai-media-creative' },
+            { label: 'Business Outsourcing', to: '/services/business-outsourcing' },
+            { label: 'HR Solutions', to: '/services/hr-solutions' },
+            { label: 'EdTech', to: '/services/edtech' },
         ],
     },
     {
-        title: 'Outsourcing',
+        title: 'People',
         links: [
-            { label: 'Global Outsourcing', to: '/outsourcing' },
-            { label: 'India Engine', to: '/outsourcing/india-engine' },
-            { label: 'Philippines Engine', to: '/outsourcing/philippines-engine' },
-        ],
-    },
-    {
-        title: 'HR & Workforce',
-        links: [
-            { label: 'HR & Workforce', to: '/hr' },
-            { label: 'Payroll Outsourcing', to: '/hr/services/payroll-outsourcing' },
-            { label: 'HR Technology', to: '/hr/technology' },
-            { label: 'Jobs', to: '/hr/jobs' },
+            { label: 'Careers', to: '/careers' },
+            { label: 'Partnership', to: '/about#for-partners' },
         ],
     },
     {
@@ -256,11 +247,11 @@ const Footer = () => {
                         <motion.div className="footer-brand" variants={column}>
                             <Link to="/" className="footer-logo">
                                 <img
-                                    src="/logo-mark.png?v=7"
+                                    src="/logo.png?v=5"
                                     alt=""
                                     className="footer-logo-mark"
-                                    width={199}
-                                    height={120}
+                                    width={659}
+                                    height={220}
                                     loading="lazy"
                                     decoding="async"
                                 />
@@ -323,7 +314,7 @@ const Footer = () => {
                                 <Link to="/contact#form" className="footer-loc-cta-btn">
                                     Send an enquiry <ArrowRight size={14} aria-hidden="true" />
                                 </Link>
-                                <Link to="/hr/jobs" className="footer-loc-cta-link">
+                                <Link to="/careers#jobs" className="footer-loc-cta-link">
                                     Looking for a job? Browse open roles
                                 </Link>
                             </div>
@@ -337,7 +328,6 @@ const Footer = () => {
                 <div className="container footer-bar-inner">
                     <p>
                         &copy; {new Date().getFullYear()} {COMPANY.legalName} All rights reserved.
-                        <span className="footer-bar-note">{COMPANY.brand} · {COMPANY.backing}</span>
                     </p>
                     <div className="footer-bar-links">
                         <Link to="/privacy">Privacy</Link>

@@ -27,7 +27,7 @@ const AdminLogin = () => {
     return (
         <main className="adm-login">
             <form className="adm-login-card" onSubmit={submit}>
-                <img src="/images/home%20page/kam-logo.png" alt="KAM Global" width="56" height="56" />
+                <img src="/logo.png?v=5" alt="Kam Global" width="659" height="220" />
                 <h1>Admin sign in</h1>
                 <p>Manage job openings, applications, enquiries and team access.</p>
                 <label className="adm-field">

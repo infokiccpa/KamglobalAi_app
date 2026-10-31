@@ -2,7 +2,6 @@ import {
     AnimatePresence,
     motion,
     MotionConfig,
-    useInView,
     useReducedMotion,
     useScroll,
     useTransform,
@@ -15,7 +14,6 @@ import CountUp from 'react-countup';
 import {
     ArrowRight,
     ArrowUpRight,
-    Globe,
     Laptop,
     Cloud,
     Users,
@@ -54,7 +52,6 @@ import {
 import HeroShowcase from '../components/HeroShowcase';
 import Flag from '../components/Flag';
 import { networkCountries } from '../data/countries';
-import { deliveryEngines } from '../data/deliveryEngines';
 import { OFFICE_SCHEDULES, localTime, useNow } from '../lib/officeHours';
 import { Reveal } from '../components/motion/Reveal';
 import {
@@ -63,6 +60,7 @@ import {
     fadeUpItem,
     staggerParent,
 } from '../components/motion/motionPresets';
+import { request } from '../lib/api';
 import './Home.css';
 import './HomeDepth.css';
 
@@ -169,47 +167,40 @@ const processPromises = [
 const advantages = [
     { icon: Briefcase, title: 'One accountable partner', desc: 'Technology, AI media, operations and HR & workforce coordinated through a single team and point of contact.' },
     { icon: Shield, title: 'KAM Group backing', desc: 'Enterprise stability, governance and Gulf regional trust from Kuwait.' },
-    { icon: Code2, title: 'India engineering talent', desc: 'Software, cloud, AI and data delivery without quality compromise.' },
+    { icon: Code2, title: 'India engineering talent', desc: 'Software, cloud, AI and data delivery from the Bengaluru team.' },
     { icon: Headset, title: 'Philippines operations', desc: 'Customer experience, sales support and back-office capacity.' },
-    { icon: UserSearch, title: 'HR & workforce reach', desc: 'Recruitment, staffing and payroll across India, the GCC and the USA.' },
+    { icon: UserSearch, title: 'HR & workforce reach', desc: 'Recruitment, staffing and payroll across India and the GCC.' },
     { icon: Layers, title: 'Consult, build and run', desc: 'Consulting, build, cloud, staffing, operations and products — Kuwait strategy with multi-hub execution.' },
 ];
 
 const whyLines = [
-    { icon: Code2, label: 'Technology', to: '/services' },
-    { icon: Clapperboard, label: 'AI media', to: '/outsourcing/digital-marketing-creative' },
-    { icon: Headset, label: 'Operations', to: '/outsourcing' },
-    { icon: UserSearch, label: 'HR & Workforce', to: '/hr' },
+    { icon: Code2, label: 'IT & Technology', to: '/services/it-technology' },
+    { icon: Clapperboard, label: 'AI Media & Creative', to: '/services/ai-media-creative' },
+    { icon: Headset, label: 'Business Outsourcing', to: '/services/business-outsourcing' },
+    { icon: UserSearch, label: 'HR Solutions', to: '/services/hr-solutions' },
+    { icon: GraduationCap, label: 'EdTech', to: '/services/edtech' },
 ];
 
 const whoFocus = [
     {
         n: '01',
-        title: 'Technology',
-        note: 'Software, AI, data, cloud and managed IT from India.',
-        to: '/services',
+        title: 'Clients',
+        note: 'You need work delivered. Read how a client engagement works, then choose a service.',
+        to: '/about#for-clients',
     },
     {
         n: '02',
-        title: 'Talent',
-        note: 'Recruitment, staffing and payroll across India, the GCC and the USA.',
-        to: '/hr',
+        title: 'Partners',
+        note: 'You want to deliver or sell with us. Read how a partnership starts. It is not a job application.',
+        to: '/about#for-partners',
     },
     {
         n: '03',
-        title: 'Operations',
-        note: 'Customer experience, sales support and back-office work from the Philippines.',
-        to: '/outsourcing',
-    },
-    {
-        n: '04',
-        title: 'AI media',
-        note: 'AI video, design and content.',
-        to: '/outsourcing/digital-marketing-creative',
+        title: 'Job seekers',
+        note: 'You want a role. Open roles are listed on Careers, grouped by service.',
+        to: '/careers#jobs',
     },
 ];
-
-const HELP_SLIDE_MS = 4200;
 
 const helpLines = [
     {
@@ -218,24 +209,23 @@ const helpLines = [
         icon: Laptop,
         title: 'IT and Technology',
         tagline: 'Software, cloud, AI and data, delivered from India.',
-        source: { label: 'India · Bengaluru', codes: ['IN'], to: '/outsourcing/india-engine' },
-        exploreLabel: 'Explore all services',
-        exploreTo: '/services',
+        source: { label: 'India · Bengaluru', codes: ['IN'], to: '/services/it-technology' },
+        exploreLabel: 'Explore IT & Technology',
+        exploreTo: '/services/it-technology',
         layout: 'list',
         client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('India Technology Delivery') },
         seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
         services: [
-            { icon: Brain, label: 'AI and automation', to: '/services/ai-automation' },
-            { icon: Laptop, label: 'Software and app development', to: '/services/custom-development' },
-            { icon: Cloud, label: 'Cloud and data', to: '/services/cloud-devops' },
-            { icon: Shield, label: 'Managed IT support', to: '/services/managed-it' },
+            { icon: Brain, label: 'AI and automation', to: '/services/it-technology/ai-automation' },
+            { icon: Laptop, label: 'Software and app development', to: '/services/it-technology/software-engineering' },
+            { icon: Cloud, label: 'Cloud and DevOps', to: '/services/it-technology/devops' },
+            { icon: Shield, label: 'Managed IT support', to: '/services/it-technology/managed-support' },
         ],
         roles: ['Software engineering', 'AI / ML', 'Cloud', 'DevOps', 'Data', 'QA', 'UI / UX', 'Technical support'],
         slides: [
-            { image: '/images/hero/hero-tech-india.webp', alt: 'Two software engineers reviewing code and a cloud diagram on dual monitors', title: 'Software and app development', sub: 'Web, mobile and product engineering' },
-            { image: '/images/pages/pg-svc-ai-data.jpg', alt: 'Analysts reviewing data dashboards on a wide monitor', title: 'AI and automation', sub: 'Workflows shaped around a defined use case' },
-            { image: '/images/pages/pg-svc-cloud.webp', alt: 'Engineer reviewing a cloud architecture diagram in a bright office', title: 'Cloud and DevOps', sub: 'Environments, releases and support' },
-            { image: '/images/hm-path-enterprise.webp', alt: 'Project lead and operations manager reviewing a delivery dashboard', title: 'Dedicated technology teams', sub: 'Staffing, offshore teams and BOT' },
+            { image: '/images/home/help/help-it-1.jpg', alt: 'A software engineer seen from behind, with a system diagram facing him on the monitor' },
+            { image: '/images/home/help/help-it-2.jpg', alt: 'Two colleagues drawing a simple unlabeled diagram on a glass board' },
+            { image: '/images/home/help/help-it-3.jpg', alt: 'An engineer looking into a server room while holding a closed notebook' },
         ],
     },
     {
@@ -244,26 +234,23 @@ const helpLines = [
         icon: Clapperboard,
         title: 'AI media',
         tagline: 'AI video, design and content from India.',
-        source: { label: 'India', codes: ['IN'], to: '/outsourcing/india-engine' },
-        exploreLabel: 'Explore AI media',
-        exploreTo: '/outsourcing/digital-marketing-creative',
+        source: { label: 'India', codes: ['IN'], to: '/services/ai-media-creative' },
+        exploreLabel: 'Explore AI Media & Creative',
+        exploreTo: '/services/ai-media-creative',
         layout: 'list',
         client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('Digital Marketing & Creative') },
         seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
         services: [
-            { icon: PenTool, label: 'Content and creative', to: '/outsourcing/digital-marketing-creative' },
-            { icon: Video, label: 'Video and motion', to: '/outsourcing/digital-marketing-creative' },
-            { icon: Search, label: 'SEO and campaign support', to: '/outsourcing/digital-marketing-creative' },
-            { icon: Megaphone, label: 'Marketing operations', to: '/outsourcing/digital-marketing-creative' },
+            { icon: PenTool, label: 'Brand and design', to: '/services/ai-media-creative/brand-strategy' },
+            { icon: Video, label: 'Video and motion', to: '/services/ai-media-creative/video-production' },
+            { icon: Search, label: 'SEO and content', to: '/services/ai-media-creative/seo-content' },
+            { icon: Megaphone, label: 'Marketing operations', to: '/services/ai-media-creative/advertising' },
         ],
         roles: ['Content', 'Brand design', 'Video editing', 'Motion', 'SEO support', 'Campaign coordination', 'Social creatives', 'Marketing operations'],
         slides: [
-            {
-                image: '/images/hero/ai-media-studio.webp',
-                alt: 'Creative team reviewing a video storyboard, design prints and content layouts in a bright studio',
-                title: 'AI video, design and content',
-                sub: 'Storyboards, brand design and short-form content',
-            },
+            { image: '/images/home/help/help-media-1.jpg', alt: 'An editor seen from behind, with a grid of stills facing him on the monitor' },
+            { image: '/images/home/help/help-media-2.jpg', alt: 'Hands arranging navy, cream, and orange color cards on a wooden table' },
+            { image: '/images/home/help/help-media-3.jpg', alt: 'Three colleagues looking at a wall screen of navy, cream, and orange blocks' },
         ],
     },
     {
@@ -282,23 +269,22 @@ const helpLines = [
             { code: 'TN', name: 'Tunisia' },
             { code: 'KE', name: 'Kenya' },
         ],
-        exploreLabel: 'Explore all services',
-        exploreTo: '/outsourcing',
+        exploreLabel: 'Explore Business Outsourcing',
+        exploreTo: '/services/business-outsourcing',
         layout: 'list',
         client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('Philippines Operations') },
         seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
         services: [
-            { icon: Headset, label: 'Customer service and support', to: '/outsourcing/customer-experience' },
-            { icon: BarChart3, label: 'Sales and lead generation', to: '/outsourcing/sales-lead-generation' },
-            { icon: FolderKanban, label: 'Back office and BPO', to: '/outsourcing/business-process-outsourcing' },
-            { icon: ClipboardCheck, label: 'Virtual assistance', to: '/outsourcing/virtual-assistance' },
+            { icon: Headset, label: 'Customer service and support', to: '/services/business-outsourcing/customer-support' },
+            { icon: BarChart3, label: 'Sales and lead generation', to: '/services/business-outsourcing/sales-support' },
+            { icon: FolderKanban, label: 'Back office and BPO', to: '/services/business-outsourcing/bpo' },
+            { icon: ClipboardCheck, label: 'Virtual assistance', to: '/services/business-outsourcing/virtual-assistance' },
         ],
         roles: ['Customer service', 'Telesales', 'Appointment setting', 'Customer success', 'Virtual assistance', 'Data entry', 'L1 helpdesk', 'Recruitment support'],
         slides: [
-            { image: '/images/hero/hero-cx-philippines.webp', alt: 'Customer support specialist on a headset, assisted by a team lead', title: 'Customer service and support', sub: 'Service, success support and L1 helpdesk' },
-            { image: '/images/slide-outsourcing-ph.webp', alt: 'Customer support team working on headsets in a bright operations office', title: 'Sales and lead generation', sub: 'Prospecting, qualification and appointments' },
-            { image: '/images/pages/pg-svc-bpo.webp', alt: 'Operations team processing back-office work at their desks', title: 'Back office and BPO', sub: 'Defined, repeatable processing workflows' },
-            { image: '/images/pages/pg-svc-va.webp', alt: 'Assistant coordinating schedules and documents on a laptop', title: 'Virtual assistance', sub: 'Administrative and executive support' },
+            { image: '/images/home/help/help-ops-1.jpg', alt: 'Two support specialists seen from behind, with both laptop screens facing them' },
+            { image: '/images/home/help/help-ops-2.jpg', alt: 'A headset specialist speaking with a colleague across a table of closed notebooks' },
+            { image: '/images/home/help/help-ops-3.jpg', alt: 'An assistant sorting blank folders beside a closed laptop' },
         ],
     },
     {
@@ -307,141 +293,102 @@ const helpLines = [
         icon: UserSearch,
         title: 'HR and Recruitment',
         tagline: 'Hiring, contract staffing and payroll in the markets we already serve.',
-        source: { label: 'India, the GCC and the USA', codes: ['IN', 'US'], to: '/hr' },
-        exploreLabel: 'Explore all services',
-        exploreTo: '/hr',
+        source: { label: 'India and the GCC', codes: ['IN', 'KW', 'SA', 'QA', 'BH', 'AE'], to: '/services/hr-solutions' },
+        exploreLabel: 'Explore HR Solutions',
+        exploreTo: '/services/hr-solutions',
         layout: 'list',
         client: { title: 'Client / Employer', text: 'Request staff', to: contactLink('HR Partnership') },
         seeker: { title: 'Job seeker', text: 'View openings', to: '/careers' },
         services: [
-            { icon: UserSearch, label: 'Recruitment', to: '/hr/services/recruitment' },
-            { icon: Users, label: 'Contract staffing', to: '/hr/services/contract-staffing' },
-            { icon: ClipboardCheck, label: 'Payroll outsourcing', to: '/hr/services/payroll-outsourcing' },
-            { icon: Briefcase, label: 'Executive search', to: '/hr/services/executive-search' },
+            { icon: UserSearch, label: 'Recruitment', to: '/services/hr-solutions/recruitment' },
+            { icon: Users, label: 'Contract staffing', to: '/services/hr-solutions/contract-staffing' },
+            { icon: ClipboardCheck, label: 'Payroll administration', to: '/services/hr-solutions/payroll' },
+            { icon: Briefcase, label: 'Executive search', to: '/services/hr-solutions/executive-search' },
         ],
-        roles: ['Recruitment', 'Contract staffing', 'Payroll', 'Executive search', 'HR advisory', 'Background verification', 'Permanent hiring', 'Workforce support'],
+        roles: ['Recruitment', 'Contract staffing', 'Payroll administration', 'Executive search', 'HR systems', 'Permanent hiring'],
         slides: [
-            { image: '/images/hr/hr-recruitment.jpg', alt: 'Recruiter interviewing a candidate while reviewing a shortlist', title: 'Recruitment', sub: 'Permanent hiring from requirement to joining' },
-            { image: '/images/hr/hr-contract-staffing.jpg', alt: 'Supervisor briefing a contract workforce team at an industrial site', title: 'Contract staffing', sub: 'Project, peak and ongoing workforce support' },
-            { image: '/images/hr/hr-payroll.jpg', alt: 'Payroll specialist reviewing salary dashboards and payslips', title: 'Payroll outsourcing', sub: 'Pay runs, payslips and compliance checks' },
-            { image: '/images/hr/hr-hero.jpg', alt: 'Recruiter shaking hands with a candidate while the HR team reviews profiles', title: 'Workforce support', sub: 'Hiring, pay and people operations' },
+            { image: '/images/home/help/help-hr-1.jpg', alt: 'A recruiter seen from behind, with the laptop screen facing him during a hiring conversation' },
+            { image: '/images/home/help/help-hr-2.jpg', alt: 'A supervisor briefing three colleagues around a table with a closed notebook' },
+            { image: '/images/home/help/help-hr-3.jpg', alt: 'A payroll specialist seen from behind, with the monitor facing her' },
         ],
     },
 ];
 
-const HelpCard = ({ line }) => {
-    const reduceMotion = useReducedMotion();
-    const rootRef = useRef(null);
-    const inView = useInView(rootRef, { amount: 0.4 });
-    const [index, setIndex] = useState(0);
-    const [paused, setPaused] = useState(false);
-    const count = line.slides.length;
-    const slide = line.slides[index];
-    const moving = inView && !paused && !reduceMotion;
+const helpPaths = [
+    {
+        title: 'For clients',
+        text: 'You need work delivered. Read how an engagement is scoped, then choose a service.',
+        to: '/about#for-clients',
+        icon: Users,
+    },
+    {
+        title: 'For partners',
+        text: 'You want to deliver or sell with us. Read how a partnership starts. It is not a job application.',
+        to: '/about#for-partners',
+        icon: Handshake,
+    },
+    {
+        title: 'For job seekers',
+        text: 'You want a role. Open roles are listed on Careers, grouped by service.',
+        to: '/careers#jobs',
+        icon: Briefcase,
+    },
+];
 
-    useEffect(() => {
-        if (!moving) return undefined;
-        const id = setTimeout(() => setIndex((i) => (i + 1) % count), HELP_SLIDE_MS);
-        return () => clearTimeout(id);
-    }, [moving, index, count]);
-
-    return (
-        <article
-            className="hm-help-row"
-            ref={rootRef}
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
-        >
-            <div className="hm-help-stage">
-                {line.slides.map((item, i) => (
-                    <div className={'hm-help-slide' + (i === index ? ' is-on' : '')} key={item.image} aria-hidden={i !== index}>
-                        <img src={item.image} alt={i === index ? item.alt : ''} />
-                    </div>
-                ))}
-                <span className="hm-help-kicker">{line.step}</span>
-                <p className="hm-help-caption" key={slide.title}>{slide.title}</p>
-                {line.slides.length > 1 && (
-                    <div className="hm-help-dots" role="tablist" aria-label={`${line.title} images`}>
-                        {line.slides.map((item, i) => (
-                            <button
-                                key={item.image}
-                                type="button"
-                                role="tab"
-                                aria-selected={i === index}
-                                aria-label={item.title}
-                                className={i === index ? 'is-on' : ''}
-                                onClick={() => setIndex(i)}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
-
-            <div className="hm-help-body">
-                <div className="hm-help-title">
-                    <span className="hm-help-title-icon" aria-hidden="true"><line.icon size={18} /></span>
-                    <div>
-                        <h3>{line.title}</h3>
-                        <p>{line.tagline}</p>
-                    </div>
-                </div>
-
-                {line.places ? (
-                    <div className="hm-help-reach">
-                        <small>Philippines delivery · partnership reach</small>
-                        <ul>
-                            {line.places.map((place) => (
-                                <li key={place.code}>
-                                    <Flag code={place.code} />
-                                    <span>{place.name}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ) : (
-                    <Link to={line.source.to} className="hm-help-source">
-                        <span className="hm-help-flags" aria-hidden="true">
-                            {line.source.codes.map((code) => <Flag key={code} code={code} />)}
-                        </span>
-                        <span>
-                            <small>Where</small>
-                            <strong>{line.source.label}</strong>
-                        </span>
-                        <ArrowRight size={15} aria-hidden="true" />
-                    </Link>
-                )}
-
-                <div className="hm-help-covers">
-                    <span>What this covers</span>
-                    <ul className="hm-help-links">
-                        {line.services.map((service) => (
-                            <li key={service.label}>
-                                <Link to={service.to}>
-                                    <service.icon size={15} aria-hidden="true" />
-                                    <span>{service.label}</span>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="hm-help-actions">
-                    <Link to={line.exploreTo} className="hm-help-all">
-                        {line.exploreLabel} <ArrowRight size={15} aria-hidden="true" />
-                    </Link>
-                    <Link to={line.client.to} className="hm-help-action hm-help-action--client">
-                        {line.client.text}
-                    </Link>
-                    <Link to={line.seeker.to} className="hm-help-action hm-help-action--seeker">
-                        {line.seeker.text}
-                    </Link>
-                </div>
-            </div>
-        </article>
-    );
+const helpVisuals = {
+    it: { tone: 'dark', icon: Code2, src: '/images/home/help/help-card-it.jpg', alt: 'Laptop showing an abstract code layout' },
+    media: { tone: 'light', icon: Video, src: '/images/home/help/help-card-media.jpg', alt: 'Cinema camera on a tripod' },
+    ops: { tone: 'light', icon: Users, src: '/images/home/help/help-card-ops.jpg', alt: 'Black headset with orange ear cushions' },
+    hr: { tone: 'dark', icon: Briefcase, src: '/images/home/help/help-card-hr.jpg', alt: 'Orange office chair in a dark office' },
 };
+
+const HelpBoard = () => (
+    <div className="hm-help-board">
+        <ul className="hm-help-paths">
+            {helpPaths.map((path) => (
+                <li key={path.title}>
+                    <Link to={path.to}>
+                        <span className="hm-help-path-icon" aria-hidden="true"><path.icon size={18} /></span>
+                        <span>
+                            <strong>{path.title}</strong>
+                            <small>{path.text}</small>
+                        </span>
+                        <ArrowRight size={16} aria-hidden="true" />
+                    </Link>
+                </li>
+            ))}
+        </ul>
+
+        <div className="hm-help-grid">
+            {helpLines.map((line) => {
+                const visual = helpVisuals[line.id];
+                return (
+                    <article key={line.id} className={`hm-help-card${visual.tone === 'dark' ? ' is-dark' : ''}`}>
+                        <div className="hm-help-card-copy">
+                            <span className="hm-help-mark" aria-hidden="true"><visual.icon size={22} /></span>
+                            <h3>{line.title}</h3>
+                            <p>{line.tagline}</p>
+                            <ul className="hm-help-pills">
+                                {line.services.map((item) => (
+                                    <li key={item.to}>
+                                        <Link to={item.to}>
+                                            <item.icon size={14} aria-hidden="true" />
+                                            {item.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                            <Link to={line.exploreTo} className="hm-help-go">
+                                {line.exploreLabel} <ArrowRight size={16} aria-hidden="true" />
+                            </Link>
+                        </div>
+                        <img className="hm-help-visual" src={visual.src} alt={visual.alt} width={1280} height={720} />
+                    </article>
+                );
+            })}
+        </div>
+    </div>
+);
 
 const presence = [
     { role: 'Strategic HQ', title: 'Kuwait', code: 'KW', utc: 'UTC+3', icon: Building2, angle: -90, desc: 'Parent company backing through KAM Group — regional trust, client relationships, and enterprise governance.' },
@@ -497,7 +444,7 @@ const PresenceNetwork = () => {
                     </div>
 
                     <span className="hm-net-core" aria-hidden="true">
-                        <img src="/logo-mark.png?v=7" alt="" width="199" height="120" loading="lazy" />
+                        <img src="/logo.png?v=5" alt="" width="659" height="220" loading="lazy" />
                     </span>
 
                     {presence.map((p, i) => (
@@ -550,20 +497,6 @@ const PresenceNetwork = () => {
                         </motion.li>
                     ))}
                 </motion.ul>
-
-                <Reveal className="hm-net-partnerbar" delay={0.3} y={12}>
-                    <span className="hm-net-partnerbar-label">
-                        <Globe size={14} aria-hidden="true" /> Partner markets
-                    </span>
-                    <ul>
-                        {partnerMarkets.map((c) => (
-                            <li key={c.code}>
-                                <Flag code={c.code} />
-                                {c.name}
-                            </li>
-                        ))}
-                    </ul>
-                </Reveal>
             </div>
         </div>
     );
@@ -660,7 +593,7 @@ const CountryMarquee = () => (
         <div className="container hm-reach-inner">
             <p className="hm-reach-label">
                 <span className="hm-reach-live" aria-hidden="true" />
-                Our network
+                Our networks
                 <span className="hm-reach-count">{networkCountries.length}</span>
             </p>
             <div className="hm-reach-viewport">
@@ -761,6 +694,40 @@ const ProductShowcase = () => (
     </>
 );
 
+const HomeAds = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        let live = true;
+        request('/api/ads?placement=home')
+            .then((res) => { if (live) setItems(res.data || []); })
+            .catch(() => {});
+        return () => { live = false; };
+    }, []);
+
+    if (!items.length) return null;
+
+    return (
+        <section className="hm-ads" aria-label="Notices">
+            <div className="container">
+                {items.map((item) => {
+                    const content = (
+                        <>
+                            <strong>{item.title}</strong>
+                            <span>{item.text}</span>
+                        </>
+                    );
+                    return item.href.startsWith('http') ? (
+                        <a key={item.id} href={item.href} target="_blank" rel="noopener noreferrer">{content}</a>
+                    ) : (
+                        <Link key={item.id} to={item.href}>{content}</Link>
+                    );
+                })}
+            </div>
+        </section>
+    );
+};
+
 const Home = () => {
     const pageRef = useRef(null);
     const { scrollYProgress } = useScroll({ target: pageRef, offset: ['start start', 'end end'] });
@@ -796,6 +763,7 @@ const Home = () => {
 
             {/* 1. Hero */}
             <HeroShowcase />
+            <HomeAds />
 
             {/* 1b. Country network marquee */}
             <CountryMarquee />
@@ -834,11 +802,11 @@ const Home = () => {
                                 <figcaption className="hm-who-caption">
                                     <span>
                                         <Shield size={15} aria-hidden="true" />
-                                        <span><strong>Backed by KAM Group</strong><small>Kuwait</small></span>
+                                        <span><strong>Backed by KAM Global</strong><small>Kuwait</small></span>
                                     </span>
                                     <span>
                                         <MapPin size={15} aria-hidden="true" />
-                                        <span><strong>One partner, four service lines</strong><small>Kuwait · India · Philippines</small></span>
+                                        <span><strong>One partner, five divisions</strong><small>Kuwait · India · Philippines</small></span>
                                     </span>
                                 </figcaption>
                             </div>
@@ -862,22 +830,22 @@ const Home = () => {
 
                             <p className="hm-who-backing">
                                 <Handshake size={18} aria-hidden="true" />
-                                Strategically backed by KAM Group, Kuwait, we connect regional business trust with
+                                Strategically backed by KAM Global, Kuwait, we connect regional business trust with
                                 reliable delivery, AI products, and long-term partnership.
                             </p>
 
                             <div className="hm-who-facts">
                                 <div>
                                     <strong>
-                                        <CountUp end={10} duration={2} enableScrollSpy scrollSpyOnce /><em>+</em>
+                                        <CountUp end={25} duration={2} enableScrollSpy scrollSpyOnce />
                                     </strong>
                                     <span>Years group legacy</span>
                                 </div>
                                 <div>
                                     <strong>
-                                        <CountUp end={4} duration={2} enableScrollSpy scrollSpyOnce />
+                                        <CountUp end={5} duration={2} enableScrollSpy scrollSpyOnce />
                                     </strong>
-                                    <span>Service lines</span>
+                                    <span>Service divisions</span>
                                 </div>
                                 <div>
                                     <strong>
@@ -904,71 +872,18 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="hm-bm" id="delivery-engines" aria-labelledby="hm-model-title">
-                <div className="container">
-                    <header className="hm-bm-head">
-                        <p className="hm-who-kicker">The Business Model</p>
-                        <h2 id="hm-model-title">
-                            <span>One partner.</span>
-                            <span>Two talent engines.</span>
-                        </h2>
-                        <p>
-                            Kuwait holds the relationship. Technology is delivered from India. Business operations are delivered from the Philippines. The engine depends on the scope, and not every service is offered from every location.
-                        </p>
-                    </header>
-                    <div className="hm-bm-map">
-                        <div>
-                            <small>Relationship</small>
-                            <strong>Kuwait</strong>
-                            <p>Governance and the client partnership sit here. Delivery then comes from the engine that fits the work.</p>
-                        </div>
-                        <div>
-                            <small>Technology</small>
-                            <strong>India</strong>
-                            <p>Software, AI, data, cloud and managed IT are delivered from the India engine.</p>
-                        </div>
-                        <div>
-                            <small>Operations</small>
-                            <strong>Philippines</strong>
-                            <p>Customer experience, sales support and back-office work are delivered from the Philippines engine.</p>
-                        </div>
-                    </div>
-                    <div className="hm-bm-pair">
-                        {deliveryEngines.map((engine) => (
-                            <article key={engine.key} className="hm-bm-card">
-                                <img src={engine.image} alt={engine.alt} width="1024" height="576" />
-                                <div>
-                                    <p>{engine.key === 'india' ? 'India' : 'Philippines'}</p>
-                                    <h3>{engine.short}</h3>
-                                    <p className="hm-bm-desc">{engine.cardDesc}</p>
-                                    <ul>
-                                        {engine.capabilities.items.slice(0, 4).map((item) => (
-                                            <li key={item.title}><Link to={item.to}>{item.title}</Link></li>
-                                        ))}
-                                    </ul>
-                                    <Link to={`/outsourcing/${engine.slug}`} className="hm-bm-go">
-                                        Explore the {engine.key === 'india' ? 'India' : 'Philippines'} engine <ArrowRight size={16} aria-hidden="true" />
-                                    </Link>
-                                </div>
-                            </article>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             <section className="hm-help" id="how-we-help" aria-labelledby="hm-help-title">
                 <div className="container">
                     <header className="hm-band-head">
                         <p className="hm-who-kicker">How can we help you?</p>
                         <h2 id="hm-help-title">
-                            <span>Pick the work</span>
-                            <span>you need</span>
+                        <span>Pick the work</span>
+                        <span className="hm-help-accent">you need</span>
                         </h2>
-                        <p className="hm-band-lead">Each line shows what the work includes, where it is delivered, and how to start.</p>
+                        <p className="hm-band-lead">Each division has its own page. Use it as a client, a partner, or a job seeker.</p>
                     </header>
-                    <div className="hm-help-list">
-                        {helpLines.map((line) => <HelpCard key={line.id} line={line} />)}
-                    </div>
+                    <HelpBoard />
                 </div>
             </section>
 
@@ -1060,7 +975,7 @@ const Home = () => {
                                     </span>
                                     <span>
                                         <strong>One accountable partner</strong>
-                                        <small>Across four service lines</small>
+                                        <small>Across five divisions</small>
                                     </span>
                                 </figcaption>
                             </figure>

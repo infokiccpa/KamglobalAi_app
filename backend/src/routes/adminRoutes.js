@@ -10,6 +10,7 @@ const jobs = require('../controllers/jobController');
 const apps = require('../controllers/applicationController');
 const admin = require('../controllers/adminController');
 const resources = require('../controllers/resourceController');
+const content = require('../controllers/contentController');
 
 const router = express.Router();
 
@@ -61,6 +62,16 @@ router.get('/resources', authorize(...RES_READ), asyncHandler(resources.listAdmi
 router.post('/resources', authorize(...RES_WRITE), resourceUpload.single('file'), asyncHandler(resources.createResource));
 router.patch('/resources/:id', authorize(...RES_WRITE), resourceUpload.single('file'), asyncHandler(resources.updateResource));
 router.delete('/resources/:id', authorize(...RES_WRITE), asyncHandler(resources.deleteResource));
+
+router.get('/posts', authorize(...RES_READ), asyncHandler(content.listPosts));
+router.post('/posts', authorize(...RES_WRITE), asyncHandler(content.savePost));
+router.put('/posts/:id', authorize(...RES_WRITE), asyncHandler(content.savePost));
+router.delete('/posts/:id', authorize(...RES_WRITE), asyncHandler(content.deletePost));
+
+router.get('/ads', authorize(...RES_READ), asyncHandler(content.listAds));
+router.post('/ads', authorize(...RES_WRITE), asyncHandler(content.saveAd));
+router.put('/ads/:id', authorize(...RES_WRITE), asyncHandler(content.saveAd));
+router.delete('/ads/:id', authorize(...RES_WRITE), asyncHandler(content.deleteAd));
 
 router.get('/users', authorize('super_admin'), asyncHandler(users.listUsers));
 router.post('/users', authorize('super_admin'), asyncHandler(users.createUser));

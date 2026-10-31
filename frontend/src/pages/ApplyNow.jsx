@@ -111,7 +111,7 @@ const ApplyNow = () => {
     const job = postedJob || location.state?.job || {};
     const jobTitle = job?.title || '';
     const board = job.board || (params.get('board') === 'hr' ? 'hr' : 'careers');
-    const backTo = board === 'hr' ? '/hr/jobs' : '/careers';
+    const backTo = '/careers#jobs';
     const jobUnavailable = Boolean(jobId) && jobStatus === 'missing';
 
     const [formData, setFormData] = useState({
@@ -399,7 +399,7 @@ const ApplyNow = () => {
                             )}
                             <div className="success-actions">
                                 <button className="btn-finish" onClick={() => navigate(backTo)}>
-                                    {board === 'hr' ? 'Browse more jobs' : 'Return to Careers'}
+                                    Return to Careers
                                 </button>
                             </div>
                         </motion.div>
@@ -422,6 +422,7 @@ const ApplyNow = () => {
                             {job.closesAt && <div className="meta-item"><Calendar size={16} /> Applications close {formatDeadline(job.closesAt)}</div>}
                         </div>
                         <div className="job-description-short">
+                            <p>This form is for job seekers only. Clients should <Link to="/contact#form">use the contact form</Link>. Partners should <Link to="/contact?type=Partnership&subject=Partnership#form">send a partnership enquiry</Link>.</p>
                             {jobUnavailable ? (
                                 <p>This opening is no longer accepting applications. You can still send a general application below.</p>
                             ) : (

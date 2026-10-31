@@ -3,12 +3,28 @@ const mongoose = require('mongoose');
 const BOARDS = ['hr', 'careers'];
 const STATUSES = ['draft', 'published', 'closed'];
 const DOCUMENT_KEYS = ['degree', 'masters', 'engineering', 'salary'];
-const SERVICE_LINES = ['technology', 'operations', 'hr'];
+const SERVICE_LINES = [
+    'it-technology',
+    'ai-media-creative',
+    'business-outsourcing',
+    'hr-solutions',
+    'edtech',
+    'technology',
+    'operations',
+    'hr',
+];
+const CANONICAL_SERVICE = {
+    technology: 'it-technology',
+    operations: 'business-outsourcing',
+    hr: 'hr-solutions',
+};
+
+const canonicalServiceLine = (value) => CANONICAL_SERVICE[value] || value;
 
 const jobSchema = new mongoose.Schema(
     {
         board: { type: String, enum: BOARDS, required: true, default: 'hr' },
-        serviceLine: { type: String, enum: SERVICE_LINES, default: 'hr' },
+        serviceLine: { type: String, enum: SERVICE_LINES, default: 'hr-solutions' },
         title: { type: String, required: [true, 'Job title is required'], trim: true, maxlength: 120 },
         category: { type: String, trim: true, maxlength: 60 },
         department: { type: String, trim: true, maxlength: 60 },
@@ -53,3 +69,4 @@ module.exports.BOARDS = BOARDS;
 module.exports.STATUSES = STATUSES;
 module.exports.DOCUMENT_KEYS = DOCUMENT_KEYS;
 module.exports.SERVICE_LINES = SERVICE_LINES;
+module.exports.canonicalServiceLine = canonicalServiceLine;

@@ -33,7 +33,6 @@ import {
     HR_WHATSAPP,
     candidateLink,
     hrDemoLink,
-    hrPartnerLink,
     hrContactLink,
 } from '../../data/hrWorkforce';
 import './HRKit.css';
@@ -512,7 +511,7 @@ export const JobCard = ({ job, saved, onToggleSave, index = 0 }) => {
                     </button>
                 )}
             </div>
-            <h3><Link to={`/hr/jobs/${job.id}`}>{job.title}</Link></h3>
+            <h3><Link to={`/apply-now?job=${encodeURIComponent(job.id)}`}>{job.title}</Link></h3>
             <ul className="hr-job-meta">
                 <li><MapPin size={14} aria-hidden="true" />{job.location}</li>
                 {job.experience && <li><Briefcase size={14} aria-hidden="true" />{job.experience}</li>}
@@ -573,7 +572,7 @@ export const CandidateBand = ({ overseas }) => {
                     ) : (
                         <CtaLink to={candidateLink('Overseas hiring help')} variant="navy">Ask our team</CtaLink>
                     )}
-                    <CtaLink to="/hr/jobs?category=Overseas" variant="outline">Overseas jobs</CtaLink>
+                    <CtaLink to="/careers#jobs" variant="outline">Open roles</CtaLink>
                 </div>
             </motion.div>
         </div>
@@ -595,7 +594,7 @@ export const PartnerProgram = () => (
         <div className="hr-partner-copy">
             <span className="hr-eyebrow hr-eyebrow--light">Partner program</span>
             <h2 id="partners-title">Grow together across markets.</h2>
-            <p>We work with organisations that share our focus on quality hiring and compliant workforce delivery.</p>
+            <p>The partnership steps are on About. This page stays with employers and workforce programmes.</p>
             <ul className="hr-partner-types">
                 {partnerTypes.map((p) => {
                     const Icon = p.icon;
@@ -603,7 +602,7 @@ export const PartnerProgram = () => (
                 })}
             </ul>
             <div className="hr-eco-actions">
-                <CtaLink to={hrPartnerLink()} variant="primary">Become a partner</CtaLink>
+                <CtaLink to="/about#for-partners" variant="primary">Read the partnership process</CtaLink>
             </div>
         </div>
         <ul className="hr-partner-benefits">

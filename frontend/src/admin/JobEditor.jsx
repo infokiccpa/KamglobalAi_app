@@ -4,13 +4,14 @@ import { ArrowLeft, Save, Loader } from 'lucide-react';
 import { useAdminData } from './useAdminData';
 import { adminRequest, canEdit } from './session';
 import { PageTitle, Spinner, ErrorNote, Field } from './AdminUi';
-import { BOARDS, JOB_STATUSES, SERVICE_LINES } from './format';
+import { BOARDS, JOB_STATUSES, SERVICE_LINES, canonicalService } from './format';
 import { jobCategories, hrCountries } from '../data/hrWorkforce';
+import { serviceCatalogue } from '../data/services/catalog';
 import { JOB_DOCUMENTS } from '../data/jobDocuments';
 
 const EMPTY = {
     board: 'hr',
-    serviceLine: 'hr',
+    serviceLine: 'it-technology',
     title: '',
     category: '',
     department: '',
@@ -42,6 +43,7 @@ const TYPES = ['Full-time', 'Part-time', 'Contract', 'Temporary', 'Internship'];
 const fromJob = (job) => ({
     ...EMPTY,
     ...Object.fromEntries(Object.keys(EMPTY).map((k) => [k, job[k] ?? EMPTY[k]])),
+    serviceLine: canonicalService(job.serviceLine) || EMPTY.serviceLine,
     requirements: (job.requirements || []).join('\n'),
     requiredDocuments: Array.isArray(job.requiredDocuments) ? [...new Set(job.requiredDocuments)] : [],
     publishAt: toLocalInput(job.publishAt),
@@ -86,19 +88,25 @@ const JobForm = ({ initial, id, user }) => {
         }
     };
 
-    const categories = form.board === 'hr' ? jobCategories : ['Engineering', 'AI & Data', 'Cloud & DevOps', 'Customer Experience', 'Sales', 'Marketing', 'Operations'];
+    const division = serviceCatalogue.find((item) => item.id === form.serviceLine);
+    const categories = [
+        ...(division?.categories || []).map((item) => item.title),
+        ...(division?.products || []).map((item) => item.title),
+        ...(form.serviceLine === 'hr-solutions' ? jobCategories : []),
+    ];
+    const jobCountries = hrCountries.flatMap((country) => (country.code === 'KW' ? [country.name, 'Philippines'] : [country.name]));
     const scheduledForLater = Boolean(form.publishAt && new Date(form.publishAt) > new Date());
 
     return (
         <form className="adm-card adm-form" onSubmit={save}>
             <fieldset disabled={readOnly || busy}>
                 <div className="adm-grid">
-                    <Field label="Show on" full>
+                    <Field label="Show on" full hint="Both lists appear on Careers. Use HR & Workforce for a client role, and Careers for a role at KAM Global AI.">
                         <select value={form.board} onChange={set('board')}>
                             {BOARDS.map((b) => <option key={b.value} value={b.value}>{b.label}</option>)}
                         </select>
                     </Field>
-                    <Field label="Service line" hint="Which of the three services this role belongs to.">
+                    <Field label="Service" hint="The role is grouped under this division on Careers.">
                         <select value={form.serviceLine} onChange={set('serviceLine')}>
                             {SERVICE_LINES.map((line) => <option key={line.value} value={line.value}>{line.label}</option>)}
                         </select>
@@ -106,7 +114,7 @@ const JobForm = ({ initial, id, user }) => {
                     <Field label="Job title *">
                         <input required maxLength={120} value={form.title} onChange={set('title')} placeholder="Ex: Site Engineer (Civil)" />
                     </Field>
-                    <Field label="Category">
+                    <Field label="Service area" hint="Pick a service in this division, or type a role family such as Engineering.">
                         <input list="adm-job-categories" maxLength={60} value={form.category} onChange={set('category')} placeholder="Choose or type" />
                         <datalist id="adm-job-categories">
                             {categories.map((c) => <option key={c} value={c} />)}
@@ -118,7 +126,7 @@ const JobForm = ({ initial, id, user }) => {
                     <Field label="Country">
                         <input list="adm-job-countries" maxLength={60} value={form.country} onChange={set('country')} placeholder="Choose or type" />
                         <datalist id="adm-job-countries">
-                            {hrCountries.map((c) => <option key={c.code} value={c.name} />)}
+                            {jobCountries.map((name) => <option key={name} value={name} />)}
                         </datalist>
                     </Field>
                     <Field label="Department / client team">

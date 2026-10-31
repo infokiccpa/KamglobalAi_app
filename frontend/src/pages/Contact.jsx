@@ -108,13 +108,13 @@ const useNow = (intervalMs = 30000) => {
 };
 
 const enquiryCards = [
-    { icon: Code2, title: 'Technology Services', desc: 'Custom development, cloud, staffing, and managed IT.', type: 'Technology Services' },
-    { icon: Globe2, title: 'Global Outsourcing', desc: 'India technology and Philippines operations support.', type: 'Global Outsourcing' },
-    { icon: UserPlus, title: 'Request Talent', desc: 'Roles, skills, seniority, and coverage needs.', type: 'Request Talent' },
-    { icon: GraduationCap, title: 'Product Demo', desc: 'LearnX, EduAiTutors, or AI-Powered LMS.', type: 'Product Demo' },
-    { icon: Handshake, title: 'Partnership', desc: 'Collaboration and channel conversations.', type: 'Partnership' },
-    { icon: Briefcase, title: 'Careers', desc: 'Roles, applications, and talent network.', type: 'Careers', link: '/careers' },
-    { icon: MessageSquare, title: 'General Enquiry', desc: 'Anything else our team can help with.', type: 'General Enquiry' },
+    { icon: Code2, title: 'Clients: technology', desc: 'Software, cloud, quality, security and support for your organisation.', type: 'Technology Services' },
+    { icon: Globe2, title: 'Clients: outsourcing', desc: 'Customer support, sales, back office and related operations.', type: 'Global Outsourcing' },
+    { icon: UserPlus, title: 'Clients: hiring', desc: 'Tell us the roles, skills and locations you need filled.', type: 'Request Talent' },
+    { icon: GraduationCap, title: 'Clients: product demo', desc: 'LearnX.school, EduAiTutors, or the AI-Powered LMS.', type: 'Product Demo' },
+    { icon: Handshake, title: 'Partners', desc: 'A delivery or commercial partnership. This is not a job application.', type: 'Partnership' },
+    { icon: Briefcase, title: 'Job seekers', desc: 'Open roles and applications. Do not use the client enquiry for a job.', type: 'Careers', link: '/careers' },
+    { icon: MessageSquare, title: 'General enquiry', desc: 'Anything that does not fit the paths above.', type: 'General Enquiry' },
 ];
 
 const helpChannels = [
@@ -181,12 +181,10 @@ const subjectGroups = [
         options: [
             'Recruitment',
             'Contract Staffing',
-            'Payroll Outsourcing',
-            'HR Advisory',
-            'Executive Search',
-            'Background Verification',
-            'HR Technology (ATS, HRMS, Payroll)',
-            'Candidate Registration',
+            'Payroll administration',
+            'Executive search',
+            'HR technology',
+            'Candidate registration',
             'Overseas hiring help',
             'HR Partnership',
         ],

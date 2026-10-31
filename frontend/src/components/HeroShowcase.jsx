@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
     ArrowRight,
@@ -9,53 +8,62 @@ import {
     Users,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { contactLink } from '../data/links';
 import './HeroShowcase.css';
 
 const EASE = [0.16, 1, 0.3, 1];
 
-const SLIDES = [
+const TILES = [
     {
-        src: '/images/hero/hero-sunset.webp',
+        src: '/images/home/home-partner.jpg?v=3',
         label: 'One global partner',
-        alt: 'Colleagues working together at laptops in an office at sunset, with a world map and a city skyline behind them',
-        width: 1024,
-        height: 853,
+        line: 'Kuwait, India and the Philippines',
+        alt: 'Three colleagues seen from behind, facing a screen with three connected points',
+        to: '/about',
+        width: 1280,
+        height: 720,
     },
     {
-        src: '/images/slide-tech-india.jpg',
+        src: '/images/home/home-it.jpg',
         label: 'IT services',
-        alt: 'Software and IT team reviewing application and cloud work on screens in a modern office',
-        width: 1376,
-        height: 768,
+        line: 'Software and cloud',
+        alt: 'Two software engineers looking at an abstract system diagram on monitors that face them',
+        to: '/services/it-technology',
+        width: 1280,
+        height: 720,
     },
     {
-        src: '/images/pages/pg-svc-bpo.jpg',
+        src: '/images/home/home-ops.jpg?v=2',
         label: 'Outsourcing',
-        alt: 'Operations team working through documents and process screens in an office',
+        line: 'Support and back office',
+        alt: 'A support specialist seen from behind, with the laptop screen facing her',
+        to: '/services/business-outsourcing',
         width: 1280,
         height: 720,
     },
     {
-        src: '/images/hr/hr-hero.jpg',
+        src: '/images/home/home-hr.jpg?v=2',
         label: 'HR',
-        alt: 'Two colleagues shaking hands across a desk during a hiring conversation',
+        line: 'India and the GCC',
+        alt: 'A recruiter seen from behind, with the laptop screen facing him and the candidate',
+        to: '/services/hr-solutions',
         width: 1280,
         height: 720,
     },
     {
-        src: '/images/pages/pg-svc-marketing.jpg',
+        src: '/images/home/home-media.jpg',
         label: 'AI media',
-        alt: 'Creative team reviewing design and content on a large screen',
+        line: 'Design and content',
+        alt: 'A creative team reviewing color studies and a grid of stills on a studio monitor',
+        to: '/services/ai-media-creative',
         width: 1280,
         height: 720,
     },
 ];
 
 const AUDIENCE = [
-    { title: 'For Clients', text: 'Build and scale', to: '/services', icon: Building2 },
-    { title: 'For Partners', text: 'Deliver together', to: contactLink('Partnership', 'Partnership'), icon: Handshake },
-    { title: 'For Careers', text: 'Grow with us', to: '/hr/jobs', icon: Briefcase },
+    { title: 'For Clients', text: 'Build and scale', to: '/about#for-clients', icon: Building2 },
+    { title: 'For Partners', text: 'Deliver together', to: '/about#for-partners', icon: Handshake },
+    { title: 'For Careers', text: 'Grow with us', to: '/careers#jobs', icon: Briefcase },
 ];
 
 const rise = (reduced, delay) => (
@@ -70,16 +78,6 @@ const rise = (reduced, delay) => (
 
 const HeroShowcase = () => {
     const reduced = useReducedMotion();
-    const [index, setIndex] = useState(0);
-    const [paused, setPaused] = useState(false);
-
-    useEffect(() => {
-        if (reduced || paused) return undefined;
-        const id = window.setInterval(() => {
-            setIndex((current) => (current + 1) % SLIDES.length);
-        }, 4800);
-        return () => window.clearInterval(id);
-    }, [reduced, paused]);
 
     return (
         <section className="hx" aria-labelledby="hx-title">
@@ -95,12 +93,13 @@ const HeroShowcase = () => {
                         <motion.span className="hx-title-accent" {...rise(reduced, 0.28)}>Forward.</motion.span>
                     </h1>
                     <motion.p className="hx-partner" {...rise(reduced, 0.36)}>
-                        One global partner. Connected teams.
+                        One Global Partner. For your Business.
                     </motion.p>
-                    <motion.p className="hx-lead" {...rise(reduced, 0.44)}>
-                        KAM Global AI builds software and IT services from India, runs business operations from
-                        the Philippines, supports recruitment, staffing and payroll, and produces AI video, design
-                        and content.
+                    <motion.p className="hx-lead hx-lead-title" {...rise(reduced, 0.44)}>
+                        KAM Global – Your Global Partner in AI, IT & Business Outsourcing Solutions
+                    </motion.p>
+                    <motion.p className="hx-lead" {...rise(reduced, 0.5)}>
+                        KAM Global provides comprehensive global outsourcing solutions, specializing in IT Outsourcing (ITO), AI & Automation Services, Business Process Outsourcing (BPO), AI-Powered Digital Media Solutions, and Human Resources Solutions (HRS). We empower businesses with skilled global talent, innovative technologies, and scalable, cost-effective services to streamline operations, enhance productivity, and accelerate business growth.
                     </motion.p>
                     <motion.div className="hx-actions" {...rise(reduced, 0.52)}>
                         <Link to="/services" className="hx-btn hx-btn--primary">
@@ -132,51 +131,23 @@ const HeroShowcase = () => {
                     </motion.ul>
                 </div>
 
-                <div
-                    className="hx-visual"
-                    onMouseEnter={() => setPaused(true)}
-                    onMouseLeave={() => setPaused(false)}
-                    onFocus={() => setPaused(true)}
-                    onBlur={() => setPaused(false)}
-                >
-                    <div
-                        className="hx-track"
-                        style={{ transform: `translate3d(-${index * 100}%, 0, 0)` }}
-                    >
-                        {SLIDES.map((slide, slideIndex) => (
-                            <div className={`hx-slide${slideIndex === index ? ' is-active' : ''}`} key={slide.src}>
-                                <img
-                                    className="hx-photo"
-                                    src={slide.src}
-                                    alt={slide.alt}
-                                    width={slide.width}
-                                    height={slide.height}
-                                    fetchpriority={slideIndex === 0 ? 'high' : 'auto'}
-                                    decoding="async"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                    <span className="hx-frame" aria-hidden="true">
-                        <span /><span /><span /><span />
-                    </span>
-                    <p className="hx-slide-label" key={SLIDES[index].label}>
-                        <span>{String(index + 1).padStart(2, '0')}</span>
-                        {SLIDES[index].label}
-                    </p>
-                    <div className="hx-dots" role="tablist" aria-label="Service images">
-                        {SLIDES.map((slide, slideIndex) => (
-                            <button
-                                key={slide.label}
-                                type="button"
-                                role="tab"
-                                className={slideIndex === index ? 'is-active' : undefined}
-                                aria-selected={slideIndex === index}
-                                aria-label={slide.label}
-                                onClick={() => setIndex(slideIndex)}
+                <div className="hx-mosaic">
+                    {TILES.map((tile, tileIndex) => (
+                        <Link key={tile.label} to={tile.to} className="hx-tile">
+                            <img
+                                src={tile.src}
+                                alt={tile.alt}
+                                width={tile.width}
+                                height={tile.height}
+                                fetchpriority={tileIndex === 0 ? 'high' : 'auto'}
+                                decoding="async"
                             />
-                        ))}
-                    </div>
+                            <span>
+                                <strong>{tile.label}</strong>
+                                <small>{tile.line}</small>
+                            </span>
+                        </Link>
+                    ))}
                 </div>
             </div>
         </section>

@@ -80,12 +80,11 @@
 }
 
 .footer-logo-mark {
-    height: 62px;
+    height: 48px;
     width: auto;
-    max-width: 120px;
+    max-width: 180px;
     object-fit: contain;
     display: block;
-    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35)) brightness(1.08) saturate(1.1);
     image-rendering: -webkit-optimize-contrast;
     transition: translate 0.3s ease;
 }
@@ -651,11 +650,6 @@
 .footer-bar-inner p {
     margin: 0;
     line-height: 1.6;
-}
-
-.footer-bar-note {
-    display: block;
-    color: rgba(255, 255, 255, 0.32);
 }
 
 .footer-bar-links {

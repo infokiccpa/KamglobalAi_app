@@ -8,7 +8,6 @@
 }
 
 body .hm-who-head h2 span,
-body .hm-bm-head h2 span,
 body .hm-band-head h2 span,
 body .hm-work-title span,
 body .pg-hero h1,
@@ -51,7 +50,6 @@ body .ab-head--light :is(h1, h2) .rv-word-inner {
 
 @media (prefers-reduced-motion: reduce) {
     body .hm-who-head h2 span,
-    body .hm-bm-head h2 span,
     body .hm-band-head h2 span,
     body .hm-work-title span,
     body .pg-hero h1,

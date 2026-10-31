@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { BookOpen, Building2, Clapperboard, Code2, Globe, Users, Briefcase, FileDown } from 'lucide-react';
 import { Seo, PageHero, Section, CardGrid, CtaBand } from '../components/page/PageKit';
 import { contactLink } from '../data/links';
@@ -36,10 +37,10 @@ const caseStudies = [
 
 const profile = [
     { icon: Building2, title: 'About us', desc: 'Who we are, how we work and our leadership.', to: '/about', cta: 'Read more' },
-    { icon: Code2, title: 'IT & Technology', desc: 'Software, AI, cloud, managed IT, IT staffing and BOT.', to: '/services', cta: 'Explore IT services' },
-    { icon: Clapperboard, title: 'AI media', desc: 'Content, video, SEO support and marketing operations.', to: '/outsourcing/digital-marketing-creative', cta: 'Explore AI media' },
-    { icon: Globe, title: 'Global Outsourcing', desc: 'Customer experience, sales support, BPO and more.', to: '/outsourcing', cta: 'Explore outsourcing' },
-    { icon: Users, title: 'HR & Workforce', desc: 'Recruitment, staffing, payroll and HR technology.', to: '/hr', cta: 'Explore HR services' },
+    { icon: Code2, title: 'IT & Technology', desc: 'Software, cloud, quality, security and support.', to: '/services/it-technology', cta: 'Explore IT services' },
+    { icon: Clapperboard, title: 'AI Media & Creative', desc: 'Brand, video, design and content from an agreed brief.', to: '/services/ai-media-creative', cta: 'Explore creative services' },
+    { icon: Globe, title: 'Business Outsourcing', desc: 'Customer experience, sales support, BPO and virtual assistance.', to: '/services/business-outsourcing', cta: 'Explore outsourcing' },
+    { icon: Users, title: 'HR Solutions', desc: 'Recruitment, staffing, payroll administration and HR systems for employers.', to: '/services/hr-solutions', cta: 'Explore HR services' },
     { icon: BookOpen, title: 'Products', desc: 'LearnX, EduAiTutors and AI-Powered LMS.', to: '/products', cta: 'View products' },
     { icon: BookOpen, title: 'Glossary', desc: 'Plain-English definitions of BPO, RPO, BOT, ATS, HRMS and other terms.', to: '/resources/glossary', cta: 'Read the glossary' },
     { icon: Briefcase, title: 'Careers', desc: 'Open roles and life at KAM Global AI.', to: '/careers', cta: 'See careers' },
@@ -87,6 +88,36 @@ const PublishedFiles = () => {
     );
 };
 
+const PublishedArticles = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        let live = true;
+        request('/api/posts')
+            .then((res) => { if (live) setItems(res.data || []); })
+            .catch(() => {});
+        return () => { live = false; };
+    }, []);
+
+    if (!items.length) return null;
+
+    return (
+        <Section id="articles" tone="soft" eyebrow="From marketing" title="Articles" intro="Notes published by the marketing team.">
+            <ul className="res-files">
+                {items.map((item) => (
+                    <li key={item.id}>
+                        <div>
+                            <strong>{item.title}</strong>
+                            <p>{item.summary}</p>
+                        </div>
+                        <Link className="pg-btn pg-btn--navy" to={`/resources/articles/${item.slug}`}>Read article</Link>
+                    </li>
+                ))}
+            </ul>
+        </Section>
+    );
+};
+
 const Resources = () => (
     <div className="pg-page">
         <Seo
@@ -120,6 +151,7 @@ const Resources = () => (
         </Section>
 
         <PublishedFiles />
+        <PublishedArticles />
 
         <Section
             id="company-profile"

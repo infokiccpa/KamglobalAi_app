@@ -9,7 +9,8 @@ export const useJobs = (board, fallback = []) => {
 
     useEffect(() => {
         const ctrl = new AbortController();
-        request(`/api/jobs?board=${board}`, { signal: ctrl.signal })
+        const query = board ? `?board=${encodeURIComponent(board)}` : '';
+        request(`/api/jobs${query}`, { signal: ctrl.signal })
             .then((res) => setState({ status: 'ready', jobs: res.data.map(toJobCard) }))
             .catch((err) => {
                 if (err.name !== 'AbortError') setState({ status: 'offline', jobs: fallback });

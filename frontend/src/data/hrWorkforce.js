@@ -310,7 +310,6 @@ export const hrCountries = [
     { code: 'QA', name: 'Qatar', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: '' },
     { code: 'BH', name: 'Bahrain', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: '' },
     { code: 'AE', name: 'UAE', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: '' },
-    { code: 'US', name: 'USA', services: 'Recruitment and HR technology', note: 'Local compliance details to be confirmed', contact: '' },
 ];
 
 export const partnerTypes = [
@@ -370,7 +369,7 @@ export const getHrJob = (id) => hrJobs.find((j) => j.id === id);
 export const hrFaqs = {
     Employers: [
         { q: 'Which HR services does KAM Global offer?', a: 'Recruitment, contract staffing, payroll outsourcing, HR advisory, executive search and background verification, supported by our ATS, HRMS and payroll platforms.' },
-        { q: 'Can you hire for roles outside India?', a: 'Yes. We focus on India, Kuwait, Saudi Arabia, Qatar, Bahrain, UAE and the USA. Availability varies by country and workforce type, so we confirm it for each requirement.' },
+        { q: 'Can you hire for roles outside India?', a: 'Yes. We focus on India and the GCC: Kuwait, Saudi Arabia, Qatar, Bahrain and the UAE. Availability varies by country and workforce type, so we confirm it for each requirement.' },
         { q: 'How do we start?', a: 'Share your roles, headcount, location and timeline. We review the requirement and confirm the right service and next steps.' },
     ],
     Candidates: [

@@ -79,7 +79,7 @@ const JobsList = () => {
     return (
         <div className={`pg-page hr-page${import.meta.env.DEV ? ' hr-dev' : ''}`}>
             <Seo
-                title={`Jobs in India, the GCC and USA | ${HR_BRAND}`}
+                title={`Jobs in India and the GCC | ${HR_BRAND}`}
                 description="Browse technical, engineering, manufacturing, domestic and overseas job openings, and register your profile with KAM Global."
                 path="/hr/jobs"
                 crumbs={[{ label: 'Home', to: '/' }, { label: 'HR & Workforce', to: '/hr' }, { label: 'Jobs', to: '/hr/jobs' }]}
@@ -203,7 +203,7 @@ const JobDetail = ({ job, sample }) => {
         description: job.description || job.summary || `${job.title} in ${job.location}.`,
     };
     const meta = [
-        [Briefcase, 'Service line', { technology: 'Technology — India', operations: 'Operations — Philippines', hr: 'HR & Workforce' }[job.serviceLine]],
+        [Briefcase, 'Service line', { technology: 'IT & Technology', 'it-technology': 'IT & Technology', operations: 'Business Outsourcing', 'business-outsourcing': 'Business Outsourcing', hr: 'HR Solutions', 'hr-solutions': 'HR Solutions', 'ai-media-creative': 'AI Media & Creative', edtech: 'EdTech' }[job.serviceLine]],
         [MapPin, 'Location', job.location],
         [Briefcase, 'Experience / eligibility', job.experience],
         [Clock, 'Employment type', job.type],

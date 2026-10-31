@@ -1,7 +1,17 @@
 const express = require('express');
-const router = express.Router();
+const rateLimit = require('express-rate-limit');
 const { submitContact } = require('../controllers/contactController');
 
-router.post('/', submitContact);
+const router = express.Router();
+
+const contactLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 8,
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: { success: false, error: 'Too many enquiries from this connection. Please wait and try again.' },
+});
+
+router.post('/', contactLimiter, submitContact);
 
 module.exports = router;

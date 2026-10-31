@@ -19,14 +19,10 @@ import {
     Zap,
     BarChart3,
     DollarSign,
-    Code2,
     Cloud,
     Wrench,
-    TrendingUp,
-    GraduationCap,
     Building2,
     Headset,
-    Clapperboard,
     MapPin,
     ExternalLink,
     Handshake,
@@ -59,7 +55,7 @@ import { useNow } from '../lib/officeHours';
 import './About.css';
 
 const heroStats = [
-    { value: 10, suffix: '+', label: 'Years group legacy' },
+    { value: 25, suffix: '', label: 'Years group legacy' },
     { value: 3, suffix: '', label: 'Delivery hubs' },
     { value: networkCountries.length, suffix: '', label: 'Countries in our network' },
 ];
@@ -132,8 +128,7 @@ function HeroBoard() {
             <div className="ab-board-panel">
                 <div className="ab-board-head">
                     <span className="ab-board-brand">
-                        <img src="/logo-mark.png" alt="" width="28" height="28" />
-                        KAM Global AI
+                        <img src="/logo.png?v=5" alt="Kam Global" width="659" height="220" />
                     </span>
                     <span className="ab-board-live">
                         <i aria-hidden="true" /> Delivery board
@@ -186,11 +181,11 @@ function HeroBoard() {
 const sections = [
     { id: 'who-we-are', label: 'Who We Are' },
     { id: 'purpose', label: 'Purpose & Values' },
-    { id: 'capabilities', label: 'What We Do' },
     { id: 'global-model', label: 'Global Model' },
-    { id: 'network', label: 'Global Network' },
     { id: 'why-us', label: 'Why Us' },
     { id: 'approach', label: 'How We Work' },
+    { id: 'for-clients', label: 'For Clients' },
+    { id: 'for-partners', label: 'For Partners' },
     { id: 'leadership', label: 'Leadership & Teams' },
 ];
 
@@ -201,208 +196,11 @@ const storyHighlights = [
 ];
 
 const coreValues = [
-    { icon: Sparkles, title: 'Innovation with Purpose', desc: 'AI, automation, and cloud solutions that deliver measurable business impact.' },
-    { icon: ShieldCheck, title: 'Integrity & Transparency', desc: 'Open communication and accountability in every client engagement.' },
-    { icon: CheckCircle2, title: 'Excellence in Execution', desc: 'Precision, reliability, and continuous improvement at scale.' },
-    { icon: Users, title: 'Customer-Centric Mindset', desc: 'Solutions aligned to sustainable value and client objectives.' },
+    { icon: Sparkles, title: 'Innovation with Purpose', desc: 'AI, automation and cloud are proposed when they fit the work you describe.' },
+    { icon: ShieldCheck, title: 'Integrity & Transparency', desc: 'Scope, responsibilities and progress are written down and shared with you.' },
+    { icon: CheckCircle2, title: 'Excellence in Execution', desc: 'Delivery follows the scope, reviews and handover agreed for that engagement.' },
+    { icon: Users, title: 'Customer-Centric Mindset', desc: 'The work is shaped around the outcome you asked for.' },
 ];
-
-const practices = [
-    {
-        key: 'it',
-        icon: Code2,
-        name: 'IT & Technology',
-        tagline: 'Build and run your software',
-        desc: 'Custom platforms, cloud and DevOps, engineering talent and managed IT — delivered by our technology team in India.',
-        from: 'India',
-        image: '/images/pages/pg-svc-software.webp',
-        alt: 'Software engineers collaborating on a product build',
-        to: '/services',
-        cta: 'Explore IT & Technology',
-        items: [
-            { label: 'IT & Development', to: '/services/custom-development' },
-            { label: 'Cloud & DevOps', to: '/services/cloud-devops' },
-            { label: 'IT staffing', to: '/services/it-staffing' },
-            { label: 'Managed IT support', to: '/services/managed-it' },
-            { label: 'Build-Operate-Transfer (BOT)', to: '/services/bot-model' },
-        ],
-    },
-    {
-        key: 'media',
-        icon: Clapperboard,
-        name: 'AI media',
-        tagline: 'Video, design and content',
-        desc: 'AI video, design and content for campaigns and brand work, delivered from India.',
-        from: 'India',
-        image: '/images/hero/ai-media-studio.webp',
-        alt: 'Creative studio producing video and design work',
-        to: '/outsourcing/digital-marketing-creative',
-        cta: 'Explore AI media',
-        items: [
-            { label: 'Content and creative', to: '/outsourcing/digital-marketing-creative#content-creative' },
-            { label: 'Video and motion', to: '/outsourcing/digital-marketing-creative#video-motion' },
-            { label: 'SEO and campaign support', to: '/outsourcing/digital-marketing-creative#seo-campaign' },
-            { label: 'Marketing operations', to: '/outsourcing/digital-marketing-creative#marketing-operations' },
-        ],
-    },
-    {
-        key: 'hr',
-        icon: Users,
-        name: 'HR & Workforce',
-        tagline: 'Hire, staff and pay your people',
-        desc: 'Recruitment, contract staffing, payroll and HR advisory — so the right people join and stay supported.',
-        from: 'India · GCC',
-        image: '/images/hr/hr-hero.jpg',
-        alt: 'Recruiter meeting a candidate for an interview',
-        to: '/hr',
-        cta: 'Explore HR & Workforce',
-        items: [
-            { label: 'Recruitment', to: '/hr/services/recruitment' },
-            { label: 'Contract staffing', to: '/hr/services/contract-staffing' },
-            { label: 'Payroll outsourcing', to: '/hr/services/payroll-outsourcing' },
-            { label: 'HR advisory', to: '/hr/services/hr-advisory' },
-            { label: 'Executive search', to: '/hr/services/executive-search' },
-            { label: 'Background verification', to: '/hr/services/background-verification' },
-        ],
-    },
-    {
-        key: 'outsourcing',
-        icon: Headset,
-        name: 'Outsourcing',
-        tagline: 'Extend your daily operations',
-        desc: 'Customer support, sales, back-office and AI automation teams that work as an extension of yours.',
-        from: 'Philippines · India',
-        image: '/images/pages/pg-svc-cx.webp',
-        alt: 'Customer support team wearing headsets in a contact centre',
-        to: '/outsourcing',
-        cta: 'Explore Outsourcing',
-        items: [
-            { label: 'Customer experience & support', to: '/outsourcing/customer-experience' },
-            { label: 'Sales & lead generation', to: '/outsourcing/sales-lead-generation' },
-            { label: 'Business process outsourcing', to: '/outsourcing/business-process-outsourcing' },
-            { label: 'Recruitment process outsourcing', to: '/outsourcing/recruitment-rpo' },
-            { label: 'Virtual assistance', to: '/outsourcing/virtual-assistance' },
-            { label: 'AI, data & automation', to: '/services/ai-automation' },
-        ],
-        more: { label: '+4 more services', to: '/outsourcing' },
-    },
-    {
-        key: 'edtech',
-        icon: GraduationCap,
-        name: 'EdTech Products',
-        tagline: 'Ready-made learning platforms',
-        desc: 'Our own platforms for schools, coaching institutes and learners — from school ERP to AI-assisted exam prep.',
-        from: 'Built in India',
-        image: '/images/pages/pg-ind-education.webp',
-        alt: 'Students learning together with laptops in a classroom',
-        to: '/products',
-        cta: 'Explore our products',
-        items: [
-            { label: 'LearnX — School ERP & LMS', to: '/products/learnx' },
-            { label: 'EduAiTutors — NEET & JEE prep', to: '/products/eduaitutors' },
-            { label: 'AI-Powered LMS', to: '/products/ai-powered-lms' },
-        ],
-    },
-];
-
-function PracticeExplorer() {
-    const [active, setActive] = useState(0);
-    const practice = practices[active];
-    const PracticeIcon = practice.icon;
-
-    return (
-        <div className="ab-pr">
-            <div className="ab-pr-tabs" role="tablist" aria-label="Our practices">
-                {practices.map((p, i) => {
-                    const Icon = p.icon;
-                    const isActive = i === active;
-                    return (
-                        <button
-                            key={p.key}
-                            type="button"
-                            role="tab"
-                            id={`ab-pr-tab-${p.key}`}
-                            aria-selected={isActive}
-                            aria-controls="ab-pr-panel"
-                            className={`ab-pr-tab${isActive ? ' is-active' : ''}`}
-                            onClick={() => setActive(i)}
-                            onMouseEnter={() => setActive(i)}
-                        >
-                            {isActive && (
-                                <motion.span
-                                    layoutId="ab-pr-active"
-                                    className="ab-pr-tab-bg"
-                                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                                />
-                            )}
-                            <span className="ab-pr-tab-num">{String(i + 1).padStart(2, '0')}</span>
-                            <span className="ab-pr-tab-icon"><Icon size={20} strokeWidth={1.75} aria-hidden="true" /></span>
-                            <span className="ab-pr-tab-text">
-                                <strong>{p.name}</strong>
-                                <small>{p.tagline}</small>
-                            </span>
-                            <ArrowRight size={16} className="ab-pr-tab-arrow" aria-hidden="true" />
-                        </button>
-                    );
-                })}
-            </div>
-
-            <div className="ab-pr-stage" id="ab-pr-panel" role="tabpanel" aria-labelledby={`ab-pr-tab-${practice.key}`}>
-                <AnimatePresence mode="wait" initial={false}>
-                    <motion.article
-                        key={practice.key}
-                        className="ab-pr-panel"
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                        <div className="ab-pr-media">
-                            <motion.img
-                                src={practice.image}
-                                alt={practice.alt}
-                                loading="lazy"
-                                initial={{ scale: 1.08 }}
-                                animate={{ scale: 1 }}
-                                transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-                            />
-                            <span className="ab-pr-media-icon"><PracticeIcon size={22} aria-hidden="true" /></span>
-                            <span className="ab-pr-media-from"><MapPin size={13} aria-hidden="true" /> {practice.from}</span>
-                        </div>
-                        <div className="ab-pr-body">
-                            <h3>{practice.name}</h3>
-                            <p>{practice.desc}</p>
-                            <motion.ul
-                                className={`ab-pr-items${practice.items.length < 4 ? ' is-single' : ''}`}
-                                variants={staggerParent(0.04, 0.1)}
-                                initial="hidden"
-                                animate="show"
-                            >
-                                {practice.items.map((item) => (
-                                    <motion.li key={item.label} variants={fadeUpItem}>
-                                        <Link to={item.to} className="ab-pr-item">
-                                            <CheckCircle2 size={15} aria-hidden="true" />
-                                            <span>{item.label}</span>
-                                            <ArrowUpRight size={14} className="ab-pr-item-arrow" aria-hidden="true" />
-                                        </Link>
-                                    </motion.li>
-                                ))}
-                            </motion.ul>
-                            <div className="ab-pr-foot">
-                                <Link to={practice.to} className="ab-btn ab-btn--primary">
-                                    {practice.cta} <ArrowRight size={16} />
-                                </Link>
-                                {practice.more && (
-                                    <Link to={practice.more.to} className="ab-pr-more">{practice.more.label}</Link>
-                                )}
-                            </div>
-                        </div>
-                    </motion.article>
-                </AnimatePresence>
-            </div>
-        </div>
-    );
-}
 
 const kuwaitOffice = OFFICE_LOCATIONS.find((o) => o.addressCountry === 'KW');
 const indiaOffice = OFFICE_LOCATIONS.find((o) => o.addressCountry === 'IN');
@@ -425,7 +223,7 @@ const hubs = [
         desc: 'Software, AI, data, cloud, infrastructure, QA, and IT support.',
         points: indiaHighlights,
         office: indiaOffice,
-        link: { label: 'Explore India Engine', to: '/outsourcing/india-engine' },
+        link: { label: 'IT & Technology', to: '/services/it-technology' },
     },
     {
         code: 'PH',
@@ -434,28 +232,28 @@ const hubs = [
         icon: Headset,
         desc: 'Sales support, CX, BPO, RPO, virtual assistance, and back-office workflows.',
         points: ['Customer experience & sales support', 'BPO and RPO workflows', 'Availability confirmed during discovery'],
-        link: { label: 'Explore Philippines Engine', to: '/outsourcing/philippines-engine' },
+        link: { label: 'Business Outsourcing', to: '/services/business-outsourcing' },
     },
 ];
 
 const advantages = [
-    { icon: Shield, title: 'Global Backing', desc: 'Strategically backed by KAM Group Kuwait, offering enterprise-level stability and a strong regional presence.' },
-    { icon: Globe2, title: 'India Delivery Advantage', desc: "Access India's premier technical talent pool while maintaining global service quality standards." },
-    { icon: Cpu, title: 'Consult, Build and Support', desc: 'From initial consulting through implementation to ongoing maintenance, scoped per engagement.' },
-    { icon: Award, title: 'Enterprise Standards', desc: 'Security expectations and industry best practices agreed and followed on every engagement.' },
-    { icon: Users, title: 'Long-Term Partnership', desc: 'We focus on scalable relationships that grow alongside your business transformation.' },
-    { icon: Zap, title: 'Innovation Focus', desc: 'Driving growth through AI-powered solutions and next-gen technology stacks.' },
-    { icon: BarChart3, title: 'Rapid Deployment', desc: 'Accelerated development cycles for a faster time-to-market on your projects.' },
-    { icon: DollarSign, title: 'Cost Efficiency', desc: 'Better value through optimised offshore delivery models and lean execution.' },
+    { icon: Shield, title: 'Global Backing', desc: 'Backed by KAM Group, Kuwait, with the relationship held from Kuwait.' },
+    { icon: Globe2, title: 'The right hub', desc: 'Technology and AI media from India. Business operations from the Philippines. HR for employers in India and the GCC.' },
+    { icon: Cpu, title: 'The matching division', desc: 'The brief decides the division: IT & Technology, AI Media & Creative, Business Outsourcing, HR Solutions or EdTech. The service list stays on Services.' },
+    { icon: Award, title: 'Agreed standards', desc: 'Security expectations are written before work starts, for technology, operations, media, HR and education work.' },
+    { icon: Users, title: 'One company, more than one division', desc: 'A later piece of work can sit with another division. Each piece still has its own written scope.' },
+    { icon: Zap, title: 'Work matched to the brief', desc: 'The team and tools follow the division you chose. AI, automation and cloud are used when they are in that scope.' },
+    { icon: BarChart3, title: 'A written timeline', desc: 'Start date, review points and handover are set after the scope is clear.' },
+    { icon: DollarSign, title: 'A written commercial model', desc: 'Price, location and team shape are agreed in the proposal. We do not publish a savings figure.' },
 ];
 
 const comparisonRows = [
-    { criteria: 'Starting point', traditional: 'Pre-packaged offerings', kam: 'Requirement-first discovery and clear scope' },
-    { criteria: 'Delivery speed', traditional: 'Slow, bureaucratic processes', kam: 'Agile delivery with accelerated development cycles' },
-    { criteria: 'Cost efficiency', traditional: 'High domestic overhead limits ROI', kam: 'Optimised offshore delivery and lean execution' },
-    { criteria: 'Security & compliance', traditional: 'Fragmented security protocols', kam: 'Security expectations agreed before mobilisation' },
-    { criteria: 'Vested interest', traditional: 'Transactional hourly billing', kam: 'Long-term partnerships, including BOT engagements' },
-    { criteria: 'Talent quality', traditional: 'Generalised resources', kam: 'Skills validated against your defined roles' },
+    { criteria: 'What you can commission', separate: 'One kind of work from one vendor', kam: 'Five divisions under one company: IT & Technology, AI Media & Creative, Business Outsourcing, HR Solutions and EdTech' },
+    { criteria: 'Where you start', separate: 'A pre-packaged offer', kam: 'The division that matches the brief, then a written scope' },
+    { criteria: 'Where the work is done', separate: 'One place for every task', kam: 'Technology and media from India. Operations from the Philippines. HR for India and the GCC' },
+    { criteria: 'Timeline', separate: 'A date set before the scope is clear', kam: 'The timeline is written into the proposal after the scope is clear' },
+    { criteria: 'Commercial model', separate: 'Price and team left open', kam: 'Price, location and team shape are agreed before work starts' },
+    { criteria: 'Adding more work', separate: 'A new vendor and a new contract', kam: 'Another division in the same company, with its own written scope' },
 ];
 
 const approachSteps = [
@@ -464,6 +262,20 @@ const approachSteps = [
     { title: 'Success criteria', desc: 'Agree how progress will be measured.', question: 'How will we both know it is working?' },
     { title: 'Timeline', desc: 'Clarify urgency and dependencies.', question: 'What is the deadline, and what depends on it?' },
     { title: 'Realistic plan', desc: 'Discuss options and a practical way forward.', question: 'Which option fits your budget and pace?' },
+];
+
+const clientSteps = [
+    { title: 'Share the requirement', desc: 'Tell us the outcome, the current setup, and any deadline. This path is for work you need delivered.' },
+    { title: 'We confirm the scope', desc: 'The matching division reviews the brief and replies with what is included, what is not, and who would do the work.' },
+    { title: 'Agree the written terms', desc: 'Timeline, price, location and team shape are written before work starts. We do not publish a savings figure.' },
+    { title: 'Deliver and review', desc: 'Work follows the agreed scope. Review points and handover are the ones written in the proposal.' },
+];
+
+const partnerSteps = [
+    { title: 'Tell us who you are', desc: 'Share the organisation, the market, and the work you can deliver or introduce. A partnership is not a job application.' },
+    { title: 'We check the fit', desc: 'We look at which of the five divisions the work belongs to, and whether the markets overlap.' },
+    { title: 'Agree how we work together', desc: 'If there is a fit, scope, responsibilities and commercial terms are written before any joint work.' },
+    { title: 'Then follow the client path', desc: 'A joint engagement still starts from a defined requirement. Open roles are listed only on Careers.' },
 ];
 
 const commitments = [
@@ -755,7 +567,7 @@ const About = () => {
                 <title>About KAM Global AI | Who We Are, Why Us &amp; Leadership</title>
                 <meta
                     name="description"
-                    content="Learn about KAM Global AI — our story, purpose, capabilities, Kuwait–India global delivery model, why clients choose us, how we work, and our leadership."
+                    content="Learn about KAM Global AI — our story, purpose, Kuwait–India–Philippines delivery model, why clients choose us, how we work, and our leadership."
                 />
             </Helmet>
 
@@ -936,27 +748,6 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Capabilities */}
-            <section id="capabilities" className="ab-section">
-                <div className="container">
-                    <div className="ab-split-head">
-                        <SectionHead eyebrow="What We Do" title="Five Practices," accent="One Partner">
-                            IT &amp; technology, AI media, HR &amp; workforce, outsourcing and our own EdTech products — run by one
-                            team, so you can start with one and add the others when you need them.
-                        </SectionHead>
-                        <Reveal delay={0.2} y={12}>
-                            <Link to="/services" className="ab-btn ab-btn--ghost">
-                                View All Capabilities <ArrowRight size={16} />
-                            </Link>
-                        </Reveal>
-                    </div>
-
-                    <Reveal y={20}>
-                        <PracticeExplorer />
-                    </Reveal>
-                </div>
-            </section>
-
             {/* Global delivery model */}
             <section id="global-model" className="ab-section ab-gm">
                 <div className="ab-gm-bg" aria-hidden="true" />
@@ -1068,33 +859,11 @@ const About = () => {
                 </div>
             </section>
 
-            {/* Global network */}
-            <section id="network" className="ab-section ab-section--tint">
-                <div className="container">
-                    <SectionHead eyebrow="Global Network" title="Part of an International" accent="Workforce Network" center>
-                        Supporting technology, operations and workforce solutions across multiple international markets
-                        through trusted partnerships and local expertise.
-                    </SectionHead>
-
-                    <motion.ul className="ab-network" {...gridMotion(0.06)}>
-                        {networkCountries.map((c) => (
-                            <motion.li key={c.code} className="ab-network-card rv-spot" variants={fadeUpItem} onPointerMove={trackPointer}>
-                                <Flag code={c.code} className="ab-network-flag" />
-                                <h3>{c.name}</h3>
-                                <p>{c.role}</p>
-                            </motion.li>
-                        ))}
-                    </motion.ul>
-                </div>
-            </section>
-
             {/* Why us */}
             <section id="why-us" className="ab-section">
                 <div className="container">
                     <SectionHead eyebrow="Why KAM Global AI" title="Why Enterprises" accent="Choose Us" center>
-                        Strategic vision meets precision execution — we bridge complex business challenges and
-                        technical implementation, leveraging Kuwait&apos;s strategic leadership with India&apos;s
-                        engineering excellence.
+                        One company for technology, media, operations, HR and education work. The service list stays on the Services pages. Here is how an engagement is agreed.
                     </SectionHead>
 
                     <motion.div className="ab-wy" {...gridMotion(0.06)}>
@@ -1129,10 +898,10 @@ const About = () => {
                         <div className="ab-vs-head">
                             <div>
                                 <h3>The KamGlobal AI Advantage</h3>
-                                <p>How our approach compares with traditional enterprise IT delivery models.</p>
+                                <p>How one company across five divisions compares with hiring a separate vendor for each kind of work.</p>
                             </div>
                             <div className="ab-vs-legend" aria-hidden="true">
-                                <span className="is-old"><Minus size={14} /> Traditional IT vendors</span>
+                                <span className="is-old"><Minus size={14} /> Separate vendors</span>
                                 <span className="is-kam"><CheckCircle2 size={14} /> KamGlobal AI</span>
                             </div>
                         </div>
@@ -1142,7 +911,7 @@ const About = () => {
                                     <span className="ab-vs-crit">{row.criteria}</span>
                                     <span className="ab-vs-old">
                                         <Minus size={14} aria-hidden="true" />
-                                        <span><span className="sr-only">Traditional IT vendors: </span>{row.traditional}</span>
+                                        <span><span className="sr-only">Separate vendors: </span>{row.separate}</span>
                                     </span>
                                     <span className="ab-vs-arrow" aria-hidden="true"><ArrowRight size={16} /></span>
                                     <span className="ab-vs-kam">
@@ -1189,6 +958,76 @@ const About = () => {
                         </Reveal>
                     </div>
                     <HowSteps />
+                </div>
+            </section>
+
+            <section id="for-clients" className="ab-section">
+                <div className="container ab-audience">
+                    <figure className="ab-audience-photo">
+                        <img
+                            src="/images/about/about-for-clients.jpg"
+                            alt="Three professionals reviewing a written proposal beside a screen that shows a simple four-step timeline"
+                            width="1280"
+                            height="720"
+                        />
+                    </figure>
+                    <div>
+                        <SectionHead eyebrow="For Clients" title="How a client engagement" accent="Works">
+                            Read this before you enquire. The service list stays on the Services pages. This section explains the process only.
+                        </SectionHead>
+                        <ol className="ab-path">
+                            {clientSteps.map((step, i) => (
+                                <li key={step.title}>
+                                    <span>{String(i + 1).padStart(2, '0')}</span>
+                                    <h3>{step.title}</h3>
+                                    <p>{step.desc}</p>
+                                </li>
+                            ))}
+                        </ol>
+                        <div className="ab-actions ab-path-actions">
+                            <Link to="/services" className="ab-btn ab-btn--primary">
+                                Explore the five divisions <ArrowRight size={16} />
+                            </Link>
+                            <Link to="/contact?type=Technology%20Services&subject=Client%20enquiry#form" className="ab-btn ab-btn--ghost">
+                                Send a client enquiry
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="for-partners" className="ab-section ab-section--tint">
+                <div className="container ab-audience ab-audience--flip">
+                    <figure className="ab-audience-photo">
+                        <img
+                            src="/images/about/about-for-partners.jpg"
+                            alt="Four professionals planning together in front of a screen that shows connected circles"
+                            width="1280"
+                            height="720"
+                        />
+                    </figure>
+                    <div>
+                        <SectionHead eyebrow="For Partners" title="How a partnership" accent="Starts">
+                            This path is for an organisation that wants to deliver or sell with us. People looking for a role use Careers.
+                        </SectionHead>
+                        <ol className="ab-path">
+                            {partnerSteps.map((step, i) => (
+                                <li key={step.title}>
+                                    <span>{String(i + 1).padStart(2, '0')}</span>
+                                    <h3>{step.title}</h3>
+                                    <p>{step.desc}</p>
+                                </li>
+                            ))}
+                        </ol>
+                        <div className="ab-actions ab-path-actions">
+                            <Link to="/contact?type=Partnership&subject=Partnership#form" className="ab-btn ab-btn--primary">
+                                Start a partnership enquiry <ArrowRight size={16} />
+                            </Link>
+                            <Link to="/services" className="ab-btn ab-btn--ghost">
+                                See the five divisions
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </section>
 

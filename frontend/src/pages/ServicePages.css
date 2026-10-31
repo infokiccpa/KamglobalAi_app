@@ -1,0 +1,146 @@
+.sv-paths {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.sv-paths article {
+    padding: 22px;
+    border: 1px solid rgba(12, 33, 61, 0.1);
+    border-radius: 16px;
+    background: #fff;
+}
+
+.sv-paths h3 {
+    margin: 0 0 8px;
+    color: #0c213d;
+    font-size: 1.15rem;
+}
+
+.sv-paths p {
+    margin: 0 0 14px;
+    color: #3d5168;
+    line-height: 1.5;
+}
+
+.sv-paths a {
+    color: #c56a12;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.sv-search label {
+    display: block;
+    margin-bottom: 8px;
+    color: #0c213d;
+    font-weight: 700;
+}
+
+.sv-search div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 720px;
+    padding: 8px 8px 8px 14px;
+    border: 1px solid rgba(12, 33, 61, 0.16);
+    border-radius: 12px;
+    background: #fff;
+}
+
+.sv-search svg {
+    color: #c56a12;
+    flex-shrink: 0;
+}
+
+.sv-search input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    background: transparent;
+    color: #0c213d;
+    font: inherit;
+    font-size: 16px;
+}
+
+.sv-search input:focus {
+    outline: none;
+}
+
+.sv-search div:focus-within {
+    outline: 2px solid #f7941d;
+    outline-offset: 2px;
+}
+
+.sv-search button,
+.sv-filters button {
+    border: 0;
+    border-radius: 10px;
+    background: #0c213d;
+    color: #fff;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.sv-search button {
+    padding: 10px 16px;
+}
+
+.sv-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 22px;
+}
+
+.sv-filters button {
+    padding: 8px 12px;
+    background: #f4f7fb;
+    color: #0c213d;
+}
+
+.sv-filters button.is-on {
+    background: #0c213d;
+    color: #fff;
+}
+
+.sv-filters button:focus-visible,
+.sv-search button:focus-visible,
+.sv-paths a:focus-visible {
+    outline: 2px solid #f7941d;
+    outline-offset: 2px;
+}
+
+.sv-empty {
+    margin: 0;
+    color: #3d5168;
+}
+
+.sv-groups {
+    display: grid;
+    gap: 22px;
+}
+
+.sv-groups h3 {
+    margin: 0 0 8px;
+    color: #0c213d;
+}
+
+.sv-job-note {
+    max-width: 760px;
+    margin: 0 auto 40px;
+    padding: 0 24px;
+    color: #3d5168;
+}
+
+@media (max-width: 800px) {
+    .sv-paths,
+    .sv-search div {
+        grid-template-columns: 1fr;
+        display: grid;
+    }
+
+    .sv-search button {
+        width: 100%;
+    }
+}

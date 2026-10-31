@@ -21,6 +21,9 @@ app.set('trust proxy', Number(process.env.TRUST_PROXY || 0));
 app.disable('x-powered-by');
 
 const origins = (process.env.CORS_ORIGIN || '').split(',').map((o) => o.trim()).filter(Boolean);
+if (process.env.NODE_ENV === 'production' && origins.length === 0) {
+    origins.push('https://kamglobalai.com', 'https://www.kamglobalai.com');
+}
 app.use(cors({ ...(origins.length ? { origin: origins } : {}), exposedHeaders: ['Content-Disposition'] }));
 app.use(express.json({ limit: '200kb' }));
 app.use((_req, res, next) => {
@@ -35,6 +38,7 @@ app.use('/uploads/resources', express.static(require('path').resolve('uploads', 
 
 app.use('/api/contact', require('./routes/contactRoutes'));
 app.use('/api/resources', require('./routes/resourceRoutes'));
+app.use('/api', require('./routes/contentRoutes'));
 app.use('/api/applications', require('./routes/applicationRoutes'));
 app.use('/api/waitlist', require('./routes/waitlistRoutes'));
 app.use('/api/jobs', require('./routes/jobRoutes'));
@@ -65,7 +69,7 @@ app.use((err, _req, res, _next) => {
         return res.status(400).json({ success: false, error: message });
     }
     if (err?.name === 'ValidationError' || err?.name === 'CastError') {
-        return res.status(400).json({ success: false, error: err.message });
+        return res.status(400).json({ success: false, error: 'Please check the form and try again.' });
     }
     console.error(err);
     res.status(500).json({ success: false, error: 'Something went wrong. Please try again.' });

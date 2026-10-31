@@ -14,7 +14,7 @@ const PrivacyPolicy = () => (
         </Helmet>
         <header className="legal-header">
             <h1>Privacy Policy</h1>
-            <p>Last updated: 29 October 2026</p>
+            <p>Last updated: 31 October 2026</p>
         </header>
 
         <section className="legal-content">
@@ -35,8 +35,8 @@ const PrivacyPolicy = () => (
                     <li><strong>IT &amp; Technology</strong> — software, websites, apps, AI and automation, data and analytics, cloud and DevOps, managed IT, IT staffing, and Build-Operate-Transfer teams.</li>
                     <li><strong>AI media</strong> — content and creative work, video and motion, SEO and campaign support, and marketing operations.</li>
                     <li><strong>Global outsourcing</strong> — India technology delivery, Philippines business operations, customer experience, BPO and back office, and sales support.</li>
-                    <li><strong>HR &amp; workforce</strong> — recruitment, contract staffing, payroll outsourcing, executive search, and HR technology, for clients in the markets we serve, including India, the GCC, and the USA, where the engagement allows it.</li>
-                    <li><strong>Products</strong> — information you send us about LearnX, EduAiTutors, or the AI-Powered LMS. Use of those products themselves is covered by the agreement or notice for that product.</li>
+                    <li><strong>HR &amp; workforce</strong> — recruitment, contract staffing, payroll administration, executive search, and HR technology, for clients in the markets we serve, including India and the GCC, where the engagement allows it.</li>
+                    <li><strong>EdTech</strong> — learning platforms, school software, and information you send us about LearnX, EduAiTutors, or the AI-Powered LMS. Use of those products themselves is covered by the agreement or notice for that product.</li>
                     <li><strong>Careers</strong> — applications and general applications submitted on this website.</li>
                 </ul>
             </div>

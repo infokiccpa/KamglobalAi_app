@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, NavLink, Navigate, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { LayoutDashboard, Briefcase, Inbox, MessageSquare, Users, KeyRound, LogOut, Menu, X, ExternalLink, FolderOpen } from 'lucide-react';
+import { LayoutDashboard, Briefcase, Inbox, MessageSquare, Users, KeyRound, LogOut, Menu, X, ExternalLink, FolderOpen, Newspaper, Megaphone } from 'lucide-react';
 import { useSession, clearSession, saveSession, adminRequest, isSuperAdmin, can, ROLE_LABELS } from './session';
 import AdminLogin from './AdminLogin';
 import Dashboard from './Dashboard';
@@ -12,6 +12,8 @@ import ApplicationDetail from './ApplicationDetail';
 import EnquiriesAdmin from './EnquiriesAdmin';
 import UsersAdmin from './UsersAdmin';
 import ResourcesAdmin from './ResourcesAdmin';
+import PostsAdmin from './PostsAdmin';
+import AdsAdmin from './AdsAdmin';
 import AccountAdmin from './AccountAdmin';
 import './admin.css';
 
@@ -21,6 +23,8 @@ const NAV = [
     { to: '/admin/applications', label: 'Applications', icon: Inbox, area: 'applications' },
     { to: '/admin/enquiries', label: 'Enquiries', icon: MessageSquare, area: 'enquiries' },
     { to: '/admin/resources', label: 'Resources', icon: FolderOpen, area: 'resources' },
+    { to: '/admin/articles', label: 'Articles', icon: Newspaper, area: 'resources' },
+    { to: '/admin/ads', label: 'Ads', icon: Megaphone, area: 'resources' },
     { to: '/admin/users', label: 'Users & access', icon: Users, superOnly: true },
     { to: '/admin/account', label: 'My account', icon: KeyRound },
 ];
@@ -40,7 +44,7 @@ const AdminShell = ({ session }) => {
         <div className={`adm${open ? ' adm--nav-open' : ''}`}>
             <aside className="adm-side" aria-label="Admin navigation">
                 <div className="adm-brand">
-                    <img src="/images/home%20page/kam-logo.png" alt="" width="36" height="36" />
+                    <img src="/logo.png?v=5" alt="" width="659" height="220" />
                     <span>KAM Global <small>Admin</small></span>
                     <button type="button" className="adm-nav-close" aria-label="Close menu" onClick={() => setOpen(false)}><X size={20} /></button>
                 </div>
@@ -79,6 +83,8 @@ const AdminShell = ({ session }) => {
                         <Route path="applications/:id" element={can(user, 'applications') ? <ApplicationDetail user={user} /> : <Navigate to="/admin" replace />} />
                         <Route path="enquiries" element={can(user, 'enquiries') ? <EnquiriesAdmin user={user} /> : <Navigate to="/admin" replace />} />
                         <Route path="resources" element={can(user, 'resources') ? <ResourcesAdmin user={user} /> : <Navigate to="/admin" replace />} />
+                        <Route path="articles" element={can(user, 'resources') ? <PostsAdmin user={user} /> : <Navigate to="/admin" replace />} />
+                        <Route path="ads" element={can(user, 'resources') ? <AdsAdmin user={user} /> : <Navigate to="/admin" replace />} />
                         <Route path="users" element={isSuperAdmin(user) ? <UsersAdmin user={user} /> : <Navigate to="/admin" replace />} />
                         <Route path="account" element={<AccountAdmin user={user} />} />
                         <Route path="login" element={<Navigate to="/admin" replace />} />

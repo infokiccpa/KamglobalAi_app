@@ -30,7 +30,7 @@ const Dashboard = ({ user }) => {
         <>
             <PageTitle
                 title={`Welcome, ${user.name.split(' ')[0]}`}
-                sub="What is happening across job openings, applications and enquiries."
+                sub="Jobs, applications and enquiries. Sales reviews enquiries. Marketing publishes resources, articles and homepage ads. HR and recruiters manage openings and applications."
                 actions={canEdit(user) && (
                     <Link to="/admin/jobs/new" className="adm-btn adm-btn--primary"><Plus size={16} aria-hidden="true" /> Post a job</Link>
                 )}

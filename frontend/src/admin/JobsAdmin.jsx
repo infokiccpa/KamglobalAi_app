@@ -4,14 +4,15 @@ import { Plus, ExternalLink } from 'lucide-react';
 import { useAdminData } from './useAdminData';
 import { adminRequest, canEdit } from './session';
 import { PageTitle, Spinner, ErrorNote, Badge, Empty } from './AdminUi';
-import { JOB_STATUSES, boardLabel, formatDate, isScheduled, jobStatusLabel, serviceLineLabel, toQuery } from './format';
+import { JOB_STATUSES, SERVICE_LINES, boardLabel, canonicalService, formatDate, isScheduled, jobStatusLabel, serviceLineLabel, toQuery } from './format';
 
-const publicPath = (job) => (job.board === 'hr' ? `/hr/jobs/${job._id}` : '/careers#jobs');
+const publicPath = (job) => (job?._id ? '/careers#jobs' : '/careers');
 
 const JobsAdmin = ({ user }) => {
     const [params, setParams] = useSearchParams();
     const board = params.get('board') || '';
     const status = params.get('status') || '';
+    const service = params.get('service') || '';
     const { data, error, loading, reload } = useAdminData(`/api/admin/jobs${toQuery({ board, status })}`);
     const [actionError, setActionError] = useState('');
     const editable = canEdit(user);
@@ -44,7 +45,7 @@ const JobsAdmin = ({ user }) => {
         }
     };
 
-    const jobs = data?.data || [];
+    const jobs = (data?.data || []).filter((job) => !service || canonicalService(job.serviceLine) === service);
 
     return (
         <>
@@ -58,6 +59,10 @@ const JobsAdmin = ({ user }) => {
                     <option value="">All boards</option>
                     <option value="hr">HR & Workforce</option>
                     <option value="careers">Careers</option>
+                </select>
+                <select aria-label="Service" value={service} onChange={(e) => setFilter('service', e.target.value)}>
+                    <option value="">All services</option>
+                    {SERVICE_LINES.map((line) => <option key={line.value} value={line.value}>{line.label}</option>)}
                 </select>
                 <select aria-label="Status" value={status} onChange={(e) => setFilter('status', e.target.value)}>
                     <option value="">All statuses</option>

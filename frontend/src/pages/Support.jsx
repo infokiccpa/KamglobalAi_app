@@ -1,97 +1,98 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Mail, Phone, MessageSquare, LifeBuoy } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
+import { Mail, Phone, MessageSquare } from 'lucide-react';
+import { COMPANY, ISO_27001, whatsappLink } from '../data/company';
+import { OFFICE_LOCATIONS } from '../config/officeLocations';
 import './Legal.css';
 
-const Support = () => {
-    return (
-        <div className="legal-container">
-            <header className="legal-header">
-                <h1>Help & Support</h1>
-                <p>We're here to help you navigate your AI journey.</p>
-            </header>
+const HOURS = {
+    KW: 'Sun–Thu · 9:00 AM – 6:00 PM (local time)',
+    IN: 'Mon–Sat · 9:00 AM – 7:00 PM (local time)',
+};
 
-            <div className="legal-content">
-                <div className="support-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                    gap: '30px',
-                    marginBottom: '60px'
-                }}>
-                    <div className="support-card" style={{
-                        padding: '30px',
-                        background: '#f8fafc',
-                        border: '1px solid #edf2f7',
-                        borderRadius: '20px',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#f7941d', marginBottom: '15px', display: 'flex', justifyContent: 'center' }}>
-                            <Mail size={40} />
-                        </div>
-                        <h3 style={{ color: '#0c213d', marginBottom: '10px' }}>Email Support</h3>
-                        <p style={{ fontSize: '0.9rem', color: '#4a5568' }}>Response within 24 hours</p>
-                        <a href="mailto:info@kamglobalai.com" style={{ color: '#f7941d', fontWeight: '600', textDecoration: 'none' }}>info@kamglobalai.com</a>
-                    </div>
+const OFFICE_LINES = {
+    KW: { phone: '+965 22087764', tel: '+96522087764', email: 'info@kamgroups.com' },
+    IN: { phone: COMPANY.phone, tel: COMPANY.tel, email: COMPANY.email },
+};
 
-                    <div className="support-card" style={{
-                        padding: '30px',
-                        background: '#f8fafc',
-                        border: '1px solid #edf2f7',
-                        borderRadius: '20px',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#f7941d', marginBottom: '15px', display: 'flex', justifyContent: 'center' }}>
-                            <Phone size={40} />
-                        </div>
-                        <h3 style={{ color: '#0c213d', marginBottom: '10px' }}>Phone Support</h3>
-                        <p style={{ fontSize: '0.9rem', color: '#4a5568' }}>Mon-Fri, 9am - 6pm</p>
-                        <a href="tel:+918050766363" style={{ color: '#f7941d', fontWeight: '600', textDecoration: 'none' }}>+91 80507 66363</a>
-                    </div>
+const Support = () => (
+    <div className="legal-container">
+        <Helmet>
+            <title>Help &amp; Support | KAM Global AI</title>
+            <meta
+                name="description"
+                content="Contact KAM Global AI for a client enquiry, a partnership, a job application, a privacy request, or the published ISO/IEC 27001:2022 certificate."
+            />
+        </Helmet>
+        <header className="legal-header">
+            <h1>Help &amp; Support</h1>
+            <p>Use the path that matches why you are writing. Office hours are below. A reply time is agreed in a written engagement, not on this page.</p>
+        </header>
 
-                    <div className="support-card" style={{
-                        padding: '30px',
-                        background: '#f8fafc',
-                        border: '1px solid #edf2f7',
-                        borderRadius: '20px',
-                        textAlign: 'center'
-                    }}>
-                        <div style={{ color: '#f7941d', marginBottom: '15px', display: 'flex', justifyContent: 'center' }}>
-                            <MessageSquare size={40} />
-                        </div>
-                        <h3 style={{ color: '#0c213d', marginBottom: '10px' }}>Quick Inquiry</h3>
-                        <p style={{ fontSize: '0.9rem', color: '#4a5568' }}>Get in touch via our form</p>
-                        <Link to="/contact" style={{ color: '#f7941d', fontWeight: '600', textDecoration: 'none' }}>Contact Us</Link>
-                    </div>
-                </div>
+        <div className="legal-content">
+            <div className="support-grid">
+                <article className="support-card">
+                    <Mail size={28} aria-hidden="true" />
+                    <h2>Email</h2>
+                    <p>India office</p>
+                    <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
+                </article>
+                <article className="support-card">
+                    <Phone size={28} aria-hidden="true" />
+                    <h2>Phone</h2>
+                    <p>India · {HOURS.IN}</p>
+                    <a href={`tel:${COMPANY.tel}`}>{COMPANY.phone}</a>
+                </article>
+                <article className="support-card">
+                    <MessageSquare size={28} aria-hidden="true" />
+                    <h2>WhatsApp</h2>
+                    <p>Kuwait number, when you choose to message us there</p>
+                    <a href={whatsappLink()}>+965 2228 9927</a>
+                </article>
+            </div>
 
-                <div className="legal-section">
-                    <h2>Global Offices</h2>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
-                        <div>
-                            <strong>Kam Global (India)</strong>
-                            <p>No 544, 3rd cross, 3rd main,<br />RT Nagar, Bangalore-560032</p>
-                        </div>
-                        <div>
-                            <strong>Kam Groups (Kuwait)</strong>
-                            <p>20408 Tunisia St, Hawally, Kuwait.</p>
-                        </div>
-                    </div>
-                </div>
+            <div className="legal-section">
+                <h2>Who to contact</h2>
+                <ul>
+                    <li><strong>Clients.</strong> Read <Link to="/about#for-clients">how a client engagement works</Link>, then send the requirement through the <Link to="/contact#form">contact form</Link>.</li>
+                    <li><strong>Partners.</strong> Read <Link to="/about#for-partners">how a partnership starts</Link>. That path is not a job application.</li>
+                    <li><strong>Job seekers.</strong> Open roles are listed on <Link to="/careers#jobs">Careers</Link>.</li>
+                    <li><strong>Privacy.</strong> Ask for a copy, a correction, or deletion at {COMPANY.email}. The request rules are in the <Link to="/privacy">Privacy Policy</Link>.</li>
+                    <li><strong>Website terms.</strong> Use of this site is covered by the <Link to="/terms">Terms &amp; Conditions</Link>. A paid engagement follows the signed proposal.</li>
+                </ul>
+            </div>
 
-                <div className="legal-section">
-                    <h2>Frequently Asked Questions</h2>
-                    <div className="faq-item" style={{ marginBottom: '20px' }}>
-                        <h4 style={{ color: '#0c213d', marginBottom: '10px' }}>How can I request a demo of your AI solutions?</h4>
-                        <p>You can contact us via our website form or send an email to info@kamglobalai.com with the subject "Demo Request".</p>
-                    </div>
-                    <div className="faq-item" style={{ marginBottom: '20px' }}>
-                        <h4 style={{ color: '#0c213d', marginBottom: '10px' }}>Do you provide support for the BOT model?</h4>
-                        <p>Yes, we provide full support and consultation for our Build-Operate-Transfer models across both India and Kuwait.</p>
-                    </div>
+            <div className="legal-section">
+                <h2>Information security</h2>
+                <p>
+                    {ISO_27001.legalName} holds {ISO_27001.standard}, certificate {ISO_27001.number}. The published scope is {ISO_27001.scope} Certificate details, including the certification body and the expiry date, are on the <Link to="/hr/trust">trust page</Link>. That certificate does not set the security terms of a separate HR, media, or operations engagement. Those terms are in the agreement for that work.
+                </p>
+            </div>
+
+            <div className="legal-section">
+                <h2>Offices</h2>
+                <div className="support-offices">
+                    {OFFICE_LOCATIONS.map((office) => {
+                        const line = OFFICE_LINES[office.addressCountry];
+                        return (
+                            <article key={office.addressCountry}>
+                                <h3>{office.shortName}</h3>
+                                <p>{office.streetAddress}</p>
+                                <p>{HOURS[office.addressCountry]}</p>
+                                {line && (
+                                    <p>
+                                        <a href={`tel:${line.tel}`}>{line.phone}</a>
+                                        <br />
+                                        <a href={`mailto:${line.email}`}>{line.email}</a>
+                                    </p>
+                                )}
+                            </article>
+                        );
+                    })}
                 </div>
             </div>
         </div>
-    );
-};
+    </div>
+);
 
 export default Support;

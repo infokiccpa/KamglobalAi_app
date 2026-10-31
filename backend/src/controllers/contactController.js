@@ -1,5 +1,6 @@
 const crypto = require('crypto');
 const Contact = require('../models/Contact');
+const { notifyEnquiry } = require('../utils/mailer');
 
 const MAX_DETAIL_FIELDS = 20;
 const MAX_DETAIL_LENGTH = 1000;
@@ -57,16 +58,17 @@ const submitContact = async (req, res) => {
             reference,
         });
 
+        notifyEnquiry(contact).catch((err) => console.error('Enquiry email failed:', err.message));
+
         res.status(201).json({
             success: true,
-            data: contact,
-            reference,
+            reference: contact.reference,
             message: 'Message sent successfully'
         });
-    } catch (error) {
+    } catch {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: 'Please check the form and try again.'
         });
     }
 };

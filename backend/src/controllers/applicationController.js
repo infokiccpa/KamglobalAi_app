@@ -2,11 +2,11 @@ const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
 const Application = require('../models/Application');
 const Job = require('../models/Job');
 const { STATUSES, INTERVIEW_ROUNDS, INTERVIEW_MODES, INTERVIEW_OUTCOMES } = require('../models/Application');
-const { escapeHtml, escapeRegex, csvCell } = require('../utils/http');
+const { escapeRegex, csvCell } = require('../utils/http');
+const { notifyApplication } = require('../utils/mailer');
 
 const RESUME_ROOT = path.resolve('uploads', 'resumes');
 const DOC_ROOT = path.resolve('uploads', 'documents');
@@ -26,17 +26,6 @@ const makeRef = () => {
     const day = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     return `KGA-${day}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
 };
-
-const fullName = (a) => [a.firstName, a.middleName, a.lastName].filter(Boolean).join(' ');
-
-const createTransporter = () =>
-    nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS
-        }
-    });
 
 const removeUpload = (file) => {
     if (file?.path) fs.promises.unlink(file.path).catch(() => {});
@@ -71,70 +60,6 @@ const ageOn = (dob) => {
     const month = today.getMonth() - dob.getMonth();
     if (month < 0 || (month === 0 && today.getDate() < dob.getDate())) age -= 1;
     return age;
-};
-
-const row = (label, value) =>
-    value ? `<div class="info-row"><span class="label">${label}:</span> ${escapeHtml(value)}</div>` : '';
-
-const sendEmails = async (application, file, brand) => {
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) return;
-    const transporter = createTransporter();
-    const a = application;
-    const style = `
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #0c213d; color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-        .content { background: #f9fafb; padding: 30px; border-radius: 0 0 10px 10px; }
-        .info-row { margin: 12px 0; padding: 10px; background: white; border-left: 4px solid #f7941d; }
-        .label { font-weight: bold; color: #0c213d; }`;
-
-    const hrHtml = `<!DOCTYPE html><html><head><style>${style}</style></head><body><div class="container">
-        <div class="header"><h1>New Job Application</h1><p>${escapeHtml(brand)}</p></div>
-        <div class="content">
-            ${row('Application ID', a.applicationRef)}
-            ${row('Applicant', fullName(a))}
-            ${row('Email', a.email)}
-            ${row('Phone', `${a.countryCode || ''} ${a.phone}`)}
-            ${row('Date of birth', a.dateOfBirth ? new Date(a.dateOfBirth).toLocaleDateString('en-GB') : '')}
-            ${row('Location', a.location)}
-            ${row('Position', a.position)}
-            ${row('Qualification', a.qualification)}
-            ${row('Field of study', a.fieldOfStudy)}
-            ${row('Experience', a.experience)}
-            ${row('Candidate type', a.candidateType)}
-            ${row('Current company', a.currentCompany)}
-            ${row('Expected pay', a.expectedCtc)}
-            ${row('Notice period', a.noticePeriod)}
-            ${row('LinkedIn', a.linkedinUrl)}
-            ${row('GitHub', a.githubUrl)}
-            ${row('Portfolio', a.portfolioUrl)}
-            ${a.message ? `<div class="info-row"><span class="label">Message:</span><p style="white-space:pre-wrap">${escapeHtml(a.message)}</p></div>` : ''}
-            ${row('Applied on', new Date(a.appliedAt).toLocaleString())}
-            <p>Review this application in the admin panel.</p>
-        </div></div></body></html>`;
-
-    await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: (process.env.HR_NOTIFY_EMAILS || 'hr@kamglobalai.com,info@kamglobalai.com').split(',').map((s) => s.trim()),
-        subject: `New application: ${a.position}`.slice(0, 150),
-        html: hrHtml,
-        attachments: file ? [{ filename: file.originalname, path: file.path }] : [],
-    });
-
-    await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: a.email,
-        subject: `Application received - ${brand}`,
-        html: `<!DOCTYPE html><html><head><style>${style}</style></head><body><div class="container">
-            <div class="header"><h1>Application Received</h1></div>
-            <div class="content">
-                <h2>Dear ${escapeHtml(a.firstName)},</h2>
-                <p>Thank you for applying for <strong>${escapeHtml(a.position)}</strong>.</p>
-                <p>Your application ID is <strong>${escapeHtml(a.applicationRef)}</strong>. Please keep it for future correspondence.</p>
-                <p>We have received your application and our recruitment team will review it. If your profile matches the requirements, we will contact you about the next steps.</p>
-                <p style="margin-top:30px">Best regards,<br/><strong>${escapeHtml(brand)} Recruitment Team</strong></p>
-            </div></div></body></html>`,
-    });
 };
 
 // @route   POST /api/applications
@@ -269,7 +194,7 @@ const submitApplication = async (req, res) => {
         }
 
         const brand = application.board === 'hr' ? 'KAM Global' : 'KAM Global AI';
-        sendEmails(application, resume, brand).catch((err) => console.error('Email sending failed:', err.message));
+        notifyApplication({ application, resumeFile: resume, brand }).catch((err) => console.error('Email sending failed:', err.message));
 
         res.status(201).json({
             success: true,

@@ -37,7 +37,6 @@ export const COUNTRIES = [
     'Switzerland',
     'Thailand',
     'United Kingdom',
-    'United States',
     'Vietnam',
     'Other',
 ];
@@ -103,7 +102,6 @@ export const COUNTRY_CODES = [
     { code: '+973', country: 'Bahrain' },
     { code: '+968', country: 'Oman' },
     { code: '+63', country: 'Philippines' },
-    { code: '+1', country: 'USA / Canada' },
     { code: '+44', country: 'United Kingdom' },
     { code: '+61', country: 'Australia' },
     { code: '+65', country: 'Singapore' },

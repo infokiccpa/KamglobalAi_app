@@ -4,83 +4,34 @@ import {
   Menu,
   X,
   ChevronDown,
-  Globe,
-  Laptop,
-  Cloud,
-  Users,
   GraduationCap,
   BookOpen,
   Brain,
   ArrowRight,
   ArrowUpRight,
-  Code2,
-  Headset,
-  FolderKanban,
   Rocket,
   HeartPulse,
   Landmark,
   ShoppingCart,
   Mail,
   Phone,
-  MapPin,
-  UserSearch,
-  Wallet,
-  Crown,
-  KanbanSquare,
-  Bot,
-  Clapperboard,
-  PenTool,
-  Search,
-  Video,
-  Megaphone,
+  Building2,
+  Handshake,
 } from 'lucide-react';
-import { discoveryLink, proposalLink, talentLink, demoLink } from '../data/links';
+import { proposalLink, demoLink } from '../data/links';
 import { COMPANY } from '../data/company';
+import { serviceDivisions } from '../data/serviceCatalog';
+import ServicesMegaMenu from './services-menu/ServicesMegaMenu';
+import MobileServicesMenu from './services-menu/MobileServicesMenu';
 import './Header.css';
 
-// Menus show a few featured links; the rest are summarised in a "View all" tile.
-// The full lists are kept here (not imported from data/) so the large data files stay out of the main bundle —
-// keep them in sync with itServices, outsourcingServices, hrServices and industries.
+// Industry menu uses a short featured list. The full industry list stays in data/industries.js.
 const moreTile = (all, featured, label, to) => {
   const rest = all.filter((a) => !featured.some((f) => f.path === a.path));
   return { label, to, total: all.length, count: rest.length, names: rest.map((r) => r.name) };
 };
 
 const list = (base, entries) => entries.map(([slug, name]) => ({ name, path: `${base}/${slug}` }));
-
-const itAll = list('/services', [
-  ['bot-model', 'BOT Model'],
-  ['custom-development', 'IT & Development'],
-  ['cloud-devops', 'Cloud & DevOps'],
-  ['it-staffing', 'IT Staffing'],
-  ['managed-it', 'Managed IT'],
-  ['mobile-app-development', 'Mobile Apps'],
-  ['ui-ux-design', 'UI/UX Design'],
-  ['qa-testing', 'QA & Testing'],
-  ['ai-automation', 'AI & Automation'],
-  ['data-analytics', 'Data & Analytics'],
-  ['erp-crm', 'ERP & CRM'],
-  ['it-consulting', 'IT Consulting'],
-]);
-
-const outsourcingAll = list('/outsourcing', [
-  ['sales-lead-generation', 'Sales & Lead Generation'],
-  ['customer-experience', 'Customer Experience'],
-  ['business-process-outsourcing', 'BPO & Back Office'],
-  ['recruitment-rpo', 'Recruitment (RPO)'],
-  ['virtual-assistance', 'Virtual Assistance'],
-  ['digital-marketing-creative', 'Digital Marketing & Creative'],
-  ['industry-operations', 'Industry Operations'],
-]);
-
-const hrAll = list('/hr/services', [
-  ['recruitment', 'Recruitment'],
-  ['contract-staffing', 'Contract Staffing'],
-  ['payroll-outsourcing', 'Payroll Outsourcing'],
-  ['hr-advisory', 'HR Advisory'],
-  ['executive-search', 'Executive Search'],
-  ['background-verification', 'Background Verification'],
-]);
 
 const industriesAll = list('/industries', [
   ['education', 'Education & EdTech'],
@@ -95,37 +46,6 @@ const industriesAll = list('/industries', [
   ['professional-services', 'Professional Services'],
 ]);
 
-const itFeatured = [
-  { name: 'IT & Development', desc: 'Websites, apps & business software', path: '/services/custom-development', icon: Laptop },
-  { name: 'AI & Automation', desc: 'Chatbots, documents & workflows', path: '/services/ai-automation', icon: Bot },
-  { name: 'Cloud & DevOps', desc: 'Hosting, migration & CI/CD', path: '/services/cloud-devops', icon: Cloud },
-  { name: 'IT Staffing', desc: 'Screened engineering talent', path: '/services/it-staffing', icon: Users },
-  { name: 'BOT Model', desc: 'Build-Operate-Transfer teams', path: '/services/bot-model', icon: Globe },
-];
-
-const mediaFeatured = [
-  { name: 'Content and creative', desc: 'Brand assets from an agreed brief', path: '/outsourcing/digital-marketing-creative#content-creative', icon: PenTool },
-  { name: 'Video and motion', desc: 'Edits, motion and short-form video', path: '/outsourcing/digital-marketing-creative#video-motion', icon: Video },
-  { name: 'SEO and campaign support', desc: 'On-page content, setup and reporting', path: '/outsourcing/digital-marketing-creative#seo-campaign', icon: Search },
-  { name: 'Marketing operations', desc: 'Calendars, approvals and assets', path: '/outsourcing/digital-marketing-creative#marketing-operations', icon: Megaphone },
-];
-
-const outsourcingFeatured = [
-  { name: 'India Engine', desc: 'Technology & digital delivery', path: '/outsourcing/india-engine', icon: Code2 },
-  { name: 'Philippines Engine', desc: 'Business operations & CX', path: '/outsourcing/philippines-engine', icon: Headset },
-  { name: 'Customer Experience', desc: 'Support & success workflows', path: '/outsourcing/customer-experience', icon: Headset },
-  { name: 'BPO & Back Office', desc: 'Repeatable process support', path: '/outsourcing/business-process-outsourcing', icon: FolderKanban },
-  { name: 'Sales & Lead Generation', desc: 'Prospecting & appointments', path: '/outsourcing/sales-lead-generation', icon: Rocket },
-];
-
-const hrFeatured = [
-  { name: 'Recruitment', desc: 'Permanent hiring, end to end', path: '/hr/services/recruitment', icon: UserSearch },
-  { name: 'Contract Staffing', desc: 'Flexible, compliant workforce', path: '/hr/services/contract-staffing', icon: Users },
-  { name: 'Payroll Outsourcing', desc: 'Accurate, audit-ready pay runs', path: '/hr/services/payroll-outsourcing', icon: Wallet },
-  { name: 'Executive Search', desc: 'Confidential leadership hiring', path: '/hr/services/executive-search', icon: Crown },
-  { name: 'HR Technology', desc: 'ATS, HRMS & Payroll', path: '/hr/technology', icon: KanbanSquare },
-];
-
 const industriesFeatured = [
   { name: 'Education & EdTech', desc: 'Learning platforms & school ops', path: '/industries/education', icon: GraduationCap },
   { name: 'Healthcare', desc: 'Non-clinical tech & admin', path: '/industries/healthcare', icon: HeartPulse },
@@ -135,99 +55,32 @@ const industriesFeatured = [
 ];
 
 const navLinks = [
-  { name: 'Home', path: '/', mobileOnly: true },
-  { name: 'About', path: '/about' },
+  { name: 'Home', path: '/' },
   {
     name: 'Services',
     path: '/services',
-    match: ['/services', '/outsourcing', '/engagement-models', '/hr'],
-    groups: [
-      {
-        id: 'it',
-        label: 'IT & Technology',
-        short: 'Build, AI, cloud, managed IT & teams',
-        icon: Laptop,
-        intro: {
-          eyebrow: 'Enterprise Technology',
-          title: 'Technology built around your business',
-          text: 'Development, design, AI, data, cloud, managed IT and engineering teams — scoped to the outcome you need.',
-          cta: { label: 'View all services', to: '/services' },
-        },
-        feature: {
-          title: 'Not sure where to start?',
-          text: 'Share your goals — we’ll suggest the right fit.',
-          cta: { label: 'Book a discovery call', to: discoveryLink('Technology Services') },
-          image: '/images/nav-it-discovery.jpg',
-          imageAlt: 'KAM Global AI consultant discussing a project roadmap with clients',
-          imagePosition: 'center 35%',
-        },
-        items: itFeatured,
-        more: moreTile(itAll, itFeatured, 'View all IT services', '/services'),
-      },
-      {
-        id: 'media',
-        label: 'AI media',
-        short: 'Video, design and content from India',
-        icon: Clapperboard,
-        intro: {
-          eyebrow: 'AI media',
-          title: 'Video, design and content',
-          text: 'Content, creative, video, SEO and campaign support delivered from India.',
-          cta: { label: 'Explore AI media', to: '/outsourcing/digital-marketing-creative' },
-        },
-        feature: {
-          title: 'Need campaign support?',
-          text: 'Share the brief and we will confirm the fit.',
-          cta: { label: 'Discuss AI media', to: '/contact?subject=Digital%20Marketing%20%26%20Creative#form' },
-          image: '/images/hero/ai-media-studio.webp',
-          imageAlt: 'Creative studio producing video and design work',
-        },
-        items: mediaFeatured,
-      },
-      {
-        id: 'outsourcing',
-        label: 'Global Outsourcing',
-        short: 'India & Philippines delivery engines',
-        icon: Globe,
-        intro: {
-          eyebrow: 'Global Outsourcing',
-          title: 'Two delivery engines, one partner',
-          text: 'Technology delivery from India and business operations from the Philippines, under one accountable team.',
-          cta: { label: 'Outsourcing overview', to: '/outsourcing' },
-        },
-        feature: {
-          title: 'Need people fast?',
-          text: 'Tell us the roles — we’ll shape the team.',
-          cta: { label: 'Request talent', to: talentLink('Outsourcing') },
-          image: '/images/nav-outsourcing-team.jpg',
-          imageAlt: 'Software engineers and customer experience agents working in a delivery centre',
-          imagePosition: 'center 30%',
-        },
-        items: outsourcingFeatured,
-        more: moreTile(outsourcingAll, outsourcingFeatured, 'View all outsourcing services', '/outsourcing'),
-      },
-      {
-        id: 'hr',
-        label: 'HR & Workforce',
-        short: 'Recruitment, staffing & payroll',
-        icon: Users,
-        intro: {
-          eyebrow: 'HR & Workforce',
-          title: 'Hire, pay and grow your workforce',
-          text: 'Recruitment, staffing and payroll backed by our own ATS, HRMS and payroll platforms.',
-          cta: { label: 'HR & Workforce overview', to: '/hr' },
-        },
-        feature: {
-          title: 'Looking for a job?',
-          text: 'Domestic and overseas openings.',
-          cta: { label: 'Explore jobs', to: '/hr/jobs' },
-          image: '/images/hr/hr-hero.jpg',
-          imageAlt: 'Recruiter welcoming a candidate in a modern office',
-          imagePosition: 'center 30%',
-        },
-        items: hrFeatured,
-        more: moreTile(hrAll, hrFeatured, 'View all HR services', '/hr#services'),
-      },
+    servicesMenu: true,
+    match: ['/services'],
+  },
+  {
+    name: 'Products',
+    path: '/products',
+    intro: {
+      eyebrow: 'Digital Products',
+      title: 'Education platforms by KAM Global AI',
+      text: 'Live products for schools, coaching institutes and learners — from school ERP to adaptive learning.',
+      cta: { label: 'All products', to: '/products' },
+    },
+    products: true,
+    feature: {
+      title: 'See LearnX in action',
+      text: 'School ERP, LMS & AI Studio — one platform.',
+      cta: { label: 'Book a demo', to: demoLink('LearnX') },
+    },
+    items: [
+      { name: 'LearnX', desc: 'School ERP + LMS + AI Studio', path: '/products/learnx', logo: '/images/products/learnx-logo.png', icon: GraduationCap, badge: 'Live', theme: 'learnx', site: 'https://learnx.school', domain: 'learnx.school' },
+      { name: 'EduAiTutors', desc: 'NEET & JEE coaching', path: '/products/eduaitutors', logo: '/images/products/eduaitutors-logo.png?v=1', icon: BookOpen, theme: 'edu', site: 'https://eduaitutors.com', domain: 'eduaitutors.com' },
+      { name: 'AI-Powered LMS', desc: 'Pre-KG to Grade 12', path: '/products/ai-powered-lms', icon: Brain, badge: 'Live', theme: 'lms', site: 'https://kam.eduaitutors.online', domain: 'kam.eduaitutors.online' },
     ],
   },
   {
@@ -250,24 +103,18 @@ const navLinks = [
     more: moreTile(industriesAll, industriesFeatured, 'View all industries', '/industries'),
   },
   {
-    name: 'Products',
-    path: '/products',
+    name: 'About Us',
+    path: '/about',
+    match: ['/about'],
     intro: {
-      eyebrow: 'Digital Products',
-      title: 'Education platforms by KAM Global AI',
-      text: 'Live products for schools, coaching institutes and learners — from school ERP to adaptive learning.',
-      cta: { label: 'All products', to: '/products' },
-    },
-    products: true,
-    feature: {
-      title: 'See LearnX in action',
-      text: 'School ERP, LMS & AI Studio — one platform.',
-      cta: { label: 'Book a demo', to: demoLink('LearnX') },
+      eyebrow: 'About Us',
+      title: 'How we work with you',
+      text: 'Read the process for a client engagement or a partnership, then continue to the enquiry.',
+      cta: { label: 'About the company', to: '/about' },
     },
     items: [
-      { name: 'LearnX', desc: 'School ERP + LMS + AI Studio', path: '/products/learnx', icon: GraduationCap, badge: 'Live', theme: 'learnx', site: 'https://learnx.school', domain: 'learnx.school' },
-      { name: 'EduAiTutors', desc: 'NEET & JEE coaching', path: '/products/eduaitutors', icon: BookOpen, theme: 'edu', site: 'https://eduaitutors.com', domain: 'eduaitutors.com' },
-      { name: 'AI-Powered LMS', desc: 'Pre-KG to Grade 12', path: '/products/ai-powered-lms', icon: Brain, badge: 'Live', theme: 'lms', site: 'https://kam.eduaitutors.online', domain: 'kam.eduaitutors.online' },
+      { name: 'For Clients', desc: 'How a client engagement is scoped and delivered', path: '/about#for-clients', icon: Building2 },
+      { name: 'For Partners', desc: 'How a partnership is reviewed and agreed', path: '/about#for-partners', icon: Handshake },
     ],
   },
   { name: 'Resources', path: '/resources', mobileOnly: true },
@@ -345,6 +192,10 @@ const Header = () => {
     clearTimeout(closeTimer.current);
     setOpenMenu(name);
   };
+  const toggleMenu = (name) => {
+    clearTimeout(closeTimer.current);
+    setOpenMenu((current) => (current === name ? null : name));
+  };
   const closeSoon = () => {
     clearTimeout(closeTimer.current);
     closeTimer.current = setTimeout(() => setOpenMenu(null), 140);
@@ -365,10 +216,6 @@ const Header = () => {
           <div className="sh-container sh-topbar-inner">
             <p className="sh-legal">
               <span className="sh-legal-name">{COMPANY.legalName}</span>
-              <span className="sh-legal-sep" aria-hidden="true" />
-              <span className="sh-legal-backing">
-                <MapPin size={12} aria-hidden="true" /> {COMPANY.backing}
-              </span>
             </p>
             <nav className="sh-toplinks" aria-label="Utility">
               <Link to="/resources">Resources</Link>
@@ -387,11 +234,11 @@ const Header = () => {
           <div className="sh-container sh-main-inner">
             <Link to="/" className="sh-brand" aria-label={`${COMPANY.brand} — home`}>
               <img
-                src="/logo.png?v=8"
+                src="/logo.png?v=5"
                 alt=""
                 className="sh-brand-mark"
-                width={173}
-                height={104}
+                width={659}
+                height={220}
                 fetchpriority="high"
               />
             </Link>
@@ -399,8 +246,9 @@ const Header = () => {
             <nav className="sh-nav" aria-label="Primary">
               <ul className="sh-nav-list">
                 {desktopLinks.map((link) => {
-                  const hasMenu = Boolean(link.items || link.groups);
+                  const hasMenu = Boolean(link.items || link.groups || link.servicesMenu);
                   const open = openMenu === link.name;
+                  const menuId = `sh-menu-${link.name.replace(/\s+/g, '-').toLowerCase()}`;
                   return (
                     <li
                       key={link.name}
@@ -408,27 +256,44 @@ const Header = () => {
                       onMouseEnter={hasMenu ? () => openNow(link.name) : undefined}
                       onMouseLeave={hasMenu ? closeSoon : undefined}
                     >
-                      <Link
-                        to={link.path}
-                        className={`sh-nav-link${isLinkActive(link) ? ' is-active' : ''}`}
-                        onFocus={hasMenu ? () => openNow(link.name) : undefined}
-                      >
-                        {link.name}
-                        {hasMenu && <ChevronDown size={14} className="sh-caret" aria-hidden="true" />}
-                      </Link>
+                      {hasMenu ? (
+                        <button
+                          type="button"
+                          className={`sh-nav-link${isLinkActive(link) ? ' is-active' : ''}`}
+                          aria-expanded={open}
+                          aria-controls={menuId}
+                          aria-haspopup="true"
+                          onClick={() => toggleMenu(link.name)}
+                        >
+                          {link.name}
+                          <ChevronDown size={14} className="sh-caret" aria-hidden="true" />
+                        </button>
+                      ) : (
+                        <Link
+                          to={link.path}
+                          className={`sh-nav-link${isLinkActive(link) ? ' is-active' : ''}`}
+                          onClick={closeAll}
+                        >
+                          {link.name}
+                        </Link>
+                      )}
 
                       {hasMenu && (
                         <div
+                          id={menuId}
                           className="sh-mega"
                           role="region"
                           aria-label={`${link.name} menu`}
+                          inert={open ? undefined : ''}
                           onMouseEnter={() => openNow(link.name)}
                           onMouseLeave={closeSoon}
                           onBlur={(e) => {
                             if (!e.currentTarget.parentElement.contains(e.relatedTarget)) setOpenMenu(null);
                           }}
                         >
-                          {link.groups ? (
+                          {link.servicesMenu ? (
+                            <ServicesMegaMenu divisions={serviceDivisions} onNavigate={closeAll} />
+                          ) : link.groups ? (
                             <div className="sh-container sh-drop">
                               <div className="sh-drop-cols">
                                 {link.groups.map((g) => (
@@ -457,8 +322,12 @@ const Header = () => {
                                   const Icon = item.icon;
                                   return (
                                     <li key={item.path}>
-                                      <Link to={item.path} className="sh-drop-product" onClick={closeAll}>
-                                        <span className="sh-drop-icon" aria-hidden="true"><Icon size={18} strokeWidth={1.75} /></span>
+                                      <Link to={item.path} className={`sh-drop-product${item.logo ? ' has-logo' : ''}`} onClick={closeAll}>
+                                        {item.logo ? (
+                                          <img className="sh-drop-logo" src={item.logo} alt="" />
+                                        ) : (
+                                          <span className="sh-drop-icon" aria-hidden="true"><Icon size={18} strokeWidth={1.75} /></span>
+                                        )}
                                         <span>
                                           <strong>
                                             {item.name}
@@ -513,7 +382,11 @@ const Header = () => {
         </div>
       </header>
 
-      <div className={`sh-overlay${openMenu ? ' is-visible' : ''}`} aria-hidden="true" />
+      <div
+        className={`sh-overlay${openMenu ? ' is-visible' : ''}`}
+        aria-hidden="true"
+        onClick={closeAll}
+      />
 
       <div
         className={`sh-drawer-backdrop${isOpen ? ' is-open' : ''}`}
@@ -529,7 +402,7 @@ const Header = () => {
       >
         <div className="sh-drawer-head">
           <Link to="/" className="sh-brand sh-brand--drawer" onClick={closeAll} aria-label={`${COMPANY.brand} — home`}>
-            <img src="/logo.png?v=8" alt="" className="sh-brand-mark" width={173} height={104} />
+            <img src="/logo.png?v=5" alt="" className="sh-brand-mark" width={659} height={220} />
           </Link>
           <button type="button" className="sh-drawer-close" onClick={closeAll} aria-label="Close menu">
             <X size={22} />
@@ -538,7 +411,7 @@ const Header = () => {
 
         <nav className="sh-drawer-nav" aria-label="Mobile">
           {navLinks.map((link) =>
-            link.items || link.groups ? (
+            link.items || link.groups || link.servicesMenu ? (
               <div key={link.name} className={`sh-drawer-group${mobileExpand === link.name ? ' is-open' : ''}`}>
                 <button
                   type="button"
@@ -551,7 +424,9 @@ const Header = () => {
                 </button>
                 <div className="sh-drawer-sub">
                   <div className="sh-drawer-sub-inner">
-                    {(link.groups || [{ id: link.name, intro: link.intro, items: link.items, more: link.more }]).map((g) => (
+                    {link.servicesMenu ? (
+                      <MobileServicesMenu divisions={serviceDivisions} onNavigate={closeAll} />
+                    ) : (link.groups || [{ id: link.name, intro: link.intro, items: link.items, more: link.more }]).map((g) => (
                       <div key={g.id} className={link.groups ? 'sh-drawer-subgroup' : undefined}>
                         {link.groups && (
                           <span className="sh-drawer-subgroup-label">
@@ -567,7 +442,11 @@ const Header = () => {
                           const Icon = item.icon;
                           return (
                             <Link key={item.name} to={item.path} className="sh-drawer-item" onClick={closeAll}>
-                              <Icon size={16} aria-hidden="true" />
+                              {item.logo ? (
+                                <img className="sh-drawer-logo" src={item.logo} alt="" />
+                              ) : (
+                                <Icon size={16} aria-hidden="true" />
+                              )}
                               <span>
                                 <strong>
                                   {item.name}

@@ -1,4 +1,7 @@
+const crypto = require('crypto');
 const Waitlist = require('../models/Waitlist');
+const Contact = require('../models/Contact');
+const { notifyEnquiry } = require('../utils/mailer');
 
 // @desc    Join waitlist
 // @route   POST /api/waitlist
@@ -9,31 +12,45 @@ const joinWaitlist = async (req, res) => {
 
         // Check if email already exists
         const exists = await Waitlist.findOne({ email });
-        if (exists) {
-            return res.status(400).json({
-                success: false,
-                message: 'You are already on the waitlist'
+        if (!exists) {
+            await Waitlist.create({
+                name,
+                email,
+                phone,
+                institution,
+                role,
+                gradeRange
             });
+            const interest = gradeRange || 'EdTech';
+            const lines = [
+                role ? `I am a ${role}.` : '',
+                institution ? `Institution: ${institution}.` : '',
+                `Interest: ${interest}.`,
+            ].filter(Boolean);
+            try {
+                const contact = await Contact.create({
+                    name,
+                    email,
+                    phone,
+                    subject: `Product interest: ${interest}`.slice(0, 180),
+                    message: lines.join(' '),
+                    enquiryType: 'Product Demo',
+                    reference: `KGA-${Date.now().toString(36).toUpperCase()}-${crypto.randomBytes(2).toString('hex').toUpperCase()}`,
+                });
+                notifyEnquiry(contact).catch((err) => console.error('Product enquiry email failed:', err.message));
+            } catch (err) {
+                console.error(`Product enquiry record failed: ${err.message}`);
+            }
         }
-
-        const entry = await Waitlist.create({
-            name,
-            email,
-            phone,
-            institution,
-            role,
-            gradeRange
-        });
 
         res.status(201).json({
             success: true,
-            data: entry,
             message: 'Successfully joined the waitlist'
         });
-    } catch (error) {
+    } catch {
         res.status(400).json({
             success: false,
-            error: error.message
+            error: 'Please check the form and try again.'
         });
     }
 };

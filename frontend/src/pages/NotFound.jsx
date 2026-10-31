@@ -21,8 +21,8 @@ const NotFound = () => (
                 cols={4}
                 variant="compact"
                 items={[
-                    { icon: Layers, title: 'Services', desc: 'Technology and outsourcing services.', to: '/services' },
-                    { icon: Globe2, title: 'Global Outsourcing', desc: 'India and Philippines delivery engines.', to: '/outsourcing' },
+                    { icon: Layers, title: 'Services', desc: 'Five divisions: IT, creative, outsourcing, HR and EdTech.', to: '/services' },
+                    { icon: Globe2, title: 'Business Outsourcing', desc: 'Operations support under an agreed process.', to: '/services/business-outsourcing' },
                     { icon: GraduationCap, title: 'Products', desc: 'Education technology products.', to: '/products' },
                     { icon: Mail, title: 'Contact', desc: 'Tell us what you need.', to: '/contact' },
                 ]}

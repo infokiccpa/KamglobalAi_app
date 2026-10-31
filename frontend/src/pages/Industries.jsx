@@ -395,8 +395,8 @@ const Industries = () => {
                                 <Link to={contactLink('Industry Solutions')} className="in-btn in-btn--primary">
                                     Discuss Your Industry Requirement <ArrowRight size={16} aria-hidden="true" />
                                 </Link>
-                                <Link to="/outsourcing" className="in-btn in-btn--ghost">
-                                    Global Outsourcing <ArrowRight size={16} aria-hidden="true" />
+                                <Link to="/services/business-outsourcing" className="in-btn in-btn--ghost">
+                                    Business Outsourcing <ArrowRight size={16} aria-hidden="true" />
                                 </Link>
                             </Reveal>
                         </div>

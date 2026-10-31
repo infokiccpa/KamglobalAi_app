@@ -4,11 +4,14 @@ const User = require('../models/User');
 
 let devSecret;
 
+const PLACEHOLDER_SECRETS = new Set(['change-me-to-a-long-random-string', 'secret', 'changeme']);
+
 const getSecret = () => {
-    if (process.env.JWT_SECRET) return process.env.JWT_SECRET;
-    if (process.env.NODE_ENV === 'production') {
-        throw new Error('JWT_SECRET must be set in production');
+    const configured = process.env.JWT_SECRET || '';
+    if (process.env.NODE_ENV === 'production' && (configured.length < 32 || PLACEHOLDER_SECRETS.has(configured))) {
+        throw new Error('JWT_SECRET must be a unique random string of at least 32 characters in production');
     }
+    if (configured) return configured;
     if (!devSecret) {
         devSecret = crypto.randomBytes(32).toString('hex');
         console.warn('JWT_SECRET not set: using a temporary secret. Admin sessions reset on restart.');

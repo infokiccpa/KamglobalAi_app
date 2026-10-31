@@ -1,46 +1,27 @@
 # KAM Global AI
 
-> KAM Global AI is a technology and workforce services company. It provides software development, AI and automation, data and analytics, cloud and DevOps, managed IT, HR and recruitment services, and global outsourcing, with technology delivery from India and business operations support from the Philippines. Engagement scope, models and commercial terms are agreed during scoping.
+> KAM Global AI provides technology engineering, creative production, business outsourcing, HR solutions for employers, and education technology. Technology work is coordinated from India. Business operations support is coordinated from the Philippines. Scope, hours and commercial terms are agreed before work starts.
 
-## Company
-- [About KAM Global AI](https://kamglobalai.com/about): company overview, backing by KAM Group and delivery locations
-- [Contact](https://kamglobalai.com/contact): enquiries for projects, proposals, talent and HR services
+## Who should use which page
+- Clients looking for a service: [How a client engagement works](https://kamglobalai.com/about#for-clients), then [Services](https://kamglobalai.com/services)
+- Partners: [How a partnership starts](https://kamglobalai.com/about#for-partners)
+- People looking for a job: [Careers](https://kamglobalai.com/careers) — the only list of open roles, grouped by service
 
-## IT & Technology Services
-- [IT services overview](https://kamglobalai.com/services): all technology services, delivery process, engagement models and FAQs
-- [Software development](https://kamglobalai.com/services/custom-development): websites, web applications, business software and integrations
-- [Mobile app development](https://kamglobalai.com/services/mobile-app-development)
-- [UI/UX design](https://kamglobalai.com/services/ui-ux-design)
-- [QA & software testing](https://kamglobalai.com/services/qa-testing)
-- [AI & automation](https://kamglobalai.com/services/ai-automation)
-- [Data & analytics](https://kamglobalai.com/services/data-analytics)
-- [ERP & CRM](https://kamglobalai.com/services/erp-crm)
-- [IT consulting](https://kamglobalai.com/services/it-consulting)
-- [Cloud & DevOps](https://kamglobalai.com/services/cloud-devops)
-- [Managed IT](https://kamglobalai.com/services/managed-it)
-- [IT staffing](https://kamglobalai.com/services/it-staffing)
-- [Build-Operate-Transfer (BOT)](https://kamglobalai.com/services/bot-model)
-
-## Global Outsourcing
-- [Outsourcing overview](https://kamglobalai.com/outsourcing): India technology delivery and Philippines business operations
-- [Business process outsourcing](https://kamglobalai.com/outsourcing/business-process-outsourcing)
-- [Sales & lead generation](https://kamglobalai.com/outsourcing/sales-lead-generation)
-- [Customer experience](https://kamglobalai.com/outsourcing/customer-experience)
-- [Recruitment process outsourcing](https://kamglobalai.com/outsourcing/recruitment-rpo)
-- [Virtual assistance](https://kamglobalai.com/outsourcing/virtual-assistance)
-
-## HR & Workforce
-- [HR & workforce overview](https://kamglobalai.com/hr): recruitment, contract staffing, payroll, HR advisory, executive search, background verification
-- [HR technology](https://kamglobalai.com/hr/technology): ATS, HRMS and payroll software
-
-## Engagement Models
-- [Engagement models and comparison](https://kamglobalai.com/engagement-models): dedicated resource, dedicated team, project-based, managed services, BPO, BOT, staff augmentation, offshore development center
+## Services
+- [All services](https://kamglobalai.com/services): five divisions, search, and engagement overview
+- [IT & Technology](https://kamglobalai.com/services/it-technology): consulting, software, web, mobile, APIs, design, data, AI applications, enterprise systems, cloud, DevOps, quality assurance, application security, maintenance, support, staffing and BOT
+- [AI Media & Creative](https://kamglobalai.com/services/ai-media-creative): brand, design, video, motion, AI-assisted content, social, SEO content and campaign operations. Rankings, leads and advertising returns are not guaranteed
+- [Business Outsourcing](https://kamglobalai.com/services/business-outsourcing): engineering outsourcing, data operations, BPO, customer support, sales support, finance administration, recruitment outsourcing, research, virtual assistance, e-commerce and education operations
+- [HR Solutions](https://kamglobalai.com/services/hr-solutions): employer recruitment, contract staffing, executive search, payroll administration and HR systems. Not a job board
+- [EdTech](https://kamglobalai.com/services/edtech): learning platforms, school software, and the LearnX.school and EduAiTutors products
 
 ## Products
-- [Products overview](https://kamglobalai.com/products)
-- [LearnX](https://kamglobalai.com/products/learnx): school management platform
-- [EduAiTutors](https://kamglobalai.com/products/eduaitutors)
+- [LearnX.school](https://kamglobalai.com/products/learnx): school ERP, LMS and AI Academic Studio
+- [EduAiTutors](https://kamglobalai.com/products/eduaitutors): tutoring for NEET, JEE and foundation learners
 
-## Reference
-- [Glossary](https://kamglobalai.com/resources/glossary): definitions of outsourcing, HR and technology terms
+## Company
+- [About](https://kamglobalai.com/about)
 - [Industries](https://kamglobalai.com/industries)
+- [Engagement models](https://kamglobalai.com/engagement-models)
+- [Contact](https://kamglobalai.com/contact)
+- [Careers](https://kamglobalai.com/careers)

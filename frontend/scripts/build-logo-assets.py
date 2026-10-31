@@ -59,6 +59,8 @@ def square(img: Image.Image, size: int, inset: float = 0.08, bg=None) -> Image.I
 
 
 def main():
+    print("public/logo.png is the supplied Kam Global artwork and is not rebuilt here.")
+    return
     src = Image.open(SRC)
     w, h = src.size
     full = unmix_white(src)
@@ -71,6 +73,15 @@ def main():
     word = trim(full.crop((0, 0, w, int(h * 0.60))), pad=4)
     fit_height(word, 104).save(OUT / "logo.png", optimize=True)
     fit_height(word, 120).save(OUT / "logo-mark.png", optimize=True)
+
+    # Navbar lockup: the supplied Kam Global wordmark (black plate removed)
+    nav_src = ROOT / "public" / "images" / "brand" / "kam-global-source.png"
+    nav_rgb = np.asarray(Image.open(nav_src).convert("RGB")).astype(np.float32) / 255.0
+    nav_alpha = np.clip((nav_rgb.max(axis=2) - 0.035) / 0.965, 0.0, 1.0)
+    nav_safe = np.maximum(nav_alpha, 1e-4)[..., None]
+    nav_color = np.clip(nav_rgb / nav_safe, 0.0, 1.0)
+    nav = Image.fromarray((np.dstack([nav_color, nav_alpha]) * 255).round().astype(np.uint8), "RGBA")
+    fit_height(trim(nav, pad=8), 180).save(OUT / "logo-nav.png", optimize=True)
 
     # Icon: orange "K" swoosh only (left of the blue "am")
     k_box = (0, 0, int(w * 0.55), int(h * 0.60))
@@ -89,7 +100,7 @@ def main():
     og.alpha_composite(piece, ((1200 - piece.width) // 2, (630 - piece.height) // 2))
     og.convert("RGB").save(OUT / "og-image.jpg", quality=90)
 
-    for name in ["logo.png", "logo-mark.png", "logo-full.png", "favicon.png",
+    for name in ["logo.png", "logo-mark.png", "logo-nav.png", "logo-full.png", "favicon.png",
                  "favicon-32x32.png", "favicon-16x16.png", "apple-touch-icon.png", "og-image.jpg"]:
         im = Image.open(OUT / name)
         print(f"{name}: {im.size}")

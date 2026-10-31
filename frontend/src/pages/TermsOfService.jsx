@@ -14,7 +14,7 @@ const TermsOfService = () => (
         </Helmet>
         <header className="legal-header">
             <h1>Terms &amp; Conditions</h1>
-            <p>Last updated: 29 October 2026</p>
+            <p>Last updated: 31 October 2026</p>
         </header>
 
         <section className="legal-content">
@@ -30,13 +30,13 @@ const TermsOfService = () => (
 
             <div className="legal-section">
                 <h2>2. Services these terms relate to</h2>
-                <p>The website describes four service lines, plus our own products:</p>
+                <p>The website describes five divisions:</p>
                 <ul>
                     <li><strong>IT &amp; Technology,</strong> delivered from India: websites, business software, mobile apps, AI and automation, data and analytics, cloud and DevOps, managed IT, IT staffing, and Build-Operate-Transfer teams.</li>
-                    <li><strong>AI media,</strong> delivered from India: content and creative production, video and motion, SEO and campaign support, and marketing operations. Channel choice, ad spend, approvals, and the result you expect are agreed in the brief.</li>
-                    <li><strong>Global outsourcing:</strong> technology and digital delivery from India, and business operations from the Philippines, including customer experience, BPO and back office, and sales support. Partnership countries named on the website are not delivery offices.</li>
-                    <li><strong>HR &amp; workforce:</strong> recruitment, contract staffing, payroll outsourcing, executive search, and HR technology. We discuss these for India, the GCC, and the USA where the role and the law allow it.</li>
-                    <li><strong>Products:</strong> LearnX, EduAiTutors, and the AI-Powered LMS. A demo or a product page does not, by itself, give a licence to use the product.</li>
+                    <li><strong>AI Media &amp; Creative,</strong> delivered from India: content and creative production, video and motion, SEO and campaign support, and marketing operations. Channel choice, ad spend, approvals, and the result you expect are agreed in the brief.</li>
+                    <li><strong>Business Outsourcing:</strong> technology and digital delivery from India, and business operations from the Philippines, including customer experience, BPO and back office, and sales support. Partnership countries named on the website are not delivery offices.</li>
+                    <li><strong>HR Solutions:</strong> recruitment, contract staffing, payroll administration, executive search, and HR technology. We discuss these for India and the GCC where the role and the law allow it.</li>
+                    <li><strong>EdTech:</strong> learning platforms and school software, including LearnX.school and EduAiTutors. A demo or a product page does not, by itself, give a licence to use the product.</li>
                 </ul>
                 <p>
                     Where a service needs a licence, a registration, a client approval, or a local employment rule, we perform it only after that point is confirmed in the agreement. Healthcare support described on the site is administrative and non-clinical. A Build-Operate-Transfer of people, knowledge, or assets happens only on the written transfer terms, not automatically.

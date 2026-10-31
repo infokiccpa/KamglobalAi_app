@@ -6,14 +6,14 @@ import { PageTitle, Spinner, ErrorNote, Badge, Field } from './AdminUi';
 import { formatDate } from './format';
 
 const ROLE_HELP = {
-    super_admin: 'Everything, including creating users and changing access.',
-    admin: 'Jobs, applications, enquiries and resources. Cannot create users.',
-    hr: 'Post jobs and review applications.',
-    recruiter: 'Same hiring access as HR, plus enquiry updates.',
-    department_manager: 'Read-only view of jobs, applications, enquiries and resources.',
-    sales: 'Read jobs and update enquiries.',
-    marketing: 'Publish resources and read enquiries.',
-    viewer: 'Read-only: jobs, applications, résumés and enquiries.',
+    super_admin: 'Everything, including creating users and changing access. Receives application and enquiry emails.',
+    admin: 'Jobs, applications, enquiries and resources. Cannot create users. Receives application and enquiry emails.',
+    hr: 'Post jobs and review applications. Receives application emails, and client hiring requests.',
+    recruiter: 'Same hiring access as HR, plus enquiry updates. Receives application emails, and client hiring requests.',
+    department_manager: 'Read-only view of jobs, applications, enquiries and resources. Receives application and enquiry emails.',
+    sales: 'Read jobs and update enquiries. Receives enquiry and product-request emails.',
+    marketing: 'Publish resources and read enquiries. This role uses the dashboard.',
+    viewer: 'Read-only: jobs, applications, résumés and enquiries. This role uses the dashboard.',
 };
 
 const BLANK = { name: '', email: '', role: 'hr', password: '' };
@@ -76,7 +76,7 @@ const UsersAdmin = ({ user: me }) => {
 
     return (
         <>
-            <PageTitle title="Users & access" sub="Create accounts for your team and choose what each person can do." />
+            <PageTitle title="Users & access" sub="Create accounts for your team and choose what each person can do. Application and enquiry emails go to the roles that handle that work." />
             <ul className="adm-roles">
                 {Object.entries(ROLE_HELP).map(([role, help]) => (
                     <li key={role}><Badge value={role} label={ROLE_LABELS[role]} /> {help}</li>
@@ -94,7 +94,7 @@ const UsersAdmin = ({ user: me }) => {
                         </select>
                     </Field>
                     <Field label="Temporary password *" hint="At least 10 characters, with letters and numbers.">
-                        <input type="text" required minLength={10} value={form.password} onChange={set('password')} autoComplete="new-password" />
+                        <input type="password" required minLength={10} value={form.password} onChange={set('password')} autoComplete="new-password" />
                     </Field>
                 </div>
                 <ErrorNote>{formError}</ErrorNote>

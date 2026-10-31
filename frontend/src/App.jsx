@@ -1,27 +1,22 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useParams, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import FloatingActions from './components/FloatingActions';
 import KaiChat from './components/KaiChat';
 import CookieConsent from './components/CookieConsent';
+import { legacyServiceTarget } from './data/services/legacyPaths';
 
 const About = lazy(() => import('./pages/About'));
 const Services = lazy(() => import('./pages/Services'));
-const ITServiceDetail = lazy(() => import('./pages/ITServiceDetail'));
-const ITDevelopment = lazy(() => import('./pages/ITDevelopment'));
-const BOTModel = lazy(() => import('./pages/BOTModel'));
-const ITStaffing = lazy(() => import('./pages/ITStaffing'));
+const ServiceDivision = lazy(() => import('./pages/ServiceDivision'));
+const ServiceCategory = lazy(() => import('./pages/ServiceCategory'));
 const Products = lazy(() => import('./pages/Products'));
 const LearnX = lazy(() => import('./pages/LearnX'));
 const ProductDetail = lazy(() => import('./pages/ProductDetail'));
-const Outsourcing = lazy(() => import('./pages/Outsourcing'));
-const OutsourcingDetail = lazy(() => import('./pages/OutsourcingDetail'));
 const HRWorkforce = lazy(() => import('./pages/HRWorkforce'));
-const HRServiceDetail = lazy(() => import('./pages/HRServiceDetail'));
 const HRTechnology = lazy(() => import('./pages/HRTechnology'));
-const HRJobs = lazy(() => import('./pages/HRJobs'));
 const HRTrust = lazy(() => import('./pages/HRTrust'));
 const Industries = lazy(() => import('./pages/Industries'));
 const IndustryDetail = lazy(() => import('./pages/IndustryDetail'));
@@ -30,6 +25,7 @@ const EngagementModelDetail = lazy(() => import('./pages/EngagementModelDetail')
 const Resources = lazy(() => import('./pages/Resources'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const Glossary = lazy(() => import('./pages/Glossary'));
+const Article = lazy(() => import('./pages/Article'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Contact = lazy(() => import('./pages/Contact'));
 const ApplyNow = lazy(() => import('./pages/ApplyNow'));
@@ -67,6 +63,17 @@ const ScrollToTop = () => {
   return null;
 };
 
+const LegacyPath = () => {
+  const { pathname } = useLocation();
+  const to = legacyServiceTarget(pathname);
+  return to ? <Navigate to={to} replace /> : <NotFound />;
+};
+
+const JobToApplication = () => {
+  const { id } = useParams();
+  return <Navigate to={`/apply-now?job=${encodeURIComponent(id || '')}`} replace />;
+};
+
 const Site = () => {
   const { pathname } = useLocation();
   if (pathname === '/admin' || pathname.startsWith('/admin/')) {
@@ -87,30 +94,23 @@ const Site = () => {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/custom-development" element={<ITDevelopment />} />
-            <Route path="/services/bot-model" element={<BOTModel />} />
-            <Route path="/services/it-staffing" element={<ITStaffing />} />
-            <Route path="/services/digital-marketing" element={<Navigate to="/outsourcing/digital-marketing-creative" replace />} />
-            <Route path="/services/kam-group-partnership" element={<Navigate to="/about" replace />} />
-            <Route path="/services/:slug" element={<ITServiceDetail />} />
-            <Route path="/outsourcing" element={<Outsourcing />} />
-            <Route path="/outsourcing/software-development" element={<Navigate to="/services/custom-development" replace />} />
-            <Route path="/outsourcing/ai-data-automation" element={<Navigate to="/services/ai-automation" replace />} />
-            <Route path="/outsourcing/cloud-managed-it" element={<Navigate to="/services/cloud-devops" replace />} />
-            <Route path="/outsourcing/:slug" element={<OutsourcingDetail />} />
+            <Route path="/services/:divisionId/:categoryId" element={<ServiceCategory />} />
+            <Route path="/services/:divisionId" element={<ServiceDivision />} />
+            <Route path="/outsourcing" element={<LegacyPath />} />
+            <Route path="/outsourcing/:slug" element={<LegacyPath />} />
             <Route path="/hr" element={<HRWorkforce />} />
-            <Route path="/hr/services" element={<Navigate to="/hr#services" replace />} />
-            <Route path="/hr/services/:slug" element={<HRServiceDetail />} />
+            <Route path="/hr/services" element={<LegacyPath />} />
+            <Route path="/hr/services/:slug" element={<LegacyPath />} />
             <Route path="/hr/technology" element={<HRTechnology />} />
             <Route path="/hr/technology/:slug" element={<HRTechnology />} />
-            <Route path="/hr/jobs" element={<HRJobs />} />
-            <Route path="/hr/jobs/:id" element={<HRJobs />} />
+            <Route path="/hr/jobs/:id" element={<JobToApplication />} />
+            <Route path="/hr/jobs" element={<Navigate to="/careers#jobs" replace />} />
             <Route path="/hr/trust" element={<HRTrust />} />
-            <Route path="/jobs" element={<Navigate to="/hr/jobs" replace />} />
+            <Route path="/jobs" element={<Navigate to="/careers#jobs" replace />} />
             <Route path="/industries" element={<Industries />} />
             <Route path="/industries/:slug" element={<IndustryDetail />} />
             <Route path="/engagement-models" element={<EngagementModels />} />
-            <Route path="/engagement-models/bot" element={<Navigate to="/services/bot-model" replace />} />
+            <Route path="/engagement-models/bot" element={<Navigate to="/services/it-technology/bot" replace />} />
             <Route path="/engagement-models/:slug" element={<EngagementModelDetail />} />
             <Route path="/products" element={<Products />} />
             <Route path="/products/learnx" element={<LearnX />} />
@@ -119,6 +119,7 @@ const Site = () => {
             <Route path="/resources" element={<Resources />} />
             <Route path="/resources/case-studies" element={<CaseStudies />} />
             <Route path="/resources/glossary" element={<Glossary />} />
+            <Route path="/resources/articles/:slug" element={<Article />} />
             <Route path="/team" element={<Navigate to="/about#leadership" replace />} />
             <Route path="/kamglobal-ai" element={<Navigate to="/about#why-us" replace />} />
             <Route path="/careers" element={<Careers />} />

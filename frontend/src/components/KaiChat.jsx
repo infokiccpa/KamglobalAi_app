@@ -10,7 +10,7 @@ const CLIENTS = {
         label: 'Software and IT',
         text: 'Software and IT services are delivered from India. You can review the services, or send an enquiry.',
         page: 'View software and IT',
-        to: '/services',
+        to: '/services/it-technology',
         enquiry: contactLink('India Technology Delivery', 'Technology Services'),
         wa: 'Hello, I would like to discuss software and IT services from India.',
     },
@@ -18,7 +18,7 @@ const CLIENTS = {
         label: 'Outsourcing',
         text: 'Business operations are delivered from the Philippines. You can review the work, or send an enquiry.',
         page: 'View outsourcing',
-        to: '/outsourcing',
+        to: '/services/business-outsourcing',
         enquiry: contactLink('Philippines Operations', 'Global Outsourcing'),
         wa: 'Hello, I would like to discuss outsourcing and business operations from the Philippines.',
     },
@@ -26,7 +26,7 @@ const CLIENTS = {
         label: 'Recruitment, staffing and payroll',
         text: 'Recruitment, staffing and payroll. You can review HR services, or tell the team what you need to hire.',
         page: 'View HR services',
-        to: '/hr',
+        to: '/services/hr-solutions',
         enquiry: contactLink('Recruitment', 'Request Talent'),
         wa: 'Hello, I would like to discuss recruitment, staffing or payroll.',
     },
@@ -34,7 +34,7 @@ const CLIENTS = {
         label: 'AI & media',
         text: 'AI video, design and content. You can review this work, or send an enquiry.',
         page: 'View AI & media',
-        to: '/outsourcing/digital-marketing-creative',
+        to: '/services/ai-media-creative',
         enquiry: contactLink('Digital Marketing & Creative', 'Global Outsourcing'),
         wa: 'Hello, I would like to discuss AI and media services, including video, design and content.',
     },
@@ -83,7 +83,6 @@ const scene = (step, memory) => {
             choices: [
                 { label: 'India', next: 'job-done', memory: { place: 'India' } },
                 { label: 'The GCC', next: 'job-done', memory: { place: 'the GCC' } },
-                { label: 'The USA', next: 'job-done', memory: { place: 'the USA' } },
                 { label: 'More than one country', next: 'job-done', memory: { place: 'more than one country' } },
             ],
         };
@@ -98,9 +97,9 @@ const scene = (step, memory) => {
             'AI and media': 'an AI and media role',
         }[memory.role] || 'a role';
         return {
-            text: `Open roles are on the jobs page. You can also message the team on WhatsApp about ${phrase}${place}.`,
+            text: `Open roles are on the Careers page, grouped by service. You can also message the team on WhatsApp about ${phrase}${place}.`,
             links: [
-                { label: 'Browse job openings', to: '/hr/jobs' },
+                { label: 'Browse job openings', to: '/careers#jobs' },
                 { label: 'WhatsApp the team', href: whatsappLink(`Hello, I am looking for ${phrase}${place}. I am contacting KAM Global AI from the website.`) },
             ],
         };
@@ -130,6 +129,7 @@ const scene = (step, memory) => {
         return {
             text: `Send an enquiry about ${topic}. Include your market and what you want to work on, or message the team on WhatsApp.`,
             links: [
+                { label: 'How partnership works', to: '/about#for-partners' },
                 { label: 'Send an enquiry', to: contactLink(subject, 'Partnership') },
                 { label: 'WhatsApp the team', href: whatsappLink(`Hello, I would like to discuss a partnership around ${topic}. I am contacting KAM Global AI from the website.`) },
             ],
@@ -152,6 +152,7 @@ const scene = (step, memory) => {
         return {
             text: item.text,
             links: [
+                { label: 'How a client engagement works', to: '/about#for-clients' },
                 { label: item.page, to: item.to },
                 { label: 'Send an enquiry', to: item.enquiry },
                 { label: 'WhatsApp the team', href: whatsappLink(`${item.wa} I am contacting KAM Global AI from the website.`) },

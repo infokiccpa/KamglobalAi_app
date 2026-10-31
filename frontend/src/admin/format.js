@@ -26,17 +26,27 @@ export const JOB_STATUSES = [
 ];
 
 export const BOARDS = [
-    { value: 'hr', label: 'HR & Workforce jobs (/hr/jobs)' },
+    { value: 'hr', label: 'HR & Workforce jobs (shown on Careers)' },
     { value: 'careers', label: 'KAM Global AI careers (/careers)' },
 ];
 
 export const SERVICE_LINES = [
-    { value: 'technology', label: 'Technology — India' },
-    { value: 'operations', label: 'Operations — Philippines' },
-    { value: 'hr', label: 'HR & Workforce' },
+    { value: 'it-technology', label: 'IT & Technology' },
+    { value: 'ai-media-creative', label: 'AI Media & Creative' },
+    { value: 'business-outsourcing', label: 'Business Outsourcing' },
+    { value: 'hr-solutions', label: 'HR Solutions' },
+    { value: 'edtech', label: 'EdTech' },
 ];
 
-export const serviceLineLabel = (value) => SERVICE_LINES.find((s) => s.value === value)?.label || '';
+const LEGACY_SERVICE = {
+    technology: 'it-technology',
+    operations: 'business-outsourcing',
+    hr: 'hr-solutions',
+};
+
+export const canonicalService = (value) => LEGACY_SERVICE[value] || value || '';
+
+export const serviceLineLabel = (value) => SERVICE_LINES.find((s) => s.value === canonicalService(value))?.label || '';
 
 export const INTERVIEW_ROUNDS = [
     { value: 'screening', label: 'Screening call' },

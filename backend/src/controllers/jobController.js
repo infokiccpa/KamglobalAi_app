@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Job = require('../models/Job');
 const Application = require('../models/Application');
-const { BOARDS, STATUSES, DOCUMENT_KEYS, SERVICE_LINES } = require('../models/Job');
+const { BOARDS, STATUSES, DOCUMENT_KEYS, SERVICE_LINES, canonicalServiceLine } = require('../models/Job');
 
 const EDITABLE = [
     'board', 'serviceLine', 'title', 'category', 'department', 'location', 'country', 'experience', 'employmentType',
@@ -27,10 +27,13 @@ const pick = (body = {}) => {
     if (typeof out.requirements === 'string') {
         out.requirements = out.requirements.split('\n').map((r) => r.trim()).filter(Boolean);
     }
-    if (out.serviceLine !== undefined && !SERVICE_LINES.includes(out.serviceLine)) {
-        const error = new Error('Choose a service line');
-        error.name = 'ValidationError';
-        throw error;
+    if (out.serviceLine !== undefined) {
+        out.serviceLine = canonicalServiceLine(out.serviceLine);
+        if (!SERVICE_LINES.includes(out.serviceLine)) {
+            const error = new Error('Choose a service line');
+            error.name = 'ValidationError';
+            throw error;
+        }
     }
     if (out.requiredDocuments !== undefined) {
         const list = Array.isArray(out.requiredDocuments) ? out.requiredDocuments : [out.requiredDocuments];
