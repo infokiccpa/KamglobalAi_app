@@ -57,15 +57,17 @@ const FooterWordmark = () => {
 const OFFICE_CONTACT = {
     KW: {
         phone: COMPANY.kuwaitPhone,
-        email: 'info@kamgroups.com',
+        email: COMPANY.email,
+        whatsapp: COMPANY.kuwaitWhatsapp,
         label: 'Kuwait HQ',
         role: 'Strategy & client relations',
         hours: 'Sun–Thu · 9:00 AM – 6:00 PM',
         schedule: OFFICE_SCHEDULES.KW,
     },
     IN: {
-        phone: '+91 80507 66363',
-        email: 'info@kamglobalai.com',
+        phone: COMPANY.phone,
+        email: COMPANY.email,
+        whatsapp: COMPANY.whatsapp,
         label: 'India Center',
         role: 'Technology delivery',
         hours: 'Mon–Sat · 9:00 AM – 7:00 PM',
@@ -207,8 +209,8 @@ const OfficeCard = ({ office, now }) => {
                     <Mail size={14} aria-hidden="true" />
                     {contact.email}
                 </a>
-                {(office.addressCountry === 'KW' || office.addressCountry === 'IN') && (
-                    <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${COMPANY.kuwaitPhone}`}>
+                {contact.whatsapp && (
+                    <a href={whatsappLink(undefined, contact.whatsapp)} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp ${contact.phone}`}>
                         <MessageSquare size={14} aria-hidden="true" />
                         WhatsApp
                     </a>

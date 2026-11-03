@@ -5,17 +5,19 @@ export const COMPANY = {
     email: 'info@kamglobalai.com',
     phone: '+91 80507 66363',
     tel: '+918050766363',
+    whatsapp: '918050766363',
     kuwaitPhone: '+965 2228 9927',
     kuwaitTel: '+96522289927',
+    kuwaitWhatsapp: '96522289927',
     phones: [
         { phone: '+91 80507 66363', tel: '+918050766363' },
-        { phone: '+91 99001 62342', tel: '+919900162342' },
     ],
-    whatsapp: '96522289927',
 };
 
-export const whatsappLink = (message = 'Hello, I am contacting KAM Global AI from the website. Please let me know a suitable time to speak.') =>
-    `https://wa.me/${COMPANY.whatsapp}?text=${encodeURIComponent(message)}`;
+const DEFAULT_WHATSAPP_MESSAGE = 'Hello, I am contacting KAM Global AI from the website. Please let me know a suitable time to speak.';
+
+export const whatsappLink = (message, number = COMPANY.whatsapp) =>
+    `https://wa.me/${number}?text=${encodeURIComponent(message || DEFAULT_WHATSAPP_MESSAGE)}`;
 
 export const ISO_27001 = {
     standard: 'ISO/IEC 27001:2022',

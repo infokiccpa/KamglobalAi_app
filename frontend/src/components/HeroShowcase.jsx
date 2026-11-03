@@ -96,7 +96,7 @@ const HeroShowcase = () => {
                         One Global Partner. For your Business.
                     </motion.p>
                     <motion.p className="hx-lead hx-lead-title" {...rise(reduced, 0.44)}>
-                        KAM Global – Your Global Partner in AI, IT & Business Outsourcing Solutions
+                        KAM Global – Your Global Partner in AI, IT and Outsourcing Solutions
                     </motion.p>
                     <motion.p className="hx-lead" {...rise(reduced, 0.5)}>
                         KAM Global provides comprehensive global outsourcing solutions, specializing in IT Outsourcing (ITO), AI & Automation Services, Business Process Outsourcing (BPO), AI-Powered Digital Media Solutions, and Human Resources Solutions (HRS). We empower businesses with skilled global talent, innovative technologies, and scalable, cost-effective services to streamline operations, enhance productivity, and accelerate business growth.

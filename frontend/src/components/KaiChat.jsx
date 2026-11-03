@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { X, Send, Sparkles } from 'lucide-react';
-import { whatsappLink } from '../data/company';
+import { COMPANY, whatsappLink } from '../data/company';
 import { contactLink } from '../data/links';
 import './KaiChat.css';
+
+const officeChats = (message) => [
+    { label: `WhatsApp Kuwait ${COMPANY.kuwaitPhone}`, href: whatsappLink(message, COMPANY.kuwaitWhatsapp) },
+    { label: `WhatsApp India ${COMPANY.phone}`, href: whatsappLink(message, COMPANY.whatsapp) },
+];
 
 const CLIENTS = {
     it: {
@@ -16,7 +21,7 @@ const CLIENTS = {
     },
     outsourcing: {
         label: 'Outsourcing',
-        text: 'Business operations are delivered from the Philippines. You can review the work, or send an enquiry.',
+        text: 'Outsourcing is a named team and process. IT and software, AI outsourcing, and AI media are coordinated from India. Customer support, sales support, and back office are coordinated from the Philippines. Open the service list and pick the one that matches the work.',
         page: 'View outsourcing',
         to: '/services/business-outsourcing',
         enquiry: contactLink('Philippines Operations', 'Global Outsourcing'),
@@ -37,6 +42,14 @@ const CLIENTS = {
         to: '/services/ai-media-creative',
         enquiry: contactLink('Digital Marketing & Creative', 'Global Outsourcing'),
         wa: 'Hello, I would like to discuss AI and media services, including video, design and content.',
+    },
+    edtech: {
+        label: 'EdTech and school products',
+        text: 'EdTech covers LearnX for schools, EduAiTutors for NEET and JEE, and custom learning systems. Open the page, then enquire or book a demo.',
+        page: 'View EdTech',
+        to: '/services/edtech',
+        enquiry: contactLink('EdTech', 'Product Demo'),
+        wa: 'Hello, I would like to discuss EdTech, LearnX, or EduAiTutors.',
     },
 };
 
@@ -72,6 +85,7 @@ const scene = (step, memory) => {
                 { label: 'Operations', next: 'job-where', memory: { role: 'operations' } },
                 { label: 'HR', next: 'job-where', memory: { role: 'HR' } },
                 { label: 'AI & media', next: 'job-where', memory: { role: 'AI and media' } },
+                { label: 'EdTech', next: 'job-where', memory: { role: 'EdTech' } },
                 { label: 'Something else', next: 'job-where', memory: { role: 'a role' } },
             ],
         };
@@ -95,12 +109,14 @@ const scene = (step, memory) => {
             operations: 'an operations role',
             HR: 'an HR role',
             'AI and media': 'an AI and media role',
+            EdTech: 'an EdTech role',
         }[memory.role] || 'a role';
+        const note = `Hello, I am looking for ${phrase}${place}. I am contacting KAM Global AI from the website.`;
         return {
-            text: `Open roles are on the Careers page, grouped by service. You can also message the team on WhatsApp about ${phrase}${place}.`,
+            text: `Open roles are on the Careers page, grouped by service. Message the office that matches where you want to work. Kuwait and India use different WhatsApp numbers.`,
             links: [
                 { label: 'Browse job openings', to: '/careers#jobs' },
-                { label: 'WhatsApp the team', href: whatsappLink(`Hello, I am looking for ${phrase}${place}. I am contacting KAM Global AI from the website.`) },
+                ...officeChats(note),
             ],
         };
     }
@@ -113,6 +129,7 @@ const scene = (step, memory) => {
                 { label: 'Operations', next: 'partner-done', memory: { topic: 'operations' } },
                 { label: 'HR', next: 'partner-done', memory: { topic: 'HR' } },
                 { label: 'AI & media', next: 'partner-done', memory: { topic: 'AI and media' } },
+                { label: 'EdTech', next: 'partner-done', memory: { topic: 'EdTech' } },
                 { label: 'Not sure yet', next: 'partner-done', memory: { topic: 'a partnership' } },
             ],
         };
@@ -125,13 +142,15 @@ const scene = (step, memory) => {
             operations: 'Philippines Operations',
             HR: 'HR Partnership',
             'AI and media': 'Digital Marketing & Creative',
+            EdTech: 'EdTech',
         }[topic] || 'Partnership';
+        const note = `Hello, I would like to discuss a partnership around ${topic}. I am contacting KAM Global AI from the website.`;
         return {
-            text: `Send an enquiry about ${topic}. Include your market and what you want to work on, or message the team on WhatsApp.`,
+            text: `Send an enquiry about ${topic}. Say which market you cover. Use the WhatsApp number for the office you want to reach.`,
             links: [
                 { label: 'How partnership works', to: '/about#for-partners' },
                 { label: 'Send an enquiry', to: contactLink(subject, 'Partnership') },
-                { label: 'WhatsApp the team', href: whatsappLink(`Hello, I would like to discuss a partnership around ${topic}. I am contacting KAM Global AI from the website.`) },
+                ...officeChats(note),
             ],
         };
     }
@@ -155,7 +174,7 @@ const scene = (step, memory) => {
                 { label: 'How a client engagement works', to: '/about#for-clients' },
                 { label: item.page, to: item.to },
                 { label: 'Send an enquiry', to: item.enquiry },
-                { label: 'WhatsApp the team', href: whatsappLink(`${item.wa} I am contacting KAM Global AI from the website.`) },
+                ...officeChats(`${item.wa} I am contacting KAM Global AI from the website.`),
             ],
         };
     }
@@ -191,6 +210,12 @@ const matchIntent = (text) => {
     }
     if (has('payroll', 'recruit', 'staffing', 'hiring')) {
         return { next: 'client-done', memory: { service: 'hr' } };
+    }
+    if (has('edtech', 'school', 'learnx', 'tutor', 'neet', 'jee')) {
+        return { next: 'client-done', memory: { service: 'edtech' } };
+    }
+    if (has('ai outsourcing', 'artificial intelligence')) {
+        return { next: 'client-done', memory: { service: 'outsourcing' } };
     }
     if (has('client', 'employer', 'project', 'service')) return { next: 'client' };
     return null;
@@ -264,7 +289,7 @@ const KaiChat = () => {
             { role: 'user', text },
             {
                 role: 'kai',
-                text: 'I can help with a job, a partnership, or a service, including AI & media. Choose one below, or type which of those you need.',
+                text: 'Choose a job, a partnership, or a service: IT, outsourcing, AI and media, HR, or EdTech. You can also type which one you need.',
             },
         ]);
     };

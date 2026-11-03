@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
-import { whatsappLink } from '../data/company';
+import { COMPANY, whatsappLink } from '../data/company';
 import './FloatingActions.css';
 
 const WhatsAppIcon = () => (
@@ -12,6 +12,8 @@ const WhatsAppIcon = () => (
 
 const FloatingActions = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const [chatOpen, setChatOpen] = useState(false);
+    const menuRef = useRef(null);
 
     // Show button when page is scrolled up to a certain distance
     useEffect(() => {
@@ -27,6 +29,24 @@ const FloatingActions = () => {
         return () => window.removeEventListener('scroll', toggleVisibility);
     }, []);
 
+    useEffect(() => {
+        if (!chatOpen) return undefined;
+
+        const closeOnOutside = (event) => {
+            if (!menuRef.current?.contains(event.target)) setChatOpen(false);
+        };
+        const closeOnEscape = (event) => {
+            if (event.key === 'Escape') setChatOpen(false);
+        };
+
+        document.addEventListener('pointerdown', closeOnOutside);
+        document.addEventListener('keydown', closeOnEscape);
+        return () => {
+            document.removeEventListener('pointerdown', closeOnOutside);
+            document.removeEventListener('keydown', closeOnEscape);
+        };
+    }, [chatOpen]);
+
     const scrollToTop = () => {
         window.scrollTo({
             top: 0,
@@ -36,16 +56,31 @@ const FloatingActions = () => {
 
     return (
         <>
-            <a
-                className="wa-fab"
-                href={whatsappLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Chat with KAM Global AI on WhatsApp"
-            >
-                <span className="wa-fab-icon"><WhatsAppIcon /></span>
-                <span className="wa-fab-label">Chat</span>
-            </a>
+            <div className={`wa-fab-wrap${chatOpen ? ' is-open' : ''}`} ref={menuRef}>
+                {chatOpen && (
+                    <div className="wa-fab-menu" role="menu" aria-label="Choose a WhatsApp number">
+                        <p className="wa-fab-menu-title">Message on WhatsApp</p>
+                        <a role="menuitem" href={whatsappLink(undefined, COMPANY.kuwaitWhatsapp)} target="_blank" rel="noopener noreferrer" onClick={() => setChatOpen(false)}>
+                            <span>Kuwait</span>
+                            <strong>{COMPANY.kuwaitPhone}</strong>
+                        </a>
+                        <a role="menuitem" href={whatsappLink(undefined, COMPANY.whatsapp)} target="_blank" rel="noopener noreferrer" onClick={() => setChatOpen(false)}>
+                            <span>India</span>
+                            <strong>{COMPANY.phone}</strong>
+                        </a>
+                    </div>
+                )}
+                <button
+                    type="button"
+                    className="wa-fab"
+                    aria-expanded={chatOpen}
+                    aria-label="Choose Kuwait or India WhatsApp"
+                    onClick={() => setChatOpen((open) => !open)}
+                >
+                    <span className="wa-fab-icon"><WhatsAppIcon /></span>
+                    <span className="wa-fab-label">Chat</span>
+                </button>
+            </div>
             <div className="floating-actions">
             {/* Scroll to Top Button */}
             <AnimatePresence>

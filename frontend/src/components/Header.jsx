@@ -223,11 +223,11 @@ const Header = () => {
               <a href={`mailto:${COMPANY.email}`}>
                 <Mail size={12} aria-hidden="true" /> {COMPANY.email}
               </a>
-              <a href={`tel:${COMPANY.tel}`} aria-label={`India ${COMPANY.phone}`}>
-                <Phone size={12} aria-hidden="true" /> {COMPANY.phone}
+              <a href={`tel:${COMPANY.tel}`}>
+                <Phone size={12} aria-hidden="true" /> India {COMPANY.phone}
               </a>
-              <a href={`tel:${COMPANY.kuwaitTel}`} aria-label={`Kuwait ${COMPANY.kuwaitPhone}`}>
-                <Phone size={12} aria-hidden="true" /> {COMPANY.kuwaitPhone}
+              <a href={`tel:${COMPANY.kuwaitTel}`}>
+                <Phone size={12} aria-hidden="true" /> Kuwait {COMPANY.kuwaitPhone}
               </a>
             </nav>
           </div>
@@ -503,8 +503,8 @@ const Header = () => {
           </Link>
           <div className="sh-drawer-contact">
             <a href={`mailto:${COMPANY.email}`}><Mail size={14} aria-hidden="true" /> {COMPANY.email}</a>
-            <a href={`tel:${COMPANY.tel}`}><Phone size={14} aria-hidden="true" /> {COMPANY.phone}</a>
-            <a href={`tel:${COMPANY.kuwaitTel}`}><Phone size={14} aria-hidden="true" /> {COMPANY.kuwaitPhone}</a>
+            <a href={`tel:${COMPANY.tel}`}><Phone size={14} aria-hidden="true" /> India {COMPANY.phone}</a>
+            <a href={`tel:${COMPANY.kuwaitTel}`}><Phone size={14} aria-hidden="true" /> Kuwait {COMPANY.kuwaitPhone}</a>
           </div>
           <p className="sh-drawer-legal">
             {COMPANY.legalName}

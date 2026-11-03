@@ -305,7 +305,7 @@ export const hrIndustries = [
 // TODO_VERIFY: services, compliance notes and contacts per country.
 export const hrCountries = [
     { code: 'IN', name: 'India', services: 'Recruitment, contract staffing, payroll and HR technology', note: 'Local compliance details to be confirmed', contact: 'info@kamglobalai.com' },
-    { code: 'KW', name: 'Kuwait', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: 'info@kamgroups.com' },
+    { code: 'KW', name: 'Kuwait', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: 'info@kamglobalai.com' },
     { code: 'SA', name: 'Saudi Arabia', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: '' },
     { code: 'QA', name: 'Qatar', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: '' },
     { code: 'BH', name: 'Bahrain', services: 'Recruitment and overseas hiring support', note: 'Local compliance details to be confirmed', contact: '' },

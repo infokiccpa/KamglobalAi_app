@@ -9,8 +9,73 @@
     z-index: 9999;
 }
 
-.wa-fab {
+.wa-fab-wrap {
     position: fixed;
+    right: 24px;
+    bottom: 22px;
+    z-index: 9990;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.wa-fab-wrap.is-open {
+    z-index: 10050;
+}
+
+.wa-fab-menu {
+    position: absolute;
+    right: 0;
+    bottom: 118px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: max-content;
+    min-width: 220px;
+    padding: 10px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid rgba(12, 33, 61, 0.12);
+    box-shadow: 0 18px 40px -16px rgba(12, 33, 61, 0.45);
+}
+
+.wa-fab-menu-title {
+    margin: 2px 8px 4px;
+    color: #5b6b80;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.wa-fab-menu a {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: #0c213d;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.wa-fab-menu a strong {
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.wa-fab-menu a:hover,
+.wa-fab-menu a:focus-visible {
+    background: #f3fbf8;
+    color: #0e7a6e;
+}
+
+.wa-fab {
+    position: static;
     right: 24px;
     left: auto;
     bottom: 22px;
@@ -24,6 +89,7 @@
     background: #128c7e;
     color: #fff;
     text-decoration: none;
+    cursor: pointer;
     box-shadow: 0 16px 32px -16px rgba(18, 140, 126, 0.85);
     transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -98,6 +164,17 @@
         bottom: 134px;
         right: 16px;
         gap: 10px;
+    }
+
+    .wa-fab-wrap {
+        right: 16px;
+        bottom: 14px;
+    }
+
+    .wa-fab-menu {
+        right: 0;
+        bottom: 112px;
+        min-width: 200px;
     }
 
     .wa-fab {

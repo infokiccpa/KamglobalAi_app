@@ -61,7 +61,7 @@ const WhatsAppIcon = ({ size = 16 }) => (
 );
 
 const OFFICE_CONTACT = {
-    KW: { phone: COMPANY.kuwaitPhone, tel: COMPANY.kuwaitTel, email: 'info@kamgroups.com', hours: 'Sun–Thu: 9:00 AM – 6:00 PM' },
+    KW: { phone: COMPANY.kuwaitPhone, tel: COMPANY.kuwaitTel, email: COMPANY.email, whatsapp: COMPANY.kuwaitWhatsapp, hours: 'Sun–Thu: 9:00 AM – 6:00 PM' },
     IN: {
         phone: COMPANY.phone,
         tel: COMPANY.tel,
@@ -109,7 +109,7 @@ const useNow = (intervalMs = 30000) => {
 
 const enquiryCards = [
     { icon: Code2, title: 'Clients: technology', desc: 'Software, cloud, quality, security and support for your organisation.', type: 'Technology Services' },
-    { icon: Globe2, title: 'Clients: outsourcing', desc: 'Customer support, sales, back office and related operations.', type: 'Global Outsourcing' },
+    { icon: Globe2, title: 'Clients: outsourcing', desc: 'IT and software, AI outsourcing, AI media, customer support, sales, and back office.', type: 'Global Outsourcing' },
     { icon: UserPlus, title: 'Clients: hiring', desc: 'Tell us the roles, skills and locations you need filled.', type: 'Request Talent' },
     { icon: GraduationCap, title: 'Clients: product demo', desc: 'LearnX.school, EduAiTutors, or the AI-Powered LMS.', type: 'Product Demo' },
     { icon: Handshake, title: 'Partners', desc: 'A delivery or commercial partnership. This is not a job application.', type: 'Partnership' },
@@ -610,8 +610,8 @@ const OfficeClock = ({ code, label, office, contact, now, className = '' }) => {
                 </a>
             ))}
             {contact.whatsapp && (
-                <a href={whatsappLink()} className="con-clock-phone" target="_blank" rel="noopener noreferrer">
-                    <WhatsAppIcon size={13} /> WhatsApp
+                <a href={whatsappLink(undefined, contact.whatsapp)} className="con-clock-phone" target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon size={13} /> WhatsApp {contact.phone}
                 </a>
             )}
             <span className="con-clock-hours">
@@ -776,8 +776,8 @@ const OfficeExplorer = ({ offices, now, copied, onCopy }) => {
                             ))}
                             {contact.whatsapp && (
                                 <li>
-                                    <a href={whatsappLink()} target="_blank" rel="noopener noreferrer">
-                                        <WhatsAppIcon size={14} /> WhatsApp
+                                    <a href={whatsappLink(undefined, contact.whatsapp)} target="_blank" rel="noopener noreferrer">
+                                        <WhatsAppIcon size={14} /> WhatsApp {contact.phone}
                                     </a>
                                 </li>
                             )}
@@ -1008,8 +1008,9 @@ const Contact = () => {
             value: item.phone,
             href: `tel:${item.tel}`,
         })),
-        { key: 'quick-wa', icon: WhatsAppIcon, label: 'WhatsApp', value: 'Chat with us', href: whatsappLink(), external: true },
-        { key: 'quick-kw', icon: Phone, label: 'Kuwait HQ', value: OFFICE_CONTACT.KW.phone, href: `tel:${OFFICE_CONTACT.KW.tel}` },
+        { key: 'quick-kw', icon: Phone, label: 'Kuwait', value: OFFICE_CONTACT.KW.phone, href: `tel:${OFFICE_CONTACT.KW.tel}` },
+        { key: 'quick-kw-wa', icon: WhatsAppIcon, label: 'WhatsApp Kuwait', value: OFFICE_CONTACT.KW.phone, href: whatsappLink(undefined, OFFICE_CONTACT.KW.whatsapp), external: true },
+        { key: 'quick-in-wa', icon: WhatsAppIcon, label: 'WhatsApp India', value: OFFICE_CONTACT.IN.phone, href: whatsappLink(undefined, OFFICE_CONTACT.IN.whatsapp), external: true },
         { key: 'quick-li', icon: Linkedin, label: 'LinkedIn', value: 'Follow our updates', href: LINKEDIN_URL, external: true },
     ];
 

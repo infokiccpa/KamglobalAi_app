@@ -11,8 +11,8 @@ const HOURS = {
 };
 
 const OFFICE_LINES = {
-    KW: { phone: COMPANY.kuwaitPhone, tel: COMPANY.kuwaitTel, email: 'info@kamgroups.com' },
-    IN: { phone: COMPANY.phone, tel: COMPANY.tel, email: COMPANY.email },
+    KW: { phone: COMPANY.kuwaitPhone, tel: COMPANY.kuwaitTel, email: COMPANY.email, whatsapp: COMPANY.kuwaitWhatsapp },
+    IN: { phone: COMPANY.phone, tel: COMPANY.tel, email: COMPANY.email, whatsapp: COMPANY.whatsapp },
 };
 
 const Support = () => (
@@ -34,20 +34,24 @@ const Support = () => (
                 <article className="support-card">
                     <Mail size={28} aria-hidden="true" />
                     <h2>Email</h2>
-                    <p>India office</p>
+                    <p>Kuwait and India</p>
                     <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>
                 </article>
                 <article className="support-card">
                     <Phone size={28} aria-hidden="true" />
                     <h2>Phone</h2>
+                    <p>Kuwait · {HOURS.KW}</p>
+                    <a href={`tel:${COMPANY.kuwaitTel}`}>{COMPANY.kuwaitPhone}</a>
                     <p>India · {HOURS.IN}</p>
                     <a href={`tel:${COMPANY.tel}`}>{COMPANY.phone}</a>
                 </article>
                 <article className="support-card">
                     <MessageSquare size={28} aria-hidden="true" />
                     <h2>WhatsApp</h2>
-                    <p>Kuwait number, when you choose to message us there</p>
-                    <a href={whatsappLink()}>{COMPANY.kuwaitPhone}</a>
+                    <p>Kuwait, same number as calls</p>
+                    <a href={whatsappLink(undefined, COMPANY.kuwaitWhatsapp)}>{COMPANY.kuwaitPhone}</a>
+                    <p>India, same number as calls</p>
+                    <a href={whatsappLink(undefined, COMPANY.whatsapp)}>{COMPANY.phone}</a>
                 </article>
             </div>
 
@@ -82,6 +86,8 @@ const Support = () => (
                                 {line && (
                                     <p>
                                         <a href={`tel:${line.tel}`}>{line.phone}</a>
+                                        <br />
+                                        <a href={whatsappLink(undefined, line.whatsapp)}>WhatsApp {line.phone}</a>
                                         <br />
                                         <a href={`mailto:${line.email}`}>{line.email}</a>
                                     </p>

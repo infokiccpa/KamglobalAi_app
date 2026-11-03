@@ -49,9 +49,9 @@
 .kai-launcher-label {
     margin-left: 10px;
     font-family: var(--font-heading);
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 650;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.06em;
 }
 
 .kai-panel {
@@ -77,7 +77,7 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    min-height: 108px;
+    min-height: 72px;
     padding: 16px 14px 16px 16px;
     background:
         linear-gradient(115deg, rgba(6, 18, 36, 0.92) 8%, rgba(8, 26, 48, 0.78) 48%, rgba(160, 78, 8, 0.55) 100%),
@@ -108,7 +108,7 @@
 .kai-name {
     margin: 0;
     font-family: var(--font-heading);
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.12em;
     background: linear-gradient(100deg, #fff 10%, #ffe7c4 42%, #ffb04a 78%, #fff 100%);
@@ -123,7 +123,7 @@
     margin: 3px 0 0;
     max-width: 230px;
     color: #ffe8cc;
-    font-size: 13px;
+    font-size: 11px;
     line-height: 1.35;
     text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
@@ -160,8 +160,8 @@
     max-width: 92%;
     padding: 10px 12px;
     border-radius: 14px;
-    font-size: 14.5px;
-    line-height: 1.45;
+    font-size: 13px;
+    line-height: 1.4;
 }
 
 .kai-msg--kai {
@@ -200,7 +200,7 @@
     border-radius: 12px;
     background: #fff;
     color: #0c213d;
-    font-size: 14px;
+    font-size: 12.5px;
     font-weight: 600;
     text-align: left;
     text-decoration: none;
@@ -225,7 +225,7 @@
     border: 0;
     background: none;
     color: #c56a00;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 650;
     text-align: left;
     text-decoration: none;
@@ -249,7 +249,7 @@
     background: #f7f9fc;
     color: #0c213d;
     font: inherit;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .kai-compose input:focus {

@@ -369,8 +369,8 @@ export const serviceCatalogue = [
         enquiryType: 'Global Outsourcing',
         viewAllLabel: 'View All Outsourcing Services',
         icon: Globe,
-        summary: 'Defined operations work delivered by an agreed team and process.',
-        intro: 'Outsourcing covers a named process, team and reporting rhythm. Technology delivery is coordinated from India. Business operations support is coordinated from the Philippines. Coverage, hours and compliance duties are whatever the agreement states.',
+        summary: 'Outsourced teams for IT and software, AI, AI media, and business operations. Each engagement names the work, the team, and how it is reviewed.',
+        intro: 'Choose one service below. IT and software, AI outsourcing, and AI media are coordinated from India. Customer support, sales support, and back office are coordinated from the Philippines. The page for that service lists what can be scoped. A proposal then states what is included, who does it, and how often you review it.',
         categories: [
             cat('it-software', 'IT & Software Outsourcing', 'Engineering and application support delivered as an outsourced team.', [
                 'Software development outsourcing',
@@ -380,7 +380,7 @@ export const serviceCatalogue = [
                 'Website and application support',
                 'Dedicated engineering teams',
                 'Technical project support',
-            ], { icon: Code2, featured: true, navTitle: 'IT & AI' }),
+            ], { icon: Code2, featured: true }),
             cat('ai-outsourcing', 'AI Outsourcing', 'AI delivery staffed as an outsourced team, scoped to the systems and workflows you name.', [
                 'AI application development outsourcing',
                 'Generative AI workflow support',

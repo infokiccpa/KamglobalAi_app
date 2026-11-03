@@ -741,7 +741,7 @@ const LearnX = () => {
                                     rel="noopener noreferrer"
                                     className="lx-btn lx-btn-outline"
                                 >
-                                    <MessageCircle size={16} /> WhatsApp Enquire
+                                    <MessageCircle size={16} /> WhatsApp India
                                 </a>
                                 <a href="mailto:info@kamglobalai.com?subject=LearnX%20Brochure" className="lx-btn lx-btn-outline">
                                     <Download size={16} /> Request Brochure
