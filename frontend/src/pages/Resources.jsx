@@ -39,7 +39,7 @@ const profile = [
     { icon: Building2, title: 'About us', desc: 'Who we are, how we work and our leadership.', to: '/about', cta: 'Read more' },
     { icon: Code2, title: 'IT & Technology', desc: 'Software, cloud, quality, security and support.', to: '/services/it-technology', cta: 'Explore IT services' },
     { icon: Clapperboard, title: 'AI Media & Creative', desc: 'Brand, video, design and content from an agreed brief.', to: '/services/ai-media-creative', cta: 'Explore creative services' },
-    { icon: Globe, title: 'Business Outsourcing', desc: 'Customer experience, sales support, BPO and virtual assistance.', to: '/services/business-outsourcing', cta: 'Explore outsourcing' },
+    { icon: Globe, title: 'Outsourcing Solutions', desc: 'AI outsourcing, AI media, customer experience, sales support, BPO and virtual assistance.', to: '/services/business-outsourcing', cta: 'Explore outsourcing' },
     { icon: Users, title: 'HR Solutions', desc: 'Recruitment, staffing, payroll administration and HR systems for employers.', to: '/services/hr-solutions', cta: 'Explore HR services' },
     { icon: BookOpen, title: 'Products', desc: 'LearnX, EduAiTutors and AI-Powered LMS.', to: '/products', cta: 'View products' },
     { icon: BookOpen, title: 'Glossary', desc: 'Plain-English definitions of BPO, RPO, BOT, ATS, HRMS and other terms.', to: '/resources/glossary', cta: 'Read the glossary' },

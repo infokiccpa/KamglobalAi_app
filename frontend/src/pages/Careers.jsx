@@ -53,7 +53,7 @@ const serviceFilters = [
     { id: 'All', label: 'All services' },
     { id: 'it-technology', label: 'IT & Technology' },
     { id: 'ai-media-creative', label: 'AI Media & Creative' },
-    { id: 'business-outsourcing', label: 'Business Outsourcing' },
+    { id: 'business-outsourcing', label: 'Outsourcing Solutions' },
     { id: 'hr-solutions', label: 'HR Solutions' },
     { id: 'edtech', label: 'EdTech' },
 ];

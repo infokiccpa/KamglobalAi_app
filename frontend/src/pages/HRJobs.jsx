@@ -203,7 +203,7 @@ const JobDetail = ({ job, sample }) => {
         description: job.description || job.summary || `${job.title} in ${job.location}.`,
     };
     const meta = [
-        [Briefcase, 'Service line', { technology: 'IT & Technology', 'it-technology': 'IT & Technology', operations: 'Business Outsourcing', 'business-outsourcing': 'Business Outsourcing', hr: 'HR Solutions', 'hr-solutions': 'HR Solutions', 'ai-media-creative': 'AI Media & Creative', edtech: 'EdTech' }[job.serviceLine]],
+        [Briefcase, 'Service line', { technology: 'IT & Technology', 'it-technology': 'IT & Technology', operations: 'Outsourcing Solutions', 'business-outsourcing': 'Outsourcing Solutions', hr: 'HR Solutions', 'hr-solutions': 'HR Solutions', 'ai-media-creative': 'AI Media & Creative', edtech: 'EdTech' }[job.serviceLine]],
         [MapPin, 'Location', job.location],
         [Briefcase, 'Experience / eligibility', job.experience],
         [Clock, 'Employment type', job.type],

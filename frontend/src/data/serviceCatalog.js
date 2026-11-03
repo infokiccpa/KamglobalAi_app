@@ -7,7 +7,7 @@ import { categoryCapabilities, serviceCatalogue } from './services/catalog';
 
 const toService = (division, category) => ({
     id: category.id,
-    title: category.title,
+    title: category.navTitle || category.title,
     description: category.summary,
     route: `/services/${division.id}/${category.id}`,
     icon: category.icon || division.icon,

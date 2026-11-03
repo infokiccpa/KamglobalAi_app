@@ -10,7 +10,7 @@ const KNOWN = {
     'sales-lead-generation': { name: 'Sales support', short: 'Sales support', to: '/services/business-outsourcing/sales-support' },
     'virtual-assistance': { name: 'Virtual assistance', short: 'Virtual assistance', to: '/services/business-outsourcing/virtual-assistance' },
     'digital-marketing-creative': { name: 'AI Media and Creative', short: 'AI media', to: '/services/ai-media-creative' },
-    'industry-operations': { name: 'Business outsourcing', short: 'Operations', to: '/services/business-outsourcing' },
+    'industry-operations': { name: 'Outsourcing solutions', short: 'Operations', to: '/services/business-outsourcing' },
 };
 
 export const findService = (slug) => {

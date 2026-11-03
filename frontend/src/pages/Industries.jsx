@@ -396,7 +396,7 @@ const Industries = () => {
                                     Discuss Your Industry Requirement <ArrowRight size={16} aria-hidden="true" />
                                 </Link>
                                 <Link to="/services/business-outsourcing" className="in-btn in-btn--ghost">
-                                    Business Outsourcing <ArrowRight size={16} aria-hidden="true" />
+                                    Outsourcing Solutions <ArrowRight size={16} aria-hidden="true" />
                                 </Link>
                             </Reveal>
                         </div>

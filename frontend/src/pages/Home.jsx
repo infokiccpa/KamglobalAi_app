@@ -176,7 +176,7 @@ const advantages = [
 const whyLines = [
     { icon: Code2, label: 'IT & Technology', to: '/services/it-technology' },
     { icon: Clapperboard, label: 'AI Media & Creative', to: '/services/ai-media-creative' },
-    { icon: Headset, label: 'Business Outsourcing', to: '/services/business-outsourcing' },
+    { icon: Headset, label: 'Outsourcing Solutions', to: '/services/business-outsourcing' },
     { icon: UserSearch, label: 'HR Solutions', to: '/services/hr-solutions' },
     { icon: GraduationCap, label: 'EdTech', to: '/services/edtech' },
 ];
@@ -257,7 +257,7 @@ const helpLines = [
         id: 'ops',
         step: '03',
         icon: Headset,
-        title: 'Business Outsourcing',
+        title: 'Outsourcing Solutions',
         tagline: 'Customer experience, sales support and back-office work from the Philippines, with partnership reach in more countries.',
         places: [
             { code: 'PH', name: 'Philippines' },
@@ -269,12 +269,14 @@ const helpLines = [
             { code: 'TN', name: 'Tunisia' },
             { code: 'KE', name: 'Kenya' },
         ],
-        exploreLabel: 'Explore Business Outsourcing',
+        exploreLabel: 'Explore Outsourcing Solutions',
         exploreTo: '/services/business-outsourcing',
         layout: 'list',
         client: { title: 'Client / Employer', text: 'Discuss a requirement', to: contactLink('Philippines Operations') },
         seeker: { title: 'Job seeker', text: 'View careers', to: '/careers' },
         services: [
+            { icon: Brain, label: 'AI outsourcing', to: '/services/business-outsourcing/ai-outsourcing' },
+            { icon: Sparkles, label: 'AI media', to: '/services/business-outsourcing/ai-media' },
             { icon: Headset, label: 'Customer service and support', to: '/services/business-outsourcing/customer-support' },
             { icon: BarChart3, label: 'Sales and lead generation', to: '/services/business-outsourcing/sales-support' },
             { icon: FolderKanban, label: 'Back office and BPO', to: '/services/business-outsourcing/bpo' },

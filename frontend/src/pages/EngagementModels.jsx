@@ -145,7 +145,7 @@ const EngagementModels = () => (
             title="Not Sure Which Model Fits?"
             text="Share the work you need done and we will suggest a structure to discuss."
             primary={{ label: 'Request a Proposal', to: contactLink('Engagement Models', 'Request a Proposal') }}
-            secondary={{ label: 'Business Outsourcing', to: '/services/business-outsourcing' }}
+            secondary={{ label: 'Outsourcing Solutions', to: '/services/business-outsourcing' }}
         />
     </div>
 );

@@ -103,7 +103,7 @@ const serviceGroups = [
             { label: 'All services', to: '/services' },
             { label: 'IT & Technology', to: '/services/it-technology' },
             { label: 'AI Media & Creative', to: '/services/ai-media-creative' },
-            { label: 'Business Outsourcing', to: '/services/business-outsourcing' },
+            { label: 'Outsourcing Solutions', to: '/services/business-outsourcing' },
             { label: 'HR Solutions', to: '/services/hr-solutions' },
             { label: 'EdTech', to: '/services/edtech' },
         ],

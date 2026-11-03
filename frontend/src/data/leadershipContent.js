@@ -67,7 +67,7 @@ export const teamDepartments = [
         alt: 'Customer experience team wearing headsets in a modern contact centre',
         summary: 'CX, sales support, BPO and back-office teams that extend your operations.',
         points: ['Customer support & CX', 'Sales & lead generation support', 'BPO, RPO & virtual assistance'],
-        link: { label: 'Business Outsourcing', to: '/services/business-outsourcing' }
+        link: { label: 'Outsourcing Solutions', to: '/services/business-outsourcing' }
     },
     {
         key: 'hr',

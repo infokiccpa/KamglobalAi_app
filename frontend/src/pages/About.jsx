@@ -232,14 +232,14 @@ const hubs = [
         icon: Headset,
         desc: 'Sales support, CX, BPO, RPO, virtual assistance, and back-office workflows.',
         points: ['Customer experience & sales support', 'BPO and RPO workflows', 'Availability confirmed during discovery'],
-        link: { label: 'Business Outsourcing', to: '/services/business-outsourcing' },
+        link: { label: 'Outsourcing Solutions', to: '/services/business-outsourcing' },
     },
 ];
 
 const advantages = [
     { icon: Shield, title: 'Global Backing', desc: 'Backed by KAM Group, Kuwait, with the relationship held from Kuwait.' },
     { icon: Globe2, title: 'The right hub', desc: 'Technology and AI media from India. Business operations from the Philippines. HR for employers in India and the GCC.' },
-    { icon: Cpu, title: 'The matching division', desc: 'The brief decides the division: IT & Technology, AI Media & Creative, Business Outsourcing, HR Solutions or EdTech. The service list stays on Services.' },
+    { icon: Cpu, title: 'The matching division', desc: 'The brief decides the division: IT & Technology, AI Media & Creative, Outsourcing Solutions, HR Solutions or EdTech. The service list stays on Services.' },
     { icon: Award, title: 'Agreed standards', desc: 'Security expectations are written before work starts, for technology, operations, media, HR and education work.' },
     { icon: Users, title: 'One company, more than one division', desc: 'A later piece of work can sit with another division. Each piece still has its own written scope.' },
     { icon: Zap, title: 'Work matched to the brief', desc: 'The team and tools follow the division you chose. AI, automation and cloud are used when they are in that scope.' },
@@ -248,7 +248,7 @@ const advantages = [
 ];
 
 const comparisonRows = [
-    { criteria: 'What you can commission', separate: 'One kind of work from one vendor', kam: 'Five divisions under one company: IT & Technology, AI Media & Creative, Business Outsourcing, HR Solutions and EdTech' },
+    { criteria: 'What you can commission', separate: 'One kind of work from one vendor', kam: 'Five divisions under one company: IT & Technology, AI Media & Creative, Outsourcing Solutions, HR Solutions and EdTech' },
     { criteria: 'Where you start', separate: 'A pre-packaged offer', kam: 'The division that matches the brief, then a written scope' },
     { criteria: 'Where the work is done', separate: 'One place for every task', kam: 'Technology and media from India. Operations from the Philippines. HR for India and the GCC' },
     { criteria: 'Timeline', separate: 'A date set before the scope is clear', kam: 'The timeline is written into the proposal after the scope is clear' },

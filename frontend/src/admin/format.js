@@ -33,7 +33,7 @@ export const BOARDS = [
 export const SERVICE_LINES = [
     { value: 'it-technology', label: 'IT & Technology' },
     { value: 'ai-media-creative', label: 'AI Media & Creative' },
-    { value: 'business-outsourcing', label: 'Business Outsourcing' },
+    { value: 'business-outsourcing', label: 'Outsourcing Solutions' },
     { value: 'hr-solutions', label: 'HR Solutions' },
     { value: 'edtech', label: 'EdTech' },
 ];

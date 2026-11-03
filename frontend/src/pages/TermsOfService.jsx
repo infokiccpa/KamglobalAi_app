@@ -34,7 +34,7 @@ const TermsOfService = () => (
                 <ul>
                     <li><strong>IT &amp; Technology,</strong> delivered from India: websites, business software, mobile apps, AI and automation, data and analytics, cloud and DevOps, managed IT, IT staffing, and Build-Operate-Transfer teams.</li>
                     <li><strong>AI Media &amp; Creative,</strong> delivered from India: content and creative production, video and motion, SEO and campaign support, and marketing operations. Channel choice, ad spend, approvals, and the result you expect are agreed in the brief.</li>
-                    <li><strong>Business Outsourcing:</strong> technology and digital delivery from India, and business operations from the Philippines, including customer experience, BPO and back office, and sales support. Partnership countries named on the website are not delivery offices.</li>
+                    <li><strong>Outsourcing Solutions:</strong> technology and digital delivery from India, and business operations from the Philippines, including customer experience, BPO and back office, and sales support. Partnership countries named on the website are not delivery offices.</li>
                     <li><strong>HR Solutions:</strong> recruitment, contract staffing, payroll administration, executive search, and HR technology. We discuss these for India and the GCC where the role and the law allow it.</li>
                     <li><strong>EdTech:</strong> learning platforms and school software, including LearnX.school and EduAiTutors. A demo or a product page does not, by itself, give a licence to use the product.</li>
                 </ul>

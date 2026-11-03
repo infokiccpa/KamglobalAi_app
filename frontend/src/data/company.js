@@ -5,6 +5,8 @@ export const COMPANY = {
     email: 'info@kamglobalai.com',
     phone: '+91 80507 66363',
     tel: '+918050766363',
+    kuwaitPhone: '+965 2228 9927',
+    kuwaitTel: '+96522289927',
     phones: [
         { phone: '+91 80507 66363', tel: '+918050766363' },
         { phone: '+91 99001 62342', tel: '+919900162342' },

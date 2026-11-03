@@ -22,7 +22,7 @@ const NotFound = () => (
                 variant="compact"
                 items={[
                     { icon: Layers, title: 'Services', desc: 'Five divisions: IT, creative, outsourcing, HR and EdTech.', to: '/services' },
-                    { icon: Globe2, title: 'Business Outsourcing', desc: 'Operations support under an agreed process.', to: '/services/business-outsourcing' },
+                    { icon: Globe2, title: 'Outsourcing Solutions', desc: 'Operations support under an agreed process.', to: '/services/business-outsourcing' },
                     { icon: GraduationCap, title: 'Products', desc: 'Education technology products.', to: '/products' },
                     { icon: Mail, title: 'Contact', desc: 'Tell us what you need.', to: '/contact' },
                 ]}
