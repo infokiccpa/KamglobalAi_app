@@ -102,7 +102,7 @@ const PrivacyPolicy = () => (
             <div className="legal-section">
                 <h2>9. Cookies and browser storage</h2>
                 <p>
-                    This website stores a note in your browser when you accept or decline the notice at the bottom of the page. That note remembers your choice. It is not an advertising cookie. If you are a staff member, the admin sign-in keeps a session in the browser until you sign out. The careers page can also remember roles you save on that device. You can clear these in your browser settings. Declining the notice does not block the contact form or a job application.
+                    Necessary cookies keep the site working. The notice at the bottom of the page stores your choice, Necessary only or Accept, in this browser. We do not use advertising or analytics cookies, so either choice leaves only those necessary cookies. Choosing Accept does not subscribe you to email updates. If you are a staff member, the admin sign-in keeps a session in the browser until you sign out. The careers page can also remember roles you save on that device. You can clear these in your browser settings. Either choice still lets you use the contact form or send a job application.
                 </p>
             </div>
 
@@ -131,7 +131,7 @@ const PrivacyPolicy = () => (
                 <p>
                     <strong>Email:</strong> <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a><br />
                     <strong>India:</strong> {COMPANY.phone}<br />
-                    <strong>Kuwait office:</strong> +965 22087764
+                    <strong>Kuwait office:</strong> {COMPANY.kuwaitPhone}
                 </p>
                 <p>
                     The terms for using the website and for buying services are in the <Link to="/terms">Terms &amp; Conditions</Link>.

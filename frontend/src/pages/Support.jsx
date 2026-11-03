@@ -11,7 +11,7 @@ const HOURS = {
 };
 
 const OFFICE_LINES = {
-    KW: { phone: '+965 22087764', tel: '+96522087764', email: 'info@kamgroups.com' },
+    KW: { phone: COMPANY.kuwaitPhone, tel: COMPANY.kuwaitTel, email: 'info@kamgroups.com' },
     IN: { phone: COMPANY.phone, tel: COMPANY.tel, email: COMPANY.email },
 };
 
@@ -47,7 +47,7 @@ const Support = () => (
                     <MessageSquare size={28} aria-hidden="true" />
                     <h2>WhatsApp</h2>
                     <p>Kuwait number, when you choose to message us there</p>
-                    <a href={whatsappLink()}>+965 2228 9927</a>
+                    <a href={whatsappLink()}>{COMPANY.kuwaitPhone}</a>
                 </article>
             </div>
 

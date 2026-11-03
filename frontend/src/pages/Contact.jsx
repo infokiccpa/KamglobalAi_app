@@ -61,7 +61,7 @@ const WhatsAppIcon = ({ size = 16 }) => (
 );
 
 const OFFICE_CONTACT = {
-    KW: { phone: '+965 22087764', tel: '+96522087764', email: 'info@kamgroups.com', hours: 'Sun–Thu: 9:00 AM – 6:00 PM' },
+    KW: { phone: COMPANY.kuwaitPhone, tel: COMPANY.kuwaitTel, email: 'info@kamgroups.com', hours: 'Sun–Thu: 9:00 AM – 6:00 PM' },
     IN: {
         phone: COMPANY.phone,
         tel: COMPANY.tel,

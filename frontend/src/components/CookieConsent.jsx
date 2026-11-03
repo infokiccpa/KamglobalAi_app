@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './CookieConsent.css';
+
+const STORAGE_KEY = 'kamglobal_cookie_consent';
 
 const CookieConsent = () => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        const consent = localStorage.getItem('kamglobal_cookie_consent');
-        if (!consent) {
-            const timer = setTimeout(() => {
-                setIsVisible(true);
-            }, 2000);
-            return () => clearTimeout(timer);
-        }
+        if (localStorage.getItem(STORAGE_KEY)) return undefined;
+        const timer = window.setTimeout(() => setIsVisible(true), 800);
+        return () => window.clearTimeout(timer);
     }, []);
 
-    const handleAccept = () => {
-        localStorage.setItem('kamglobal_cookie_consent', 'true');
-        setIsVisible(false);
-    };
-
-    const handleDecline = () => {
-        localStorage.setItem('kamglobal_cookie_consent', 'false');
+    const save = (value) => {
+        localStorage.setItem(STORAGE_KEY, value);
         setIsVisible(false);
     };
 
@@ -28,20 +22,22 @@ const CookieConsent = () => {
 
     return (
         <div className="cookie-consent-container">
-            <div className="cookie-consent-card">
+            <div className="cookie-consent-card" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-text">
                 <div className="cookie-content">
-                    <div className="cookie-icon">🍪</div>
                     <div className="cookie-text">
-                        <p>
-                            We store your choice in this browser. We do not use advertising or analytics cookies on this site. <a href="/privacy">Privacy policy</a>
+                        <p id="cookie-title" className="cookie-title">Cookies</p>
+                        <p id="cookie-text">
+                            We use necessary cookies so the site can run and remember this choice. We do not use advertising or analytics cookies.
+                            Rejecting keeps only those necessary cookies. This choice does not sign you up for email updates.{' '}
+                            <Link to="/privacy">Privacy policy</Link>
                         </p>
                     </div>
                 </div>
                 <div className="cookie-actions">
-                    <button className="cookie-btn decline" onClick={handleDecline}>
-                        Decline
+                    <button type="button" className="cookie-btn decline" onClick={() => save('necessary')}>
+                        Necessary only
                     </button>
-                    <button className="cookie-btn accept" onClick={handleAccept}>
+                    <button type="button" className="cookie-btn accept" onClick={() => save('accepted')}>
                         Accept
                     </button>
                 </div>
